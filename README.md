@@ -18,7 +18,7 @@
 --- 
 3.功能描述：<br>
   3.1工具类：<br>
-  × log文件解析及可视化工具（Tools/logfile_analysis_tool.py）<br>
+   × log文件解析及可视化工具（Tools/logfile_analysis_tool.py）<br>
     1.自动解析log文件： 基于属性关键字利用正则表达式对数据文件进行解析；<br>
     2.动态播放视觉障碍物目标的位置、ID、和类型属性，支持自定义位置播放；<br>
     3.支持特定目标的属性分析，支持基于ID进行特定目标的属性分析；<br>
@@ -38,8 +38,8 @@
     
 ---   
 4. DEMO：<br>
-  × 修改 Tools/logfile_analysis_tool.py 中的 USER DASH BOARD 内容：<br>
-  × 运行 Tools/logfile_analysis_tool.py， 播放数据文件：<br>
-  × 运行 Tools/start.bash 执行数据滤波优化及对应数据对比可视化工具：<br>
+ × 修改 Tools/logfile_analysis_tool.py 中的 USER DASH BOARD 内容：<br>
+ × 运行 Tools/logfile_analysis_tool.py， 播放数据文件：<br>
+ × 运行 Tools/start.bash 执行数据滤波优化及对应数据对比可视化工具：<br>
   
     
