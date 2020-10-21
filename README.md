@@ -27,11 +27,13 @@
     1.读取数据对比文件，并进行可视化<br>
   × 自动化bash脚本(Tools/start.bash)<br>
     1.自动执行数据优化算法程序及可视化程序<br>
+    
 ---    
   3.2算法类：<br>
   × 滤波器（SRC/midian_filter.cc）<br>
     1.利用中值滤波（默认）或均值滤波对数据进行镇定优化处理<br>
     2.将原始及优化结果输出至数据对比文件<br>
+    
 ---   
 4. DEMO：<br>
   × 修改 Tools/logfile_analysis_tool.py 中的 USER DASH BOARD 内容：<br>
