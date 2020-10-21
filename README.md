@@ -30,8 +30,7 @@
   × 自动化bash脚本(Tools/start.bash)<br>
     1.自动执行数据优化算法程序及可视化程序<br>
     <br>
-    
----    
+    <br>  
   3.2算法类：<br>
   × 滤波器（SRC/midian_filter.cc）<br>
     1.利用中值滤波（默认）或均值滤波对数据进行镇定优化处理<br>
