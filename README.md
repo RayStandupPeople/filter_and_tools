@@ -38,8 +38,8 @@
     
 ---   
 4. DEMO：<br>
- × 修改 Tools/logfile_analysis_tool.py 中的 USER DASH BOARD 内容：<br>
- × 运行 Tools/logfile_analysis_tool.py， 播放数据文件：<br>
- × 运行 Tools/start.bash 执行数据滤波优化及对应数据对比可视化工具：<br>
+× 修改 Tools/logfile_analysis_tool.py 中的 USER DASH BOARD 内容：<br>
+× 运行 Tools/logfile_analysis_tool.py， 播放数据文件：<br>
+× 运行 Tools/start.bash 执行数据滤波优化及对应数据对比可视化工具：<br>
   
     
