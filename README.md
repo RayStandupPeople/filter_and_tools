@@ -39,7 +39,10 @@
 ---   
 4.DEMO：<br>
 × 修改 Tools/logfile_analysis_tool.py 中的 USER DASH BOARD 内容：<br>
+![0](https://github.com/RayStandupPeople/filter_and_tools/raw/master/Pictures/userBash.png)<br>
 × 运行 Tools/logfile_analysis_tool.py， 播放数据文件：<br>
+![0](https://github.com/RayStandupPeople/filter_and_tools/raw/master/Pictures/log_analysis.png)<br>
 × 运行 Tools/start.bash 执行数据滤波优化及对应数据对比可视化工具：<br>
+![0](https://github.com/RayStandupPeople/filter_and_tools/raw/master/Pictures/Optimiz_res.png)<br>
   
     
