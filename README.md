@@ -1,6 +1,6 @@
 # filter_and_tools
 ---
-##1.简述：
+1.简述：
   该项目包含常用滤波算法及关联工具。
     1.其中滤波算法目前支持中值滤波和均值滤波，用于对数据进行镇定优化；
     2.关联工具包含log文件解析及可视化工具、数据优化分析工具及自动化bash脚本；
@@ -14,8 +14,8 @@
   ->LOG              (存放录制文件)
   ->Tools
   ->CMakeLists.txt   (CMAKE脚本)
-  
-  
+
+--- 
 3.功能描述：
   3.1工具类：
   × log文件解析及可视化工具（Tools/logfile_analysis_tool.py）
@@ -32,7 +32,7 @@
   × 滤波器（SRC/midian_filter.cc）
     1.利用中值滤波（默认）或均值滤波对数据进行镇定优化处理
     2.将原始及优化结果输出至数据对比文件
-   
+---   
 4. DEMO：
   × 修改 Tools/logfile_analysis_tool.py 中的 USER DASH BOARD 内容：
     
