@@ -298,12 +298,21 @@ class Plot(Obstacle):
       
 
 if __name__ == "__main__":
-    p = Plot("../LOG/log_2020_1019/Person_move2StaicCar_X.log")
+
+
+    ############### ****  USER DASH BOARD ****  ################
+
+    file_name  = "../LOG/log_2020_1019/Person_move2StaicCar_X.log"   # file name you want to play
+    cur_frame = 0                                                   # file position you want to play from
+    ID_interested = 17                                              # DisPlay the OBSTCAL with the specified ID
+
+    ############### ****  USER DASH BOARD ****  ################
+
+
+    p = Plot(file_name)
     frame_len = p.read_data_from_file()
-    cur_frame=0
-    p.show_target_obstacle(17) #input Interested ID  ### Person_move2StaicCar_X....ID 17\215
+    p.show_target_obstacle(ID_interested) #input Interested ID  ### Person_move2StaicCar_X....ID 17\215
     # p.show_target_obstacle_with_type(0) #TEMP FUN input Interested TYPE
-   
     while True:
         if(cur_frame==frame_len):
             cur_frame=0
