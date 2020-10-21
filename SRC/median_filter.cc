@@ -155,5 +155,5 @@ int main(){
         out_file << std::endl;
     }
     out_file.close();
-    std::cout <<"DATA OPTIMIZED, and BE WRITTEN to file" << std::endl;
+    std::cout <<"[median_filter.cc]: DATA OPTIMIZED SUCCESS, and data was WRITTEN to file" << std::endl;
 }
