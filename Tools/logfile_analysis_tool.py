@@ -60,20 +60,23 @@ class Plot(Obstacle):
         @param frame_num: which frame to be shown 
         '''
         obj_id_ = []  
-        # obj_type_ = []     
+        obj_type_ = []     
         obj_x_=[]
         obj_y_=[]
         obj_y__=[]
         obj_x__=[]
+        type_list = ['ped','veh','oth']
+        obj_type__=[]
     
         if frame_num <= 0:
             frame_num=0
 
         for object_idx_ in self.frame_list[frame_num].obstacle_list:
             obj_id_.append(object_idx_.obj_id)
-            # obj_y_.append(object_idx_.obj_type)
+            obj_type_.append(object_idx_.obj_type)
             obj_x_.append(object_idx_.obj_x)
             obj_y_.append(object_idx_.obj_y)
+            
         for i in obj_y_:
             obj_y__.append(i*-1) 
         for i in obj_x_:
@@ -93,8 +96,8 @@ class Plot(Obstacle):
         # ax_.text(10,37.5,":Vehicle",fontsize=10)
         # ax_.text(10,34.5,":Pedestrian",fontsize=10)
         ax_.plot(obj_y__,obj_x_,"o")
-        for (x,y,id_) in zip(obj_x__,obj_y__,obj_id_):
-            plt.text(y,x,str(id_),fontsize=8)
+        for (x,y,id_,type_) in zip(obj_x__,obj_y__,obj_id_,obj_type_):   # pack all property into tuple
+            plt.text(y,x,str(id_) +" " + type_list[int(type_)],fontsize=8)
         # print("** Frame %d Obstacles Position Show **" %(frame_num))
         ax_.axis([-10,10,-10,40])
         # plt.xlabel("Y Axis")
@@ -237,20 +240,21 @@ class Plot(Obstacle):
         return self.total_frame_num
 
                     
-    def get_target_object_list(self, target_id=-1):
+    def get_target_object_list(self, target_id=[-1]):
         '''
         @breaf get target object list with all frame times by target id
         @param target_id: the interested id of target
         @return the show time of interested target 
         '''
-        if target_id == -1:
+        if target_id[0] == -1:
             print("** ERROR: please input your interested obstacle ID **")
             return 
         #find targetID by all frames
         for frame_idx_ in self.frame_list:    
             for obstalce_idx_ in frame_idx_.obstacle_list:
-                if(obstalce_idx_.obj_id == target_id):
-                    self.target_ID_list.append(obstalce_idx_) 
+                for target_id_idx in target_id:
+                    if(obstalce_idx_.obj_id == target_id_idx):
+                        self.target_ID_list.append(obstalce_idx_) 
         target_obstalce_num = len(self.target_ID_list) 
         if target_obstalce_num == 0:
             print("** ERROR: can not find target obstacle with ID %d **" %target_id)
@@ -302,9 +306,9 @@ if __name__ == "__main__":
 
     ############### ****  USER DASH BOARD ****  ################
 
-    file_name  = "../LOG/log_2020_1019/Person_move2StaicCar_X.log"   # file name you want to play
-    cur_frame = 0                                                   # file position you want to play from
-    ID_interested = 17                                              # DisPlay the OBSTCAL with the specified ID
+    file_name  = "../LOG/log_2020_1019/Person_move2StaicCar_X.log"         # file name you want to play
+    cur_frame = 0                                                          # file position you want to play from
+    ID_interested = [17, 215]                                          # DisPlay the OBSTCAL with the specified ID ARRAY
 
     ############### ****  USER DASH BOARD ****  ################
 
