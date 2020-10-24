@@ -11,6 +11,7 @@
 #  * @Copyright: ${2020} www.baicgroup.com.cn Inc. All rights reserved. 
 #  */  
 
+from sys import argv
 import numpy as np 
 from matplotlib import pyplot as plt 
 import time
@@ -25,6 +26,7 @@ class Obstacle:
         self.obj_type = 0
         self.obj_x = 0
         self.obj_y = 0
+        # self.obj_x_opted = 0
 
 class Frame:
     '''
@@ -52,7 +54,9 @@ class Plot(Obstacle):
         self.grid = plt.GridSpec(6,4,wspace=0.5,hspace=0.5)  # figure window distribute rule
         self.total_frame_num =0  
         self.sample_time = 0.1  # unit: second
-        plt.suptitle("Log Analysis and Visualization",fontsize=15)
+        plt.suptitle("Log Analysis and Visualization",fontsize=15)      
+        manager = plt.get_current_fig_manager()       #set max window
+        manager.resize(*manager.window.maxsize())
         
     def show_object_lists(self,frame_num):
         '''
@@ -66,7 +70,6 @@ class Plot(Obstacle):
         obj_y__=[]
         obj_x__=[]
         type_list = ['ped','veh','oth']
-        obj_type__=[]
     
         if frame_num <= 0:
             frame_num=0
@@ -76,7 +79,6 @@ class Plot(Obstacle):
             obj_type_.append(object_idx_.obj_type)
             obj_x_.append(object_idx_.obj_x)
             obj_y_.append(object_idx_.obj_y)
-            
         for i in obj_y_:
             obj_y__.append(i*-1) 
         for i in obj_x_:
@@ -134,21 +136,21 @@ class Plot(Obstacle):
 
 
 
-    def show_target_obstacle(self, target_id):
+    def show_target_obstacle(self, target_id=[]):
         '''
         @breaf show your interested obstacle info by ID
         @param target_id: id of your interested obs
         @para wind_pos: which pos in Show Target elements Window, should in 0~4
         '''
         if self.get_target_object_list(target_id)==0: # can not find tar by id
-            print("ERROR")
+            # print("ERROR: CAN NOT FIND target by ID")
             return
         with open("../LOG/data_convert",mode="w") as f:
             self.show_target_element(f,"obj_id",[0,1],0)
             self.show_target_element(f,"obj_type",[1,2],0)
             self.show_target_element(f,"obj_x",[2,4],1)
             self.show_target_element(f,"obj_y",[4,6],1)
-
+            # self.show_target_element(f,"obj_x_opted",[4,6],1)
     def show_target_element(self, file_write, element_type, wind_pos=[0,1], flg_print2file = 0):
         '''
         @breaf display the element of target obstacle
@@ -186,9 +188,9 @@ class Plot(Obstacle):
         # plt.xlim([0, self.total_frame_num * self.sample_time])
         
 
-    def show_obstacle_compare(self):
-        plt.subplot(self.grid[0:3,0:3])
-        plt.subplot(self.grid[3:6,0:3])
+    # def show_obstacle_compare(self):
+    #     plt.subplot(self.grid[0:3,0:3])
+    #     plt.subplot(self.grid[3:6,0:3])
 
 
     def read_data_from_file(self):
@@ -214,6 +216,9 @@ class Plot(Obstacle):
                                     obj.obj_x = float(line.split("=")[-1].strip())
                                 if(line.find("=888=R=Obstacles[0].pos_y")!=-1):
                                     obj.obj_y = float(line.split("=")[-1].strip())
+
+                                # if(line.find("=888=R=Obstacles[0].pos_x_opted")!=-1):
+                                    # obj.obj_x_opted = float(line.split("=")[-1].strip())
 
                                 if(line.find("obstacle_num")!=-1):    #exit condition1, new frame
                                     break
@@ -257,7 +262,7 @@ class Plot(Obstacle):
                         self.target_ID_list.append(obstalce_idx_) 
         target_obstalce_num = len(self.target_ID_list) 
         if target_obstalce_num == 0:
-            print("** ERROR: can not find target obstacle with ID %d **" %target_id)
+            print("** ERROR: can not find target obstacle with ID and so on..%d **" %target_id[0])
         else:
             print("** The num of Frame with Target ID is %d **" %len(self.target_ID_list))    
         return len(self.target_ID_list)  
@@ -305,13 +310,15 @@ if __name__ == "__main__":
 
 
     ############### ****  USER DASH BOARD ****  ################
-
-    file_name  = "../LOG/log_2020_1019/Person_move2StaicCar_X.log"         # file name you want to play
-    cur_frame = 0                                                          # file position you want to play from
+    if len(argv)==1:
+        file_name  = "../LOG/log_2020_1023/staticCar_perMove.log"         # file name you want to play
+    else:
+        print("Warning : read from shared file: " +str(argv[1]))
+        file_name = str(argv[1])                                                  # file from outside
+    cur_frame = 0                                                         # file position you want to play from
     ID_interested = [17, 215]                                          # DisPlay the OBSTCAL with the specified ID ARRAY
 
     ############### ****  USER DASH BOARD ****  ################
-
 
     p = Plot(file_name)
     frame_len = p.read_data_from_file()
