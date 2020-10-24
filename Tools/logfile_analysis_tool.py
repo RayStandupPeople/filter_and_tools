@@ -15,8 +15,10 @@ from sys import argv
 import numpy as np 
 from matplotlib import pyplot as plt 
 import time
+import platform
 
-PLAY_SPEED = 0.1  # sapmle time , unit:second
+PLAY_SPEED = 0.1   # sapmle time , unit:second
+PLATFORM_sys = 0   # 0->linux   1->windows
 class Obstacle:
     '''
     @breaf Obstacle struct class
@@ -54,9 +56,12 @@ class Plot(Obstacle):
         self.grid = plt.GridSpec(6,4,wspace=0.5,hspace=0.5)  # figure window distribute rule
         self.total_frame_num =0  
         self.sample_time = 0.1  # unit: second
-        plt.suptitle("Log Analysis and Visualization",fontsize=15)      
-        manager = plt.get_current_fig_manager()       #set max window
-        manager.resize(*manager.window.maxsize())
+        plt.suptitle("Log Analysis and Visualization",fontsize=15) 
+        if PLATFORM_sys==1:      #windows
+            plt.get_current_fig_manager().full_screen_toggle()
+        else:
+            manager = plt.get_current_fig_manager()       #set max window
+            manager.resize(*manager.window.maxsize())
         
     def show_object_lists(self,frame_num):
         '''
@@ -115,6 +120,11 @@ class Plot(Obstacle):
         '''   
         # display config
         # plt.cla()  # clear figure
+        pos_idx =self.f_name.find("zlm_")   #to reduce the len of file name by key
+        if pos_idx==-1:
+            file_name = self.f_name
+        else:
+            file_name=self.f_name[pos_idx:]
         ax_=plt.subplot(self.grid[3:6,3])
         ax_.cla()
         ax_.plot([tol_frame_num]*2,[9.5,10],'r') #total frame number line
@@ -124,9 +134,10 @@ class Plot(Obstacle):
         ax_.plot([0,cur_frame_num],[9.5,9.5],'r') #frame readed line
 
         ax_.text(1,8,"Cur time / Tol time(second):",fontsize=9)
-        ax_.text(1,7.5," ->   "+ str(cur_frame_num * self.sample_time) + " / " + str(tol_frame_num * self.sample_time), fontsize=10)
+        ax_.text(1,7.5," ->   "+ str(round(cur_frame_num * self.sample_time,2)) + \
+            " / " + str(round(tol_frame_num * self.sample_time,2)), fontsize=10)
         ax_.text(1,7,"Log File name : ", fontsize=10)
-        ax_.text(1,6.5," ->   "+ self.f_name, fontsize=7)
+        ax_.text(1,6.5," ->   "+ file_name, fontsize=7)
         ax_.text(1,6,"Play Speed : ", fontsize=10)
         ax_.text(1,5.5," ->   "+ str(PLAY_SPEED) + ' second', fontsize=10)
         ax_.axis([0,150,0,10])
@@ -253,7 +264,7 @@ class Plot(Obstacle):
         '''
         if target_id[0] == -1:
             print("** ERROR: please input your interested obstacle ID **")
-            return 
+            return
         #find targetID by all frames
         for frame_idx_ in self.frame_list:    
             for obstalce_idx_ in frame_idx_.obstacle_list:
@@ -308,15 +319,18 @@ class Plot(Obstacle):
 
 if __name__ == "__main__":
 
-
+    if platform.system() == "Windows":
+        PLATFORM_sys =1;
+    else:
+        PLATFORM_sys =0;
     ############### ****  USER DASH BOARD ****  ################
     if len(argv)==1:
-        file_name  = "../LOG/log_2020_1023/staticCar_perMove.log"         # file name you want to play
+        file_name  = "../LOG/log_2020_1019/Person_move2StaicCar_X.log"         # file name you want to play
     else:
         print("Warning : read from shared file: " +str(argv[1]))
         file_name = str(argv[1])                                                  # file from outside
     cur_frame = 0                                                         # file position you want to play from
-    ID_interested = [17, 215]                                          # DisPlay the OBSTCAL with the specified ID ARRAY
+    ID_interested = [0]                                          # DisPlay the OBSTCAL with the specified ID ARRAY
 
     ############### ****  USER DASH BOARD ****  ################
 
