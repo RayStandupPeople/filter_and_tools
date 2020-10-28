@@ -263,8 +263,11 @@ class Plot(Obstacle):
         @return the show time of interested target 
         '''
         if target_id[0] == -1:
-            print("** ERROR: please input your interested obstacle ID **")
-            return
+            if(len(self.frame_list)<10 or len(self.frame_list[0].obstacle_list)==0):
+                print("** Error: frame or obstacle is EMPTY **")
+                return
+            print("** Warning: you have NOT typied in your interested obstacle ID **")
+            target_id[0] = self.frame_list[0].obstacle_list[0].obj_id
         #find targetID by all frames
         for frame_idx_ in self.frame_list:    
             for obstalce_idx_ in frame_idx_.obstacle_list:
@@ -274,8 +277,6 @@ class Plot(Obstacle):
         target_obstalce_num = len(self.target_ID_list) 
         if target_obstalce_num == 0:
             print("** ERROR: can not find target obstacle with ID and so on..%d **" %target_id[0])
-        else:
-            print("** The num of Frame with Target ID is %d **" %len(self.target_ID_list))    
         return len(self.target_ID_list)  
 
     # # TEMP FUN: which get interested taget with type     
@@ -334,7 +335,7 @@ if __name__ == "__main__":
         print("Warning : read from shared file: " +str(argv[1]))
         file_name = str(argv[1])                                                  # file from outside
     cur_frame = 0                                                         # file position you want to play from
-    ID_interested = [0]                                          # DisPlay the OBSTCAL with the specified ID ARRAY
+    ID_interested = [-1]                                          # DisPlay the OBSTCAL with the specified ID ARRAY
 
     ############### ****  USER DASH BOARD ****  ################
 
