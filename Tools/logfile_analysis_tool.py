@@ -62,7 +62,21 @@ class Plot(Obstacle):
         else:
             manager = plt.get_current_fig_manager()       #set max window
             manager.resize(*manager.window.maxsize())
-        
+
+    def set_obstacleList_to_file(self):
+        '''
+        @breaf help to put all obstaclelist info to file
+        '''    
+        with open("../LOG/obstacle_list_info",mode = "write") as file_obs_list:
+            for frame in self.frame_list:
+                file_obs_list.write("Current_Frame: " + str(frame.current_frame_num) + "\n")
+                for obstacle_ in frame.obstacle_list:
+                    file_obs_list.write(str(obstacle_.obj_id) + "\n")
+                    file_obs_list.write(str(obstacle_.obj_x) + "\n")
+                    file_obs_list.write(str(obstacle_.obj_y) + "\n")
+
+
+                
     def show_object_lists(self,frame_num):
         '''
         @breaf show object lists content
@@ -335,7 +349,7 @@ if __name__ == "__main__":
         print("Warning : read from shared file: " +str(argv[1]))
         file_name = str(argv[1])                                                  # file from outside
     cur_frame = 0                                                         # file position you want to play from
-    ID_interested = [-1]                                          # DisPlay the OBSTCAL with the specified ID ARRAY
+    ID_interested = [205]                                          # DisPlay the OBSTCAL with the specified ID ARRAY
 
     ############### ****  USER DASH BOARD ****  ################
 
@@ -343,6 +357,7 @@ if __name__ == "__main__":
     frame_len = p.read_data_from_file()
     p.show_target_obstacle(ID_interested) #input Interested ID  ### Person_move2StaicCar_X....ID 17\215
     # p.show_target_obstacle_with_type(0) #TEMP FUN input Interested TYPE
+    p.set_obstacleList_to_file()
     while True:
         if(cur_frame==frame_len):
             cur_frame=0
