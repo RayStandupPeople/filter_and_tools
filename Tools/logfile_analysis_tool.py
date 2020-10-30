@@ -67,7 +67,7 @@ class Plot(Obstacle):
         '''
         @breaf help to put all obstaclelist info to file
         '''    
-        with open("../LOG/obstacle_list_info",mode = "write") as file_obs_list:
+        with open("../log/obstacle_list_info",mode = "write") as file_obs_list:
             for frame in self.frame_list:
                 file_obs_list.write("Current_Frame: " + str(frame.current_frame_num) + "\n")
                 for obstacle_ in frame.obstacle_list:
@@ -170,7 +170,7 @@ class Plot(Obstacle):
         if self.get_target_object_list(target_id)==0: # can not find tar by id
             # print("ERROR: CAN NOT FIND target by ID")
             return
-        with open("../LOG/data_convert",mode="w") as f:
+        with open("../log/data_convert",mode="w") as f:
             self.show_target_element(f,"obj_id",[0,1],0)
             self.show_target_element(f,"obj_type",[1,2],0)
             self.show_target_element(f,"obj_x",[2,4],1)
@@ -349,7 +349,7 @@ if __name__ == "__main__":
         print("Warning : read from shared file: " +str(argv[1]))
         file_name = str(argv[1])                                                  # file from outside
     cur_frame = 0                                                         # file position you want to play from
-    ID_interested = [205]                                          # DisPlay the OBSTCAL with the specified ID ARRAY
+    ID_interested = [-1]                                          # DisPlay the OBSTCAL with the specified ID ARRAY
 
     ############### ****  USER DASH BOARD ****  ################
 

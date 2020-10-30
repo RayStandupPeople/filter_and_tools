@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=IntelliJ IDEA
+GenericName=LOG_DISPLAY
+Comment=Professional Developers by limin.zhu
+Exec=/home/ze/Documents/LogAnalysis_Algos/Tools/auto_run.bash
+Icon=/home/ze/Pictures/icon_lovely.png
+Terminal=false
+Type=Application
+Categories=Application;Development;
+Name[en_US]=LOG_DISPALY

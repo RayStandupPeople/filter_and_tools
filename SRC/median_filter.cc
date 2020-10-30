@@ -135,7 +135,7 @@ int main(){
 {
     std::string line_str;
     std::string word_str;
-    in_file.open("../LOG/data_convert",std::ios::in);
+    in_file.open("../log/data_convert",std::ios::in);
     if(!in_file.is_open())
     {
         std::cout << "file open fail(read)" << std::endl;
@@ -158,7 +158,7 @@ int main(){
     std::string word_str;
     std::vector<objFrame> frame_list;
 
-    in_file.open("../LOG/obstacle_list_info",std::ios::in);
+    in_file.open("../log/obstacle_list_info",std::ios::in);
     if(!in_file.is_open())
     {
         std::cout << "file open fail(read)" << std::endl;
@@ -243,7 +243,7 @@ int main(){
 
 
     /* DATA OUTPUT*/
-    out_file.open("../LOG/data_convert",std::ios::out);
+    out_file.open("../log/data_convert",std::ios::out);
         if(!out_file.is_open())
             std::cout<<"file open fail(write)" << std::endl;
     for(int i=0;i<2;++i)
