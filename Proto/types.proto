@@ -1,0 +1,18 @@
+syntax = "proto3";
+package pb_types;
+message LogFile {
+    int32 frame_num = 1;
+    repeated Frame frame = 2;
+}
+message Frame {
+    int32 id = 1;
+    repeated Obstacle obstacle =2;    
+}
+message Obstacle {
+    int32 id = 1;
+    int32 type = 2;
+    float pos_x = 3;
+    float pos_y = 4;
+    float rel_spd_x = 5;
+    float rel_spd_y = 6;
+}
