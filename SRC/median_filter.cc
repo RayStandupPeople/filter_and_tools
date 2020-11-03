@@ -4,10 +4,12 @@
 #include<sstream>
 #include<memory>
 #include "../LIB/median_filter.h"
+#include "../LIB/types.pb.h"
 
 // #define VIRTUAL_DATA_RANDOM
 // #define REAL_DATA_SET
-#define REAL_DATA_SELECT
+// #define REAL_DATA_SELECT
+#define REAL_PROTUBUF_DATA_SELECT
 std::vector<std::vector<double>> Solution::data_windows(20); //apply Memory for windows 
 
 /*
@@ -230,7 +232,43 @@ int main(){
     }
 #endif
 
+//* USE REAL PROTOBUF FILE DATA SETECTED*
+#ifdef REAL_PROTUBUF_DATA_SELECT
+    std::vector<objFrame> frame_list;
+    
+    in_file.open("../log/obstacle_list_info",std::ios::in);
+    if(!in_file.is_open())
+    {
+        std::cout << "file open fail(read)" << std::endl;
+    }
+
+    while(!in_file.eof())  //read file to end
+    {
+        auto logfile_string_pb = in_file.read();
+    }
+    in_file.close();
+    
+
+
+    //*** OBJECT SELECTION ***//
+    std::vector<objSecList> selected_obj_list_;
+    objSecList  selected_obj_list;
+    for(int i =0; i < frame_list.size(); ++i){
+        obstacle_select(frame_list[i].obj, &selected_obj_list);
+        selected_obj_list_.push_back(selected_obj_list);
+    }
    
+    for(int i=0;i<selected_obj_list_.size();++i)
+    {
+        ori_data[0].push_back( selected_obj_list_[i].frontMid.obj.pos_x );
+        ori_data[1].push_back( selected_obj_list_[i].frontMid.obj.pos_y );
+        std::cout << "frontMid.obj.id " << selected_obj_list_[i].frontMid.obj.id << std::endl; 
+        // std::cout << "frontMid.obj.pos_x " << selected_obj_list_[i].frontMid.obj.pos_x << std::endl; 
+        // std::cout << "frontMid.obj.pos_y " << selected_obj_list_[i].frontMid.obj.pos_y << std::endl; 
+    }
+#endif
+
+    
     /* DATA PROCESSION*/
     for(int i=0;i<ori_data[0].size();++i)
     {
@@ -241,7 +279,7 @@ int main(){
         filted_num[1].push_back(obj_sel_list.frontMid.obj.pos_y);
     }
 
-
+    
     /* DATA OUTPUT*/
     out_file.open("../log/data_convert",std::ios::out);
         if(!out_file.is_open())

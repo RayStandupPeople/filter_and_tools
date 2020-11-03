@@ -31,10 +31,7 @@ with open("testpb",mode="write") as file:
 
 
 
-# frame_pb.ParseFromString(serializeToString)
-
-# print("frameID: " + str(frame_pb.id))
-# print("Obs")
+# frame_pb.ParseFromString(serializeToString)obstacle_pb = frame_pb.obstacle.add()
 # for obstacle_pb in frame_pb.obstacle:
 #     print(obstacle_pb.id)
 #     print(obstacle_pb.pos_x)

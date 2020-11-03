@@ -17,6 +17,8 @@ from matplotlib import pyplot as plt
 import time
 import platform
 
+import libs.types_pb2  # environment model data types
+
 PLAY_SPEED = 0.1   # sapmle time , unit:second
 PLATFORM_sys = 0   # 0->linux   1->windows
 class Obstacle:
@@ -56,6 +58,7 @@ class Plot(Obstacle):
         self.grid = plt.GridSpec(6,4,wspace=0.5,hspace=0.5)  # figure window distribute rule
         self.total_frame_num =0  
         self.sample_time = 0.1  # unit: second
+        self.logfile_pb =libs.types_pb2.LogFile()  #logfile data type handler
         plt.suptitle("Log Analysis and Visualization",fontsize=15) 
         if PLATFORM_sys==1:      #windows
             plt.get_current_fig_manager().full_screen_toggle()
@@ -75,6 +78,23 @@ class Plot(Obstacle):
                     file_obs_list.write(str(obstacle_.obj_x) + "\n")
                     file_obs_list.write(str(obstacle_.obj_y) + "\n")
 
+    def set_obstacleList_to_protobuf(self):
+        '''
+        @breaf help to put all obstaclelist info to protobuf file
+        '''  
+        for frame in self.frame_list:
+            frame_pb = self.logfile_pb.frame.add()   # new frame
+            frame_pb.id = frame.current_frame_num
+            for obstacle_ in frame.obstacle_list:
+                obstacle_pb = frame_pb.obstacle.add()   # new obstacle
+                obstacle_pb.id = obstacle_.obj_id
+                obstacle_pb.pos_x = obstacle_.obj_x
+                obstacle_pb.pos_y = obstacle_.obj_y
+        logfile_string_pb = self.logfile_pb.SerializeToString()
+        with open("../log/obstacle_list_info_pb",mode = "write") as file_obs_list:
+            file_obs_list.write(logfile_string_pb)
+            
+                    
 
                 
     def show_object_lists(self,frame_num):
@@ -107,7 +127,7 @@ class Plot(Obstacle):
         # plt.cla()  # clear figure
         ax_=plt.subplot(self.grid[0:3,3])
         ax_.cla()
-        lane_width =3.6
+        lane_width = 3.6
         ax_.plot([-0.5*lane_width,-0.5*lane_width],[-20,100],"r")  #TEMP leftline
         ax_.plot([0.5*lane_width,0.5*lane_width],[-20,100],'r')    #TEMP rightline
         ax_.plot([-1.5*lane_width,-1.5*lane_width],[-20,100],"black")  #TEMP left-leftline
@@ -176,6 +196,8 @@ class Plot(Obstacle):
             self.show_target_element(f,"obj_x",[2,4],1)
             self.show_target_element(f,"obj_y",[4,6],1)
             # self.show_target_element(f,"obj_x_opted",[4,6],1)
+
+        
     def show_target_element(self, file_write, element_type, wind_pos=[0,1], flg_print2file = 0):
         '''
         @breaf display the element of target obstacle
@@ -198,6 +220,8 @@ class Plot(Obstacle):
             for ele in element_val_list:
                 file_write.write(str(ele) + " ")
             file_write.write("\n")
+
+            
         ##  # display config
         s=wind_pos[0]
         e=wind_pos[1]
@@ -358,6 +382,7 @@ if __name__ == "__main__":
     p.show_target_obstacle(ID_interested) #input Interested ID  ### Person_move2StaicCar_X....ID 17\215
     # p.show_target_obstacle_with_type(0) #TEMP FUN input Interested TYPE
     p.set_obstacleList_to_file()
+    p.set_obstacleList_to_protobuf()
     while True:
         if(cur_frame==frame_len):
             cur_frame=0
