@@ -253,9 +253,11 @@ class Plot(Obstacle):
             while True:   
                 if(line.find("R=obstacle_num")!=-1):    # find new frame
                     frame = Frame()
+                    frame_obs_num=0
                     while True:
                         if(line.find("=888=R=Obstacles[0].id")!=-1):     # find new Obstacle 
                             obj =Obstacle() 
+                            frame_obs_num = frame_obs_num +1
                             obj.obj_id = int(line.split("=")[-1].strip())
                             line = f.readline()
                             while True:               # assign left properties of this frame
@@ -283,7 +285,10 @@ class Plot(Obstacle):
                             line = f.readline()
                             if not line:
                                 break
+                            if(line.find("R=obstacle_num")!=-1):    # find new frame
+                                break
                     frame.current_frame_num = self.total_frame_num
+                    frame.obstacle_num =frame_obs_num
                     self.frame_list.append(frame)# save frame to frame_list
                     self.total_frame_num+=1
                     # print("frame size: %d" %len(frame))
@@ -368,7 +373,7 @@ if __name__ == "__main__":
     ############### ****  USER DASH BOARD ****  ################
     if len(argv)==1:
         # file_name  = "../LOG/log_2020_1019/Person_move2StaicCar_X.log"         # file name you want to play
-        file_name  = file_dir+"zlm_2020_0929_01_teraterm_X_1person_move.log"         # file name you want to play
+        file_name  = file_dir+"zu5test_lkw_1030x10.log"         # file name you want to play
     else:
         print("Warning : read from shared file: " +str(argv[1]))
         file_name = str(argv[1])                                                  # file from outside
