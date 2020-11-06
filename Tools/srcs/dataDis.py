@@ -3,7 +3,8 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-with open("../log/data_convert") as f:
+
+with open("../../../log/data_convert") as f:
     line = f.readline().strip()
     linestr = line.split(" ")
     linenum_1 = map(float,linestr)
@@ -16,10 +17,7 @@ with open("../log/data_convert") as f:
     line = f.readline().strip()
     linestr = line.split(" ")
     linenum_4 = map(float,linestr)
-    # print(linenum_1)
-    # print(linenum_2)
-    # print(linenum_3)
-    # print(linenum_4)
+
 
 
 # data1 = [35.2, 34.8, 35.1, 34.2, 33.4, 32.1, 52.3, 50.2, 30.4, 29.4, 28.7, 20.1, 26.5, 25.4, 23.9]

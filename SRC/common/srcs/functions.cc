@@ -10,7 +10,6 @@ using namespace std;
 // using namespace Eigen;
 
 #include "../libs/functions.h"
-#include "../libs/types.h"
 
 // For converting back and forth between radians and degrees.
 constexpr double pi() { return M_PI; }

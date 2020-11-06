@@ -5,7 +5,6 @@
 
 
 #include "../common/libs/functions.h"
-#include "../common/libs/types.h"
 
 int main(int argc, const char** argv) {
     std::ifstream in_file("../../../log/highway_map.csv",std::ios::in);

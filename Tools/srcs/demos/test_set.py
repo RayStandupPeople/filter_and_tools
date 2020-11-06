@@ -1,5 +1,6 @@
 #!/usr/bin python
-
+import sys
+sys.path.append("..")
 import libs.types_pb2
 
 logfile_pb =libs.types_pb2.LogFile()
@@ -7,19 +8,19 @@ logfile_pb.frame_num =20
 
 frame_pb = logfile_pb.frame.add()
 frame_pb.id = 1
-obstacle_pb = frame_pb.obstacle.add()
+obstacle_pb = frame_pb.obstacle_list.add()
 obstacle_pb.id =1
 obstacle_pb.pos_x = 30.6
-obstacle_pb = frame_pb.obstacle.add()
+obstacle_pb = frame_pb.obstacle_list.add()
 obstacle_pb.id =2
 obstacle_pb.pos_x = 10.6
 
 frame_pb = logfile_pb.frame.add()
 frame_pb.id = 2
-obstacle_pb = frame_pb.obstacle.add()
+obstacle_pb = frame_pb.obstacle_list.add()
 obstacle_pb.id =3
 obstacle_pb.pos_x = 20.6
-obstacle_pb = frame_pb.obstacle.add()
+obstacle_pb = frame_pb.obstacle_list.add()
 obstacle_pb.id =4
 obstacle_pb.pos_x = -10.6
 

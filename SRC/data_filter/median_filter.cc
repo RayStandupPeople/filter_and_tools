@@ -40,7 +40,6 @@ void obstacle_select(const std::vector<obj_sel> &obstacle_list, objSecList *sele
         selected_obj_list->frontMid.obj.pos_x = obj_in_field[tar_obs_idx].pos_x;
         selected_obj_list->frontMid.obj.pos_y = obj_in_field[tar_obs_idx].pos_y;
     }
-   
 }
 
 /*

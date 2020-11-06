@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 logfile_dir=/mnt/hgfs/vmShare/LOGFILE
-py_src_dir=/home/ze/Documents/LogAnalysis_Algos/Tools
+py_src_dir=/home/ze/Documents/LogAnalysis_Algos/Tools/srcs
 py_src_name=logfile_analysis_tool.py
 
 # get logfile name

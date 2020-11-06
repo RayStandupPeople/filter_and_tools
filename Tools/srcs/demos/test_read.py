@@ -1,5 +1,6 @@
 #!/usr/bin python
-
+import sys
+sys.path.append("..")
 import libs.types_pb2
 
 logfile_pb = libs.types_pb2.LogFile()
@@ -19,7 +20,7 @@ print("frame num: "+ str(logfile_pb.frame_num))
 for frame_ in logfile_pb.frame:
     print("frame id: "+str(frame_.id))
     
-    for obstacle_ in frame_.obstacle:
+    for obstacle_ in frame_.obstacle_list:
         print("obs_id: "+str(obstacle_.id))
         print("obs_posx: " + str(obstacle_.pos_x))
 

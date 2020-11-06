@@ -4,15 +4,54 @@ message LogFile {
     int32 frame_num = 1;
     repeated Frame frame = 2;
 }
+
 message Frame {
     int32 id = 1;
-    repeated Obstacle obstacle =2;    
+    repeated ObstacleList obstacle_list =2;    
+    Locallization localization = 3;
+    HDMapInfo hdmapinfo = 4;
+    VehicleSts vehiclests = 5;
+    StatusMachine statusmachine = 6;
+    UserInfo userinfo = 7;
 }
-message Obstacle {
+
+message Locallization {
+    float lat = 1;
+    float lon = 2;
+    float latRest_X = 3;
+    float lonRest_Y = 4;
+}
+
+message HDMapInfo {
+    int32 x =1;
+    int32 y =2;
+    bool onpath =3;
+}
+
+message VehicleSts {
+    float vehicle_speed =1;
+    float steerwheel_angle=2;
+}
+
+message StatusMachine {
+    int32 avp_req = 1;
+    int32 TBOX_AVPModKey = 2;
+}
+
+message ObstacleList {
     int32 id = 1;
     int32 type = 2;
     float pos_x = 3;
     float pos_y = 4;
     float rel_spd_x = 5;
     float rel_spd_y = 6;
+}
+
+message UserInfo {
+    bool obj_left_flag  = 1;
+    bool obj_mid_flag   = 2;
+    bool obj_right_flag = 3;
+    float obj_left_s_l  = 4;
+    float obj_mid_s_m   = 5;
+    float obj_right_s_r   = 6;
 }
