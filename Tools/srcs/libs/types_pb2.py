@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='pb_types',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x0btypes.proto\x12\x08pb_types\"<\n\x07LogFile\x12\x11\n\tframe_num\x18\x01 \x01(\x05\x12\x1e\n\x05\x66rame\x18\x02 \x03(\x0b\x32\x0f.pb_types.Frame\"\x99\x02\n\x05\x46rame\x12\n\n\x02id\x18\x01 \x01(\x05\x12-\n\robstacle_list\x18\x02 \x03(\x0b\x32\x16.pb_types.ObstacleList\x12-\n\x0clocalization\x18\x03 \x01(\x0b\x32\x17.pb_types.Locallization\x12&\n\thdmapinfo\x18\x04 \x01(\x0b\x32\x13.pb_types.HDMapInfo\x12(\n\nvehiclests\x18\x05 \x01(\x0b\x32\x14.pb_types.VehicleSts\x12.\n\rstatusmachine\x18\x06 \x01(\x0b\x32\x17.pb_types.StatusMachine\x12$\n\x08userinfo\x18\x07 \x01(\x0b\x32\x12.pb_types.UserInfo\"O\n\rLocallization\x12\x0b\n\x03lat\x18\x01 \x01(\x02\x12\x0b\n\x03lon\x18\x02 \x01(\x02\x12\x11\n\tlatRest_X\x18\x03 \x01(\x02\x12\x11\n\tlonRest_Y\x18\x04 \x01(\x02\"1\n\tHDMapInfo\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\x12\x0e\n\x06onpath\x18\x03 \x01(\x08\"=\n\nVehicleSts\x12\x15\n\rvehicle_speed\x18\x01 \x01(\x02\x12\x18\n\x10steerwheel_angle\x18\x02 \x01(\x02\"8\n\rStatusMachine\x12\x0f\n\x07\x61vp_req\x18\x01 \x01(\x05\x12\x16\n\x0eTBOX_AVPModKey\x18\x02 \x01(\x05\"l\n\x0cObstacleList\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\r\n\x05pos_x\x18\x03 \x01(\x02\x12\r\n\x05pos_y\x18\x04 \x01(\x02\x12\x11\n\trel_spd_x\x18\x05 \x01(\x02\x12\x11\n\trel_spd_y\x18\x06 \x01(\x02\"\x91\x01\n\x08UserInfo\x12\x15\n\robj_left_flag\x18\x01 \x01(\x08\x12\x14\n\x0cobj_mid_flag\x18\x02 \x01(\x08\x12\x16\n\x0eobj_right_flag\x18\x03 \x01(\x08\x12\x14\n\x0cobj_left_s_l\x18\x04 \x01(\x02\x12\x13\n\x0bobj_mid_s_m\x18\x05 \x01(\x02\x12\x15\n\robj_right_s_r\x18\x06 \x01(\x02\x62\x06proto3'
+  serialized_pb=b'\n\x0btypes.proto\x12\x08pb_types\"<\n\x07LogFile\x12\x11\n\tframe_num\x18\x01 \x01(\x05\x12\x1e\n\x05\x66rame\x18\x02 \x03(\x0b\x32\x0f.pb_types.Frame\"\x90\x02\n\x05\x46rame\x12\n\n\x02id\x18\x01 \x01(\x05\x12$\n\x08obstacle\x18\x02 \x03(\x0b\x32\x12.pb_types.Obstacle\x12-\n\x0clocalization\x18\x03 \x01(\x0b\x32\x17.pb_types.Locallization\x12&\n\thdmapinfo\x18\x04 \x01(\x0b\x32\x13.pb_types.HDMapInfo\x12(\n\nvehiclests\x18\x05 \x01(\x0b\x32\x14.pb_types.VehicleSts\x12.\n\rstatusmachine\x18\x06 \x01(\x0b\x32\x17.pb_types.StatusMachine\x12$\n\x08userinfo\x18\x07 \x01(\x0b\x32\x12.pb_types.UserInfo\"O\n\rLocallization\x12\x0b\n\x03lat\x18\x01 \x01(\x02\x12\x0b\n\x03lon\x18\x02 \x01(\x02\x12\x11\n\tlatRest_X\x18\x03 \x01(\x02\x12\x11\n\tlonRest_Y\x18\x04 \x01(\x02\"1\n\tHDMapInfo\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\x12\x0e\n\x06onpath\x18\x03 \x01(\x08\"=\n\nVehicleSts\x12\x15\n\rvehicle_speed\x18\x01 \x01(\x02\x12\x18\n\x10steerwheel_angle\x18\x02 \x01(\x02\"8\n\rStatusMachine\x12\x0f\n\x07\x61vp_req\x18\x01 \x01(\x05\x12\x16\n\x0eTBOX_AVPModKey\x18\x02 \x01(\x05\"h\n\x08Obstacle\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\r\n\x05pos_x\x18\x03 \x01(\x02\x12\r\n\x05pos_y\x18\x04 \x01(\x02\x12\x11\n\trel_spd_x\x18\x05 \x01(\x02\x12\x11\n\trel_spd_y\x18\x06 \x01(\x02\"\x91\x01\n\x08UserInfo\x12\x15\n\robj_left_flag\x18\x01 \x01(\x08\x12\x14\n\x0cobj_mid_flag\x18\x02 \x01(\x08\x12\x16\n\x0eobj_right_flag\x18\x03 \x01(\x08\x12\x14\n\x0cobj_left_s_l\x18\x04 \x01(\x02\x12\x13\n\x0bobj_mid_s_m\x18\x05 \x01(\x02\x12\x15\n\robj_right_s_r\x18\x06 \x01(\x02\x62\x06proto3'
 )
 
 
@@ -77,7 +77,7 @@ _FRAME = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='obstacle_list', full_name='pb_types.Frame.obstacle_list', index=1,
+      name='obstacle', full_name='pb_types.Frame.obstacle', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -131,7 +131,7 @@ _FRAME = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=88,
-  serialized_end=369,
+  serialized_end=360,
 )
 
 
@@ -182,8 +182,8 @@ _LOCALLIZATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=371,
-  serialized_end=450,
+  serialized_start=362,
+  serialized_end=441,
 )
 
 
@@ -227,8 +227,8 @@ _HDMAPINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=452,
-  serialized_end=501,
+  serialized_start=443,
+  serialized_end=492,
 )
 
 
@@ -265,8 +265,8 @@ _VEHICLESTS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=503,
-  serialized_end=564,
+  serialized_start=494,
+  serialized_end=555,
 )
 
 
@@ -303,55 +303,55 @@ _STATUSMACHINE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=566,
-  serialized_end=622,
+  serialized_start=557,
+  serialized_end=613,
 )
 
 
-_OBSTACLELIST = _descriptor.Descriptor(
-  name='ObstacleList',
-  full_name='pb_types.ObstacleList',
+_OBSTACLE = _descriptor.Descriptor(
+  name='Obstacle',
+  full_name='pb_types.Obstacle',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='pb_types.ObstacleList.id', index=0,
+      name='id', full_name='pb_types.Obstacle.id', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='type', full_name='pb_types.ObstacleList.type', index=1,
+      name='type', full_name='pb_types.Obstacle.type', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='pos_x', full_name='pb_types.ObstacleList.pos_x', index=2,
+      name='pos_x', full_name='pb_types.Obstacle.pos_x', index=2,
       number=3, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='pos_y', full_name='pb_types.ObstacleList.pos_y', index=3,
+      name='pos_y', full_name='pb_types.Obstacle.pos_y', index=3,
       number=4, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='rel_spd_x', full_name='pb_types.ObstacleList.rel_spd_x', index=4,
+      name='rel_spd_x', full_name='pb_types.Obstacle.rel_spd_x', index=4,
       number=5, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='rel_spd_y', full_name='pb_types.ObstacleList.rel_spd_y', index=5,
+      name='rel_spd_y', full_name='pb_types.Obstacle.rel_spd_y', index=5,
       number=6, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
@@ -369,8 +369,8 @@ _OBSTACLELIST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=624,
-  serialized_end=732,
+  serialized_start=615,
+  serialized_end=719,
 )
 
 
@@ -435,12 +435,12 @@ _USERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=735,
-  serialized_end=880,
+  serialized_start=722,
+  serialized_end=867,
 )
 
 _LOGFILE.fields_by_name['frame'].message_type = _FRAME
-_FRAME.fields_by_name['obstacle_list'].message_type = _OBSTACLELIST
+_FRAME.fields_by_name['obstacle'].message_type = _OBSTACLE
 _FRAME.fields_by_name['localization'].message_type = _LOCALLIZATION
 _FRAME.fields_by_name['hdmapinfo'].message_type = _HDMAPINFO
 _FRAME.fields_by_name['vehiclests'].message_type = _VEHICLESTS
@@ -452,7 +452,7 @@ DESCRIPTOR.message_types_by_name['Locallization'] = _LOCALLIZATION
 DESCRIPTOR.message_types_by_name['HDMapInfo'] = _HDMAPINFO
 DESCRIPTOR.message_types_by_name['VehicleSts'] = _VEHICLESTS
 DESCRIPTOR.message_types_by_name['StatusMachine'] = _STATUSMACHINE
-DESCRIPTOR.message_types_by_name['ObstacleList'] = _OBSTACLELIST
+DESCRIPTOR.message_types_by_name['Obstacle'] = _OBSTACLE
 DESCRIPTOR.message_types_by_name['UserInfo'] = _USERINFO
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -498,12 +498,12 @@ StatusMachine = _reflection.GeneratedProtocolMessageType('StatusMachine', (_mess
   })
 _sym_db.RegisterMessage(StatusMachine)
 
-ObstacleList = _reflection.GeneratedProtocolMessageType('ObstacleList', (_message.Message,), {
-  'DESCRIPTOR' : _OBSTACLELIST,
+Obstacle = _reflection.GeneratedProtocolMessageType('Obstacle', (_message.Message,), {
+  'DESCRIPTOR' : _OBSTACLE,
   '__module__' : 'types_pb2'
-  # @@protoc_insertion_point(class_scope:pb_types.ObstacleList)
+  # @@protoc_insertion_point(class_scope:pb_types.Obstacle)
   })
-_sym_db.RegisterMessage(ObstacleList)
+_sym_db.RegisterMessage(Obstacle)
 
 UserInfo = _reflection.GeneratedProtocolMessageType('UserInfo', (_message.Message,), {
   'DESCRIPTOR' : _USERINFO,

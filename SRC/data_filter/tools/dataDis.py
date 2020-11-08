@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 
-with open("../../../log/data_convert") as f:
+with open("../data/data_convert") as f:
     line = f.readline().strip()
     linestr = line.split(" ")
     linenum_1 = map(float,linestr)
@@ -34,7 +34,7 @@ data34 = data3 + data4
 p1=plt.subplot(2,2,1)
 p1.plot(x,data1)
 p1.axis([0,len(data1),min(data12),max(data12)*1.1])
-print(max(data12))
+# print(max(data12))
 plt.xlabel("original data1")
 p2=plt.subplot(2,2,2) 
 p2.plot(x,data2)

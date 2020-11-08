@@ -7,7 +7,7 @@ message LogFile {
 
 message Frame {
     int32 id = 1;
-    repeated ObstacleList obstacle_list =2;    
+    repeated Obstacle obstacle =2;    
     Locallization localization = 3;
     HDMapInfo hdmapinfo = 4;
     VehicleSts vehiclests = 5;
@@ -38,7 +38,7 @@ message StatusMachine {
     int32 TBOX_AVPModKey = 2;
 }
 
-message ObstacleList {
+message Obstacle {
     int32 id = 1;
     int32 type = 2;
     float pos_x = 3;

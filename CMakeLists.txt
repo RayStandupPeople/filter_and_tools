@@ -14,10 +14,9 @@ else()
 endif()
 
 
-
 include_directories(${PROTOBUF_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
-PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ../Proto/types.proto)
+PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS types.proto)
 
 #代码路径
 # aux_source_directory(./SRC SRC)
