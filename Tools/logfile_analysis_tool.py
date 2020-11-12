@@ -118,7 +118,8 @@ class Plot(Obstacle):
         self.logfile_pb =libs.types_pb2.LogFile()  #logfile data type handler
         plt.suptitle("Log Analysis and Visualization",fontsize=15) 
         if PLATFORM_sys==1:      #windows
-            plt.get_current_fig_manager().full_screen_toggle()
+            pass
+            # plt.get_current_fig_manager().full_screen_toggle()
         else:
             manager = plt.get_current_fig_manager()       #set max window
             manager.resize(*manager.window.maxsize())
@@ -193,7 +194,7 @@ class Plot(Obstacle):
             
         
         logfile_string_pb = self.logfile_pb.SerializeToString()
-        with open("../../log/wholeFile_info_pb",mode = "write") as file_obs_list:
+        with open("log/wholeFile_info_pb",'wb') as file_obs_list:
             file_obs_list.write(logfile_string_pb)
             
 
@@ -331,7 +332,7 @@ class Plot(Obstacle):
         if self.get_target_object_list(target_id)==0: # can not find tar by id
             # print("ERROR: CAN NOT FIND target by ID")
             return
-        with open("../../log/data_convert",mode="w") as f:
+        with open("log/data_convert",mode="w") as f:
             self.show_target_element(f,"obj_id",[0,1],0)
             self.show_target_element(f,"obj_type",[1,2],0)
             self.show_target_element(f,"obj_x",[2,4],1)
@@ -628,16 +629,16 @@ if __name__ == "__main__":
     if platform.system() == "Windows":
         PLATFORM_sys =1
         # file_dir ="E:/vmShare/LOGFILE/"
-        file_dir ="../log/log_list"
+        file_dir ="log/log_list/"
     else:
         PLATFORM_sys =0
         # file_dir ="/mnt/hgfs/vmShare/LOGFILE/"
-        file_dir ="../log/log_list"
+        file_dir ="log/log_list/"
 
     ############### ****  USER DASH BOARD ****  ################
     if len(argv)==1:
         # file_name  = "../log/log_2020_1023/staticCar_perMove.log"         # file name you want to play
-        file_name  = file_dir+"zlm_2020_0929_01_teraterm_X_1person_move.log"         # file name you want to play
+        file_name  = file_dir+"teraterm_X_1person_move.log"         # file name you want to play
     else:
         print("Warning : read from shared file: " +str(argv[1]))
         file_name = str(argv[1])                                                  # file from outside
