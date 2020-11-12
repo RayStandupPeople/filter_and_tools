@@ -248,28 +248,27 @@ class Plot(Obstacle):
 
 
 
-        # # LKW Temp S
-        # user_  = self.frame_list[frame_num].user
-        # obj_y_.append(-3.6)
-        # if user_.obj_left_s_m >0:
-        #     obj_x_.append(user_.obj_left_s_l)
-        # else:
-        #     obj_x_.append(-100) 
+        # LKW Temp S  
+        user_  = self.frame_list[frame_num].userinfo
+        obj_y_.append(-3.6)
+        if user_.obj_left_s_l >0:
+            obj_x_.append(user_.obj_left_s_l)
+        else:
+            obj_x_.append(-100) 
 
-        # obj_y_.append(0)
-        # if user_.obj_mid_s_m >0:
-        #     obj_x_.append(user_.obj_mid_s_m)
-        # else:
-        #     obj_x_.append(-100)  
+        obj_y_.append(0)
+        if user_.obj_mid_s_m >0:
+            obj_x_.append(user_.obj_mid_s_m)
+        else:
+            obj_x_.append(-100)  
+        obj_y_.append(3.6)
+        if user_.obj_right_s_r >0:
+            obj_x_.append(user_.obj_right_s_r)
+        else:
+            obj_x_.append(-100) 
 
-        # obj_y_.append(3.6)
-        # if user_.obj_right_s_r >0:
-        #     obj_x_.append(user_.obj_right_s_m)
-        # else:
-        #     obj_x_.append(-100) 
-
-        # ax_.plot(obj_y_,obj_x_,"o")
-        # # LKW TEMP E
+        ax_.plot(obj_y_,obj_x_,"o")
+        # LKW TEMP E
 
     def show_global_info(self,cur_frame_num=0,tol_frame_num=0):
         '''
