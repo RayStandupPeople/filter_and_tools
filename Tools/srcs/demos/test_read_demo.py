@@ -71,7 +71,7 @@ logfile_pb.ParseFromString(fileInfo_pb)
 print("frame num: " + str(logfile_pb.frame_num))
 for frame_ in logfile_pb.frame:
     print("frame id: "+str(frame_.id))
-    for obstacle_ in frame_.obstacle_list:
+    for obstacle_ in frame_.obstacle:
         print("id: "+str(obstacle_.id))
         print("type: " + str(obstacle_.type))
         print("pos_x: " + str(obstacle_.pos_x))

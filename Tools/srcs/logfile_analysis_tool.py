@@ -522,7 +522,10 @@ class Plot(Obstacle):
                                     userinfo_.obj_right_s_r = self.clean_and_check_data(line,'float')
                                     if userinfo_.obj_right_s_r >0 :
                                         userinfo_.obj_right_flag = 1
-                        
+                                #  input your interested key words #
+
+
+                                #  input your interested key words #
                                 if(line.find("PathPlanner Version")!=-1):    #exit condition1, new frame
                                     break
                                 if(line.find("R=Latitude")!=-1):             #exit condition2, new obstacle
@@ -624,14 +627,16 @@ if __name__ == "__main__":
 
     if platform.system() == "Windows":
         PLATFORM_sys =1
-        file_dir ="E:/vmShare/LOGFILE/"
+        # file_dir ="E:/vmShare/LOGFILE/"
+        file_dir ="../log/log_list"
     else:
         PLATFORM_sys =0
-        file_dir ="/mnt/hgfs/vmShare/LOGFILE/"
+        # file_dir ="/mnt/hgfs/vmShare/LOGFILE/"
+        file_dir ="../log/log_list"
 
     ############### ****  USER DASH BOARD ****  ################
     if len(argv)==1:
-        # file_name  = "../LOG/log_2020_1019/Person_move2StaicCar_X.log"         # file name you want to play
+        # file_name  = "../log/log_2020_1023/staticCar_perMove.log"         # file name you want to play
         file_name  = file_dir+"zlm_2020_0929_01_teraterm_X_1person_move.log"         # file name you want to play
     else:
         print("Warning : read from shared file: " +str(argv[1]))
