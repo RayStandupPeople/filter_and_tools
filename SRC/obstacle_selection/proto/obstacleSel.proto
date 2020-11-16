@@ -1,0 +1,35 @@
+syntax = "proto3";
+package pb_obstacle_sel;
+message LogFile {
+    Path path = 1;
+    ObstacleList obstacle_list = 2;
+}
+message PathNode {
+    float car_x =1;
+    float car_y =2;
+    float flat_x = 3;
+    float flat_y = 4;
+    float s = 5;
+    float d = 6;
+}
+
+message Path{
+    int32 node_id = 1;
+    repeated PathNode path_node = 2;
+}
+
+message  Obstacle {
+    int32 id = 1;
+    int32 type = 2;
+    float pos_x = 3;
+    float pos_y = 4;
+    float pos_s = 5;
+    float pos_d = 6;
+    float rel_spd_x = 7;
+    float rel_spd_y = 8;
+}
+
+message ObstacleList {
+    int32 num =1;
+    repeated Obstacle obstacle = 2;
+}

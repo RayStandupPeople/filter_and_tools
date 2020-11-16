@@ -9,6 +9,8 @@ struct obj_sel{
     double heading;
     double rel_speed_x;
     double rel_speed_y;
+    double pos_s;
+    double pos_d;
 };
 
 struct objSec
@@ -31,4 +33,34 @@ struct objFrame
     int frame_num;
     std::vector<obj_sel> obj;
 };
+
+struct Node
+{
+    double flat_X;
+    double flat_Y;
+    double Heading;
+    double car_x;
+    double car_y;
+    double s;
+    double d;
+
+};
+
+struct Path
+{
+    int id;
+    std::vector<Node> data;
+};
+
+struct Location
+{
+    double flat_X;
+    double flat_Y;
+    double Heading;
+    double car_x;
+    double car_y;
+    double s;
+    double d;
+};
+
 
