@@ -637,7 +637,7 @@ if __name__ == "__main__":
     ############### ****  USER DASH BOARD ****  ################
     if len(argv)==1:
         # file_name  = "../log/log_2020_1023/staticCar_perMove.log"         # file name you want to play
-        file_name  = file_dir+"teraterm_X_1person_move.log"         # file name you want to play
+        file_name  = file_dir+"teraterm_all_static.log"         # file name you want to play
     else:
         print("Warning : read from shared file: " +str(argv[1]))
         file_name = str(argv[1])                                                  # file from outside
