@@ -16,6 +16,7 @@ import numpy as np
 from matplotlib import pyplot as plt 
 import time
 import platform
+import os
 
 import libs.types_pb2  # environment model data types
 
@@ -35,6 +36,10 @@ class UserInfo:
         self.obj_mid_s_m  =0
         self.obj_left_s_l =0
         self.obj_right_s_r=0
+        self.selected_obj_x=0
+        self.selected_obj_y=0
+        self.selected_obj_id=0
+        
 
 
 class StatusMachine:
@@ -72,6 +77,7 @@ class HDMapInfo:
         self.x = []
         self.y = []
         self.onpath = 0
+        self.decision_command =0
 
 class Obstacle:
     '''
@@ -82,7 +88,13 @@ class Obstacle:
         self.obj_type = 0
         self.obj_x = 0
         self.obj_y = 0
-        # self.obj_x_opted = 0
+        self.obj_rel_speed_x = 0
+        self.obj_rel_speed_y = 0
+        self.obj_abs_speed_x = 0
+        self.obj_abs_speed_y = 0
+        self.obj_heading = 0
+        self.obj_length = 0
+        self.obj_width = 0
 
 class Frame:
     '''
@@ -90,6 +102,7 @@ class Frame:
     '''
     def __init__(self):
         self.current_frame_num = 0
+        self.logfile_frame_num =0
         self.obstacle_num = 0
         self.obstacle_list = []
         self.localization = Localization()
@@ -124,21 +137,6 @@ class Plot(Obstacle):
             manager = plt.get_current_fig_manager()       #set max window
             manager.resize(*manager.window.maxsize())
 
-   
-    # def set_user_to_file(self):
-    #         '''
-    #         @breaf help to put all obstaclelist info to file
-    #         '''    
-    #         with open("../log/user_info",mode = "write") as file_obs_list:
-    #             for frame in self.frame_list:
-    #                 # file_obs_list.write("Current_Frame: " + str(frame.current_frame_num) + "\n")
-    #                 user_ =frame.user
-    #                 file_obs_list.write(str(user_.obj_left_flag) + " ")
-    #                 file_obs_list.write(str(user_.obj_mid_flag) + " ")
-    #                 file_obs_list.write(str(user_.obj_right_flag) + " ")
-    #                 file_obs_list.write(str(user_.obj_left_s_l) + " ")
-    #                 file_obs_list.write(str(user_.obj_mid_s_m) + " ")
-    #                 file_obs_list.write(str(user_.obj_right_s_r) + "\n")
 
     def set_wholeFile_info_to_protobuf(self):
         '''
@@ -191,12 +189,31 @@ class Plot(Obstacle):
             userinfo_pb.obj_mid_s_m    = userinfo_.obj_mid_s_m 
             userinfo_pb.obj_right_s_r  = userinfo_.obj_right_s_r 
             
-            
-        
         logfile_string_pb = self.logfile_pb.SerializeToString()
         with open("log/wholeFile_info_pb",'wb') as file_obs_list:
             file_obs_list.write(logfile_string_pb)
             
+    def show_global_path(self):
+        '''
+        @breaf show global path (blue valley right lane)
+        '''
+
+        global_path_x =[-120, -30, -20, -15, -10, -10, -13, -30, -115]
+        global_path_y =[-30, -30, -28, -25, -20, 0, 6, 10, 10]
+        gx_=plt.subplot(self.grid[2:3,3])
+        gx_.plot(global_path_x, global_path_y)
+
+    def show_localization(self,frame_num):
+            '''
+            @breaf show current vehicle localization 
+            @param frame_num: which frame to be shown 
+            '''
+            lx_=plt.subplot(self.grid[2:3,3])
+            plt.ylim([-35,15])
+            line, = lx_.plot(0,0,'ro',markersize=2)
+            line.set_xdata(self.frame_list[frame_num].localization.latRest_X)
+            line.set_ydata(self.frame_list[frame_num].localization.lonRest_Y)
+
 
     def show_object_lists(self,frame_num):
         '''
@@ -219,6 +236,9 @@ class Plot(Obstacle):
             obj_type_.append(object_idx_.obj_type)
             obj_x_.append(object_idx_.obj_x)
             obj_y_.append(object_idx_.obj_y)
+        # plot origin point    
+        obj_x_.append(0)
+        obj_y_.append(0)
         for i in obj_y_:
             obj_y__.append(i*-1) 
         for i in obj_x_:
@@ -226,9 +246,9 @@ class Plot(Obstacle):
 
         # display config
         # plt.cla()  # clear figure
-        ax_=plt.subplot(self.grid[0:3,3])
+        ax_=plt.subplot(self.grid[0:2,3])
         ax_.cla()
-        lane_width = 3.6
+        lane_width = 2.7
         ax_.plot([-0.5*lane_width,-0.5*lane_width],[-20,100],"r")  #TEMP leftline
         ax_.plot([0.5*lane_width,0.5*lane_width],[-20,100],'r')    #TEMP rightline
         ax_.plot([-1.5*lane_width,-1.5*lane_width],[-20,100],"black")  #TEMP left-leftline
@@ -241,7 +261,7 @@ class Plot(Obstacle):
         for (x,y,id_,type_) in zip(obj_x__,obj_y__,obj_id_,obj_type_):   # pack all property into tuple
             plt.text(y,x,str(id_) +" " + type_list[int(type_)],fontsize=8)
         # print("** Frame %d Obstacles Position Show **" %(frame_num))
-        ax_.axis([-10,10,-10,40])
+        ax_.axis([-10,10,-20,40])
         # plt.xlabel("Y Axis")
         plt.ylabel("X Axis")
         # plt.title("Obstacles - Vehicle Coordinate",fontweight=20)
@@ -250,7 +270,7 @@ class Plot(Obstacle):
 
         # LKW Temp S  
         user_  = self.frame_list[frame_num].userinfo
-        obj_y_.append(-3.6)
+        obj_y_.append(lane_width* -1)
         if user_.obj_left_s_l >0:
             obj_x_.append(user_.obj_left_s_l)
         else:
@@ -261,14 +281,22 @@ class Plot(Obstacle):
             obj_x_.append(user_.obj_mid_s_m)
         else:
             obj_x_.append(-100)  
-        obj_y_.append(3.6)
+        obj_y_.append(lane_width)
         if user_.obj_right_s_r >0:
             obj_x_.append(user_.obj_right_s_r)
         else:
             obj_x_.append(-100) 
 
-        ax_.plot(obj_y_,obj_x_,"o")
+        #ax_.plot(obj_y_,obj_x_,"o")
         # LKW TEMP E
+
+
+
+        # ZLM selected OBJ Plot  START
+        if user_.selected_obj_x >0:
+            ax_.plot(user_.selected_obj_y*-1,user_.selected_obj_x,'ro')
+      
+        # ZLM selected OBJ Plot  END
 
     def show_global_info(self,cur_frame_num=0,tol_frame_num=0):
         '''
@@ -291,9 +319,8 @@ class Plot(Obstacle):
         ax_.text((cur_frame_num-2) % 150,9,"F-Cur/Tol: "+str(cur_frame_num)+" / "+str(tol_frame_num),fontsize=10)
         ax_.plot([0,cur_frame_num],[9.5,9.5],'r') #frame readed line
 
-        ax_.text(1,8,"Cur time / Tol time(second):",fontsize=9)
-        ax_.text(1,7.5," ->   "+ str(round(cur_frame_num * self.sample_time,2)) + \
-            " / " + str(round(tol_frame_num * self.sample_time,2)), fontsize=10)
+        ax_.text(1,8,"Cur LogFile Frame:",fontsize=9)
+        ax_.text(1,7.5," ->   "+ str(self.frame_list[cur_frame_num].logfile_frame_num), fontsize=10)
 
         ax_.text(1,7,"Log File name : ", fontsize=10)
         ax_.text(1,6.5," ->   "+ file_name, fontsize=7)
@@ -301,19 +328,20 @@ class Plot(Obstacle):
         ax_.text(1,6,"Play Speed : ", fontsize=10)
         ax_.text(1,5.5," ->   "+ str(PLAY_SPEED) + ' second', fontsize=10)
 
-        ax_.text(1,5,"Loclization : ", fontsize=10)
+        ax_.text(1,5,"Localization : ", fontsize=10)
         ax_.text(1,4.5," ->   "+ str(self.frame_list[cur_frame_num].localization.latRest_X) + \
         " , " + str(self.frame_list[cur_frame_num].localization.lonRest_Y), fontsize=10)
         ax_.text(1,4,"HdmapInfo : ", fontsize=10)
-        ax_.text(1,3.5," ->   "+ "Onpath: " + str(self.frame_list[cur_frame_num].hdmapinfo.onpath) , fontsize=10)
-
+        ax_.text(1,3.5," ->   "+ "Onpath: " + str(self.frame_list[cur_frame_num].hdmapInfo.onpath) , fontsize=10)
         ax_.text(1,3,"VehicleSts : ", fontsize=10)
-        ax_.text(1,2.5," ->   "+ "speed: " + str(self.frame_list[cur_frame_num].vehiclests.vehicle_speed * 3.6) + " KPH" , fontsize=10)
+        ax_.text(1,2.5," ->   "+ "speed: " + str(round(self.frame_list[cur_frame_num].vehiclests.vehicle_speed,2)) + " KPH" , fontsize=10)
 
         ax_.text(1,2,"User info : ", fontsize=10)
         ax_.text(1,1.5," ->   "+ "left:   " + str(round(self.frame_list[cur_frame_num].userinfo.obj_left_s_l, 2)) + \
              "  mid:  " + str(round(self.frame_list[cur_frame_num].userinfo.obj_mid_s_m, 2)) + "   right  :  " + \
              str(round(self.frame_list[cur_frame_num].userinfo.obj_right_s_r, 2)), fontsize=10)
+        
+        ax_.text(1,1," ->   "+ "decision command:  " + str(self.frame_list[cur_frame_num].hdmapInfo.decision_command), fontsize=10)
 
         ax_.axis([0,150,0,10])
         plt.xticks([])
@@ -331,15 +359,45 @@ class Plot(Obstacle):
         if self.get_target_object_list(target_id)==0: # can not find tar by id
             # print("ERROR: CAN NOT FIND target by ID")
             return
-        with open("log/data_convert",mode="w") as f:
-            self.show_target_element(f,"obj_id",[0,1],0)
-            self.show_target_element(f,"obj_type",[1,2],0)
-            self.show_target_element(f,"obj_x",[2,4],1)
-            self.show_target_element(f,"obj_y",[4,6],1)
-            # self.show_target_element(f,"obj_x_opted",[4,6],1)
+        
+        time_stamp_num = len(self.target_ID_list)
+        t=np.linspace(0, time_stamp_num-1,time_stamp_num)
+        logfile_frame_val_list=[]
+        for frame_ in self.frame_list:
+            logfile_frame_val_list.append(frame_.logfile_frame_num)
+        lf_f = plt.subplot(self.grid[0:1,0:3])
+        lf_f.plot(t,logfile_frame_val_list)
+        plt.xlabel("Stamp No.")
+        plt.ylabel("Logfile Frame No")
+
+        # show target obstacle property    
+        
+        ## xhw ###
+        '''
+        @element List:
+        obj_id
+        obj_type
+        obj_x
+        obj_y
+        obj_rel_speed_x
+        obj_rel_speed_y
+        obj_abs_speed_x
+        obj_abs_speed_y
+        obj_heading
+        obj_length
+        obj_width 
+
+        selected_obj_x
+        selected_obj_y
+        selected_obj_id
+        '''
+        self.show_target_element("obj_id",[1,2])
+        self.show_target_element("obj_rel_speed_x",[2,4])
+        self.show_target_element("obj_heading",[4,6])
+        ## xhw ###
 
         
-    def show_target_element(self, file_write, element_type, wind_pos=[0,1], flg_print2file = 0):
+    def show_target_element(self, element_type, wind_pos=[0,1]):
         '''
         @breaf display the element of target obstacle
         @para file_write: handle of file which to be written
@@ -347,20 +405,24 @@ class Plot(Obstacle):
         @para wind_pos: which pos in Show Target elements Window with start and end, like [0,3] [2,3]
         @para flg_print2file: flag, which if print related data to file
         '''
-        time_stamp_num = len(self.target_ID_list)
+        time_stamp_num = len(self.frame_list)
         # time_stamp_num = len(self.target_TYPE_list)
         t=np.linspace(0, time_stamp_num-1,time_stamp_num)
         element_val_list=[]
-        for tgt in self.target_ID_list:
-        # for tgt in self.target_TYPE_list:
-            class_num_opra = eval("tgt."+element_type)
-            element_val_list.append(class_num_opra)
-        
-        ## file Print
-        if flg_print2file ==1:
-            for ele in element_val_list:
-                file_write.write(str(ele) + " ")
-            file_write.write("\n")
+        if not element_type.find('selected_obj'):
+            for frame_ in self.frame_list:
+                try:
+                    class_num_opra = eval("frame_.userinfo."+element_type)
+                    element_val_list.append(class_num_opra)
+                except AttributeError:
+                    element_val_list.append(0)
+        else:
+            for tgt in self.target_ID_list:
+                try:
+                    class_num_opra = eval("tgt."+element_type)
+                    element_val_list.append(class_num_opra)
+                except AttributeError:
+                    element_val_list.append(0)
 
             
         ##  # display config
@@ -372,15 +434,13 @@ class Plot(Obstacle):
         ax_=plt.subplot(self.grid[s:e,0:3])
         if cur_frame ==0:
             ax_.cla()
-        ax_.plot(t,element_val_list,'bo-')
+        ax_.plot(t,element_val_list)
         plt.xlabel("Stamp No.")
         plt.ylabel(element_type)
         # plt.xlim([0, self.total_frame_num * self.sample_time])
         
 
-    # def show_obstacle_compare(self):
-    #     plt.subplot(self.grid[0:3,0:3])
-    #     plt.subplot(self.grid[3:6,0:3])
+
 
     def clean_and_check_data(self, line, data_type):
         '''
@@ -397,6 +457,27 @@ class Plot(Obstacle):
             val = 0
         return val
 
+    def check_line_need_break(self,line,f):
+        '''
+        @breaf check if current line meet break condition, 0->no need, 1 ->need
+        @param line: original string line data
+        @param f: file handler
+        @return break flag   0->no need, 1 ->need
+        '''
+        if(line.find("R=frame_index")!=-1):                #exit condition
+            return 1
+        if(line.find("=888=R=Obstacles[0].id")!=-1):       #exit condition
+            return 1
+        if(line.find("R=Latitude")!=-1):                   #exit condition
+            return 1
+        if(line.find("R=vehicleInfo.ESP_VehSpd")!=-1):     #exit condition
+            return 1
+        if(line.find("R=hdmapInfo.planpath")!=-1):         #exit condition
+            return 1
+        if(line.find("coll_obj.obj_mid_flag")!=-1):        #exit condition
+            return 1
+        return 0
+
     def parse_frameInfo_from_file(self):
         '''
         @breaf get object list with all frame times from data file
@@ -406,8 +487,9 @@ class Plot(Obstacle):
         with open(self.f_name) as f:
             line = f.readline()
             while True:   
-                if(line.find("PathPlanner Version")!=-1):    # find new frame
+                if(line.find("R=frame_index")!=-1):    # find new frame
                     frame = Frame()
+                    frame.logfile_frame_num = self.clean_and_check_data(line,'int')
                     frame_obs_num=0
                     while True:
                         #####              Obtatacle List         ####
@@ -423,16 +505,28 @@ class Plot(Obstacle):
                                     obj.obj_x = self.clean_and_check_data(line,'float')
                                 if(line.find("=888=R=Obstacles[0].pos_y")!=-1):
                                     obj.obj_y = self.clean_and_check_data(line,'float')
-                                
-                                if(line.find("PathPlanner Version")!=-1):    #exit condition1, new frame
-                                    break
-                                if(line.find("=888=R=Obstacles[0].id")!=-1):             #exit condition2, new obstacle
+                                if(line.find("=888=R=Obstacles[0].rel_speed_x")!=-1):
+                                    obj.obj_rel_speed_x = self.clean_and_check_data(line,'float')
+                                if(line.find("=888=R=Obstacles[0].rel_speed_y")!=-1):
+                                    obj.obj_rel_speed_y = self.clean_and_check_data(line,'float')
+                                if(line.find("=888=R=Obstacles[0].abs_speed_x")!=-1):
+                                    obj.obj_abs_speed_x = self.clean_and_check_data(line,'float')
+                                if(line.find("=888=R=Obstacles[0].abs_speed_y")!=-1):
+                                    obj.obj_abs_speed_y = self.clean_and_check_data(line,'float')
+                                if(line.find("=888=R=Obstacles[0].heading")!=-1):
+                                    obj.obj_heading = self.clean_and_check_data(line,'float')
+                                if(line.find("=888=R=Obstacles[0].length")!=-1):
+                                    obj.obj_length = self.clean_and_check_data(line,'float')
+                                if(line.find("=888=R=Obstacles[0].width")!=-1):
+                                    obj.obj_width  = self.clean_and_check_data(line,'float')     
+                         
+                                if self.check_line_need_break(line,f):
                                     break
                                 line = f.readline()
-                                if not line:                          #exit condition3, EOF
+                                if not line:                                       #exit condition, EOF
                                     break
                             frame.obstacle_list.append(obj)
-                            if(line.find("PathPlanner Version")!=-1):    #exit condition1, new frame
+                            if(line.find("R=frame_index")!=-1):    #exit condition1, new frame
                                 break
 
 
@@ -449,17 +543,13 @@ class Plot(Obstacle):
                                 if(line.find("R=LocalizationResult.y")!=-1):
                                     loclizon.lonRest_Y = self.clean_and_check_data(line,'float')
 
-                                if(line.find("R=vehicleInfo.ESP_VehSpd")!=-1):
-                                    break
-                                if(line.find("PathPlanner Version")!=-1):    #exit condition1, new frame
-                                    break
-                                if(line.find("R=Latitude")!=-1):             #exit condition2, new obstacle
+                                if self.check_line_need_break(line,f):
                                     break
                                 line = f.readline()
                                 if not line:                          #exit condition3, EOF
                                     break
                             frame.localization = loclizon
-                            if(line.find("PathPlanner Version")!=-1):    #exit condition1, new frame
+                            if(line.find("R=frame_index")!=-1):    #exit condition1, new frame
                                 break
 
                                 #####               Vehicle Status         ####
@@ -468,47 +558,37 @@ class Plot(Obstacle):
                             vehiclests_.vehicle_speed = self.clean_and_check_data(line,'float')
                             line = f.readline()
                             while True:               # assign left properties of this frame
-                                if(line.find("R=hdmapInfo.planpath")!=-1):    
-                                    break
-                                if(line.find("PathPlanner Version")!=-1):   
-                                    break
-                                if(line.find("R=vehicleInfo.ESP_VehSpd")!=-1):             #exit condition2, new obstacle
+                                if self.check_line_need_break(line,f):
                                     break
                                 line = f.readline()
                                 if not line:                          #exit condition3, EOF
                                     break
                             frame.vehiclests = vehiclests_
-                            if(line.find("PathPlanner Version")!=-1):    #exit condition1, new frame
+                            if(line.find("R=frame_index")!=-1):    #exit condition1, new frame
                                 break
 
+
                                 #####               Hdmap         ####
-                        if(line.find("R=hdmapInfo.planpath")!=-1):     # find new hadmap
+                        if(line.find("R=hdmapInfo.planpath")!=-1):     # find new hdmap
                             hdmapinfo_=HDMapInfo()
-                            hdmapinfo_.onpath = self.clean_and_check_data(line,'float')
+                            hdmapinfo_.onpath = self.clean_and_check_data(line,'int')
                             line = f.readline()
                             while True:               # assign left properties of this frame
-
-                                if(line.find("coll_obj.obj_mid_flag")!=-1):    
-                                    break
-                                if(line.find("PathPlanner Version")!=-1):    #exit condition1, new frame
-                                    break
-                                if(line.find("R=hdmapInfo.planpath")!=-1):             #exit condition2, new obstacle
+                                if(line.find("=R=decisionToPlan.decision_command")!=-1):
+                                    hdmapinfo_.decision_command = self.clean_and_check_data(line,'int')
+                                if self.check_line_need_break(line,f):
                                     break
                                 line = f.readline()
                                 if not line:                          #exit condition3, EOF
                                     break
                             frame.hdmapInfo = hdmapinfo_
-                            if(line.find("PathPlanner Version")!=-1):    #exit condition1, new frame
+                            if(line.find("R=frame_index")!=-1):    #exit condition1, new frame
                                 break
 
                                 #####               User info         ####
                         if(line.find("coll_obj.obj_mid_flag")!=-1):     # find new user info
                             userinfo_=UserInfo()
-                            try:
-                                userinfo_.obj_mid_s_m = self.clean_and_check_data(line,'float')
-                            except  ValueError:
-                                print("warning: parse coll_obj.obj_mid_flag value failed")
-                                userinfo_.obj_mid_s_m =-1
+                            userinfo_.obj_mid_s_m = self.clean_and_check_data(line,'float')
                             if userinfo_.obj_mid_s_m >0 :
                                 userinfo_.obj_mid_flag = 1
                             line = f.readline()
@@ -522,20 +602,25 @@ class Plot(Obstacle):
                                     userinfo_.obj_right_s_r = self.clean_and_check_data(line,'float')
                                     if userinfo_.obj_right_s_r >0 :
                                         userinfo_.obj_right_flag = 1
-                                #  input your interested key words #
-
 
                                 #  input your interested key words #
-                                if(line.find("PathPlanner Version")!=-1):    #exit condition1, new frame
+                               
+                                if(line.find("selectObj->frontMid.obj.s")!=-1):
+                                    userinfo_.selected_obj_x = self.clean_and_check_data(line,'float')
+                                if(line.find("selectObj->frontMid.obj.pos_y")!=-1):
+                                    userinfo_.selected_obj_y = self.clean_and_check_data(line,'float')
+                                if(line.find("selectObj->frontMid.obj.id")!=-1):
+                                    userinfo_.selected_obj_id = self.clean_and_check_data(line,'int')
+                                   
+                                #  input your interested key words #
+                                if self.check_line_need_break(line,f):
                                     break
-                                if(line.find("R=Latitude")!=-1):             #exit condition2, new obstacle
-                                    break
+
                                 line = f.readline()
                                 if not line:                          #exit condition3, EOF
                                     break
-
                             frame.userinfo = userinfo_
-                            if(line.find("PathPlanner Version")!=-1):    #exit condition1, new frame
+                            if(line.find("R=frame_index")!=-1):    #exit condition1, new frame
                                 break
 
 
@@ -545,12 +630,13 @@ class Plot(Obstacle):
                             line = f.readline()
                             if not line:
                                 break
-                            if(line.find("PathPlanner Version")!=-1):    # find new frame
+                            if(line.find("R=frame_index")!=-1):    # find new frame
                                 break
 
 
                     frame.current_frame_num = self.total_frame_num
                     frame.obstacle_num =frame_obs_num
+                    
                     self.frame_list.append(frame)# save frame to frame_list
                     self.total_frame_num+=1
                     # print("frame size: %d" %len(frame))
@@ -561,67 +647,32 @@ class Plot(Obstacle):
         return self.total_frame_num
 
                     
-    def get_target_object_list(self, target_id=[-1]):
+    def get_target_object_list(self, target_id_list_=-1):
         '''
         @breaf get target object list with all frame times by target id
         @param target_id: the interested id of target
         @return the show time of interested target 
         '''
-        if target_id[0] == -1:
+        if target_id_list_ == -1:
             if(len(self.frame_list)<10 or len(self.frame_list[0].obstacle_list)==0):
                 print("Warning: frame or obstacle is EMPTY ")
                 return
             print("Warning: you have NOT typied in your interested obstacle ID")
-            target_id[0] = self.frame_list[0].obstacle_list[0].obj_id
+            target_id_list_ = self.frame_list[0].obstacle_list[0].obj_id
         #find targetID by all frames
-        for frame_idx_ in self.frame_list:    
+        for frame_idx_ in self.frame_list:
+            exist_match_id =0    
             for obstalce_idx_ in frame_idx_.obstacle_list:
-                for target_id_idx in target_id:
-                    if(obstalce_idx_.obj_id == target_id_idx):
-                        self.target_ID_list.append(obstalce_idx_) 
+                if(target_id_list_ == obstalce_idx_.obj_id ):
+                    self.target_ID_list.append(obstalce_idx_) 
+                    exist_match_id =1
+            if not exist_match_id:
+                self.target_ID_list.append(0) 
+                
         target_obstalce_num = len(self.target_ID_list) 
         if target_obstalce_num == 0:
-            print("ERROR: can not find target obstacle with ID and so on..%d " %target_id[0])
+            print("ERROR: can not find target obstacle with ID and so on..%d " %target_id_list_[0])
         return len(self.target_ID_list)  
-
-    # # TEMP FUN: which get interested taget with type     
-    # def get_target_object_list_with_type(self, target_type=-1):
-    #     '''
-    #     @breaf get target object list with all frame times by target type
-    #     @param target_type: the interested type of target
-    #     @return the show time of interested target 
-    #     '''
-    #     if target_type == -1:
-    #         print("** ERROR: please input your interested obstacle TYPE **")
-    #         return 
-    #     #find targetID by all frames
-    #     for frame_idx_ in self.frame_list:    
-    #         for obstalce_idx_ in frame_idx_.obstacle_list:
-    #             if(obstalce_idx_.obj_type == target_type):
-    #                 self.target_TYPE_list.append(obstalce_idx_) 
-    #     target_obstalce_num = len(self.target_TYPE_list) 
-    #     if target_obstalce_num == 0:
-    #         print("** ERROR: can not find target obstacle with Type %d **" %target_type)
-    #     else:
-    #         print("** The num of Frame with Target TYPE is %d **" %len(self.target_TYPE_list))    
-    #     return len(self.target_TYPE_list)
-
-
-    # # TEMP FUN: related with  FUN get_target_object_list_with_type
-    # def show_target_obstacle_with_type(self, target_type):
-    #     '''
-    #     @breaf show your interested obstacle info by TYPE
-    #     @param target_type: type of your interested obs
-    #     @para wind_pos: which pos in Show Target elements Window, should in 0~4
-    #     '''
-    #     if self.get_target_object_list_with_type(target_type)==0: # can not find tar by type
-    #         print("ERROR")
-    #         return
-    #     self.show_target_element("obj_id",[0,1])
-    #     self.show_target_element("obj_type",[1,2])
-    #     self.show_target_element("obj_x",[2,4])
-    #     self.show_target_element("obj_y",[4,6])
-      
 
 if __name__ == "__main__":
 
@@ -634,30 +685,33 @@ if __name__ == "__main__":
         # file_dir ="/mnt/hgfs/vmShare/LOGFILE/"
         file_dir ="log/log_list/"
 
-    ############### ****  USER DASH BOARD ****  ################
     if len(argv)==1:
         # file_name  = "../log/log_2020_1023/staticCar_perMove.log"         # file name you want to play
-        file_name  = file_dir+"teraterm_X_1person_move.log"         # file name you want to play
+        # file_name  = file_dir+"putty1124152404.log"         # file name you want to play
+        for (root,dirs,files) in os.walk(file_dir):
+            file_name = file_dir + files[-1]
     else:
         print("Warning : read from shared file: " +str(argv[1]))
         file_name = str(argv[1])                                                  # file from outside
-    cur_frame = 0                                                         # file position you want to play from
-    ID_interested = [-1]                                          # DisPlay the OBSTCAL with the specified ID ARRAY
-
-    ############### ****  USER DASH BOARD ****  ################
-
+    cur_frame = 400                                                       # xhw file position you want to play from
+    ID_interested = 1                                                   # xhw DisPlay the OBSTCAL with the specified ID ARRAY
     p = Plot(file_name)
+    print("parsing File......")
+    time_s = time.time()
     frame_len = p.parse_frameInfo_from_file()
+    print("cost time: %f seconds" %(time.time()-time_s))
     p.show_target_obstacle(ID_interested) #input Interested ID  ### Person_move2StaicCar_X....ID 17\215
-    # p.show_target_obstacle_with_type(0) #TEMP FUN input Interested TYPE
     # p.set_obstacleList_to_file()
     p.set_wholeFile_info_to_protobuf()
     # p.set_user_to_file()
+    p.show_global_path()
+   
+    print("loading......")
     while True:
         if(cur_frame==frame_len):
             cur_frame=0
         p.show_object_lists(cur_frame)
         p.show_global_info(cur_frame,frame_len)
+        p.show_localization(cur_frame)
         cur_frame=cur_frame+1
-        # p.show_obstacle_compare()
         plt.pause(PLAY_SPEED)  #play speed
