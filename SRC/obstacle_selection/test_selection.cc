@@ -47,8 +47,9 @@ Path get_localpath(){
     }
     _local_path.id =0;
     return _local_path;
-
 }
+
+
 std::vector<obj_sel> get_obstalce_lists(const int &frame_id){
     std::ifstream in_file("../../../log/wholeFile_info_pb",std::ios::in);
     if(!in_file.is_open()){
@@ -76,7 +77,7 @@ std::vector<obj_sel> get_obstalce_lists(const int &frame_id){
 }
 
 
-void set_path_from_flat_to_cartesian(const Location &location, Path &localpath){
+void convert_coordinate_flat_to_vehicle(const Location &location, Path &localpath){
 
     double a = location.flat_X;
     double b = location.flat_Y;
@@ -90,30 +91,32 @@ void set_path_from_flat_to_cartesian(const Location &location, Path &localpath){
 
 }
 
-void set_path_from_flat_to_frenet(Path &path){
+void convert_coordinate_cartesian_to_frenet(const Location &location, Path &path){
     std::vector<double> _X;
     std::vector<double> _Y;
     std::vector<double> sd_={0,0};
     for(int i=0;i<path.data.size();++i)
     {
-        _X.push_back(path.data[i].flat_X);
-        _Y.push_back(path.data[i].flat_Y);
+        _X.push_back(path.data[i].car_x);
+        _Y.push_back(path.data[i].car_y);
     }
+
+    double egoVeh_s = getFrenet(location.car_x, location.car_y, location.Heading, _X, _Y)[0];
 
     for(int i=0;i<path.data.size();++i)
     {
-        sd_ = getFrenet(path.data[i].flat_X,path.data[i].flat_Y,path.data[i].Heading,_X, _Y);
-        path.data[i].s = sd_[0]; 
+        sd_ = getFrenet(path.data[i].car_x,path.data[i].car_y,path.data[i].Heading,_X, _Y);
+        path.data[i].s = sd_[0] - egoVeh_s; 
     }
     
     // // PRINT
     // for(int i=0;i<path.data.size();++i)
-    //     std::cout << path.data[i].s << " ";
+    //     std::cout << path.data[i].s << " " <<  path.data[i].d << std::endl;
     // std::cout << std::endl;
 
 }
 
-void set_obstacle_from_cartesian_to_frenet(std::vector<obj_sel> &obj_list, Path &path)
+void convert_coordinate_cartesian_to_frenet(std::vector<obj_sel> &obj_list, Path &path)
 {
     std::vector<double> _X;
     std::vector<double> _Y;
@@ -122,46 +125,51 @@ void set_obstacle_from_cartesian_to_frenet(std::vector<obj_sel> &obj_list, Path 
     std::vector<double> sd_={0,0};
     for(int i=0;i<path.data.size();++i)
     {
-        _X.push_back(path.data[i].flat_X);
-        _Y.push_back(path.data[i].flat_Y);
+        _X.push_back(path.data[i].car_x);
+        _Y.push_back(path.data[i].car_y);
     }
+    
+    // get origin frenet S
+    double ori_s = getFrenet(0, 0, 0,_X, _Y)[0];
 
     for(int i=0;i<obj_list.size();++i)
     {
-        sd_ = getFrenet(obj_list[i].pos_x, obj_list[i].pos_y, 0,_X, _Y);
-        obj_list[i].pos_s = sd_[0]; 
+        sd_ = getFrenet(-obj_list[i].pos_y, obj_list[i].pos_x, 0,_X, _Y);
+        obj_list[i].pos_s = sd_[0] - ori_s; 
         obj_list[i].pos_d = sd_[1]; 
     }
 
-    // PRINT
+    // // PRINT
     // for(int i=0;i<obj_list.size();++i)
     //     std::cout << obj_list[i].pos_s << " " << obj_list[i].pos_d << std::endl;
     // std::cout << std::endl;
 }
 void set_info_to_protobuf_file(std::vector<obj_sel> &obj_list, const Path &path){
-    //PRINT to terminal
-    for(int i=0;i<obj_list.size();++i)
-    {
-        std::cout << "id = " << obj_list[i].id <<std::endl;
-        std::cout << "type = " << obj_list[i].type <<std::endl;
-        std::cout << "pos_x = " << obj_list[i].pos_x <<std::endl;
-        std::cout << "pos_y = " << obj_list[i].pos_y <<std::endl;
-        std::cout << "heading = " << obj_list[i].heading <<std::endl;
-        std::cout << "pos_s = " << obj_list[i].pos_s <<std::endl;
-        std::cout << "pos_d = " << obj_list[i].pos_d <<std::endl;
-        std::cout << std::endl;
-    }
-    for(int i=0;i<path.data.size();++i)
-    {
-        std::cout << "flat_X = "  << path.data[i].flat_X <<std::endl;
-        std::cout << "flat_Y = "  << path.data[i].flat_Y <<std::endl;
-        std::cout << "Heading = " << path.data[i].Heading <<std::endl;
-        std::cout << "car_x = "   << path.data[i].car_x <<std::endl;
-        std::cout << "car_y = "   << path.data[i].car_y <<std::endl;
-        std::cout << "s = "       << path.data[i].s <<std::endl;
-        std::cout << "d = "       << path.data[i].d <<std::endl;
-        std::cout << std::endl;
-    }
+    // //PRINT to terminal
+    // for(int i=0;i<obj_list.size();++i)
+    // {
+    //     std::cout << "id = " << obj_list[i].id <<std::endl;
+    //     std::cout << "type = " << obj_list[i].type <<std::endl;
+    //     std::cout << "pos_x = " << obj_list[i].pos_x <<std::endl;
+    //     std::cout << "pos_y = " << obj_list[i].pos_y <<std::endl;
+    //     std::cout << "heading = " << obj_list[i].heading <<std::endl;
+    //     std::cout << "pos_s = " << obj_list[i].pos_s <<std::endl;
+    //     std::cout << "pos_d = " << obj_list[i].pos_d <<std::endl;
+    //     std::cout << std::endl;
+    // }
+
+
+    // for(int i=0;i<path.data.size();++i)
+    // {
+    //     std::cout << "flat_X = "  << path.data[i].flat_X <<std::endl;
+    //     std::cout << "flat_Y = "  << path.data[i].flat_Y <<std::endl;
+    //     std::cout << "Heading = " << path.data[i].Heading <<std::endl;
+    //     std::cout << "car_x = "   << path.data[i].car_x <<std::endl;
+    //     std::cout << "car_y = "   << path.data[i].car_y <<std::endl;
+    //     std::cout << "s = "       << path.data[i].s <<std::endl;
+    //     std::cout << "d = "       << path.data[i].d <<std::endl;
+    //     std::cout << std::endl;
+    // }
 
     pb_obstacle_sel::LogFile logfile; 
     pb_obstacle_sel::Path *path_pb = new pb_obstacle_sel::Path();
@@ -203,16 +211,41 @@ void set_info_to_protobuf_file(std::vector<obj_sel> &obj_list, const Path &path)
     ofile.close();
 }
 
+void cipv_selection(std::vector<obj_sel> &obj_list, obj_sel &cipv_obj){
+    double lane_width = 2.7;
+    double min_dis = 150;
+    for(int i=0; i< obj_list.size(); ++i)
+    {
+        if(obj_list[i].pos_d > -lane_width/2 && obj_list[i].pos_d < lane_width/2 )
+        {
+            if(obj_list[i].pos_s < min_dis  &&  obj_list[i].pos_s >0 )
+            {
+                min_dis = obj_list[i].pos_s;
+                cipv_obj.id = obj_list[i].id;
+            }
+        }
+    }
+    for(int i=0; i< obj_list.size(); ++i)
+    {
+        if(cipv_obj.id == obj_list[i].id)
+            cipv_obj = obj_list[i];
+    }
+}
+
 int main(int argc, const char** argv) {
     Path localpath = get_localpath();
     Location location;		
         location.flat_X = -53.9239494768775;
         location.flat_Y = -171.757296549627;
-        location.Heading = 270.446772134423;
+        location.Heading = 280.446772134423;
+        // -67.3449392315137	-171.730554283322	274.346816390618
+    obj_sel cipv_obj;
     std::vector<obj_sel> obj_list = get_obstalce_lists(1);
-    set_path_from_flat_to_cartesian(location, localpath);
-    set_path_from_flat_to_frenet(localpath);
-    set_obstacle_from_cartesian_to_frenet(obj_list, localpath);
+    convert_coordinate_flat_to_vehicle(location, localpath);
+    convert_coordinate_cartesian_to_frenet(location, localpath);
+    convert_coordinate_cartesian_to_frenet(obj_list, localpath);
     set_info_to_protobuf_file(obj_list, localpath);
+    cipv_selection(obj_list, cipv_obj);
+    std::cout << cipv_obj.id << " " << cipv_obj.pos_s << " " << cipv_obj.pos_d << std::endl;
     return 0;
 }
