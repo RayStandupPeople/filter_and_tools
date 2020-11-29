@@ -47,7 +47,7 @@ struct TableStruct_obstacleSel_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[5]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -55,6 +55,9 @@ struct TableStruct_obstacleSel_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_obstacleSel_2eproto;
 namespace pb_obstacle_sel {
+class Frame;
+class FrameDefaultTypeInternal;
+extern FrameDefaultTypeInternal _Frame_default_instance_;
 class LogFile;
 class LogFileDefaultTypeInternal;
 extern LogFileDefaultTypeInternal _LogFile_default_instance_;
@@ -72,6 +75,7 @@ class PathNodeDefaultTypeInternal;
 extern PathNodeDefaultTypeInternal _PathNode_default_instance_;
 }  // namespace pb_obstacle_sel
 PROTOBUF_NAMESPACE_OPEN
+template<> ::pb_obstacle_sel::Frame* Arena::CreateMaybeMessage<::pb_obstacle_sel::Frame>(Arena*);
 template<> ::pb_obstacle_sel::LogFile* Arena::CreateMaybeMessage<::pb_obstacle_sel::LogFile>(Arena*);
 template<> ::pb_obstacle_sel::Obstacle* Arena::CreateMaybeMessage<::pb_obstacle_sel::Obstacle>(Arena*);
 template<> ::pb_obstacle_sel::ObstacleList* Arena::CreateMaybeMessage<::pb_obstacle_sel::ObstacleList>(Arena*);
@@ -188,10 +192,159 @@ class LogFile :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPathFieldNumber = 1,
-    kObstacleListFieldNumber = 2,
+    kFrameFieldNumber = 2,
+    kFrameTotalNumFieldNumber = 1,
   };
-  // .pb_obstacle_sel.Path path = 1;
+  // repeated .pb_obstacle_sel.Frame frame = 2;
+  int frame_size() const;
+  private:
+  int _internal_frame_size() const;
+  public:
+  void clear_frame();
+  ::pb_obstacle_sel::Frame* mutable_frame(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::pb_obstacle_sel::Frame >*
+      mutable_frame();
+  private:
+  const ::pb_obstacle_sel::Frame& _internal_frame(int index) const;
+  ::pb_obstacle_sel::Frame* _internal_add_frame();
+  public:
+  const ::pb_obstacle_sel::Frame& frame(int index) const;
+  ::pb_obstacle_sel::Frame* add_frame();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::pb_obstacle_sel::Frame >&
+      frame() const;
+
+  // int32 frame_total_num = 1;
+  void clear_frame_total_num();
+  ::PROTOBUF_NAMESPACE_ID::int32 frame_total_num() const;
+  void set_frame_total_num(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_frame_total_num() const;
+  void _internal_set_frame_total_num(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:pb_obstacle_sel.LogFile)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::pb_obstacle_sel::Frame > frame_;
+  ::PROTOBUF_NAMESPACE_ID::int32 frame_total_num_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_obstacleSel_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Frame :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:pb_obstacle_sel.Frame) */ {
+ public:
+  Frame();
+  virtual ~Frame();
+
+  Frame(const Frame& from);
+  Frame(Frame&& from) noexcept
+    : Frame() {
+    *this = ::std::move(from);
+  }
+
+  inline Frame& operator=(const Frame& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Frame& operator=(Frame&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Frame& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Frame* internal_default_instance() {
+    return reinterpret_cast<const Frame*>(
+               &_Frame_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(Frame& a, Frame& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Frame* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Frame* New() const final {
+    return CreateMaybeMessage<Frame>(nullptr);
+  }
+
+  Frame* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Frame>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Frame& from);
+  void MergeFrom(const Frame& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Frame* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "pb_obstacle_sel.Frame";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_obstacleSel_2eproto);
+    return ::descriptor_table_obstacleSel_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPathFieldNumber = 2,
+    kObstacleListFieldNumber = 3,
+    kFrameIdFieldNumber = 1,
+  };
+  // .pb_obstacle_sel.Path path = 2;
   bool has_path() const;
   private:
   bool _internal_has_path() const;
@@ -206,7 +359,7 @@ class LogFile :
   ::pb_obstacle_sel::Path* _internal_mutable_path();
   public:
 
-  // .pb_obstacle_sel.ObstacleList obstacle_list = 2;
+  // .pb_obstacle_sel.ObstacleList obstacle_list = 3;
   bool has_obstacle_list() const;
   private:
   bool _internal_has_obstacle_list() const;
@@ -221,13 +374,23 @@ class LogFile :
   ::pb_obstacle_sel::ObstacleList* _internal_mutable_obstacle_list();
   public:
 
-  // @@protoc_insertion_point(class_scope:pb_obstacle_sel.LogFile)
+  // int32 frame_id = 1;
+  void clear_frame_id();
+  ::PROTOBUF_NAMESPACE_ID::int32 frame_id() const;
+  void set_frame_id(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_frame_id() const;
+  void _internal_set_frame_id(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:pb_obstacle_sel.Frame)
  private:
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::pb_obstacle_sel::Path* path_;
   ::pb_obstacle_sel::ObstacleList* obstacle_list_;
+  ::PROTOBUF_NAMESPACE_ID::int32 frame_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_obstacleSel_2eproto;
 };
@@ -275,7 +438,7 @@ class PathNode :
                &_PathNode_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(PathNode& a, PathNode& b) {
     a.Swap(&b);
@@ -458,7 +621,7 @@ class Path :
                &_Path_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(Path& a, Path& b) {
     a.Swap(&b);
@@ -606,7 +769,7 @@ class Obstacle :
                &_Obstacle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(Obstacle& a, Obstacle& b) {
     a.Swap(&b);
@@ -811,7 +974,7 @@ class ObstacleList :
                &_ObstacleList_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(ObstacleList& a, ObstacleList& b) {
     a.Swap(&b);
@@ -926,36 +1089,119 @@ class ObstacleList :
 #endif  // __GNUC__
 // LogFile
 
-// .pb_obstacle_sel.Path path = 1;
-inline bool LogFile::_internal_has_path() const {
+// int32 frame_total_num = 1;
+inline void LogFile::clear_frame_total_num() {
+  frame_total_num_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 LogFile::_internal_frame_total_num() const {
+  return frame_total_num_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 LogFile::frame_total_num() const {
+  // @@protoc_insertion_point(field_get:pb_obstacle_sel.LogFile.frame_total_num)
+  return _internal_frame_total_num();
+}
+inline void LogFile::_internal_set_frame_total_num(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  frame_total_num_ = value;
+}
+inline void LogFile::set_frame_total_num(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_frame_total_num(value);
+  // @@protoc_insertion_point(field_set:pb_obstacle_sel.LogFile.frame_total_num)
+}
+
+// repeated .pb_obstacle_sel.Frame frame = 2;
+inline int LogFile::_internal_frame_size() const {
+  return frame_.size();
+}
+inline int LogFile::frame_size() const {
+  return _internal_frame_size();
+}
+inline void LogFile::clear_frame() {
+  frame_.Clear();
+}
+inline ::pb_obstacle_sel::Frame* LogFile::mutable_frame(int index) {
+  // @@protoc_insertion_point(field_mutable:pb_obstacle_sel.LogFile.frame)
+  return frame_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::pb_obstacle_sel::Frame >*
+LogFile::mutable_frame() {
+  // @@protoc_insertion_point(field_mutable_list:pb_obstacle_sel.LogFile.frame)
+  return &frame_;
+}
+inline const ::pb_obstacle_sel::Frame& LogFile::_internal_frame(int index) const {
+  return frame_.Get(index);
+}
+inline const ::pb_obstacle_sel::Frame& LogFile::frame(int index) const {
+  // @@protoc_insertion_point(field_get:pb_obstacle_sel.LogFile.frame)
+  return _internal_frame(index);
+}
+inline ::pb_obstacle_sel::Frame* LogFile::_internal_add_frame() {
+  return frame_.Add();
+}
+inline ::pb_obstacle_sel::Frame* LogFile::add_frame() {
+  // @@protoc_insertion_point(field_add:pb_obstacle_sel.LogFile.frame)
+  return _internal_add_frame();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::pb_obstacle_sel::Frame >&
+LogFile::frame() const {
+  // @@protoc_insertion_point(field_list:pb_obstacle_sel.LogFile.frame)
+  return frame_;
+}
+
+// -------------------------------------------------------------------
+
+// Frame
+
+// int32 frame_id = 1;
+inline void Frame::clear_frame_id() {
+  frame_id_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Frame::_internal_frame_id() const {
+  return frame_id_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Frame::frame_id() const {
+  // @@protoc_insertion_point(field_get:pb_obstacle_sel.Frame.frame_id)
+  return _internal_frame_id();
+}
+inline void Frame::_internal_set_frame_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  frame_id_ = value;
+}
+inline void Frame::set_frame_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_frame_id(value);
+  // @@protoc_insertion_point(field_set:pb_obstacle_sel.Frame.frame_id)
+}
+
+// .pb_obstacle_sel.Path path = 2;
+inline bool Frame::_internal_has_path() const {
   return this != internal_default_instance() && path_ != nullptr;
 }
-inline bool LogFile::has_path() const {
+inline bool Frame::has_path() const {
   return _internal_has_path();
 }
-inline void LogFile::clear_path() {
+inline void Frame::clear_path() {
   if (GetArenaNoVirtual() == nullptr && path_ != nullptr) {
     delete path_;
   }
   path_ = nullptr;
 }
-inline const ::pb_obstacle_sel::Path& LogFile::_internal_path() const {
+inline const ::pb_obstacle_sel::Path& Frame::_internal_path() const {
   const ::pb_obstacle_sel::Path* p = path_;
   return p != nullptr ? *p : *reinterpret_cast<const ::pb_obstacle_sel::Path*>(
       &::pb_obstacle_sel::_Path_default_instance_);
 }
-inline const ::pb_obstacle_sel::Path& LogFile::path() const {
-  // @@protoc_insertion_point(field_get:pb_obstacle_sel.LogFile.path)
+inline const ::pb_obstacle_sel::Path& Frame::path() const {
+  // @@protoc_insertion_point(field_get:pb_obstacle_sel.Frame.path)
   return _internal_path();
 }
-inline ::pb_obstacle_sel::Path* LogFile::release_path() {
-  // @@protoc_insertion_point(field_release:pb_obstacle_sel.LogFile.path)
+inline ::pb_obstacle_sel::Path* Frame::release_path() {
+  // @@protoc_insertion_point(field_release:pb_obstacle_sel.Frame.path)
   
   ::pb_obstacle_sel::Path* temp = path_;
   path_ = nullptr;
   return temp;
 }
-inline ::pb_obstacle_sel::Path* LogFile::_internal_mutable_path() {
+inline ::pb_obstacle_sel::Path* Frame::_internal_mutable_path() {
   
   if (path_ == nullptr) {
     auto* p = CreateMaybeMessage<::pb_obstacle_sel::Path>(GetArenaNoVirtual());
@@ -963,11 +1209,11 @@ inline ::pb_obstacle_sel::Path* LogFile::_internal_mutable_path() {
   }
   return path_;
 }
-inline ::pb_obstacle_sel::Path* LogFile::mutable_path() {
-  // @@protoc_insertion_point(field_mutable:pb_obstacle_sel.LogFile.path)
+inline ::pb_obstacle_sel::Path* Frame::mutable_path() {
+  // @@protoc_insertion_point(field_mutable:pb_obstacle_sel.Frame.path)
   return _internal_mutable_path();
 }
-inline void LogFile::set_allocated_path(::pb_obstacle_sel::Path* path) {
+inline void Frame::set_allocated_path(::pb_obstacle_sel::Path* path) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete path_;
@@ -983,39 +1229,39 @@ inline void LogFile::set_allocated_path(::pb_obstacle_sel::Path* path) {
     
   }
   path_ = path;
-  // @@protoc_insertion_point(field_set_allocated:pb_obstacle_sel.LogFile.path)
+  // @@protoc_insertion_point(field_set_allocated:pb_obstacle_sel.Frame.path)
 }
 
-// .pb_obstacle_sel.ObstacleList obstacle_list = 2;
-inline bool LogFile::_internal_has_obstacle_list() const {
+// .pb_obstacle_sel.ObstacleList obstacle_list = 3;
+inline bool Frame::_internal_has_obstacle_list() const {
   return this != internal_default_instance() && obstacle_list_ != nullptr;
 }
-inline bool LogFile::has_obstacle_list() const {
+inline bool Frame::has_obstacle_list() const {
   return _internal_has_obstacle_list();
 }
-inline void LogFile::clear_obstacle_list() {
+inline void Frame::clear_obstacle_list() {
   if (GetArenaNoVirtual() == nullptr && obstacle_list_ != nullptr) {
     delete obstacle_list_;
   }
   obstacle_list_ = nullptr;
 }
-inline const ::pb_obstacle_sel::ObstacleList& LogFile::_internal_obstacle_list() const {
+inline const ::pb_obstacle_sel::ObstacleList& Frame::_internal_obstacle_list() const {
   const ::pb_obstacle_sel::ObstacleList* p = obstacle_list_;
   return p != nullptr ? *p : *reinterpret_cast<const ::pb_obstacle_sel::ObstacleList*>(
       &::pb_obstacle_sel::_ObstacleList_default_instance_);
 }
-inline const ::pb_obstacle_sel::ObstacleList& LogFile::obstacle_list() const {
-  // @@protoc_insertion_point(field_get:pb_obstacle_sel.LogFile.obstacle_list)
+inline const ::pb_obstacle_sel::ObstacleList& Frame::obstacle_list() const {
+  // @@protoc_insertion_point(field_get:pb_obstacle_sel.Frame.obstacle_list)
   return _internal_obstacle_list();
 }
-inline ::pb_obstacle_sel::ObstacleList* LogFile::release_obstacle_list() {
-  // @@protoc_insertion_point(field_release:pb_obstacle_sel.LogFile.obstacle_list)
+inline ::pb_obstacle_sel::ObstacleList* Frame::release_obstacle_list() {
+  // @@protoc_insertion_point(field_release:pb_obstacle_sel.Frame.obstacle_list)
   
   ::pb_obstacle_sel::ObstacleList* temp = obstacle_list_;
   obstacle_list_ = nullptr;
   return temp;
 }
-inline ::pb_obstacle_sel::ObstacleList* LogFile::_internal_mutable_obstacle_list() {
+inline ::pb_obstacle_sel::ObstacleList* Frame::_internal_mutable_obstacle_list() {
   
   if (obstacle_list_ == nullptr) {
     auto* p = CreateMaybeMessage<::pb_obstacle_sel::ObstacleList>(GetArenaNoVirtual());
@@ -1023,11 +1269,11 @@ inline ::pb_obstacle_sel::ObstacleList* LogFile::_internal_mutable_obstacle_list
   }
   return obstacle_list_;
 }
-inline ::pb_obstacle_sel::ObstacleList* LogFile::mutable_obstacle_list() {
-  // @@protoc_insertion_point(field_mutable:pb_obstacle_sel.LogFile.obstacle_list)
+inline ::pb_obstacle_sel::ObstacleList* Frame::mutable_obstacle_list() {
+  // @@protoc_insertion_point(field_mutable:pb_obstacle_sel.Frame.obstacle_list)
   return _internal_mutable_obstacle_list();
 }
-inline void LogFile::set_allocated_obstacle_list(::pb_obstacle_sel::ObstacleList* obstacle_list) {
+inline void Frame::set_allocated_obstacle_list(::pb_obstacle_sel::ObstacleList* obstacle_list) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete obstacle_list_;
@@ -1043,7 +1289,7 @@ inline void LogFile::set_allocated_obstacle_list(::pb_obstacle_sel::ObstacleList
     
   }
   obstacle_list_ = obstacle_list;
-  // @@protoc_insertion_point(field_set_allocated:pb_obstacle_sel.LogFile.obstacle_list)
+  // @@protoc_insertion_point(field_set_allocated:pb_obstacle_sel.Frame.obstacle_list)
 }
 
 // -------------------------------------------------------------------
@@ -1463,6 +1709,8 @@ ObstacleList::obstacle() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

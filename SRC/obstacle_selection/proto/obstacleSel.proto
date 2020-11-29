@@ -1,8 +1,16 @@
 syntax = "proto3";
 package pb_obstacle_sel;
+
 message LogFile {
-    Path path = 1;
-    ObstacleList obstacle_list = 2;
+    int32 frame_total_num =1;
+    repeated Frame frame = 2;
+}
+
+message Frame {
+    int32 frame_id =1;
+    Path path = 2;
+    ObstacleList obstacle_list = 3;
+
 }
 message PathNode {
     float car_x =1;
