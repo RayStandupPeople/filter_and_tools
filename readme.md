@@ -1,6 +1,6 @@
 Version 3.0  (2020,11,26)
 
-usageï¼š
+usage£º
 1. put the log file which need to be analysied into dir "log/log_list";
 2. ShortCut: double click the shortcut, which will auto run the tool, which can help to do this:
 	* init everything this tool need
