@@ -18,7 +18,11 @@ import time
 import platform
 import os
 import threading
-import libs.types_pb2  # environment model data types
+
+PROTOBUF =0
+
+if PROTOBUF ==1 :
+    import libs.types_pb2  #Protobuf environment model data types
 
 
 
@@ -127,7 +131,8 @@ class Plot(Obstacle):
         self.grid = plt.GridSpec(6,4,wspace=0.5,hspace=0.5)  # figure window distribute rule
         self.total_frame_num =0  
         self.sample_time = 0.1  # unit: second
-        self.logfile_pb =libs.types_pb2.LogFile()  #logfile data type handler
+        if PROTOBUF ==1 :
+            self.logfile_pb =libs.types_pb2.LogFile()  #logfile data type handler
         plt.suptitle("Log Analysis and Visualization",fontsize=15) 
         if PLATFORM_sys==1:      #windows
             pass
@@ -689,11 +694,10 @@ class myThread (threading.Thread):
             print ("input the CurrentFrame No you want!")
             arr = input()
             try:
-                arr=list(map(int,arr.strip().split()))
-            except AttributeError:
+                global_cur_frame = arr
+            except SyntaxError:
                 print("err input, try again")
             else:
-                global_cur_frame = arr[0]
                 print("Now->  CurrentFrame: %d"%( global_cur_frame))
             # print(global_cur_frame)
             # if global_cur_frame>450:
@@ -731,7 +735,8 @@ if __name__ == "__main__":
     print("cost time: %f seconds" %(time.time()-time_s))
     p.show_target_obstacle(global_ID_interested) #input Interested ID  ### Person_move2StaicCar_X....ID 17\215
     # p.set_obstacleList_to_file()
-    p.set_wholeFile_info_to_protobuf()
+    if PROTOBUF ==1 :
+        p.set_wholeFile_info_to_protobuf()
     # p.set_user_to_file()
     p.show_global_path()
 
