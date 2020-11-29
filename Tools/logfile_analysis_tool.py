@@ -17,7 +17,7 @@ from matplotlib import pyplot as plt
 import time
 import platform
 import os
-
+import threading
 import libs.types_pb2  # environment model data types
 
 
@@ -40,7 +40,6 @@ class UserInfo:
         self.selected_obj_y=0
         self.selected_obj_id=0
         
-
 
 class StatusMachine:
     '''
@@ -208,11 +207,14 @@ class Plot(Obstacle):
             @breaf show current vehicle localization 
             @param frame_num: which frame to be shown 
             '''
+
             lx_=plt.subplot(self.grid[2:3,3])
             plt.ylim([-35,15])
             line, = lx_.plot(0,0,'ro',markersize=2)
+            # lx_.plot(self.frame_list[frame_num].localization.latRest_X,self.frame_list[frame_num].localization.lonRest_Y,"ro")
             line.set_xdata(self.frame_list[frame_num].localization.latRest_X)
             line.set_ydata(self.frame_list[frame_num].localization.lonRest_Y)
+            
 
 
     def show_object_lists(self,frame_num):
@@ -432,7 +434,7 @@ class Plot(Obstacle):
         s=wind_pos[0]
         e=wind_pos[1]
         ax_=plt.subplot(self.grid[s:e,0:3])
-        if cur_frame ==0:
+        if global_cur_frame ==0:
             ax_.cla()
         ax_.plot(t,element_val_list)
         plt.xlabel("Stamp No.")
@@ -674,8 +676,35 @@ class Plot(Obstacle):
             print("ERROR: can not find target obstacle with ID and so on..%d " %target_id_list_[0])
         return len(self.target_ID_list)  
 
-if __name__ == "__main__":
+class myThread (threading.Thread):
+    def __init__(self, threadID, name, counter):
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.name = name
+        self.counter = counter
+    def run(self):
+        print ("thread begin: " + self.name)
+        global global_cur_frame
+        while True:
+            print ("input the CurrentFrame No you want!")
+            arr = input()
+            try:
+                arr=list(map(int,arr.strip().split()))
+            except AttributeError:
+                print("err input, try again")
+            else:
+                global_cur_frame = arr[0]
+                print("Now->  CurrentFrame: %d"%( global_cur_frame))
+            # print(global_cur_frame)
+            # if global_cur_frame>450:
+            #     global_cur_frame =0
+            time.sleep(1)
 
+        print ("thread exit: " + self.name)
+
+if __name__ == "__main__":
+    global global_cur_frame
+    global global_ID_interested
     if platform.system() == "Windows":
         PLATFORM_sys =1
         # file_dir ="E:/vmShare/LOGFILE/"
@@ -693,25 +722,29 @@ if __name__ == "__main__":
     else:
         print("Warning : read from shared file: " +str(argv[1]))
         file_name = str(argv[1])                                                  # file from outside
-    cur_frame = 400                                                       # xhw file position you want to play from
-    ID_interested = 1                                                   # xhw DisPlay the OBSTCAL with the specified ID ARRAY
+    global_cur_frame = 400                                                       # xhw file position you want to play from
+    global_ID_interested = 1                                                   # xhw DisPlay the OBSTCAL with the specified ID ARRAY
     p = Plot(file_name)
     print("parsing File......")
     time_s = time.time()
     frame_len = p.parse_frameInfo_from_file()
     print("cost time: %f seconds" %(time.time()-time_s))
-    p.show_target_obstacle(ID_interested) #input Interested ID  ### Person_move2StaicCar_X....ID 17\215
+    p.show_target_obstacle(global_ID_interested) #input Interested ID  ### Person_move2StaicCar_X....ID 17\215
     # p.set_obstacleList_to_file()
     p.set_wholeFile_info_to_protobuf()
     # p.set_user_to_file()
     p.show_global_path()
-   
+
+    thread1 = myThread(1, "Thread-1", 1)
+    thread1.start()
+
+
     print("loading......")
     while True:
-        if(cur_frame==frame_len):
-            cur_frame=0
-        p.show_object_lists(cur_frame)
-        p.show_global_info(cur_frame,frame_len)
-        p.show_localization(cur_frame)
-        cur_frame=cur_frame+1
+        if(global_cur_frame==frame_len):
+            global_cur_frame=0
+        p.show_object_lists(global_cur_frame)
+        p.show_global_info(global_cur_frame,frame_len)
+        p.show_localization(global_cur_frame)
+        global_cur_frame=global_cur_frame+1
         plt.pause(PLAY_SPEED)  #play speed
