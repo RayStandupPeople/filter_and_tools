@@ -19,7 +19,7 @@ import platform
 import os
 import threading
 
-PROTOBUF =1
+PROTOBUF =0
 
 if PROTOBUF ==1 :
     import libs.types_pb2  #Protobuf environment model data types
