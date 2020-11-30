@@ -10,5 +10,5 @@ for %%i in (%log_file_dir%\*.*) do (
     set log_file_name=%%i
 )
 
-python %src_filr_dir%\%src_filr_name% %log_file_name%
-pause
+start python %src_filr_dir%\%src_filr_name% %log_file_name%
+

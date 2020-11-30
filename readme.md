@@ -1,4 +1,6 @@
-Version 3.0  (2020,11,26)
+Version 3.1  (2020,11,29)
+update:
+	* add keyboard input thread which help to skip frames 
 
 usage£º
 1. put the log file which need to be analysied into dir "log/log_list";

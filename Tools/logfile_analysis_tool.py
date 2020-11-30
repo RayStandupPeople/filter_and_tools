@@ -19,7 +19,7 @@ import platform
 import os
 import threading
 
-PROTOBUF =0
+PROTOBUF =1
 
 if PROTOBUF ==1 :
     import libs.types_pb2  #Protobuf environment model data types
@@ -694,7 +694,7 @@ class myThread (threading.Thread):
             print ("input the CurrentFrame No you want!")
             arr = input()
             try:
-                global_cur_frame = arr
+                global_cur_frame = int(arr)
             except SyntaxError:
                 print("err input, try again")
             else:
@@ -722,10 +722,11 @@ if __name__ == "__main__":
         # file_name  = "../log/log_2020_1023/staticCar_perMove.log"         # file name you want to play
         # file_name  = file_dir+"putty1124152404.log"         # file name you want to play
         for (root,dirs,files) in os.walk(file_dir):
-            file_name = file_dir + files[-1]
+            file_name = file_dir + files[-1]  
     else:
         print("Warning : read from shared file: " +str(argv[1]))
         file_name = str(argv[1])                                                  # file from outside
+
     global_cur_frame = 400                                                       # xhw file position you want to play from
     global_ID_interested = 1                                                   # xhw DisPlay the OBSTCAL with the specified ID ARRAY
     p = Plot(file_name)
