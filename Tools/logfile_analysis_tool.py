@@ -6,7 +6,7 @@
 #  * @Title:  logfile_analysis_tool.py 
 #  * @Description:  For personal usage, Analysis Logged Data and visualization 
 #  * @author: limin.zhu    
-#  * @date:   2020.09.29  
+#  * @date:   2020.11.30  
 #  * @version V1.0 
 #  * @Copyright: ${2020} www.baicgroup.com.cn Inc. All rights reserved. 
 #  */  
@@ -381,7 +381,7 @@ class Plot(Obstacle):
         
         ## xhw ###
         '''
-        @element List:
+        @element List(Interested Obstacle):
         obj_id
         obj_type
         obj_x
@@ -398,9 +398,9 @@ class Plot(Obstacle):
         selected_obj_y
         selected_obj_id
         '''
-        self.show_target_element("obj_id",[1,2])
-        self.show_target_element("obj_rel_speed_x",[2,4])
-        self.show_target_element("obj_heading",[4,6])
+        self.show_target_element("selected_obj_id",[1,2])
+        self.show_target_element("selected_obj_x",[2,4])
+        self.show_target_element("selected_obj_y",[4,6])
         ## xhw ###
 
         
@@ -728,7 +728,7 @@ if __name__ == "__main__":
         file_name = str(argv[1])                                                  # file from outside
 
     global_cur_frame = 400                                                       # xhw file position you want to play from
-    global_ID_interested = 1                                                   # xhw DisPlay the OBSTCAL with the specified ID ARRAY
+    global_ID_interested = 2                                                   # xhw DisPlay the OBSTCAL with the specified ID ARRAY
     p = Plot(file_name)
     print("parsing File......")
     time_s = time.time()
@@ -743,7 +743,6 @@ if __name__ == "__main__":
 
     thread1 = myThread(1, "Thread-1", 1)
     thread1.start()
-
 
     print("loading......")
     while True:
