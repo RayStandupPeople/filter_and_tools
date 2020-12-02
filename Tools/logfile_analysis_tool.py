@@ -43,6 +43,10 @@ class UserInfo:
         self.selected_obj_x=0
         self.selected_obj_y=0
         self.selected_obj_id=0
+        self.selected_obj_abs_speed_x =0
+        self.selected_obj_rel_speed_x =0
+        self.selected_obj_rel_speed_y =0
+        self.selected_obj_type =0 
         
 
 class StatusMachine:
@@ -197,29 +201,48 @@ class Plot(Obstacle):
         with open("log/wholeFile_info_pb",'wb') as file_obs_list:
             file_obs_list.write(logfile_string_pb)
             
-    def show_global_path(self):
+    def show_global_path(self, loc):
         '''
         @breaf show global path (blue valley right lane)
         '''
 
-        global_path_x =[-120, -30, -20, -15, -10, -10, -13, -30, -115]
-        global_path_y =[-30, -30, -28, -25, -20, 0, 6, 10, 10]
+        global_path_x_lg =[-120, -30, -20, -15, -10, -10, -13, -30, -115]
+        global_path_y_lg =[-30, -30, -28, -25, -20, 0, 6, 10, 10]
+
+        global_path_x_gwh =[0,   40,  60,  65,  70, 75,   80,  95, 106]
+        global_path_y_gwh =[105, 130, 140, 135, 125, 115, 110, 90, 71]
+
+        if loc ==2 :
+            global_path_y = global_path_y_gwh
+            global_path_x = global_path_x_gwh
+            # plt.ylim([60,150])
+        else: 
+            global_path_y = global_path_y_lg
+            global_path_x = global_path_x_lg
+            # plt.ylim([-35,15])
+
+
+
         gx_=plt.subplot(self.grid[2:3,3])
         gx_.plot(global_path_x, global_path_y)
 
-    def show_localization(self,frame_num):
+    def show_localization(self,frame_num,loc):
             '''
             @breaf show current vehicle localization 
             @param frame_num: which frame to be shown 
             '''
 
             lx_=plt.subplot(self.grid[2:3,3])
-            plt.ylim([-35,15])
             line, = lx_.plot(0,0,'ro',markersize=2)
             # lx_.plot(self.frame_list[frame_num].localization.latRest_X,self.frame_list[frame_num].localization.lonRest_Y,"ro")
             line.set_xdata(self.frame_list[frame_num].localization.latRest_X)
             line.set_ydata(self.frame_list[frame_num].localization.lonRest_Y)
-            
+            if loc ==1:
+                plt.ylim([-35,15])
+            else:
+                plt.ylim([60,150])
+
+
 
 
     def show_object_lists(self,frame_num):
@@ -397,10 +420,14 @@ class Plot(Obstacle):
         selected_obj_x
         selected_obj_y
         selected_obj_id
+        selected_obj_abs_speed_x
+        selected_obj_rel_speed_x
+        selected_obj_rel_speed_y
+        selected_obj_type
         '''
         self.show_target_element("selected_obj_id",[1,2])
-        self.show_target_element("selected_obj_x",[2,4])
-        self.show_target_element("selected_obj_y",[4,6])
+        self.show_target_element("obj_id",[2,4])
+        self.show_target_element("obj_x",[4,6])
         ## xhw ###
 
         
@@ -618,6 +645,14 @@ class Plot(Obstacle):
                                     userinfo_.selected_obj_y = self.clean_and_check_data(line,'float')
                                 if(line.find("selectObj->frontMid.obj.id")!=-1):
                                     userinfo_.selected_obj_id = self.clean_and_check_data(line,'int')
+                                if(line.find("selectObj->frontMid.obj.rel_speed_x")!=-1):
+                                    userinfo_.selected_obj_rel_speed_x = self.clean_and_check_data(line,'float')
+                                if(line.find("selectObj->frontMid.obj.rel_speed_y")!=-1):
+                                    userinfo_.selected_obj_rel_speed_y = self.clean_and_check_data(line,'float')
+                                if(line.find("selectObj->frontMid.obj.abs_speed_x")!=-1):
+                                    userinfo_.selected_obj_abs_speed_x = self.clean_and_check_data(line,'float')
+                                if(line.find("selectObj->frontMid.obj.type")!=-1):
+                                    userinfo_.selected_obj_type = self.clean_and_check_data(line,'int')
                                    
                                 #  input your interested key words #
                                 if self.check_line_need_break(line,f):
@@ -728,7 +763,7 @@ if __name__ == "__main__":
         file_name = str(argv[1])                                                  # file from outside
 
     global_cur_frame = 400                                                       # xhw file position you want to play from
-    global_ID_interested = 2                                                   # xhw DisPlay the OBSTCAL with the specified ID ARRAY
+    global_ID_interested = 6                                                   # xhw DisPlay the OBSTCAL with the specified ID ARRAY
     p = Plot(file_name)
     print("parsing File......")
     time_s = time.time()
@@ -739,8 +774,7 @@ if __name__ == "__main__":
     if PROTOBUF ==1 :
         p.set_wholeFile_info_to_protobuf()
     # p.set_user_to_file()
-    p.show_global_path()
-
+    p.show_global_path(2)
     thread1 = myThread(1, "Thread-1", 1)
     thread1.start()
 
@@ -750,6 +784,6 @@ if __name__ == "__main__":
             global_cur_frame=0
         p.show_object_lists(global_cur_frame)
         p.show_global_info(global_cur_frame,frame_len)
-        p.show_localization(global_cur_frame)
+        p.show_localization(global_cur_frame,2)
         global_cur_frame=global_cur_frame+1
         plt.pause(PLAY_SPEED)  #play speed
