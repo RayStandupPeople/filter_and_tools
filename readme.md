@@ -1,5 +1,12 @@
-Version 3.1  (2020,11,29)
-update:
+Version 3.3  (2020,12,04)
+
+update 3.3:
+	* fix bug of display Target Object ID miss frames 
+	
+update 3.2:
+	* add dicision_command display feature
+
+update 3.1:
 	* add keyboard input thread which help to skip frames 
 
 usage£º

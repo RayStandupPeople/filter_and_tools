@@ -405,17 +405,17 @@ class Plot(Obstacle):
         ## xhw ###
         '''
         @element List(Interested Obstacle):
-        obj_id
-        obj_type
-        obj_x
-        obj_y
-        obj_rel_speed_x
-        obj_rel_speed_y
-        obj_abs_speed_x
-        obj_abs_speed_y
-        obj_heading
-        obj_length
-        obj_width 
+        tar_obj_id
+        tar_obj_type
+        tar_obj_x
+        tar_obj_y
+        tar_obj_rel_speed_x
+        tar_obj_rel_speed_y
+        tar_obj_abs_speed_x
+        tar_obj_abs_speed_y
+        tar_obj_heading
+        tar_obj_length
+        tar_obj_width 
 
         selected_obj_x
         selected_obj_y
@@ -424,10 +424,14 @@ class Plot(Obstacle):
         selected_obj_rel_speed_x
         selected_obj_rel_speed_y
         selected_obj_type
+
+        obj_mid_s_m
+
+        decision_command
         '''
         self.show_target_element("selected_obj_id",[1,2])
-        self.show_target_element("obj_id",[2,4])
-        self.show_target_element("obj_x",[4,6])
+        self.show_target_element("tar_obj_id",[2,4])
+        self.show_target_element("decision_command",[4,6])
         ## xhw ###
 
         
@@ -443,14 +447,26 @@ class Plot(Obstacle):
         # time_stamp_num = len(self.target_TYPE_list)
         t=np.linspace(0, time_stamp_num-1,time_stamp_num)
         element_val_list=[]
-        if not element_type.find('selected_obj'):
+
+        if (element_type.find('selected_obj')==0) or (element_type.find('obj_mid_s_m')==0):   # XX ==0 means match value at the very beginning
             for frame_ in self.frame_list:
                 try:
                     class_num_opra = eval("frame_.userinfo."+element_type)
                     element_val_list.append(class_num_opra)
                 except AttributeError:
                     element_val_list.append(0)
-        else:
+                
+
+        if element_type.find('decision_command')==0:
+            for frame_ in self.frame_list:
+                try:
+                    class_num_opra = eval("frame_.hdmapInfo."+element_type)
+                    element_val_list.append(class_num_opra)
+                except AttributeError:
+                    element_val_list.append(0)
+
+        if element_type.find('tar_obj')==0:
+            element_type = element_type[4:]
             for tgt in self.target_ID_list:
                 try:
                     class_num_opra = eval("tgt."+element_type)
@@ -669,7 +685,8 @@ class Plot(Obstacle):
 
                                 #####               Read next         ####
                         else:
-                            line = f.readline()
+                            if(line.find("=888=R=Obstacles[0].id")==-1):
+                                line = f.readline()
                             if not line:
                                 break
                             if(line.find("R=frame_index")!=-1):    # find new frame
@@ -710,6 +727,7 @@ class Plot(Obstacle):
                     exist_match_id =1
             if not exist_match_id:
                 self.target_ID_list.append(0) 
+        
                 
         target_obstalce_num = len(self.target_ID_list) 
         if target_obstalce_num == 0:
@@ -757,13 +775,17 @@ if __name__ == "__main__":
         # file_name  = "../log/log_2020_1023/staticCar_perMove.log"         # file name you want to play
         # file_name  = file_dir+"putty1124152404.log"         # file name you want to play
         for (root,dirs,files) in os.walk(file_dir):
-            file_name = file_dir + files[-1]  
+            try:
+                file_name = file_dir + files[-1] 
+            except IndexError:
+                print("ERROR:make sure you have put valid log file into log_list dir!!!")
+                
     else:
         print("Warning : read from shared file: " +str(argv[1]))
         file_name = str(argv[1])                                                  # file from outside
 
-    global_cur_frame = 400                                                       # xhw file position you want to play from
-    global_ID_interested = 6                                                   # xhw DisPlay the OBSTCAL with the specified ID ARRAY
+    global_cur_frame = 1                                                       # xhw file position you want to play from
+    global_ID_interested = 198                                                   # xhw DisPlay the OBSTCAL with the specified ID ARRAY
     p = Plot(file_name)
     print("parsing File......")
     time_s = time.time()
