@@ -14,7 +14,8 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
-extern PROTOBUF_INTERNAL_EXPORT_obstacleSel_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Frame_obstacleSel_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_obstacleSel_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_CIPVObstacle_obstacleSel_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_obstacleSel_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_Frame_obstacleSel_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_obstacleSel_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Obstacle_obstacleSel_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_obstacleSel_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_ObstacleList_obstacleSel_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_obstacleSel_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Path_obstacleSel_2eproto;
@@ -44,7 +45,26 @@ class ObstacleListDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ObstacleList> _instance;
 } _ObstacleList_default_instance_;
+class CIPVObstacleDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<CIPVObstacle> _instance;
+} _CIPVObstacle_default_instance_;
 }  // namespace pb_obstacle_sel
+static void InitDefaultsscc_info_CIPVObstacle_obstacleSel_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::pb_obstacle_sel::_CIPVObstacle_default_instance_;
+    new (ptr) ::pb_obstacle_sel::CIPVObstacle();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::pb_obstacle_sel::CIPVObstacle::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_CIPVObstacle_obstacleSel_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_CIPVObstacle_obstacleSel_2eproto}, {
+      &scc_info_Obstacle_obstacleSel_2eproto.base,}};
+
 static void InitDefaultsscc_info_Frame_obstacleSel_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -56,10 +76,11 @@ static void InitDefaultsscc_info_Frame_obstacleSel_2eproto() {
   ::pb_obstacle_sel::Frame::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Frame_obstacleSel_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_Frame_obstacleSel_2eproto}, {
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_Frame_obstacleSel_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 3, 0, InitDefaultsscc_info_Frame_obstacleSel_2eproto}, {
       &scc_info_Path_obstacleSel_2eproto.base,
-      &scc_info_ObstacleList_obstacleSel_2eproto.base,}};
+      &scc_info_ObstacleList_obstacleSel_2eproto.base,
+      &scc_info_CIPVObstacle_obstacleSel_2eproto.base,}};
 
 static void InitDefaultsscc_info_LogFile_obstacleSel_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -134,7 +155,7 @@ static void InitDefaultsscc_info_PathNode_obstacleSel_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_PathNode_obstacleSel_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_PathNode_obstacleSel_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_obstacleSel_2eproto[6];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_obstacleSel_2eproto[7];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_obstacleSel_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_obstacleSel_2eproto = nullptr;
 
@@ -154,6 +175,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_obstacleSel_2eproto::offsets[]
   PROTOBUF_FIELD_OFFSET(::pb_obstacle_sel::Frame, frame_id_),
   PROTOBUF_FIELD_OFFSET(::pb_obstacle_sel::Frame, path_),
   PROTOBUF_FIELD_OFFSET(::pb_obstacle_sel::Frame, obstacle_list_),
+  PROTOBUF_FIELD_OFFSET(::pb_obstacle_sel::Frame, cipv_obj_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::pb_obstacle_sel::PathNode, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -161,6 +183,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_obstacleSel_2eproto::offsets[]
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::pb_obstacle_sel::PathNode, car_x_),
   PROTOBUF_FIELD_OFFSET(::pb_obstacle_sel::PathNode, car_y_),
+  PROTOBUF_FIELD_OFFSET(::pb_obstacle_sel::PathNode, heading_),
   PROTOBUF_FIELD_OFFSET(::pb_obstacle_sel::PathNode, flat_x_),
   PROTOBUF_FIELD_OFFSET(::pb_obstacle_sel::PathNode, flat_y_),
   PROTOBUF_FIELD_OFFSET(::pb_obstacle_sel::PathNode, s_),
@@ -192,14 +215,21 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_obstacleSel_2eproto::offsets[]
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::pb_obstacle_sel::ObstacleList, num_),
   PROTOBUF_FIELD_OFFSET(::pb_obstacle_sel::ObstacleList, obstacle_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::pb_obstacle_sel::CIPVObstacle, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::pb_obstacle_sel::CIPVObstacle, cipv_obstacle_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::pb_obstacle_sel::LogFile)},
   { 7, -1, sizeof(::pb_obstacle_sel::Frame)},
-  { 15, -1, sizeof(::pb_obstacle_sel::PathNode)},
-  { 26, -1, sizeof(::pb_obstacle_sel::Path)},
-  { 33, -1, sizeof(::pb_obstacle_sel::Obstacle)},
-  { 46, -1, sizeof(::pb_obstacle_sel::ObstacleList)},
+  { 16, -1, sizeof(::pb_obstacle_sel::PathNode)},
+  { 28, -1, sizeof(::pb_obstacle_sel::Path)},
+  { 35, -1, sizeof(::pb_obstacle_sel::Obstacle)},
+  { 48, -1, sizeof(::pb_obstacle_sel::ObstacleList)},
+  { 55, -1, sizeof(::pb_obstacle_sel::CIPVObstacle)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -209,29 +239,34 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::pb_obstacle_sel::_Path_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::pb_obstacle_sel::_Obstacle_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::pb_obstacle_sel::_ObstacleList_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::pb_obstacle_sel::_CIPVObstacle_default_instance_),
 };
 
 const char descriptor_table_protodef_obstacleSel_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\021obstacleSel.proto\022\017pb_obstacle_sel\"I\n\007"
   "LogFile\022\027\n\017frame_total_num\030\001 \001(\005\022%\n\005fram"
-  "e\030\002 \003(\0132\026.pb_obstacle_sel.Frame\"t\n\005Frame"
-  "\022\020\n\010frame_id\030\001 \001(\005\022#\n\004path\030\002 \001(\0132\025.pb_ob"
-  "stacle_sel.Path\0224\n\robstacle_list\030\003 \001(\0132\035"
-  ".pb_obstacle_sel.ObstacleList\"^\n\010PathNod"
-  "e\022\r\n\005car_x\030\001 \001(\002\022\r\n\005car_y\030\002 \001(\002\022\016\n\006flat_"
-  "x\030\003 \001(\002\022\016\n\006flat_y\030\004 \001(\002\022\t\n\001s\030\005 \001(\002\022\t\n\001d\030"
-  "\006 \001(\002\"E\n\004Path\022\017\n\007node_id\030\001 \001(\005\022,\n\tpath_n"
-  "ode\030\002 \003(\0132\031.pb_obstacle_sel.PathNode\"\206\001\n"
-  "\010Obstacle\022\n\n\002id\030\001 \001(\005\022\014\n\004type\030\002 \001(\005\022\r\n\005p"
-  "os_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\022\r\n\005pos_s\030\005 \001(\002"
-  "\022\r\n\005pos_d\030\006 \001(\002\022\021\n\trel_spd_x\030\007 \001(\002\022\021\n\tre"
-  "l_spd_y\030\010 \001(\002\"H\n\014ObstacleList\022\013\n\003num\030\001 \001"
-  "(\005\022+\n\010obstacle\030\002 \003(\0132\031.pb_obstacle_sel.O"
-  "bstacleb\006proto3"
+  "e\030\002 \003(\0132\026.pb_obstacle_sel.Frame\"\245\001\n\005Fram"
+  "e\022\020\n\010frame_id\030\001 \001(\005\022#\n\004path\030\002 \001(\0132\025.pb_o"
+  "bstacle_sel.Path\0224\n\robstacle_list\030\003 \001(\0132"
+  "\035.pb_obstacle_sel.ObstacleList\022/\n\010cipv_o"
+  "bj\030\004 \001(\0132\035.pb_obstacle_sel.CIPVObstacle\""
+  "o\n\010PathNode\022\r\n\005car_x\030\001 \001(\002\022\r\n\005car_y\030\002 \001("
+  "\002\022\017\n\007heading\030\003 \001(\002\022\016\n\006flat_x\030\004 \001(\002\022\016\n\006fl"
+  "at_y\030\005 \001(\002\022\t\n\001s\030\006 \001(\002\022\t\n\001d\030\007 \001(\002\"E\n\004Path"
+  "\022\017\n\007node_id\030\001 \001(\005\022,\n\tpath_node\030\002 \003(\0132\031.p"
+  "b_obstacle_sel.PathNode\"\206\001\n\010Obstacle\022\n\n\002"
+  "id\030\001 \001(\005\022\014\n\004type\030\002 \001(\005\022\r\n\005pos_x\030\003 \001(\002\022\r\n"
+  "\005pos_y\030\004 \001(\002\022\r\n\005pos_s\030\005 \001(\002\022\r\n\005pos_d\030\006 \001"
+  "(\002\022\021\n\trel_spd_x\030\007 \001(\002\022\021\n\trel_spd_y\030\010 \001(\002"
+  "\"H\n\014ObstacleList\022\013\n\003num\030\001 \001(\005\022+\n\010obstacl"
+  "e\030\002 \003(\0132\031.pb_obstacle_sel.Obstacle\"@\n\014CI"
+  "PVObstacle\0220\n\rcipv_obstacle\030\001 \001(\0132\031.pb_o"
+  "bstacle_sel.Obstacleb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_obstacleSel_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_obstacleSel_2eproto_sccs[6] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_obstacleSel_2eproto_sccs[7] = {
+  &scc_info_CIPVObstacle_obstacleSel_2eproto.base,
   &scc_info_Frame_obstacleSel_2eproto.base,
   &scc_info_LogFile_obstacleSel_2eproto.base,
   &scc_info_Obstacle_obstacleSel_2eproto.base,
@@ -242,10 +277,10 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_obs
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_obstacleSel_2eproto_once;
 static bool descriptor_table_obstacleSel_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_obstacleSel_2eproto = {
-  &descriptor_table_obstacleSel_2eproto_initialized, descriptor_table_protodef_obstacleSel_2eproto, "obstacleSel.proto", 615,
-  &descriptor_table_obstacleSel_2eproto_once, descriptor_table_obstacleSel_2eproto_sccs, descriptor_table_obstacleSel_2eproto_deps, 6, 0,
+  &descriptor_table_obstacleSel_2eproto_initialized, descriptor_table_protodef_obstacleSel_2eproto, "obstacleSel.proto", 748,
+  &descriptor_table_obstacleSel_2eproto_once, descriptor_table_obstacleSel_2eproto_sccs, descriptor_table_obstacleSel_2eproto_deps, 7, 0,
   schemas, file_default_instances, TableStruct_obstacleSel_2eproto::offsets,
-  file_level_metadata_obstacleSel_2eproto, 6, file_level_enum_descriptors_obstacleSel_2eproto, file_level_service_descriptors_obstacleSel_2eproto,
+  file_level_metadata_obstacleSel_2eproto, 7, file_level_enum_descriptors_obstacleSel_2eproto, file_level_service_descriptors_obstacleSel_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -477,11 +512,14 @@ void Frame::InitAsDefaultInstance() {
       ::pb_obstacle_sel::Path::internal_default_instance());
   ::pb_obstacle_sel::_Frame_default_instance_._instance.get_mutable()->obstacle_list_ = const_cast< ::pb_obstacle_sel::ObstacleList*>(
       ::pb_obstacle_sel::ObstacleList::internal_default_instance());
+  ::pb_obstacle_sel::_Frame_default_instance_._instance.get_mutable()->cipv_obj_ = const_cast< ::pb_obstacle_sel::CIPVObstacle*>(
+      ::pb_obstacle_sel::CIPVObstacle::internal_default_instance());
 }
 class Frame::_Internal {
  public:
   static const ::pb_obstacle_sel::Path& path(const Frame* msg);
   static const ::pb_obstacle_sel::ObstacleList& obstacle_list(const Frame* msg);
+  static const ::pb_obstacle_sel::CIPVObstacle& cipv_obj(const Frame* msg);
 };
 
 const ::pb_obstacle_sel::Path&
@@ -491,6 +529,10 @@ Frame::_Internal::path(const Frame* msg) {
 const ::pb_obstacle_sel::ObstacleList&
 Frame::_Internal::obstacle_list(const Frame* msg) {
   return *msg->obstacle_list_;
+}
+const ::pb_obstacle_sel::CIPVObstacle&
+Frame::_Internal::cipv_obj(const Frame* msg) {
+  return *msg->cipv_obj_;
 }
 Frame::Frame()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
@@ -511,6 +553,11 @@ Frame::Frame(const Frame& from)
   } else {
     obstacle_list_ = nullptr;
   }
+  if (from._internal_has_cipv_obj()) {
+    cipv_obj_ = new ::pb_obstacle_sel::CIPVObstacle(*from.cipv_obj_);
+  } else {
+    cipv_obj_ = nullptr;
+  }
   frame_id_ = from.frame_id_;
   // @@protoc_insertion_point(copy_constructor:pb_obstacle_sel.Frame)
 }
@@ -530,6 +577,7 @@ Frame::~Frame() {
 void Frame::SharedDtor() {
   if (this != internal_default_instance()) delete path_;
   if (this != internal_default_instance()) delete obstacle_list_;
+  if (this != internal_default_instance()) delete cipv_obj_;
 }
 
 void Frame::SetCachedSize(int size) const {
@@ -555,6 +603,10 @@ void Frame::Clear() {
     delete obstacle_list_;
   }
   obstacle_list_ = nullptr;
+  if (GetArenaNoVirtual() == nullptr && cipv_obj_ != nullptr) {
+    delete cipv_obj_;
+  }
+  cipv_obj_ = nullptr;
   frame_id_ = 0;
   _internal_metadata_.Clear();
 }
@@ -584,6 +636,13 @@ const char* Frame::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_obstacle_list(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .pb_obstacle_sel.CIPVObstacle cipv_obj = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_cipv_obj(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -635,6 +694,14 @@ failure:
         3, _Internal::obstacle_list(this), target, stream);
   }
 
+  // .pb_obstacle_sel.CIPVObstacle cipv_obj = 4;
+  if (this->has_cipv_obj()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        4, _Internal::cipv_obj(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -663,6 +730,13 @@ size_t Frame::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *obstacle_list_);
+  }
+
+  // .pb_obstacle_sel.CIPVObstacle cipv_obj = 4;
+  if (this->has_cipv_obj()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *cipv_obj_);
   }
 
   // int32 frame_id = 1;
@@ -709,6 +783,9 @@ void Frame::MergeFrom(const Frame& from) {
   if (from.has_obstacle_list()) {
     _internal_mutable_obstacle_list()->::pb_obstacle_sel::ObstacleList::MergeFrom(from._internal_obstacle_list());
   }
+  if (from.has_cipv_obj()) {
+    _internal_mutable_cipv_obj()->::pb_obstacle_sel::CIPVObstacle::MergeFrom(from._internal_cipv_obj());
+  }
   if (from.frame_id() != 0) {
     _internal_set_frame_id(from._internal_frame_id());
   }
@@ -737,6 +814,7 @@ void Frame::InternalSwap(Frame* other) {
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(path_, other->path_);
   swap(obstacle_list_, other->obstacle_list_);
+  swap(cipv_obj_, other->cipv_obj_);
   swap(frame_id_, other->frame_id_);
 }
 
@@ -824,30 +902,37 @@ const char* PathNode::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // float flat_x = 3;
+      // float heading = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 29)) {
+          heading_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // float flat_x = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 37)) {
           flat_x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // float flat_y = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 37)) {
+      // float flat_y = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 45)) {
           flat_y_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // float s = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 45)) {
+      // float s = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 53)) {
           s_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // float d = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 53)) {
+      // float d = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 61)) {
           d_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
@@ -890,28 +975,34 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_car_y(), target);
   }
 
-  // float flat_x = 3;
+  // float heading = 3;
+  if (!(this->heading() <= 0 && this->heading() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(3, this->_internal_heading(), target);
+  }
+
+  // float flat_x = 4;
   if (!(this->flat_x() <= 0 && this->flat_x() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(3, this->_internal_flat_x(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(4, this->_internal_flat_x(), target);
   }
 
-  // float flat_y = 4;
+  // float flat_y = 5;
   if (!(this->flat_y() <= 0 && this->flat_y() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(4, this->_internal_flat_y(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(5, this->_internal_flat_y(), target);
   }
 
-  // float s = 5;
+  // float s = 6;
   if (!(this->s() <= 0 && this->s() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(5, this->_internal_s(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(6, this->_internal_s(), target);
   }
 
-  // float d = 6;
+  // float d = 7;
   if (!(this->d() <= 0 && this->d() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(6, this->_internal_d(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(7, this->_internal_d(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -940,22 +1031,27 @@ size_t PathNode::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float flat_x = 3;
+  // float heading = 3;
+  if (!(this->heading() <= 0 && this->heading() >= 0)) {
+    total_size += 1 + 4;
+  }
+
+  // float flat_x = 4;
   if (!(this->flat_x() <= 0 && this->flat_x() >= 0)) {
     total_size += 1 + 4;
   }
 
-  // float flat_y = 4;
+  // float flat_y = 5;
   if (!(this->flat_y() <= 0 && this->flat_y() >= 0)) {
     total_size += 1 + 4;
   }
 
-  // float s = 5;
+  // float s = 6;
   if (!(this->s() <= 0 && this->s() >= 0)) {
     total_size += 1 + 4;
   }
 
-  // float d = 6;
+  // float d = 7;
   if (!(this->d() <= 0 && this->d() >= 0)) {
     total_size += 1 + 4;
   }
@@ -997,6 +1093,9 @@ void PathNode::MergeFrom(const PathNode& from) {
   if (!(from.car_y() <= 0 && from.car_y() >= 0)) {
     _internal_set_car_y(from._internal_car_y());
   }
+  if (!(from.heading() <= 0 && from.heading() >= 0)) {
+    _internal_set_heading(from._internal_heading());
+  }
   if (!(from.flat_x() <= 0 && from.flat_x() >= 0)) {
     _internal_set_flat_x(from._internal_flat_x());
   }
@@ -1034,6 +1133,7 @@ void PathNode::InternalSwap(PathNode* other) {
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(car_x_, other->car_x_);
   swap(car_y_, other->car_y_);
+  swap(heading_, other->heading_);
   swap(flat_x_, other->flat_x_);
   swap(flat_y_, other->flat_y_);
   swap(s_, other->s_);
@@ -1829,6 +1929,210 @@ void ObstacleList::InternalSwap(ObstacleList* other) {
 }
 
 
+// ===================================================================
+
+void CIPVObstacle::InitAsDefaultInstance() {
+  ::pb_obstacle_sel::_CIPVObstacle_default_instance_._instance.get_mutable()->cipv_obstacle_ = const_cast< ::pb_obstacle_sel::Obstacle*>(
+      ::pb_obstacle_sel::Obstacle::internal_default_instance());
+}
+class CIPVObstacle::_Internal {
+ public:
+  static const ::pb_obstacle_sel::Obstacle& cipv_obstacle(const CIPVObstacle* msg);
+};
+
+const ::pb_obstacle_sel::Obstacle&
+CIPVObstacle::_Internal::cipv_obstacle(const CIPVObstacle* msg) {
+  return *msg->cipv_obstacle_;
+}
+CIPVObstacle::CIPVObstacle()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:pb_obstacle_sel.CIPVObstacle)
+}
+CIPVObstacle::CIPVObstacle(const CIPVObstacle& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from._internal_has_cipv_obstacle()) {
+    cipv_obstacle_ = new ::pb_obstacle_sel::Obstacle(*from.cipv_obstacle_);
+  } else {
+    cipv_obstacle_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:pb_obstacle_sel.CIPVObstacle)
+}
+
+void CIPVObstacle::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_CIPVObstacle_obstacleSel_2eproto.base);
+  cipv_obstacle_ = nullptr;
+}
+
+CIPVObstacle::~CIPVObstacle() {
+  // @@protoc_insertion_point(destructor:pb_obstacle_sel.CIPVObstacle)
+  SharedDtor();
+}
+
+void CIPVObstacle::SharedDtor() {
+  if (this != internal_default_instance()) delete cipv_obstacle_;
+}
+
+void CIPVObstacle::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const CIPVObstacle& CIPVObstacle::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_CIPVObstacle_obstacleSel_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void CIPVObstacle::Clear() {
+// @@protoc_insertion_point(message_clear_start:pb_obstacle_sel.CIPVObstacle)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaNoVirtual() == nullptr && cipv_obstacle_ != nullptr) {
+    delete cipv_obstacle_;
+  }
+  cipv_obstacle_ = nullptr;
+  _internal_metadata_.Clear();
+}
+
+const char* CIPVObstacle::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // .pb_obstacle_sel.Obstacle cipv_obstacle = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_cipv_obstacle(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* CIPVObstacle::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:pb_obstacle_sel.CIPVObstacle)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .pb_obstacle_sel.Obstacle cipv_obstacle = 1;
+  if (this->has_cipv_obstacle()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        1, _Internal::cipv_obstacle(this), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:pb_obstacle_sel.CIPVObstacle)
+  return target;
+}
+
+size_t CIPVObstacle::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:pb_obstacle_sel.CIPVObstacle)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .pb_obstacle_sel.Obstacle cipv_obstacle = 1;
+  if (this->has_cipv_obstacle()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *cipv_obstacle_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CIPVObstacle::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:pb_obstacle_sel.CIPVObstacle)
+  GOOGLE_DCHECK_NE(&from, this);
+  const CIPVObstacle* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<CIPVObstacle>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:pb_obstacle_sel.CIPVObstacle)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:pb_obstacle_sel.CIPVObstacle)
+    MergeFrom(*source);
+  }
+}
+
+void CIPVObstacle::MergeFrom(const CIPVObstacle& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:pb_obstacle_sel.CIPVObstacle)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_cipv_obstacle()) {
+    _internal_mutable_cipv_obstacle()->::pb_obstacle_sel::Obstacle::MergeFrom(from._internal_cipv_obstacle());
+  }
+}
+
+void CIPVObstacle::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:pb_obstacle_sel.CIPVObstacle)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CIPVObstacle::CopyFrom(const CIPVObstacle& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:pb_obstacle_sel.CIPVObstacle)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CIPVObstacle::IsInitialized() const {
+  return true;
+}
+
+void CIPVObstacle::InternalSwap(CIPVObstacle* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(cipv_obstacle_, other->cipv_obstacle_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata CIPVObstacle::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace pb_obstacle_sel
 PROTOBUF_NAMESPACE_OPEN
@@ -1849,6 +2153,9 @@ template<> PROTOBUF_NOINLINE ::pb_obstacle_sel::Obstacle* Arena::CreateMaybeMess
 }
 template<> PROTOBUF_NOINLINE ::pb_obstacle_sel::ObstacleList* Arena::CreateMaybeMessage< ::pb_obstacle_sel::ObstacleList >(Arena* arena) {
   return Arena::CreateInternal< ::pb_obstacle_sel::ObstacleList >(arena);
+}
+template<> PROTOBUF_NOINLINE ::pb_obstacle_sel::CIPVObstacle* Arena::CreateMaybeMessage< ::pb_obstacle_sel::CIPVObstacle >(Arena* arena) {
+  return Arena::CreateInternal< ::pb_obstacle_sel::CIPVObstacle >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

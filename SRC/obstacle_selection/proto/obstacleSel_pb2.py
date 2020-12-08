@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='pb_obstacle_sel',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x11obstacleSel.proto\x12\x0fpb_obstacle_sel\"I\n\x07LogFile\x12\x17\n\x0f\x66rame_total_num\x18\x01 \x01(\x05\x12%\n\x05\x66rame\x18\x02 \x03(\x0b\x32\x16.pb_obstacle_sel.Frame\"t\n\x05\x46rame\x12\x10\n\x08\x66rame_id\x18\x01 \x01(\x05\x12#\n\x04path\x18\x02 \x01(\x0b\x32\x15.pb_obstacle_sel.Path\x12\x34\n\robstacle_list\x18\x03 \x01(\x0b\x32\x1d.pb_obstacle_sel.ObstacleList\"^\n\x08PathNode\x12\r\n\x05\x63\x61r_x\x18\x01 \x01(\x02\x12\r\n\x05\x63\x61r_y\x18\x02 \x01(\x02\x12\x0e\n\x06\x66lat_x\x18\x03 \x01(\x02\x12\x0e\n\x06\x66lat_y\x18\x04 \x01(\x02\x12\t\n\x01s\x18\x05 \x01(\x02\x12\t\n\x01\x64\x18\x06 \x01(\x02\"E\n\x04Path\x12\x0f\n\x07node_id\x18\x01 \x01(\x05\x12,\n\tpath_node\x18\x02 \x03(\x0b\x32\x19.pb_obstacle_sel.PathNode\"\x86\x01\n\x08Obstacle\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\r\n\x05pos_x\x18\x03 \x01(\x02\x12\r\n\x05pos_y\x18\x04 \x01(\x02\x12\r\n\x05pos_s\x18\x05 \x01(\x02\x12\r\n\x05pos_d\x18\x06 \x01(\x02\x12\x11\n\trel_spd_x\x18\x07 \x01(\x02\x12\x11\n\trel_spd_y\x18\x08 \x01(\x02\"H\n\x0cObstacleList\x12\x0b\n\x03num\x18\x01 \x01(\x05\x12+\n\x08obstacle\x18\x02 \x03(\x0b\x32\x19.pb_obstacle_sel.Obstacleb\x06proto3'
+  serialized_pb=b'\n\x11obstacleSel.proto\x12\x0fpb_obstacle_sel\"I\n\x07LogFile\x12\x17\n\x0f\x66rame_total_num\x18\x01 \x01(\x05\x12%\n\x05\x66rame\x18\x02 \x03(\x0b\x32\x16.pb_obstacle_sel.Frame\"\xa5\x01\n\x05\x46rame\x12\x10\n\x08\x66rame_id\x18\x01 \x01(\x05\x12#\n\x04path\x18\x02 \x01(\x0b\x32\x15.pb_obstacle_sel.Path\x12\x34\n\robstacle_list\x18\x03 \x01(\x0b\x32\x1d.pb_obstacle_sel.ObstacleList\x12/\n\x08\x63ipv_obj\x18\x04 \x01(\x0b\x32\x1d.pb_obstacle_sel.CIPVObstacle\"o\n\x08PathNode\x12\r\n\x05\x63\x61r_x\x18\x01 \x01(\x02\x12\r\n\x05\x63\x61r_y\x18\x02 \x01(\x02\x12\x0f\n\x07heading\x18\x03 \x01(\x02\x12\x0e\n\x06\x66lat_x\x18\x04 \x01(\x02\x12\x0e\n\x06\x66lat_y\x18\x05 \x01(\x02\x12\t\n\x01s\x18\x06 \x01(\x02\x12\t\n\x01\x64\x18\x07 \x01(\x02\"E\n\x04Path\x12\x0f\n\x07node_id\x18\x01 \x01(\x05\x12,\n\tpath_node\x18\x02 \x03(\x0b\x32\x19.pb_obstacle_sel.PathNode\"\x86\x01\n\x08Obstacle\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\r\n\x05pos_x\x18\x03 \x01(\x02\x12\r\n\x05pos_y\x18\x04 \x01(\x02\x12\r\n\x05pos_s\x18\x05 \x01(\x02\x12\r\n\x05pos_d\x18\x06 \x01(\x02\x12\x11\n\trel_spd_x\x18\x07 \x01(\x02\x12\x11\n\trel_spd_y\x18\x08 \x01(\x02\"H\n\x0cObstacleList\x12\x0b\n\x03num\x18\x01 \x01(\x05\x12+\n\x08obstacle\x18\x02 \x03(\x0b\x32\x19.pb_obstacle_sel.Obstacle\"@\n\x0c\x43IPVObstacle\x12\x30\n\rcipv_obstacle\x18\x01 \x01(\x0b\x32\x19.pb_obstacle_sel.Obstacleb\x06proto3'
 )
 
 
@@ -90,6 +90,13 @@ _FRAME = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='cipv_obj', full_name='pb_obstacle_sel.Frame.cipv_obj', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -102,8 +109,8 @@ _FRAME = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=113,
-  serialized_end=229,
+  serialized_start=114,
+  serialized_end=279,
 )
 
 
@@ -129,29 +136,36 @@ _PATHNODE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='flat_x', full_name='pb_obstacle_sel.PathNode.flat_x', index=2,
+      name='heading', full_name='pb_obstacle_sel.PathNode.heading', index=2,
       number=3, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='flat_y', full_name='pb_obstacle_sel.PathNode.flat_y', index=3,
+      name='flat_x', full_name='pb_obstacle_sel.PathNode.flat_x', index=3,
       number=4, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='s', full_name='pb_obstacle_sel.PathNode.s', index=4,
+      name='flat_y', full_name='pb_obstacle_sel.PathNode.flat_y', index=4,
       number=5, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='d', full_name='pb_obstacle_sel.PathNode.d', index=5,
+      name='s', full_name='pb_obstacle_sel.PathNode.s', index=5,
       number=6, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='d', full_name='pb_obstacle_sel.PathNode.d', index=6,
+      number=7, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -168,8 +182,8 @@ _PATHNODE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=231,
-  serialized_end=325,
+  serialized_start=281,
+  serialized_end=392,
 )
 
 
@@ -206,8 +220,8 @@ _PATH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=327,
-  serialized_end=396,
+  serialized_start=394,
+  serialized_end=463,
 )
 
 
@@ -286,8 +300,8 @@ _OBSTACLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=399,
-  serialized_end=533,
+  serialized_start=466,
+  serialized_end=600,
 )
 
 
@@ -324,21 +338,55 @@ _OBSTACLELIST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=535,
-  serialized_end=607,
+  serialized_start=602,
+  serialized_end=674,
+)
+
+
+_CIPVOBSTACLE = _descriptor.Descriptor(
+  name='CIPVObstacle',
+  full_name='pb_obstacle_sel.CIPVObstacle',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='cipv_obstacle', full_name='pb_obstacle_sel.CIPVObstacle.cipv_obstacle', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=676,
+  serialized_end=740,
 )
 
 _LOGFILE.fields_by_name['frame'].message_type = _FRAME
 _FRAME.fields_by_name['path'].message_type = _PATH
 _FRAME.fields_by_name['obstacle_list'].message_type = _OBSTACLELIST
+_FRAME.fields_by_name['cipv_obj'].message_type = _CIPVOBSTACLE
 _PATH.fields_by_name['path_node'].message_type = _PATHNODE
 _OBSTACLELIST.fields_by_name['obstacle'].message_type = _OBSTACLE
+_CIPVOBSTACLE.fields_by_name['cipv_obstacle'].message_type = _OBSTACLE
 DESCRIPTOR.message_types_by_name['LogFile'] = _LOGFILE
 DESCRIPTOR.message_types_by_name['Frame'] = _FRAME
 DESCRIPTOR.message_types_by_name['PathNode'] = _PATHNODE
 DESCRIPTOR.message_types_by_name['Path'] = _PATH
 DESCRIPTOR.message_types_by_name['Obstacle'] = _OBSTACLE
 DESCRIPTOR.message_types_by_name['ObstacleList'] = _OBSTACLELIST
+DESCRIPTOR.message_types_by_name['CIPVObstacle'] = _CIPVOBSTACLE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 LogFile = _reflection.GeneratedProtocolMessageType('LogFile', (_message.Message,), {
@@ -382,6 +430,13 @@ ObstacleList = _reflection.GeneratedProtocolMessageType('ObstacleList', (_messag
   # @@protoc_insertion_point(class_scope:pb_obstacle_sel.ObstacleList)
   })
 _sym_db.RegisterMessage(ObstacleList)
+
+CIPVObstacle = _reflection.GeneratedProtocolMessageType('CIPVObstacle', (_message.Message,), {
+  'DESCRIPTOR' : _CIPVOBSTACLE,
+  '__module__' : 'obstacleSel_pb2'
+  # @@protoc_insertion_point(class_scope:pb_obstacle_sel.CIPVObstacle)
+  })
+_sym_db.RegisterMessage(CIPVObstacle)
 
 
 # @@protoc_insertion_point(module_scope)

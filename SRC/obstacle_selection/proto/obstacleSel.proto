@@ -10,15 +10,18 @@ message Frame {
     int32 frame_id =1;
     Path path = 2;
     ObstacleList obstacle_list = 3;
+    CIPVObstacle cipv_obj =4;
 
 }
 message PathNode {
     float car_x =1;
     float car_y =2;
-    float flat_x = 3;
-    float flat_y = 4;
-    float s = 5;
-    float d = 6;
+    float heading =3;
+    float flat_x = 4;
+    float flat_y = 5;
+    float s = 6;
+    float d = 7;
+
 }
 
 message Path{
@@ -40,4 +43,8 @@ message  Obstacle {
 message ObstacleList {
     int32 num =1;
     repeated Obstacle obstacle = 2;
+}
+
+message CIPVObstacle {
+    Obstacle cipv_obstacle =1;
 }
