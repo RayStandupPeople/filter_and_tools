@@ -1,3 +1,0 @@
-# Hashes of file build rules.
-cd3fea84e6a91ae98cf5afdff72285ca obstacleSel.pb.cc
-81a6d27df226ea7ab696d2cc8a9a347c types.pb.cc
