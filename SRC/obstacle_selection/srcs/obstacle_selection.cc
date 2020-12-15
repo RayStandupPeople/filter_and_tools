@@ -1,4 +1,4 @@
-#include "obstacle_selection.h"
+#include "../libs/obstacle_selection.h"
 double decision::distance(double x1, double y1, double x2, double y2)
 {
 	return sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
@@ -29,19 +29,19 @@ int decision::NextWaypoint(double x, double y, double theta, const std::vector<d
 {
 
 	int closestWaypoint = decision::ClosestWaypoint(x,y,maps_x,maps_y);
-
+	// std::cout <<"zlm::NextWaypoint: closestWaypoint=  " << closestWaypoint <<std::endl;
 	double map_x = maps_x[closestWaypoint];
 	double map_y = maps_y[closestWaypoint];
 
 	double heading = atan2( (map_y-y),(map_x-x) );
 
-	double angle = abs(theta-heading);
+	double angle = fabs(theta-heading);
 
 	if(angle > M_PI/4)
 	{
 		closestWaypoint++;
 	}
-
+	// std::cout <<"zlm::NextWaypoint: NextWaypoint=  " << closestWaypoint <<std::endl;
 	return closestWaypoint;
 
 }
@@ -50,6 +50,7 @@ int decision::NextWaypoint(double x, double y, double theta, const std::vector<d
 std::vector<double> decision::getFrenet(double x, double y, double theta, const std::vector<double> &maps_x, \
     const std::vector<double> &maps_y)
 {
+	
 	int next_wp = decision::NextWaypoint(x,y, theta, maps_x,maps_y);
 	int prev_wp;
 	prev_wp = next_wp-1;
@@ -81,7 +82,6 @@ std::vector<double> decision::getFrenet(double x, double y, double theta, const 
 	{
 		frenet_d *= -1;
 	}
-
 	// calculate s value
 	double frenet_s = 0;
 	for(int i = 0; i < prev_wp; i++)
@@ -105,17 +105,31 @@ std::vector<double> decision::getFrenet(double x, double y, double theta, const 
 //* 输  出: 参考路径信息(车体坐标系)
 
 //***************************************************************************************************/
-void convert_flat_to_vehicle(const Dt_RECORD_LocalizationInfo &loc_info, laneInfo *refpath){
+void decision::convert_flat_to_vehicle(Dt_RECORD_LocalizationInfo *loc_info, laneInfo *refpath){
     double a = loc_info->LocalizationResult.x;
     double b = loc_info->LocalizationResult.y;
     double t = -loc_info->yaw * M_PI/180; // base direction not sure
+	// std::cout <<"zlm::convert_flat_to_vehicle: node_idx as follow /" << std::endl;
+	// std::cout <<"zlm::convert_flat_to_vehicle: loc_info->LocalizationResult.x : " << a << std::endl;
+	// std::cout <<"zlm::convert_flat_to_vehicle: loc_info->LocalizationResult.y: " << b << std::endl;
+	// std::cout <<"zlm::convert_flat_to_vehicle: -loc_info->yaw * M_PI/180 : " << t << std::endl;
 
     for(int i=0;i<refpath->nodeNum;++i)
     {
-        refpath->laneNodeInfos[i].x = ( refpath->laneNodeInfos[i].x - a)*cos(t)   + (refpath->laneNodeInfos[i].y - b)*sin(t);
-        refpath->laneNodeInfos[i].y = ( refpath->laneNodeInfos[i].x - a)*-sin(t)  + (refpath->laneNodeInfos[i].y - b)*cos(t);
+        double x_ = ( refpath->laneNodeInfos[i].x - a)*cos(t)   + (refpath->laneNodeInfos[i].y - b)*sin(t);
+        double y_ = ( refpath->laneNodeInfos[i].x - a)*-sin(t)  + (refpath->laneNodeInfos[i].y - b)*cos(t);
+		refpath->laneNodeInfos[i].x = x_;
+		refpath->laneNodeInfos[i].y = y_;
     }
 
+	// std::cout <<"zlm::convert_flat_to_vehicle: refpath->nodeNum  = " << refpath->laneNodeInfos.size()<< std::endl;
+	// for(int node_idx =0; node_idx < refpath->laneNodeInfos.size();++node_idx)
+	// {
+	// 	std::cout <<"zlm::convert_flat_to_vehicle: node_idx as follow /" << std::endl;
+	// 	std::cout <<"zlm::convert_flat_to_vehicle: node_idx_x : " << refpath->laneNodeInfos[node_idx].x << std::endl;
+	// 	std::cout <<"zlm::convert_flat_to_vehicle: node_idx_y : " << refpath->laneNodeInfos[node_idx].y << std::endl;
+	// 	std::cout <<"zlm::convert_flat_to_vehicle: node_idx_heading : " << refpath->laneNodeInfos[node_idx].heading << std::endl;
+	// }
 }
 
 ///***************************************************************************************************
@@ -125,7 +139,7 @@ void convert_flat_to_vehicle(const Dt_RECORD_LocalizationInfo &loc_info, laneInf
 //           hdMapTrajectory Trajectory 前方路径	
 //* 输  出:   laneInfo refpath 前方路径信息
 //***************************************************************************************************/
-void get_refpath(const int &onpath, const hdMapTrajectory &Trajectory, laneInfo *refpath){
+void decision::get_refpath(const int &onpath, hdMapTrajectory *Trajectory, laneInfo *refpath){
 	if(onpath==true)
 	{
 		for (uint32 lane_seg_idx = 0; lane_seg_idx < Trajectory->pathLane[0].segNum; lane_seg_idx++)// range all lane segments
@@ -134,9 +148,9 @@ void get_refpath(const int &onpath, const hdMapTrajectory &Trajectory, laneInfo 
 			{
 				laneNode node_; // add temp node
 				memset(&node_, 0, sizeof(laneNode));
-				node_.x_ =  Trajectory->pathLane[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].laneNodeInfos[path_node_idx].x;
-				ndoe_.y_ =  Trajectory->pathLane[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].laneNodeInfos[path_node_idx].y;
-				node_.heading_ =  Trajectory->pathLane[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].laneNodeInfos[path_node_idx].heading;
+				node_.x =  Trajectory->pathLane[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].laneNodeInfos[path_node_idx].x;
+				node_.y=  Trajectory->pathLane[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].laneNodeInfos[path_node_idx].y;
+				node_.heading =  Trajectory->pathLane[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].laneNodeInfos[path_node_idx].heading;
 				refpath->laneNodeInfos.push_back(node_);
 				
 			}
@@ -150,16 +164,23 @@ void get_refpath(const int &onpath, const hdMapTrajectory &Trajectory, laneInfo 
 			{
 				laneNode node_; // add temp node
 				memset(&node_, 0, sizeof(laneNode));
-				node_.x_ =  Trajectory->localPath[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].laneNodeInfos[path_node_idx].x;
-				ndoe_.y_ =  Trajectory->localPath[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].laneNodeInfos[path_node_idx].y;
-				node_.heading_ =  Trajectory->localPath[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].laneNodeInfos[path_node_idx].heading;
+				node_.x =  Trajectory->localPath[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].laneNodeInfos[path_node_idx].x;
+				node_.y =  Trajectory->localPath[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].laneNodeInfos[path_node_idx].y;
+				node_.heading =  Trajectory->localPath[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].laneNodeInfos[path_node_idx].heading;
 				refpath->laneNodeInfos.push_back(node_);
 			}
 		}
 		
 	}
 	refpath->nodeNum = refpath->laneNodeInfos.size(); 
-	DEBUG("zlm::get_refpath: refpath->nodeNum  = %d \r\n",refpath->laneNodeInfos.size());
+	// std::cout <<"zlm::get_refpath: refpath->nodeNum  = " << refpath->laneNodeInfos.size()<< std::endl;
+	
+	// std::cout <<"zlm::get_refpath: node_idx as follow /" << std::endl;
+	// std::cout <<"zlm::get_refpath: node_idx_x : " << refpath->laneNodeInfos[0].x << std::endl;
+	// std::cout <<"zlm::get_refpath: node_idx_y : " << refpath->laneNodeInfos[0].y << std::endl;
+	// std::cout <<"zlm::get_refpath: node_idx_heading : " << refpath->laneNodeInfos[0].heading << std::endl;
+
+	// DEBUG("zlm::get_refpath: refpath->nodeNum  = %d \r\n",refpath->laneNodeInfos.size());
 
 }
 
@@ -175,43 +196,90 @@ void get_refpath(const int &onpath, const hdMapTrajectory &Trajectory, laneInfo 
 //* 输  出: 筛选后的障碍物
 //***************************************************************************************************/
 void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_HdmapInfo *hdmapInfos,\
-     Dt_RECORD_HdmapFrontPLane *globePLane, Dt_RECORD_HdmapLocalLane *localPLanne, trajectory_points *localTrajectory, \
+     Dt_RECORD_HdmapFrontPLane *globePLane, Dt_RECORD_HdmapLocalLane *localPLanne,  \
      Dt_RECORD_LocalizationInfo *localInfos, Dt_RECORD_EnvModelInfos *envModelInfo, EgoConfigPara ego_config, objSecList *selectObj)
 {
-	double laneWidth = 3.6; // temp 
+	memset(selectObj,0,sizeof(objSecList));
 	double obstalce_cipv_s =30;
-	double obstalce_cipv_id =0;
+	double obstalce_cipv_d =0;
+	uint32 obstalce_cipv_idx =0;
+
+	// get lane_width, can help deal with itersection(lane width =0)
+	double laneWidth = 0;
+	if(onpath)
+		laneWidth = globePLane->PlanSeg[0].Lane[0].lane_width;
+	else
+		laneWidth = localPLanne->LocalLane[0].lane_width;
+	if(laneWidth ==0)
+		laneWidth = 2.8; // default lane width
 
 	laneInfo refpath; //define refpath
 	memset(&refpath, 0, sizeof(laneInfo));
-	get_refpath(onpath, Trajectory, &refpath);
-	convert_flat_to_vehicle(localInfos, &refpath);  // get refpath in vehicle coordinate
+	decision::get_refpath(onpath, Trajectory, &refpath);
+	decision::convert_flat_to_vehicle(localInfos, &refpath);  // get refpath in vehicle coordinate
 
 	// get refpath_x, refpath_y
 	std::vector<double> refpath_x;
 	std::vector<double> refpath_y;
-	for(uint32 point_idx = 0; point_idx < refpath->nodeNum; ++point_idx)
+	for(uint32 point_idx = 0; point_idx < refpath.nodeNum; ++point_idx)
 	{
-		refpath_x.push_back(refpath->laneNodeInfos[point_idx].x);
-		refpath_y.push_back(refpath->laneNodeInfos[point_idx].y);
+		refpath_x.push_back(refpath.laneNodeInfos[point_idx].x);
+		refpath_y.push_back(refpath.laneNodeInfos[point_idx].y);
 	}
 	
 	// calculate ego vehicle pos's s and d
-	std::vector<double> loc_sd = getFrenet(localInfos->LocalizationResult.x, localInfos->LocalizationResult.y, \
-			localInfos->yaw, refpath_x, refpath_y);
+	std::vector<double> loc_sd = decision::getFrenet(0,0,0, refpath_x, refpath_y);
+			
+	// std::cout << "zlm::ObjDetect: loc_sd :" << loc_sd[0] <<" " << loc_sd[1] <<std::endl;
+	// 2020.12.11 am   above ok
 
 	//  iterater all obstacle to select CIPV
 	for (uint32 obj_idx = 0; obj_idx < envModelInfo->obstacle_num; obj_idx++)
-	{
-		std::vector<double> obj_sd = getFrenet(envModelInfo->Obstacles[obj_idx].pos_x, envModelInfo->Obstacles[obj_idx].pos_x, \
-			envModelInfo->Obstacles[obj_idx].heading, refpath_x, refpath_y);
-		obj_abs_sd[0] = obj_sd[0] - loc_sd[0]; // update obstacle property s, which make it start from ego vehicle pos
+	// uint32 obj_idx =3;
+	{	
 		
-		if(obj_abs_sd[1] > -laneWidth/2 && obj_abs_sd[1] < laneWidth/2 && obj_abs_sd[0] < obstalce_min_s)
+		std::vector<double> obj_sd = decision::getFrenet(-envModelInfo->Obstacles[obj_idx].pos_y, envModelInfo->Obstacles[obj_idx].pos_x, \
+			envModelInfo->Obstacles[obj_idx].heading, refpath_x, refpath_y); 
+		// std::cout << "zlm::ObjDetect: obj_posx obj_posy :" << envModelInfo->Obstacles[obj_idx].pos_x \
+		// 	<<" " << envModelInfo->Obstacles[obj_idx].pos_y <<std::endl;
+		obj_sd[0] = obj_sd[0] - loc_sd[0]; // update obstacle property s, which make it start from ego vehicle pos
+		double obj_s = obj_sd[0];
+		double obj_d = obj_sd[1];
+		// std::cout << "zlm::ObjDetect: obj_sd :" << obj_s <<" " << obj_d <<std::endl;
+		if(obj_d > -laneWidth/2 && obj_d < laneWidth/2 &&  obj_s > 3 &&  obj_s < obstalce_cipv_s)
 		{
-			obstalce_min_s = obj_abs_sd[0]; // update min s
-			obstalce_cipv_id = envModelInfo->Obstacles[obj_idx].id;
-			DEBUG("zlm::ObjDetect: obstalce_cipv_id  = %d \r\n",envModelInfo->Obstacles[obj_idx].id);
+			obstalce_cipv_s = obj_s; // update min s
+			obstalce_cipv_d = obj_d; // update min s
+			obstalce_cipv_idx = obj_idx;
+			selectObj->frontMid.postion = 1;
 		}
 	}
+
+		if(selectObj->frontMid.postion == 1)
+		{
+			selectObj->frontMid.obj.id          = envModelInfo->Obstacles[obstalce_cipv_idx].id;
+			selectObj->frontMid.obj.type        = envModelInfo->Obstacles[obstalce_cipv_idx].type;
+			selectObj->frontMid.obj.pos_x       = envModelInfo->Obstacles[obstalce_cipv_idx].pos_x;
+			selectObj->frontMid.obj.pos_y       = envModelInfo->Obstacles[obstalce_cipv_idx].pos_y;
+			selectObj->frontMid.obj.abs_speed_x = envModelInfo->Obstacles[obstalce_cipv_idx].abs_speed_x;
+			selectObj->frontMid.obj.abs_speed_y = envModelInfo->Obstacles[obstalce_cipv_idx].abs_speed_y;
+			selectObj->frontMid.obj.rel_speed_x = envModelInfo->Obstacles[obstalce_cipv_idx].rel_speed_x;
+			selectObj->frontMid.obj.rel_speed_y = envModelInfo->Obstacles[obstalce_cipv_idx].rel_speed_y;
+			selectObj->frontMid.obj.pos_s = obstalce_cipv_s;
+			selectObj->frontMid.obj.pos_d = obstalce_cipv_d;
+		}
+
+		if(selectObj->frontMid.postion == 1) // ONLY print with success selection 
+		{
+			std::cout << "zlm::ObjDetect: obstalce_cipv_flag = "     << selectObj->frontMid.postion <<std::endl;
+			std::cout << "zlm::ObjDetect: obstalce_cipv_id  = "     << envModelInfo->Obstacles[obstalce_cipv_idx].id <<std::endl;
+			std::cout << "zlm::ObjDetect: obstalce_cipv_type  = "   << envModelInfo->Obstacles[obstalce_cipv_idx].type <<std::endl;
+			std::cout << "zlm::ObjDetect: obstalce_cipv_x  = "      << envModelInfo->Obstacles[obstalce_cipv_idx].pos_x <<std::endl;
+			std::cout << "zlm::ObjDetect: obstalce_cipv_y  =  "     << envModelInfo->Obstacles[obstalce_cipv_idx].pos_y <<std::endl;
+			std::cout << "zlm::ObjDetect: obstalce_cipv_abs_speed_x  = "  << envModelInfo->Obstacles[obstalce_cipv_idx].abs_speed_x<<std::endl;
+			std::cout << "zlm::ObjDetect: obstalce_cipv_abs_speed_y  = "  << envModelInfo->Obstacles[obstalce_cipv_idx].abs_speed_y <<std::endl;
+			std::cout << "zlm::ObjDetect: obstalce_cipv_abs_s  = "  << obstalce_cipv_s <<std::endl;
+			std::cout << "zlm::ObjDetect: obstalce_cipv_abs_d  = "  << obstalce_cipv_d <<std::endl;
+			// DEBUG("zlm::ObjDetect: obstalce_cipv_id  = %d \r\n",envModelInfo->Obstacles[obstalce_cipv_idx].id);
+		}
 }

@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/objSelectFusion.dir/test_selectFusion.cc.o  -o objSelectFusion testlib_build/libcommon_lib.a srcs/libobjSelectFusion_lib.a 

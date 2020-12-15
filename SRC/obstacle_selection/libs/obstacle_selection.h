@@ -3,6 +3,11 @@
 #include <vector>
 #include <math.h>
 #include "Rte_Type.h"
+#include "string.h"
+#include "../../common/libs/types.h"
+#include "decision_struct.h"
+
+
 class decision{
 public:
     double distance(double x1, double y1, double x2, double y2);
@@ -14,6 +19,13 @@ public:
     std::vector<double> getFrenet(double x, double y, double theta, const std::vector<double> &maps_x, \
         const std::vector<double> &maps_y);
 
+    void get_refpath(const int &onpath, hdMapTrajectory *Trajectory, laneInfo *refpath);
+    
+    void convert_flat_to_vehicle(Dt_RECORD_LocalizationInfo *loc_info, laneInfo *refpath);
+
+    void ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_HdmapInfo *hdmapInfos,\
+        Dt_RECORD_HdmapFrontPLane *globePLane, Dt_RECORD_HdmapLocalLane *localPLanne, \
+        Dt_RECORD_LocalizationInfo *localInfos, Dt_RECORD_EnvModelInfos *envModelInfo, EgoConfigPara ego_config, objSecList *selectObj);
 
 };
 

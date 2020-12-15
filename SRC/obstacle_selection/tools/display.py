@@ -75,11 +75,16 @@ class Plot:
         for obstalce_ in obstalce_list.obstacle:
             car_x_list.append(obstalce_.pos_x)
             car_y_list.append(obstalce_.pos_y* -1)
+            # print("obstalce_.pos_x:%f, obstalce_.pos_y:%f"\
+            #     %(obstalce_.pos_x,obstalce_.pos_y))
         self.line2_2.set_xdata(car_y_list)
         self.line2_2.set_ydata(car_x_list)
         if cipv_obj.cipv_obstacle.pos_x!=0 and cipv_obj.cipv_obstacle.pos_y !=0:
             self.line2_3.set_xdata(cipv_obj.cipv_obstacle.pos_y * -1)
             self.line2_3.set_ydata(cipv_obj.cipv_obstacle.pos_x)
+            print(cipv_obj.cipv_obstacle.pos_y * -1)
+            print(cipv_obj.cipv_obstacle.pos_x)
+
 
     def plot_frenet_path(self, path):
         s_list =[]
@@ -94,22 +99,27 @@ class Plot:
         s_list =[]
         d_list_left =[]
         d_list_right =[]
-        for path_node_ in path.path_node:
-            s_list.append(path_node_.s)
-            d_list_left.append(path_node_.d - lanewidth/2)
-            d_list_right.append(path_node_.d + lanewidth/2)
+        # for path_node_ in path.path_node:
+        #     s_list.append(path_node_.s)
+        #     d_list_left.append(path_node_.d - lanewidth/2)
+        #     d_list_right.append(path_node_.d + lanewidth/2)
+        s_list.append(-50)
+        s_list.append(120)
+        d_list_left.append(- lanewidth/2)
+        d_list_right.append(lanewidth/2)
+
 
         self.line3_3.set_xdata(d_list_left)
         self.line3_3.set_ydata(s_list)
         self.line3_4.set_xdata(d_list_right)
         self.line3_4.set_ydata(s_list)
-        print(cipv_obj.cipv_obstacle.pos_d)
-        print(cipv_obj.cipv_obstacle.pos_s)
-        print(cipv_obj.cipv_obstacle.pos_x)
-        print(cipv_obj.cipv_obstacle.pos_y)
+        # print(cipv_obj.cipv_obstacle.pos_d)
+        # print(cipv_obj.cipv_obstacle.pos_s)
+        # print(cipv_obj.cipv_obstacle.pos_x)
+        # print(cipv_obj.cipv_obstacle.pos_y)
 
         if cipv_obj.cipv_obstacle.pos_s!=0 and cipv_obj.cipv_obstacle.pos_d !=0:
-            self.line3_5.set_xdata(cipv_obj.cipv_obstacle.pos_d * -1)
+            self.line3_5.set_xdata(cipv_obj.cipv_obstacle.pos_d)
             self.line3_5.set_ydata(cipv_obj.cipv_obstacle.pos_s)
 
     def plot_frenet_obstalce(self, obstalce_list):
@@ -117,7 +127,7 @@ class Plot:
         d_list =[]
         for obstalce_ in obstalce_list.obstacle:
             s_list.append(obstalce_.pos_s)  
-            d_list.append(obstalce_.pos_d * -1)
+            d_list.append(obstalce_.pos_d )
         self.line3_2.set_xdata(d_list)
         self.line3_2.set_ydata(s_list)
 
@@ -125,15 +135,16 @@ def line_offset(line_o,offset):
     line_t = copy.deepcopy(line_o)
 
     for i in range(len(line_o.path_node)):
+      
         x_ =line_o.path_node[i].flat_x + offset * np.cos((line_o.path_node[i].heading) * np.pi/180) 
         y_ =line_o.path_node[i].flat_y - offset * np.sin((line_o.path_node[i].heading) * np.pi/180)
         line_t.path_node[i].flat_x =x_
         line_t.path_node[i].flat_y =y_
         # # print("car_x: %f, car_y: %f"%(x_,y_))
         # print("orcar_x: %f, orcar_y: %f"%(line_o.path_node[i].car_x,line_o.path_node[i].car_y))
-        print("line_o.path_node[i].car_x: %f"%line_o.path_node[i].flat_x)
-        print("offset * np.cos(line_o.path_node[i].heading) %f"% (offset*np.cos(line_o.path_node[i].heading)))
-        print("x_: %f"%x_)
+        # print("line_o.path_node[i].car_x: %f"%line_o.path_node[i].flat_x)
+        # print("offset * np.cos(line_o.path_node[i].heading) %f"% (offset*np.cos(line_o.path_node[i].heading)))
+        # print("x_: %f"%x_)
     return line_t
 
 def flat_to_vehicle(line_o,loc):
@@ -143,8 +154,15 @@ def flat_to_vehicle(line_o,loc):
     b = loc.flat_Y
     t = -loc.Heading * np.pi/180
     for i in range(len(line_o.path_node)):
+        
         line_t.path_node[i].car_x = (line_o.path_node[i].flat_x - a)* np.cos(t)   + (line_o.path_node[i].flat_y - b)* np.sin(t)
         line_t.path_node[i].car_y = (line_o.path_node[i].flat_x - a)* -np.sin(t)  + (line_o.path_node[i].flat_y - b)* np.cos(t)
+    # print(a)
+    # print(b)
+    # print(t)
+    # print(line_t.path_node[0].car_x)
+    # print(line_t.path_node[0].car_y)
+
     return line_t
 
 def read_global_path_file(file_name):
@@ -180,6 +198,7 @@ if __name__ == "__main__":
     p = Plot()
     l_line = proto.obstacleSel_pb2.Path()
     r_line = proto.obstacleSel_pb2.Path()
+    m_line = proto.obstacleSel_pb2.Path()
     lane_width = 3.6
     location = Location()
     location.flat_X = -65.2941812771520	
@@ -188,23 +207,26 @@ if __name__ == "__main__":
 
     l_line = line_offset(file_pb.frame[11].path,  -lane_width/2)
     r_line = line_offset(file_pb.frame[11].path,  lane_width/2)
+    m_line = line_offset(file_pb.frame[11].path,  0)
+
     l_line= flat_to_vehicle(l_line,location)
     r_line= flat_to_vehicle(r_line,location)
+    m_line= flat_to_vehicle(m_line,location)
 
-    print(file_pb.frame_total_num)
+    # print(file_pb.frame_total_num)
     
     for idx in range(file_pb.frame_total_num):
         # print(idx)
         if(idx < 400):
             continue
+        # idx =515
         p.plot_vehicle_lane(l_line,r_line)
-        # p.plot_vehicle_path(file_pb.frame[11].path)
-        idx =555
-        p.plot_flat_path(file_pb.frame[11].path)
+        p.plot_vehicle_path(m_line)
+        p.plot_flat_path(file_pb.frame[0].path)
         p.plot_vehicle_obstalce(file_pb.frame[idx].obstacle_list, file_pb.frame[idx].cipv_obj)
         p.plot_frenet_obstalce(file_pb.frame[idx].obstacle_list)
-        p.plot_frenet_path(file_pb.frame[11].path)
-        p.plot_frenet_lane(file_pb.frame[11].path,lane_width,file_pb.frame[idx].cipv_obj)
+        p.plot_frenet_path(file_pb.frame[0].path)
+        p.plot_frenet_lane(file_pb.frame[0].path,lane_width,file_pb.frame[idx].cipv_obj)
         plt.pause(0.1)
 
 
