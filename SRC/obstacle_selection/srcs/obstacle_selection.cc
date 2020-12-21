@@ -1,4 +1,5 @@
 #include "../libs/obstacle_selection.h"
+
 double decision::distance(double x1, double y1, double x2, double y2)
 {
 	return sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
@@ -50,7 +51,7 @@ int decision::NextWaypoint(double x, double y, double theta, const std::vector<d
 std::vector<double> decision::getFrenet(double x, double y, double theta, const std::vector<double> &maps_x, \
     const std::vector<double> &maps_y)
 {
-	
+	std::vector<double> res_;
 	int next_wp = decision::NextWaypoint(x,y, theta, maps_x,maps_y);
 	int prev_wp;
 	prev_wp = next_wp-1;
@@ -90,8 +91,10 @@ std::vector<double> decision::getFrenet(double x, double y, double theta, const 
 	}
 
 	frenet_s += decision::distance(0,0,proj_x,proj_y);
+	res_.push_back(frenet_s);
+	res_.push_back(frenet_d);
 
-	return {frenet_s,frenet_d};
+	return res_;
 
 }
 
@@ -204,19 +207,23 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 	double obstalce_cipv_d =0;
 	uint32 obstalce_cipv_idx =0;
 
-	// get lane_width, can help deal with itersection(lane width =0)
 	double laneWidth = 0;
-	if(onpath)
+    if(onpath)   // HDMAP
 		laneWidth = globePLane->PlanSeg[0].Lane[0].lane_width;
 	else
 		laneWidth = localPLanne->LocalLane[0].lane_width;
+
+	if(envModelInfo->Lanes.LaneLines->confidence > 0.5)  // ENV  laneInfo
+		laneWidth = envModelInfo->Lanes.width;
+
 	if(laneWidth ==0)
 		laneWidth = 2.8; // default lane width
+
 
 	laneInfo refpath; //define refpath
 	memset(&refpath, 0, sizeof(laneInfo));
 	decision::get_refpath(onpath, Trajectory, &refpath);
-	decision::convert_flat_to_vehicle(localInfos, &refpath);  // get refpath in vehicle coordinate
+	// decision::convert_flat_to_vehicle(localInfos, &refpath);  // get refpath in vehicle coordinate
 
 	// get refpath_x, refpath_y
 	std::vector<double> refpath_x;
@@ -240,8 +247,8 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		
 		std::vector<double> obj_sd = decision::getFrenet(-envModelInfo->Obstacles[obj_idx].pos_y, envModelInfo->Obstacles[obj_idx].pos_x, \
 			envModelInfo->Obstacles[obj_idx].heading, refpath_x, refpath_y); 
-		// std::cout << "zlm::ObjDetect: obj_posx obj_posy :" << envModelInfo->Obstacles[obj_idx].pos_x \
-		// 	<<" " << envModelInfo->Obstacles[obj_idx].pos_y <<std::endl;
+		std::cout << "zlm::ObjDetect: obj_posx obj_posy :" << envModelInfo->Obstacles[obj_idx].pos_x \
+			<<" " << envModelInfo->Obstacles[obj_idx].pos_y <<std::endl;
 		obj_sd[0] = obj_sd[0] - loc_sd[0]; // update obstacle property s, which make it start from ego vehicle pos
 		double obj_s = obj_sd[0];
 		double obj_d = obj_sd[1];
@@ -265,8 +272,8 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 			selectObj->frontMid.obj.abs_speed_y = envModelInfo->Obstacles[obstalce_cipv_idx].abs_speed_y;
 			selectObj->frontMid.obj.rel_speed_x = envModelInfo->Obstacles[obstalce_cipv_idx].rel_speed_x;
 			selectObj->frontMid.obj.rel_speed_y = envModelInfo->Obstacles[obstalce_cipv_idx].rel_speed_y;
-			selectObj->frontMid.obj.pos_s = obstalce_cipv_s;
-			selectObj->frontMid.obj.pos_d = obstalce_cipv_d;
+			selectObj->frontMid.obj.s = obstalce_cipv_s;
+			selectObj->frontMid.obj.d = obstalce_cipv_d;
 		}
 
 		if(selectObj->frontMid.postion == 1) // ONLY print with success selection 

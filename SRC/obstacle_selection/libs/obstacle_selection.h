@@ -2,14 +2,16 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
-#include "Rte_Type.h"
 #include "string.h"
-#include "../../common/libs/types.h"
-#include "decision_struct.h"
+#include "../../common/libs/Rte_Type.h"
+#include "../../common/libs/user_struct.h"
+#include "../../common/libs/decision_struct.h"
 
 
 class decision{
 public:
+    static std::vector<double> dev_windows;
+
     double distance(double x1, double y1, double x2, double y2);
 
     int ClosestWaypoint(double x, double y, const std::vector<double> &maps_x, const std::vector<double> &maps_y);

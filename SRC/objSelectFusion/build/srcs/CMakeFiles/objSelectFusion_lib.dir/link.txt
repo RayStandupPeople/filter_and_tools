@@ -1,2 +1,0 @@
-/usr/bin/ar qc libobjSelectFusion_lib.a  CMakeFiles/objSelectFusion_lib.dir/objSelectFusion.cc.o
-/usr/bin/ranlib libobjSelectFusion_lib.a

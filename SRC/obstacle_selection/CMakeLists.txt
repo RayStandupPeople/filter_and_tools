@@ -4,6 +4,8 @@ project(OBSTALCE_SELECTION)
 # add c++11 support
 SET(CMAKE_C_COMPILER g++)
 add_compile_options(-std=c++11)
+find_package(PythonLibs 2.7)
+
 #代码路径
 aux_source_directory(. SRC)
 # 添加头文件路径
@@ -30,3 +32,5 @@ add_executable(obstacle_selection ${SRC} ${PROTO_SRCS} ${PROTO_HDRS})
 target_link_libraries(obstacle_selection common_lib)
 target_link_libraries(obstacle_selection ${PROTOBUF_LIBRARIES})
 target_link_libraries(obstacle_selection obstacle_sel_lib)
+target_include_directories(obstacle_selection PRIVATE ${PYTHON_INCLUDE_DIRS})
+target_link_libraries(obstacle_selection ${PYTHON_LIBRARIES})

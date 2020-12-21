@@ -52,6 +52,8 @@
         "typeinfo": "cpp",
         "forward_list": "cpp",
         "algorithm": "cpp",
-        "memory": "cpp"
+        "memory": "cpp",
+        "string": "cpp",
+        "csignal": "cpp"
     }
 }
