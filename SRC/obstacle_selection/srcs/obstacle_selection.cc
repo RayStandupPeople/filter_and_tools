@@ -109,7 +109,7 @@ std::vector<double> decision::getFrenet(double x, double y, double theta, const 
 
 //***************************************************************************************************/
 void decision::convert_flat_to_vehicle(Dt_RECORD_LocalizationInfo *loc_info, laneInfo *refpath){
-    double a = loc_info->LocalizationResult.x;
+     double a = loc_info->LocalizationResult.x;
     double b = loc_info->LocalizationResult.y;
     double t = -loc_info->yaw * M_PI/180; // base direction not sure
 	// std::cout <<"zlm::convert_flat_to_vehicle: node_idx as follow /" << std::endl;
@@ -117,7 +117,7 @@ void decision::convert_flat_to_vehicle(Dt_RECORD_LocalizationInfo *loc_info, lan
 	// std::cout <<"zlm::convert_flat_to_vehicle: loc_info->LocalizationResult.y: " << b << std::endl;
 	// std::cout <<"zlm::convert_flat_to_vehicle: -loc_info->yaw * M_PI/180 : " << t << std::endl;
 
-    for(int i=0;i<refpath->nodeNum;++i)
+    for(uint32 i=0;i<refpath->nodeNum;++i)
     {
         double x_ = ( refpath->laneNodeInfos[i].x - a)*cos(t)   + (refpath->laneNodeInfos[i].y - b)*sin(t);
         double y_ = ( refpath->laneNodeInfos[i].x - a)*-sin(t)  + (refpath->laneNodeInfos[i].y - b)*cos(t);
@@ -125,13 +125,13 @@ void decision::convert_flat_to_vehicle(Dt_RECORD_LocalizationInfo *loc_info, lan
 		refpath->laneNodeInfos[i].y = y_;
     }
 
-	// std::cout <<"zlm::convert_flat_to_vehicle: refpath->nodeNum  = " << refpath->laneNodeInfos.size()<< std::endl;
-	// for(int node_idx =0; node_idx < refpath->laneNodeInfos.size();++node_idx)
+	// DEBUG("zlm::convert_flat_to_vehicle: refpath->nodeNum  = %d \r\n",refpath->laneNodeInfos.size());
+	// for(uint32 node_idx =0; node_idx < refpath->laneNodeInfos.size();++node_idx)
 	// {
-	// 	std::cout <<"zlm::convert_flat_to_vehicle: node_idx as follow /" << std::endl;
-	// 	std::cout <<"zlm::convert_flat_to_vehicle: node_idx_x : " << refpath->laneNodeInfos[node_idx].x << std::endl;
-	// 	std::cout <<"zlm::convert_flat_to_vehicle: node_idx_y : " << refpath->laneNodeInfos[node_idx].y << std::endl;
-	// 	std::cout <<"zlm::convert_flat_to_vehicle: node_idx_heading : " << refpath->laneNodeInfos[node_idx].heading << std::endl;
+	// 	DEBUG("zlm::convert_flat_to_vehicle: node_idx as follow \r\n/");
+	// 	DEBUG("zlm::convert_flat_to_vehicle: node_idx_x %f: \r\n", refpath->laneNodeInfos[node_idx].x );
+	// 	DEBUG("zlm::convert_flat_to_vehicle: node_idx_y : %f\r\n", refpath->laneNodeInfos[node_idx].y );
+	// 	DEBUG("zlm::convert_flat_to_vehicle: node_idx_heading %f: \r\n", refpath->laneNodeInfos[node_idx].heading);
 	// }
 }
 
@@ -143,19 +143,22 @@ void decision::convert_flat_to_vehicle(Dt_RECORD_LocalizationInfo *loc_info, lan
 //* 输  出:   laneInfo refpath 前方路径信息
 //***************************************************************************************************/
 void decision::get_refpath(const int &onpath, hdMapTrajectory *Trajectory, laneInfo *refpath){
-	if(onpath==true)
+		if(onpath==true)
 	{
 		for (uint32 lane_seg_idx = 0; lane_seg_idx < Trajectory->pathLane[0].segNum; lane_seg_idx++)// range all lane segments
 		{
-			for(uint32 path_node_idx = 0; path_node_idx < Trajectory->pathLane[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].nodeNum; path_node_idx++)
+			for(uint32 path_node_idx = 0; path_node_idx < Trajectory->pathLane[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].nodeNum; path_node_idx+=5)
 			{
+				
 				laneNode node_; // add temp node
 				memset(&node_, 0, sizeof(laneNode));
 				node_.x =  Trajectory->pathLane[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].laneNodeInfos[path_node_idx].x;
 				node_.y=  Trajectory->pathLane[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].laneNodeInfos[path_node_idx].y;
 				node_.heading =  Trajectory->pathLane[0].hdmapPathInfo[lane_seg_idx].laneInfos[0].laneNodeInfos[path_node_idx].heading;
 				refpath->laneNodeInfos.push_back(node_);
-				
+				// DEBUG("zlm::get_refpath: Trajectory_x : %f\r\n" ,node_.x);
+				// DEBUG("zlm::get_refpath: Trajectory_y : %f\r\n", node_.y );
+				// DEBUG("zlm::get_refpath: Trajectory_heading : %f\r\n " , node_.heading);
 			}
 		}
 	}
@@ -176,14 +179,13 @@ void decision::get_refpath(const int &onpath, hdMapTrajectory *Trajectory, laneI
 		
 	}
 	refpath->nodeNum = refpath->laneNodeInfos.size(); 
-	// std::cout <<"zlm::get_refpath: refpath->nodeNum  = " << refpath->laneNodeInfos.size()<< std::endl;
-	
-	// std::cout <<"zlm::get_refpath: node_idx as follow /" << std::endl;
-	// std::cout <<"zlm::get_refpath: node_idx_x : " << refpath->laneNodeInfos[0].x << std::endl;
-	// std::cout <<"zlm::get_refpath: node_idx_y : " << refpath->laneNodeInfos[0].y << std::endl;
-	// std::cout <<"zlm::get_refpath: node_idx_heading : " << refpath->laneNodeInfos[0].heading << std::endl;
-
-	// DEBUG("zlm::get_refpath: refpath->nodeNum  = %d \r\n",refpath->laneNodeInfos.size());
+	DEBUG("zlm::get_refpath: refpath->nodeNum  = %d \r\n",refpath->laneNodeInfos.size());
+	DEBUG("zlm::get_refpath: node_idx as follow \r\n/");
+	for(uint32 node_idx =0; node_idx < refpath->laneNodeInfos.size();node_idx+=2)
+	{
+		DEBUG("zlm::get_refpath: [node_idx_x, node_idx_y, node_idx_heading] = %f %f %f\r\n" ,refpath->laneNodeInfos[node_idx].x, \
+			refpath->laneNodeInfos[node_idx].y ,refpath->laneNodeInfos[node_idx].heading);
+	}
 
 }
 
@@ -219,7 +221,6 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 	if(laneWidth ==0)
 		laneWidth = 2.8; // default lane width
 
-
 	laneInfo refpath; //define refpath
 	memset(&refpath, 0, sizeof(laneInfo));
 	decision::get_refpath(onpath, Trajectory, &refpath);
@@ -238,21 +239,32 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 	std::vector<double> loc_sd = decision::getFrenet(0,0,0, refpath_x, refpath_y);
 			
 	// std::cout << "zlm::ObjDetect: loc_sd :" << loc_sd[0] <<" " << loc_sd[1] <<std::endl;
-	// 2020.12.11 am   above ok
-
+	
+	DEBUG("OBJ SELECTION----> envModelInfo->obstacle_num= %d\r\n                     ", envModelInfo->obstacle_num);
+	DEBUG("OBJ SELECTION----> lane_width / 2= %f\r\n                     ", laneWidth / 2);
 	//  iterater all obstacle to select CIPV
 	for (uint32 obj_idx = 0; obj_idx < envModelInfo->obstacle_num; obj_idx++)
 	// uint32 obj_idx =3;
 	{	
 		
-		std::vector<double> obj_sd = decision::getFrenet(-envModelInfo->Obstacles[obj_idx].pos_y, envModelInfo->Obstacles[obj_idx].pos_x, \
-			envModelInfo->Obstacles[obj_idx].heading, refpath_x, refpath_y); 
-		std::cout << "zlm::ObjDetect: obj_posx obj_posy :" << envModelInfo->Obstacles[obj_idx].pos_x \
-			<<" " << envModelInfo->Obstacles[obj_idx].pos_y <<std::endl;
-		obj_sd[0] = obj_sd[0] - loc_sd[0]; // update obstacle property s, which make it start from ego vehicle pos
+		// std::vector<double> obj_sd = decision::getFrenet(envModelInfo->Obstacles[obj_idx].pos_x, -envModelInfo->Obstacles[obj_idx].pos_y, \
+		// 	envModelInfo->Obstacles[obj_idx].heading, refpath_x, refpath_y); 
+		std::vector<double> obj_sd = decision::getFrenet(envModelInfo->Obstacles[obj_idx].pos_x, envModelInfo->Obstacles[obj_idx].pos_y, \
+			0, refpath_x, refpath_y); 
+		// std::cout << "zlm::ObjDetect: obj_posx obj_posy :" << envModelInfo->Obstacles[obj_idx].pos_x \
+		// 	<<" " << envModelInfo->Obstacles[obj_idx].pos_y <<std::endl;
+		// obj_sd[0] = obj_sd[0] - loc_sd[0]; // update obstacle property s, which make it start from ego vehicle pos
+		DEBUG("OBJ SELECTION----> ObjDetect: veh_loc_x , y =%f %f \r\n                     ", loc_sd[0], loc_sd[1]);
 		double obj_s = obj_sd[0];
 		double obj_d = obj_sd[1];
 		// std::cout << "zlm::ObjDetect: obj_sd :" << obj_s <<" " << obj_d <<std::endl;
+		DEBUG("OBJ SELECTION----> ObjDetect: obj[i]_x       = %f\r\n", envModelInfo->Obstacles[obj_idx].pos_x);
+		DEBUG("OBJ SELECTION----> ObjDetect: obj[i]_y       = %f\r\n", envModelInfo->Obstacles[obj_idx].pos_y);
+		DEBUG("OBJ SELECTION----> ObjDetect: obj[i]_heading = %f\r\n", envModelInfo->Obstacles[obj_idx].heading);
+
+		DEBUG("OBJ SELECTION----> ObjDetect: obj[i]_s       = %f\r\n", obj_s);
+		DEBUG("OBJ SELECTION----> ObjDetect: obj[i]_d       = %f\r\n", obj_d);
+
 		if(obj_d > -laneWidth/2 && obj_d < laneWidth/2 &&  obj_s > 3 &&  obj_s < obstalce_cipv_s)
 		{
 			obstalce_cipv_s = obj_s; // update min s
@@ -262,31 +274,35 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		}
 	}
 
-		if(selectObj->frontMid.postion == 1)
-		{
-			selectObj->frontMid.obj.id          = envModelInfo->Obstacles[obstalce_cipv_idx].id;
-			selectObj->frontMid.obj.type        = envModelInfo->Obstacles[obstalce_cipv_idx].type;
-			selectObj->frontMid.obj.pos_x       = envModelInfo->Obstacles[obstalce_cipv_idx].pos_x;
-			selectObj->frontMid.obj.pos_y       = envModelInfo->Obstacles[obstalce_cipv_idx].pos_y;
-			selectObj->frontMid.obj.abs_speed_x = envModelInfo->Obstacles[obstalce_cipv_idx].abs_speed_x;
-			selectObj->frontMid.obj.abs_speed_y = envModelInfo->Obstacles[obstalce_cipv_idx].abs_speed_y;
-			selectObj->frontMid.obj.rel_speed_x = envModelInfo->Obstacles[obstalce_cipv_idx].rel_speed_x;
-			selectObj->frontMid.obj.rel_speed_y = envModelInfo->Obstacles[obstalce_cipv_idx].rel_speed_y;
-			selectObj->frontMid.obj.s = obstalce_cipv_s;
-			selectObj->frontMid.obj.d = obstalce_cipv_d;
-		}
+	if(selectObj->frontMid.postion == 1)
+	{
+		selectObj->frontMid.obj.id          = envModelInfo->Obstacles[obstalce_cipv_idx].id;
+		selectObj->frontMid.obj.type        = envModelInfo->Obstacles[obstalce_cipv_idx].type;
+		selectObj->frontMid.obj.pos_x       = envModelInfo->Obstacles[obstalce_cipv_idx].pos_x;
+		selectObj->frontMid.obj.pos_y       = envModelInfo->Obstacles[obstalce_cipv_idx].pos_y;
+		selectObj->frontMid.obj.heading       = envModelInfo->Obstacles[obstalce_cipv_idx].heading;
+		selectObj->frontMid.obj.abs_speed_x = envModelInfo->Obstacles[obstalce_cipv_idx].abs_speed_x;
+		selectObj->frontMid.obj.abs_speed_y = envModelInfo->Obstacles[obstalce_cipv_idx].abs_speed_y;
+		selectObj->frontMid.obj.rel_speed_x = envModelInfo->Obstacles[obstalce_cipv_idx].rel_speed_x;
+		selectObj->frontMid.obj.rel_speed_y = envModelInfo->Obstacles[obstalce_cipv_idx].rel_speed_y;
+		selectObj->frontMid.obj.s = obstalce_cipv_s;
+		selectObj->frontMid.obj.d = obstalce_cipv_d;
+	}
 
-		if(selectObj->frontMid.postion == 1) // ONLY print with success selection 
-		{
-			std::cout << "zlm::ObjDetect: obstalce_cipv_flag = "     << selectObj->frontMid.postion <<std::endl;
-			std::cout << "zlm::ObjDetect: obstalce_cipv_id  = "     << envModelInfo->Obstacles[obstalce_cipv_idx].id <<std::endl;
-			std::cout << "zlm::ObjDetect: obstalce_cipv_type  = "   << envModelInfo->Obstacles[obstalce_cipv_idx].type <<std::endl;
-			std::cout << "zlm::ObjDetect: obstalce_cipv_x  = "      << envModelInfo->Obstacles[obstalce_cipv_idx].pos_x <<std::endl;
-			std::cout << "zlm::ObjDetect: obstalce_cipv_y  =  "     << envModelInfo->Obstacles[obstalce_cipv_idx].pos_y <<std::endl;
-			std::cout << "zlm::ObjDetect: obstalce_cipv_abs_speed_x  = "  << envModelInfo->Obstacles[obstalce_cipv_idx].abs_speed_x<<std::endl;
-			std::cout << "zlm::ObjDetect: obstalce_cipv_abs_speed_y  = "  << envModelInfo->Obstacles[obstalce_cipv_idx].abs_speed_y <<std::endl;
-			std::cout << "zlm::ObjDetect: obstalce_cipv_abs_s  = "  << obstalce_cipv_s <<std::endl;
-			std::cout << "zlm::ObjDetect: obstalce_cipv_abs_d  = "  << obstalce_cipv_d <<std::endl;
-			// DEBUG("zlm::ObjDetect: obstalce_cipv_id  = %d \r\n",envModelInfo->Obstacles[obstalce_cipv_idx].id);
-		}
+	// if(selectObj->frontMid.postion == 1) // ONLY print with success selection 
+	{
+	
+		DEBUG("OBJ SELECTION----> onpath= %d\r\n                     ", onpath);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.postion= %d \r\n", selectObj->frontMid.postion);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.id = %d \r\n", selectObj->frontMid.obj.id);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.s = %f \r\n", selectObj->frontMid.obj.s);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.d = %f \r\n", selectObj->frontMid.obj.d);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.pos_x = %f \r\n", selectObj->frontMid.obj.pos_x);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.pos_y = %f \r\n", selectObj->frontMid.obj.pos_y);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.heading = %f \r\n", selectObj->frontMid.obj.heading);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.rel_speed_x = %f \r\n", selectObj->frontMid.obj.rel_speed_x);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.rel_speed_y = %f \r\n", selectObj->frontMid.obj.rel_speed_y);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.abs_speed_x  = %f \r\n", selectObj->frontMid.obj.abs_speed_x);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.type  = %d \r\n", selectObj->frontMid.obj.type);
+	}
 }
