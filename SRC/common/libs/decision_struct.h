@@ -159,4 +159,11 @@ typedef struct
 	float64 s_r;
 }gridmap_coll_obj;
 
+typedef struct _DecisionToPC
+{
+	Dt_RECORD_LocalizationInfo my_localizationInfo;
+	Dt_RECORD_TrajectoryPointsInfos my_trajectoryPointsInfo;
+	Dt_RECORD_ParkStartInfos my_parkStartInfo;
+
+}DecisionToPC;
 

@@ -3,22 +3,31 @@
 #include <sstream>
 #include <vector>
 #include <cmath>
+#include <thread>
 
 #include "../common/libs/user_struct.h"
+#include "../common/libs/decision_struct.h"
+
 #include "../../obstacle_selection/libs/obstacle_selection.h"
 #include "../common/libs/display.h"
+#include "../common/libs/socket_lib/tcpsocket.h"
+#include "../common/libs/socket_lib/data_definition.h"
 
 #include "build/types.pb.h"
 #include "build/obstacleSel.pb.h"
 
-laneInfo get_globalpath(){
 
- std::ifstream in_file("../../../log/lg_curv.csv",std::ios::in);
+#define OFFSET(st, field)     (size_t)&(((st*)0)->field)
+uint32 glo_initsocket_lock; // global value which for initing socket
+
+
+void get_globalpath(laneInfo &globalPath){
+
+    std::ifstream in_file("../../../log/lg_curv.csv",std::ios::in);
     if(!in_file.is_open()){
         std::cout << "ERROR: OPEN  file "<<std::endl;
     }
     std::string line;
-    laneInfo _local_path;
     laneNode _node;
     double x;
   	double y;
@@ -45,14 +54,13 @@ laneInfo get_globalpath(){
         _node.y = y;
         _node.heading = Heading;
         // _node.S = s;
-        _local_path.laneNodeInfos.push_back(_node);
+        globalPath.laneNodeInfos.push_back(_node);
 
     }
-    _local_path.nodeNum = _local_path.laneNodeInfos.size();
-    return _local_path;
+    globalPath.nodeNum = globalPath.laneNodeInfos.size();
 }
 
-laneInfo get_localpath(const Dt_RECORD_LocalizationResult &loc, const laneInfo &glopath)
+void get_localpath(const Dt_RECORD_LocalizationResult &loc, const laneInfo &glopath, laneInfo &locpath)
 {
     int loc_idx =0;
     for(int i=0; i< glopath.laneNodeInfos.size(); ++i)
@@ -61,16 +69,14 @@ laneInfo get_localpath(const Dt_RECORD_LocalizationResult &loc, const laneInfo &
         loc_idx = i;
     }
 
-    laneInfo _localpath;
     for(int i = loc_idx - 10; i< loc_idx +20; ++i)
     {
         if(i < 0) continue;
         if(i >= glopath.laneNodeInfos.size()) continue;
 
-         _localpath.laneNodeInfos.push_back(glopath.laneNodeInfos[i]);
+         locpath.laneNodeInfos.push_back(glopath.laneNodeInfos[i]);
     }
 
-    return _localpath;
 }
 
 std::vector<std::vector<Obj_sel>> get_obstalce_lists(){
@@ -107,9 +113,8 @@ std::vector<std::vector<Obj_sel>> get_obstalce_lists(){
     return _obstacle_list_vec;
 }
 
-hdMapTrajectory get_hdMapTrajectory(const laneInfo &globalpath){
-    hdMapTrajectory _trajectory;
-    memset(&_trajectory, 0, sizeof(hdMapTrajectory));
+void get_hdMapTrajectory(hdMapTrajectory &_trajectory, const laneInfo &globalpath){
+
     _trajectory.pathLane[0].segNum = 1;
     _trajectory.pathLane[0].hdmapPathInfo[0].laneNum = 1; //no nearby lane
     _trajectory.pathLane[0].hdmapPathInfo[0].laneInfos[0].nodeNum = globalpath.nodeNum;
@@ -123,7 +128,6 @@ hdMapTrajectory get_hdMapTrajectory(const laneInfo &globalpath){
         _lane_node.heading = globalpath.laneNodeInfos[node_idx].heading;
         _trajectory.pathLane[0].hdmapPathInfo[0].laneInfos[0].laneNodeInfos.push_back(_lane_node);
     }
-    return _trajectory;
 }
 
 void get_Dt_RECORD_LocalizationInfo( Dt_RECORD_LocalizationInfo &location, int i)
@@ -134,12 +138,13 @@ void get_Dt_RECORD_LocalizationInfo( Dt_RECORD_LocalizationInfo &location, int i
     location.yaw = 10;
 }
 
-Dt_RECORD_EnvModelInfos get_Dt_RECORD_EnvModelInfos(const std::vector<Obj_sel> &obj_list)
+void get_Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos &_envmodle_info)
 {
-    Dt_RECORD_EnvModelInfos _envmodle_info;
-    memset(&_envmodle_info, 0, sizeof(Dt_RECORD_EnvModelInfos));
-    _envmodle_info.obstacle_num = obj_list.size();
+    int i=501;
+    std::vector<std::vector<Obj_sel>> obj_list_vet = get_obstalce_lists();
+    std::vector<Obj_sel> obj_list = obj_list_vet[i];
 
+    _envmodle_info.obstacle_num = obj_list.size();
     for(int idx =0; idx <obj_list.size(); ++idx)
     {
         Dt_RECORD_Obstacles _obstacle;
@@ -157,11 +162,11 @@ Dt_RECORD_EnvModelInfos get_Dt_RECORD_EnvModelInfos(const std::vector<Obj_sel> &
         // _obstacle.pos_d       = obj_list[idx].pos_d;
         _envmodle_info.Obstacles[idx] = _obstacle;
     }
-    return _envmodle_info;
 }
 
 void get_Dt_RECORD_HdmapFrontPLane(Dt_RECORD_HdmapFrontPLane &_globePLane)
 {
+    getchar();
 
     _globePLane.plan_seg_count = 2;
     _globePLane.PlanSeg[0].Lane[0].node_count = 30;
@@ -176,79 +181,154 @@ void get_Dt_RECORD_HdmapFrontPLane(Dt_RECORD_HdmapFrontPLane &_globePLane)
 
 }
 
+void receive_zu2Andparse_socket(HdmapToPc_data &rev_hdmapToPC_data, TCPClient &sclient_zu2){
 
+    //发送指令
+    size_t ret;
+    char command[8];
+    memset(command, 0, sizeof(command));
+    command[0] = (char)0x01;
+    command[1] = (char)0xfe;
+    //bool flag = command_send(sclient_tc397, command, sizeof(command));
+    bool flag = command_send(sclient_zu2, command, sizeof(command));
+    cout << "flag = " << flag << endl;
+
+    if (flag)
+    {
+        //接收数据
+        // HdmapToPc_data rev_data;
+        unsigned int id;
+        unsigned long long timestamp;
+        socket_data_deserialization(sclient_zu2, rev_hdmapToPC_data, id, timestamp);
+    }
+    else
+    {
+        sclient_zu2.close();
+        sclient_zu2.reconnect(8001, "192.168.1.60");
+    }
+ 
+}
+void receive_zu5Andparse_socket(DecisionToPC &rev_DecisionToPC_data, TCPClient &sclient_zu5){
+   
+    //发送指令
+    size_t ret;
+    char command[8];
+    memset(command, 0, sizeof(command));
+    command[0] = (char)0x01;
+    command[1] = (char)0xfe;
+    //bool flag = command_send(sclient_tc397, command, sizeof(command));
+    bool flag = command_send(sclient_zu5, command, sizeof(command));
+    cout << "flag = " << flag << endl;
+
+    if (flag)
+    {
+        //接收数据
+        // HdmapToPc_data rev_data;
+        unsigned int id;
+        unsigned long long timestamp;
+        socket_data_deserialization(sclient_zu5, rev_DecisionToPC_data, id, timestamp);
+    }
+    else
+    {
+        sclient_zu5.close();
+        sclient_zu5.reconnect(8001, "192.168.1.70");
+    }
+}
 
 int main(int argc, const char** argv) {
 
-    // get path
-    laneInfo globalpath = get_globalpath();
+    /* DATA Define and init */
+    // sensors data
+    hdMapTrajectory Trajectory;
+    Dt_RECORD_HdmapInfo globePLanehdmapInfos;
+    Dt_RECORD_HdmapFrontPLane globePLane;
+    Dt_RECORD_HdmapLocalLane localPLanne;
+    Dt_RECORD_LocalizationInfo localInfos;
+    Dt_RECORD_EnvModelInfos envModelInfo;
+    EgoConfigPara ego_config;
+    objSecList selectObj;
+    memset(&Trajectory,0,sizeof(hdMapTrajectory));
+    memset(&globePLanehdmapInfos,0,sizeof(Dt_RECORD_HdmapInfo));
+    memset(&globePLane,0,sizeof(Dt_RECORD_HdmapFrontPLane));
+    memset(&localPLanne,0,sizeof(Dt_RECORD_HdmapLocalLane));
+    memset(&localInfos,0,sizeof(Dt_RECORD_LocalizationInfo));
+    memset(&envModelInfo,0,sizeof(Dt_RECORD_EnvModelInfos));    
+    memset(&selectObj,0,sizeof(objSecList));
 
-    // get objlist
-    std::vector<std::vector<Obj_sel>> obj_list_vet = get_obstalce_lists();
+    // socket data
+    HdmapToPc_data rev_hdmapToPC_data;
+    DecisionToPC   rev_DecisionToPC_data;
+    TCPClient sclient_zu2;
+    TCPClient sclient_zu5;
 
-    //init cipv    
-    std::vector<Obj_sel> cipv_obj_vet; 
-    
+    // alogorithm data
+    decision decision_obj;   
 
-    // MAIN LOGIC
-    decision decision_obj;   //new object
-    for(int frame_idx=0; frame_idx<obj_list_vet.size(); ++frame_idx )
+    // init socket and mode
+    string MODE;
+    if(argc==1) 
     {
-            /* init INPUT */
-        hdMapTrajectory Trajectory;
-        Dt_RECORD_HdmapInfo hdmapInfos;
-        Dt_RECORD_HdmapFrontPLane globePLane;
-        Dt_RECORD_HdmapLocalLane localPLanne;
-        Dt_RECORD_LocalizationInfo localInfos;
-        Dt_RECORD_EnvModelInfos envModelInfo;
-        EgoConfigPara ego_config;
-        objSecList selectObj;
-        memset(&Trajectory,0,sizeof(hdMapTrajectory));
-        memset(&hdmapInfos,0,sizeof(Dt_RECORD_HdmapInfo));
-        memset(&globePLane,0,sizeof(Dt_RECORD_HdmapFrontPLane));
-        memset(&localPLanne,0,sizeof(Dt_RECORD_HdmapLocalLane));
-        memset(&localInfos,0,sizeof(Dt_RECORD_LocalizationInfo));
-        memset(&envModelInfo,0,sizeof(Dt_RECORD_EnvModelInfos));    
-        memset(&selectObj,0,sizeof(objSecList));
+        MODE = "pure";
+        std::cout << "Mode: pure, just display without log" << std::endl;
+    }
+    else  
+        MODE = static_cast<string>(argv[1]);
+    
+       
+    // CYCLE STRUCT
+    while(true)
+    {
+        /* PARSE and ASSIGN */ 
+            // Mode: Pure, Log, Replay
+        if(MODE == "pure" || MODE == "log") // Pure, Log  (ONline)
+        {
+            // init socket
+            if(glo_initsocket_lock ==0)
+            {
+                std::cout << "connecting socket..." << std::endl;
+                TCPClient sclient_zu2(8001, "192.168.1.60");
+                TCPClient sclient_zu5(8001, "192.168.1.70");
+                glo_initsocket_lock =1;
+            }
+            // read from socket
+            thread socket_thread_zu2(receive_zu2Andparse_socket, std::ref(rev_hdmapToPC_data), std::ref(sclient_zu2));
+            thread socket_thread_zu5(receive_zu5Andparse_socket, std::ref(rev_DecisionToPC_data),std::ref(sclient_zu5));
+            socket_thread_zu2.join();
+            socket_thread_zu5.join();
+
+            // assign values 
+            laneInfo globalpath;
+            get_globalpath(globalpath);
+            get_hdMapTrajectory(Trajectory, globalpath);
+            // Trajectory = rev_DecisionToPC_data.my_trajectoryPointsInfo;
+            globePLanehdmapInfos = rev_hdmapToPC_data.G_HdmapInfo;
+            globePLane = rev_hdmapToPC_data.G_FrontPLane;
+            localPLanne = rev_hdmapToPC_data.G_LocalLane;
+            localInfos = rev_DecisionToPC_data.my_localizationInfo;
+            // envModelInfo = rev_DecisionToPC_data. ???
+            get_Dt_RECORD_EnvModelInfos(envModelInfo);
+
+
+            if(MODE =="log") // Log Proto 
+            {
+                std::cout << "Mode: log, display and log" << std::endl;
+                break;
+            }
+
+        }
+        if(MODE == "replay") // Replay  (OFF line)
+        {
+            std::cout << "Mode: replay, display proto file data" << std::endl;
+            // read from proto
+            // assign value
+        }
+
+        /*   ALGORITHMs  */
+        decision_obj.ObjDetect(1, &Trajectory, &globePLanehdmapInfos, &globePLane, &localPLanne, &localInfos, &envModelInfo, ego_config, &selectObj);
         
-
-        /* init Input */
-        get_Dt_RECORD_LocalizationInfo(localInfos,frame_idx);
-        Trajectory = get_hdMapTrajectory(globalpath);
-        get_Dt_RECORD_HdmapFrontPLane(globePLane);
-        envModelInfo = get_Dt_RECORD_EnvModelInfos(obj_list_vet[frame_idx]);//frame_idx = 515 valid
-        // std::cout <<"num: " << envModelInfo.obstacle_num <<std::endl;
-        decision_obj.ObjDetect(1, &Trajectory, &hdmapInfos, &globePLane, &localPLanne, &localInfos, 
-            &envModelInfo, ego_config, &selectObj);
-        // std::cout << "loc" << localInfos.LocalizationResult.x << localInfos.LocalizationResult.y << std::endl;
-
-        // /*  for save CIPV Protobuf */
-        // std::cout << "if exist cipv_front: " << selectObj.frontMid.postion << std::endl;
-        // if(selectObj.frontMid.postion)
-        //     std::cout << "cipv_front_id : " << selectObj.frontMid.obj.id << std::endl;
-        // else
-        //     std::cout << "No CIPV: " << selectObj.frontMid.obj.id << std::endl;
-        Obj_sel _cipv_obj;
-        _cipv_obj.id = selectObj.frontMid.obj.id;
-        _cipv_obj.pos_x = selectObj.frontMid.obj.pos_x;
-        _cipv_obj.pos_y = selectObj.frontMid.obj.pos_y;
-        _cipv_obj.s = selectObj.frontMid.obj.s;
-        _cipv_obj.d = selectObj.frontMid.obj.d;
-        cipv_obj_vet.push_back(_cipv_obj);
-
-        // // test
-        // _cipv_obj.pos_x = frame_idx+10;
-        // _cipv_obj.pos_y = 0.7;
-        // //test
-
-        // std::cout << cipv_obj_vet.size() << std::endl;
-        // std::cout <<  _cipv_obj.id  << " " << _cipv_obj.pos_x<<" " <<  _cipv_obj.pos_y <<std::endl;
-        /*  for save CIPV Protobuf */
-        plot(Trajectory, hdmapInfos, globePLane, localInfos, envModelInfo, selectObj);
-        // sleep(0.1);
-
+        /*   DISPALY    */
+        plot(Trajectory, globePLanehdmapInfos, globePLane, localInfos, envModelInfo, selectObj);
     }
     
-    std::cout << "ok";
     return 0;
 }

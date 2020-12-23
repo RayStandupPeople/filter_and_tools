@@ -55,5 +55,6 @@
         "memory": "cpp",
         "string": "cpp",
         "csignal": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

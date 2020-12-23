@@ -10,7 +10,6 @@
 
 class decision{
 public:
-    static std::vector<double> dev_windows;
 
     double distance(double x1, double y1, double x2, double y2);
 

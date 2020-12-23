@@ -1,0 +1,2 @@
+/usr/bin/ar qc libobstacle_sel_lib.a  CMakeFiles/obstacle_sel_lib.dir/obstacle_selection.cc.o
+/usr/bin/ranlib libobstacle_sel_lib.a
