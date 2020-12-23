@@ -25,6 +25,8 @@ endif()
 include_directories(${PROTOBUF_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ../../Proto/types.proto ./proto/obstacleSel.proto)
+PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ../../Proto/types.proto ./proto/socket_all.proto)
+
 
 # 指定生成目标
 add_executable(obstacle_selection ${SRC} ${PROTO_SRCS} ${PROTO_HDRS})

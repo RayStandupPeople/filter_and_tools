@@ -149,32 +149,32 @@ obstacle_sel_lib/fast:
 	$(MAKE) -f srcs/CMakeFiles/obstacle_sel_lib.dir/build.make srcs/CMakeFiles/obstacle_sel_lib.dir/build
 .PHONY : obstacle_sel_lib/fast
 
-obstacleSel.pb.o: obstacleSel.pb.cc.o
+socket_all.pb.o: socket_all.pb.cc.o
 
-.PHONY : obstacleSel.pb.o
+.PHONY : socket_all.pb.o
 
 # target to build an object file
-obstacleSel.pb.cc.o:
-	$(MAKE) -f CMakeFiles/obstacle_selection.dir/build.make CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o
-.PHONY : obstacleSel.pb.cc.o
+socket_all.pb.cc.o:
+	$(MAKE) -f CMakeFiles/obstacle_selection.dir/build.make CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o
+.PHONY : socket_all.pb.cc.o
 
-obstacleSel.pb.i: obstacleSel.pb.cc.i
+socket_all.pb.i: socket_all.pb.cc.i
 
-.PHONY : obstacleSel.pb.i
+.PHONY : socket_all.pb.i
 
 # target to preprocess a source file
-obstacleSel.pb.cc.i:
-	$(MAKE) -f CMakeFiles/obstacle_selection.dir/build.make CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.i
-.PHONY : obstacleSel.pb.cc.i
+socket_all.pb.cc.i:
+	$(MAKE) -f CMakeFiles/obstacle_selection.dir/build.make CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.i
+.PHONY : socket_all.pb.cc.i
 
-obstacleSel.pb.s: obstacleSel.pb.cc.s
+socket_all.pb.s: socket_all.pb.cc.s
 
-.PHONY : obstacleSel.pb.s
+.PHONY : socket_all.pb.s
 
 # target to generate assembly for a file
-obstacleSel.pb.cc.s:
-	$(MAKE) -f CMakeFiles/obstacle_selection.dir/build.make CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.s
-.PHONY : obstacleSel.pb.cc.s
+socket_all.pb.cc.s:
+	$(MAKE) -f CMakeFiles/obstacle_selection.dir/build.make CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.s
+.PHONY : socket_all.pb.cc.s
 
 test_selection.o: test_selection.cc.o
 
@@ -241,9 +241,9 @@ help:
 	@echo "... obstacle_selection"
 	@echo "... common_lib"
 	@echo "... obstacle_sel_lib"
-	@echo "... obstacleSel.pb.o"
-	@echo "... obstacleSel.pb.i"
-	@echo "... obstacleSel.pb.s"
+	@echo "... socket_all.pb.o"
+	@echo "... socket_all.pb.i"
+	@echo "... socket_all.pb.s"
 	@echo "... test_selection.o"
 	@echo "... test_selection.i"
 	@echo "... test_selection.s"

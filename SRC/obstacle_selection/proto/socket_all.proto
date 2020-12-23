@@ -1,0 +1,174 @@
+syntax = "proto3";
+package socket_all;
+
+
+message LogFile {
+    int32 frame_total_num =1;
+    repeated Frame frame = 2;
+}
+
+message Frame {
+    int32 frame_id =1;
+    HdmapToPc_data hdmapToPc_data =2;
+    DecisionToPC decisionToPC =3;
+  
+}
+
+message HdmapToPc_data {
+	Dt_RECORD_HdmapInfo G_HdmapInfo =1;
+	Dt_RECORD_HdmapFrontPLane G_FrontPLane =2;
+	Dt_RECORD_HdmapLocalLane G_LocalLane= 3;
+}
+
+message Dt_RECORD_HdmapInfo {
+    bool planpath =1;
+    float origin_x =2;
+    float origin_y =3;
+    float origin_z =4;
+    float origin_yaw =5;
+    float goal_x =6;
+    float goal_y =7;
+    float goal_z =8;
+    float goal_yaw =9;
+}
+
+message Dt_RECORD_HdmapFrontPLane {
+    int32 plan_seg_count =1;
+    repeated Dt_RECORD_PlanSeg PlanSeg =2;
+}
+
+message Dt_RECORD_PlanSeg {
+    int32 lane_count =1;
+    repeated Dt_RECORD_HdMapLane Lane =2;
+}
+
+message Dt_RECORD_HdMapLane {
+    uint32 node_count =1;
+    repeated Dt_ARRAY_100_LaneNode LaneNode =2;
+    uint32 laneID =3;
+    bool change_lane_flag =4;
+    int32 lane_NO =5;
+    uint32 lane_position =6;
+    uint32 lane_type =7;
+    float lane_width =8;
+    float lane_length =9;
+    uint32 lane_way_count =10;
+    uint32 turn_info =11;
+    uint32 lboundaryID =12;
+    uint32 lboundary_type =13;
+    uint32 lboundary_color =14;
+    uint32 rboundaryID =15;
+    uint32 rboundary_type =16;
+    uint32 rboundary_color =17;
+    uint32 road_ID =18;
+    uint32 road_type =19;
+    uint32 road_position =20;
+    uint32 road_direction =21;
+    float road_length =22;
+    float road_width =23;
+    uint32 lane_count =24;
+    float speed_limit =25;
+    uint32 POI_num =26;
+    uint32 obstacle_num =27;
+    uint32 mark_num =28;
+    uint32 arrow_num =29;
+    uint32 crosswalk_num =30;
+    uint32 HGNode_num =31;
+    repeated Dt_RECORD_PoiObstacle POI =32;
+    repeated Dt_RECORD_PoiObstacle Obstacle = 33;
+    repeated Dt_RECORD_MarkArrow Mark =34;
+    repeated Dt_RECORD_MarkArrow Arrow =35;
+    repeated Dt_RECORD_Crosswalk Crosswalk =36;
+    uint32 hgnodeID =37;
+    float hgnode_distance =38;
+}
+
+message Dt_ARRAY_100_LaneNode {
+    float hdmap_x =1;
+    float hdmap_y =2;
+    float hdmap_z =3;
+    float heading =4;
+    float curvature =5;
+    float slopev =6;
+}
+message Dt_RECORD_PoiObstacle {
+    uint32 ID =1;
+    uint32 type =2;
+    float distance =3;
+}
+
+message Dt_RECORD_MarkArrow {
+    uint32 ID =1;
+    uint32 type =2;
+    uint32 color =3;
+    float distance =4;
+}
+
+message Dt_RECORD_HdmapLocalLane {
+    uint32 lane_count =1;
+    repeated Dt_RECORD_HdMapLane LocalLane =2;
+    uint32 next_seg_count =3; 
+    repeated Dt_RECORD_PlanSeg NextSeg =4;
+}
+
+message Dt_RECORD_Crosswalk {
+    uint32 ID =1;
+    float distance =2;
+}
+
+message DecisionToPC {
+    Dt_RECORD_LocalizationInfo my_localizationInfo =1;
+	Dt_RECORD_TrajectoryPointsInfos my_trajectoryPointsInfo =2;
+}
+
+message Dt_RECORD_LocalizationInfo {
+    uint64 time_stamp =1;
+    Dt_RECORD_LocalizationResult LocalizationResult =2;
+    float Latitude =3;
+    float Longitude =4;
+    float yaw =5;
+    float pitch =6;
+    float roll =7;
+    float yawrate =8;
+    float a_lon =9;
+    float a_lat =10;
+    float v_lat =11;
+    float v_lon =12;
+
+}
+message Dt_RECORD_LocalizationResult {
+    bool valid =1;
+    float x =2;
+    float y =3;
+    float z =4;
+    float qx =5;
+    float qy =6;
+    float qz =7;
+    float qw =8;
+}
+
+message Dt_RECORD_TrajectoryPointsInfos {
+    float origin_yaw = 1;
+    uint32 point_num = 2;
+    uint32 Array_Length_Dummy_0 = 3;
+    repeated Dt_RECORD_TrajectoryPoints TrajectoryPoints = 4;
+    uint32 decision = 5;
+    bool hold = 6;
+    uint32 direction =7;
+}
+message Dt_RECORD_TrajectoryPoints {
+    float x =1;
+    float y =2;
+    float x_g =3;
+    float y_g =4;
+    float t =5;
+    float lon =6;
+    float lat =7;
+    float theta =8;
+    float v =9;
+    float a =10;
+    float kappa =11;
+    float slope =12;
+    uint32 lane_no =13;
+    uint32 road_no =14;
+}

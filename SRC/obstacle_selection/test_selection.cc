@@ -15,6 +15,7 @@
 
 #include "build/types.pb.h"
 #include "build/obstacleSel.pb.h"
+#include "build/socket_all.pb.h"
 
 
 #define OFFSET(st, field)     (size_t)&(((st*)0)->field)
@@ -234,7 +235,94 @@ void receive_zu5Andparse_socket(DecisionToPC &rev_DecisionToPC_data, TCPClient &
         sclient_zu5.reconnect(8001, "192.168.1.70");
     }
 }
+void log_protobuf_file(HdmapToPc_data &rev_hdmapToPC_data, DecisionToPC &rev_DecisionToPC_data,\    
+     uint32 index, socket_all::LogFile &logfile)
+{
 
+        logfile.set_frame_total_num(index);
+        socket_all::Frame *frame_pb = logfile.add_frame();
+        frame_pb->set_frame_id(index);
+
+        socket_all::HdmapToPc_data  *HdmapToPc_data_pb = new socket_all::HdmapToPc_data();
+
+        socket_all::Dt_RECORD_HdmapInfo *Dt_RECORD_HdmapInfo_pb = new socket_all::Dt_RECORD_HdmapInfo();
+        Dt_RECORD_HdmapInfo_pb->set_planpath(rev_hdmapToPC_data.G_HdmapInfo.planpath);
+        Dt_RECORD_HdmapInfo_pb->set_origin_x(rev_hdmapToPC_data.G_HdmapInfo.origin_x);
+        Dt_RECORD_HdmapInfo_pb->set_origin_y(rev_hdmapToPC_data.G_HdmapInfo.origin_y);
+        Dt_RECORD_HdmapInfo_pb->set_origin_z(rev_hdmapToPC_data.G_HdmapInfo.origin_z);
+        Dt_RECORD_HdmapInfo_pb->set_origin_yaw(rev_hdmapToPC_data.G_HdmapInfo.origin_yaw);
+        Dt_RECORD_HdmapInfo_pb->set_goal_x(rev_hdmapToPC_data.G_HdmapInfo.goal_x);
+        Dt_RECORD_HdmapInfo_pb->set_goal_y(rev_hdmapToPC_data.G_HdmapInfo.goal_y);
+        Dt_RECORD_HdmapInfo_pb->set_goal_z(rev_hdmapToPC_data.G_HdmapInfo.goal_z);
+        Dt_RECORD_HdmapInfo_pb->set_goal_yaw(rev_hdmapToPC_data.G_HdmapInfo.goal_yaw);
+        HdmapToPc_data_pb->set_allocated_g_hdmapinfo(Dt_RECORD_HdmapInfo_pb);
+          
+        
+        frame_pb->set_allocated_hdmaptopc_data(HdmapToPc_data_pb);
+               
+
+        // socket_all::ObstacleList *obstacle_list_pb = new pb_obstacle_sel::ObstacleList();
+        // int obstacle_num =0;
+        // for(int i=0;i<obj_list_vet[index].size();++i)
+        // {
+        //     // std::cout << obj_list_vet[index].size() << std::endl;
+        //     socket_all::Obstacle *data = obstacle_list_pb->add_obstacle();
+        //     obstacle_num++;
+        //     data->set_id(obj_list_vet[index][i].id);
+        //     data->set_type(obj_list_vet[index][i].type);
+        //     data->set_pos_x(obj_list_vet[index][i].pos_x);
+        //     data->set_pos_y(obj_list_vet[index][i].pos_y);
+        //     data->set_pos_s(obj_list_vet[index][i].pos_s);
+        //     data->set_pos_d(obj_list_vet[index][i].pos_d);
+        // }
+        // obstacle_list_pb->set_num(obstacle_num);
+        // frame_pb->set_allocated_obstacle_list(obstacle_list_pb);
+        std::cout << "index:" <<index << std::endl;
+    if(index>5)
+    {
+        std::ofstream ofile("../data/data_convert",std::ios::out);
+            if(!ofile.is_open())
+                std::cout << "can not find data_convert file" << std::endl;
+            logfile.SerializeToOstream(&ofile);
+            ofile.close();
+    }
+    
+}
+void read_from_proto_file(HdmapToPc_data &rev_hdmapToPC_data, DecisionToPC &rev_DecisionToPC_data){
+    std::ifstream in_file("../data/data_convert",std::ios::in);
+    if(!in_file.is_open()){
+        std::cout << "ERROR: OPEN  file "<<std::endl;
+    }
+    std::stringstream  CodeStrstream;
+    socket_all::LogFile logfile;
+    CodeStrstream << in_file.rdbuf();
+    in_file.close();
+    logfile.ParseFromString(CodeStrstream.str());
+    std::cout << "frame num:" <<logfile.frame_total_num() << std::endl;
+   
+    socket_all::Frame frame_pb = logfile.frame(3);
+    socket_all::HdmapToPc_data HdmapToPc_data_pb =frame_pb.hdmaptopc_data();
+    // std::cout << "onpayh" <<HdmapToPc_data_pb.g_hdmapinfo().planpath();
+    rev_hdmapToPC_data.G_HdmapInfo.planpath = HdmapToPc_data_pb.g_hdmapinfo().planpath();
+    // for(int i=0;i<logfile.frame_num(); ++i)
+    // {
+    //     _obstacle_list.clear();
+    //     for(int j=0;j<logfile.frame(i).obstacle_size();++j)
+    //     {
+    //             pb_types::Obstacle _obstacle = logfile.frame(i).obstacle(j);
+    //             _obstacle_sel.id      = _obstacle.id();
+    //             _obstacle_sel.type    = _obstacle.type();
+    //             _obstacle_sel.pos_x   = _obstacle.pos_x();
+    //             _obstacle_sel.pos_y   = _obstacle.pos_y();
+    //             _obstacle_list.push_back(_obstacle_sel);
+    //     }
+    //     _obstacle_list_vec.push_back(_obstacle_list);
+    // }
+
+    // std::cout << _obstacle_list_vec.size() << std::endl;
+    // std::cout << _obstacle_list_vec[1000].size() << std::endl;
+    
+}
 int main(int argc, const char** argv) {
 
     /* DATA Define and init */
@@ -274,45 +362,33 @@ int main(int argc, const char** argv) {
     else  
         MODE = static_cast<string>(argv[1]);
     
+    uint32 frame_index =0; //logfile frame index
+    socket_all::LogFile logfile; //logfile obj
        
     // CYCLE STRUCT
     while(true)
     {
-        /* PARSE and ASSIGN */ 
-            // Mode: Pure, Log, Replay
+        
+        /* PARSE: form socket or file*/ 
         if(MODE == "pure" || MODE == "log") // Pure, Log  (ONline)
         {
-            // init socket
-            if(glo_initsocket_lock ==0)
-            {
-                std::cout << "connecting socket..." << std::endl;
-                TCPClient sclient_zu2(8001, "192.168.1.60");
-                TCPClient sclient_zu5(8001, "192.168.1.70");
-                glo_initsocket_lock =1;
-            }
-            // read from socket
-            thread socket_thread_zu2(receive_zu2Andparse_socket, std::ref(rev_hdmapToPC_data), std::ref(sclient_zu2));
-            thread socket_thread_zu5(receive_zu5Andparse_socket, std::ref(rev_DecisionToPC_data),std::ref(sclient_zu5));
-            socket_thread_zu2.join();
-            socket_thread_zu5.join();
-
-            // assign values 
-            laneInfo globalpath;
-            get_globalpath(globalpath);
-            get_hdMapTrajectory(Trajectory, globalpath);
-            // Trajectory = rev_DecisionToPC_data.my_trajectoryPointsInfo;
-            globePLanehdmapInfos = rev_hdmapToPC_data.G_HdmapInfo;
-            globePLane = rev_hdmapToPC_data.G_FrontPLane;
-            localPLanne = rev_hdmapToPC_data.G_LocalLane;
-            localInfos = rev_DecisionToPC_data.my_localizationInfo;
-            // envModelInfo = rev_DecisionToPC_data. ???
-            get_Dt_RECORD_EnvModelInfos(envModelInfo);
-
-
+            // // init socket
+            // if(glo_initsocket_lock ==0)
+            // {
+            //     std::cout << "connecting socket..." << std::endl;
+            //     TCPClient sclient_zu2(8001, "192.168.1.60");
+            //     TCPClient sclient_zu5(8001, "192.168.1.70");
+            //     glo_initsocket_lock =1;
+            // }
+            // // read from socket
+            // thread socket_thread_zu2(receive_zu2Andparse_socket, std::ref(rev_hdmapToPC_data), std::ref(sclient_zu2));
+            // thread socket_thread_zu5(receive_zu5Andparse_socket, std::ref(rev_DecisionToPC_data),std::ref(sclient_zu5));
+            // socket_thread_zu2.join();
+            // socket_thread_zu5.join();
             if(MODE =="log") // Log Proto 
             {
                 std::cout << "Mode: log, display and log" << std::endl;
-                break;
+                log_protobuf_file(rev_hdmapToPC_data,rev_DecisionToPC_data, frame_index, logfile);
             }
 
         }
@@ -321,13 +397,32 @@ int main(int argc, const char** argv) {
             std::cout << "Mode: replay, display proto file data" << std::endl;
             // read from proto
             // assign value
+            read_from_proto_file(rev_hdmapToPC_data, rev_DecisionToPC_data);      
         }
+
+
+
+        /*    ASSIGN VALUES    */
+        laneInfo globalpath;
+        get_globalpath(globalpath);
+        get_hdMapTrajectory(Trajectory, globalpath);
+        // Trajectory = rev_DecisionToPC_data.my_trajectoryPointsInfo;
+        globePLanehdmapInfos = rev_hdmapToPC_data.G_HdmapInfo;
+        globePLane = rev_hdmapToPC_data.G_FrontPLane;
+        localPLanne = rev_hdmapToPC_data.G_LocalLane;
+        localInfos = rev_DecisionToPC_data.my_localizationInfo;
+        // envModelInfo = rev_DecisionToPC_data. ???
+        get_Dt_RECORD_EnvModelInfos(envModelInfo);
+
+
 
         /*   ALGORITHMs  */
         decision_obj.ObjDetect(1, &Trajectory, &globePLanehdmapInfos, &globePLane, &localPLanne, &localInfos, &envModelInfo, ego_config, &selectObj);
         
+
         /*   DISPALY    */
         plot(Trajectory, globePLanehdmapInfos, globePLane, localInfos, envModelInfo, selectObj);
+        frame_index++;
     }
     
     return 0;

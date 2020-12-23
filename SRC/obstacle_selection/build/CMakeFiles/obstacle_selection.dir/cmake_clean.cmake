@@ -1,11 +1,11 @@
 file(REMOVE_RECURSE
   "types.pb.cc"
   "types.pb.h"
-  "obstacleSel.pb.cc"
-  "obstacleSel.pb.h"
+  "socket_all.pb.cc"
+  "socket_all.pb.h"
   "CMakeFiles/obstacle_selection.dir/test_selection.cc.o"
   "CMakeFiles/obstacle_selection.dir/types.pb.cc.o"
-  "CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o"
+  "CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o"
   "obstacle_selection.pdb"
   "obstacle_selection"
 )

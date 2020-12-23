@@ -65,13 +65,13 @@ types.pb.cc: /usr/local/bin/protoc
 types.pb.h: types.pb.cc
 	@$(CMAKE_COMMAND) -E touch_nocreate types.pb.h
 
-obstacleSel.pb.cc: ../proto/obstacleSel.proto
-obstacleSel.pb.cc: /usr/local/bin/protoc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Running C++ protocol buffer compiler on ./proto/obstacleSel.proto"
-	/usr/local/bin/protoc --cpp_out /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build -I /home/ze/Documents/LogAnalysis_Algos/Proto -I /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/proto /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/proto/obstacleSel.proto
+socket_all.pb.cc: ../proto/socket_all.proto
+socket_all.pb.cc: /usr/local/bin/protoc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Running C++ protocol buffer compiler on ./proto/socket_all.proto"
+	/usr/local/bin/protoc --cpp_out /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build -I /home/ze/Documents/LogAnalysis_Algos/Proto -I /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/proto /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/proto/socket_all.proto
 
-obstacleSel.pb.h: obstacleSel.pb.cc
-	@$(CMAKE_COMMAND) -E touch_nocreate obstacleSel.pb.h
+socket_all.pb.h: socket_all.pb.cc
+	@$(CMAKE_COMMAND) -E touch_nocreate socket_all.pb.h
 
 CMakeFiles/obstacle_selection.dir/test_selection.cc.o: CMakeFiles/obstacle_selection.dir/flags.make
 CMakeFiles/obstacle_selection.dir/test_selection.cc.o: ../test_selection.cc
@@ -121,42 +121,42 @@ CMakeFiles/obstacle_selection.dir/types.pb.cc.o.provides: CMakeFiles/obstacle_se
 CMakeFiles/obstacle_selection.dir/types.pb.cc.o.provides.build: CMakeFiles/obstacle_selection.dir/types.pb.cc.o
 
 
-CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o: CMakeFiles/obstacle_selection.dir/flags.make
-CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o: obstacleSel.pb.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o -c /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/obstacleSel.pb.cc
+CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o: CMakeFiles/obstacle_selection.dir/flags.make
+CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o: socket_all.pb.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o -c /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/socket_all.pb.cc
 
-CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/obstacleSel.pb.cc > CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.i
+CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/socket_all.pb.cc > CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.i
 
-CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/obstacleSel.pb.cc -o CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.s
+CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/socket_all.pb.cc -o CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.s
 
-CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o.requires:
+CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o.requires:
 
-.PHONY : CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o.requires
+.PHONY : CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o.requires
 
-CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o.provides: CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o.requires
-	$(MAKE) -f CMakeFiles/obstacle_selection.dir/build.make CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o.provides.build
-.PHONY : CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o.provides
+CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o.provides: CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o.requires
+	$(MAKE) -f CMakeFiles/obstacle_selection.dir/build.make CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o.provides.build
+.PHONY : CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o.provides
 
-CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o.provides.build: CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o
+CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o.provides.build: CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o
 
 
 # Object files for target obstacle_selection
 obstacle_selection_OBJECTS = \
 "CMakeFiles/obstacle_selection.dir/test_selection.cc.o" \
 "CMakeFiles/obstacle_selection.dir/types.pb.cc.o" \
-"CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o"
+"CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o"
 
 # External object files for target obstacle_selection
 obstacle_selection_EXTERNAL_OBJECTS =
 
 obstacle_selection: CMakeFiles/obstacle_selection.dir/test_selection.cc.o
 obstacle_selection: CMakeFiles/obstacle_selection.dir/types.pb.cc.o
-obstacle_selection: CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o
+obstacle_selection: CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o
 obstacle_selection: CMakeFiles/obstacle_selection.dir/build.make
 obstacle_selection: testlib_build/libcommon_lib.a
 obstacle_selection: /usr/local/lib/libprotobuf.so
@@ -173,7 +173,7 @@ CMakeFiles/obstacle_selection.dir/build: obstacle_selection
 
 CMakeFiles/obstacle_selection.dir/requires: CMakeFiles/obstacle_selection.dir/test_selection.cc.o.requires
 CMakeFiles/obstacle_selection.dir/requires: CMakeFiles/obstacle_selection.dir/types.pb.cc.o.requires
-CMakeFiles/obstacle_selection.dir/requires: CMakeFiles/obstacle_selection.dir/obstacleSel.pb.cc.o.requires
+CMakeFiles/obstacle_selection.dir/requires: CMakeFiles/obstacle_selection.dir/socket_all.pb.cc.o.requires
 
 .PHONY : CMakeFiles/obstacle_selection.dir/requires
 
@@ -183,8 +183,8 @@ CMakeFiles/obstacle_selection.dir/clean:
 
 CMakeFiles/obstacle_selection.dir/depend: types.pb.cc
 CMakeFiles/obstacle_selection.dir/depend: types.pb.h
-CMakeFiles/obstacle_selection.dir/depend: obstacleSel.pb.cc
-CMakeFiles/obstacle_selection.dir/depend: obstacleSel.pb.h
+CMakeFiles/obstacle_selection.dir/depend: socket_all.pb.cc
+CMakeFiles/obstacle_selection.dir/depend: socket_all.pb.h
 	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles/obstacle_selection.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/obstacle_selection.dir/depend
 
