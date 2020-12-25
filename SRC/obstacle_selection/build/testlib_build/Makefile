@@ -125,6 +125,33 @@ common_lib/fast:
 	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build && $(MAKE) -f testlib_build/CMakeFiles/common_lib.dir/build.make testlib_build/CMakeFiles/common_lib.dir/build
 .PHONY : common_lib/fast
 
+srcs/box.o: srcs/box.cpp.o
+
+.PHONY : srcs/box.o
+
+# target to build an object file
+srcs/box.cpp.o:
+	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build && $(MAKE) -f testlib_build/CMakeFiles/common_lib.dir/build.make testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.o
+.PHONY : srcs/box.cpp.o
+
+srcs/box.i: srcs/box.cpp.i
+
+.PHONY : srcs/box.i
+
+# target to preprocess a source file
+srcs/box.cpp.i:
+	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build && $(MAKE) -f testlib_build/CMakeFiles/common_lib.dir/build.make testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.i
+.PHONY : srcs/box.cpp.i
+
+srcs/box.s: srcs/box.cpp.s
+
+.PHONY : srcs/box.s
+
+# target to generate assembly for a file
+srcs/box.cpp.s:
+	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build && $(MAKE) -f testlib_build/CMakeFiles/common_lib.dir/build.make testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.s
+.PHONY : srcs/box.cpp.s
+
 srcs/display.o: srcs/display.cpp.o
 
 .PHONY : srcs/display.o
@@ -188,6 +215,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... common_lib"
+	@echo "... srcs/box.o"
+	@echo "... srcs/box.i"
+	@echo "... srcs/box.s"
 	@echo "... srcs/display.o"
 	@echo "... srcs/display.i"
 	@echo "... srcs/display.s"

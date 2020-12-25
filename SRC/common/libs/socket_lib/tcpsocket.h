@@ -6,7 +6,7 @@
 #include <errno.h>
 #include <sstream>
 #include "platform.h"
-#include "Rte_Type.h"
+#include "../Rte_Type.h"
 //#include "VMCParking.h"
 
 #ifdef _LINUX_PLATFORM_

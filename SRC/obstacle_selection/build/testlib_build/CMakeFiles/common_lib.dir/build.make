@@ -105,19 +105,45 @@ testlib_build/CMakeFiles/common_lib.dir/srcs/display.cpp.o.provides: testlib_bui
 testlib_build/CMakeFiles/common_lib.dir/srcs/display.cpp.o.provides.build: testlib_build/CMakeFiles/common_lib.dir/srcs/display.cpp.o
 
 
+testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.o: testlib_build/CMakeFiles/common_lib.dir/flags.make
+testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.o: /home/ze/Documents/LogAnalysis_Algos/SRC/common/srcs/box.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.o"
+	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/testlib_build && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/common_lib.dir/srcs/box.cpp.o -c /home/ze/Documents/LogAnalysis_Algos/SRC/common/srcs/box.cpp
+
+testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/common_lib.dir/srcs/box.cpp.i"
+	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/testlib_build && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ze/Documents/LogAnalysis_Algos/SRC/common/srcs/box.cpp > CMakeFiles/common_lib.dir/srcs/box.cpp.i
+
+testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/common_lib.dir/srcs/box.cpp.s"
+	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/testlib_build && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ze/Documents/LogAnalysis_Algos/SRC/common/srcs/box.cpp -o CMakeFiles/common_lib.dir/srcs/box.cpp.s
+
+testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.o.requires:
+
+.PHONY : testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.o.requires
+
+testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.o.provides: testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.o.requires
+	$(MAKE) -f testlib_build/CMakeFiles/common_lib.dir/build.make testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.o.provides.build
+.PHONY : testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.o.provides
+
+testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.o.provides.build: testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.o
+
+
 # Object files for target common_lib
 common_lib_OBJECTS = \
 "CMakeFiles/common_lib.dir/srcs/tcpsocket.cpp.o" \
-"CMakeFiles/common_lib.dir/srcs/display.cpp.o"
+"CMakeFiles/common_lib.dir/srcs/display.cpp.o" \
+"CMakeFiles/common_lib.dir/srcs/box.cpp.o"
 
 # External object files for target common_lib
 common_lib_EXTERNAL_OBJECTS =
 
 testlib_build/libcommon_lib.a: testlib_build/CMakeFiles/common_lib.dir/srcs/tcpsocket.cpp.o
 testlib_build/libcommon_lib.a: testlib_build/CMakeFiles/common_lib.dir/srcs/display.cpp.o
+testlib_build/libcommon_lib.a: testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.o
 testlib_build/libcommon_lib.a: testlib_build/CMakeFiles/common_lib.dir/build.make
 testlib_build/libcommon_lib.a: testlib_build/CMakeFiles/common_lib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libcommon_lib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libcommon_lib.a"
 	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/testlib_build && $(CMAKE_COMMAND) -P CMakeFiles/common_lib.dir/cmake_clean_target.cmake
 	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/testlib_build && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/common_lib.dir/link.txt --verbose=$(VERBOSE)
 
@@ -128,6 +154,7 @@ testlib_build/CMakeFiles/common_lib.dir/build: testlib_build/libcommon_lib.a
 
 testlib_build/CMakeFiles/common_lib.dir/requires: testlib_build/CMakeFiles/common_lib.dir/srcs/tcpsocket.cpp.o.requires
 testlib_build/CMakeFiles/common_lib.dir/requires: testlib_build/CMakeFiles/common_lib.dir/srcs/display.cpp.o.requires
+testlib_build/CMakeFiles/common_lib.dir/requires: testlib_build/CMakeFiles/common_lib.dir/srcs/box.cpp.o.requires
 
 .PHONY : testlib_build/CMakeFiles/common_lib.dir/requires
 

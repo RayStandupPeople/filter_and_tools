@@ -179,13 +179,13 @@ void decision::get_refpath(const int &onpath, hdMapTrajectory *Trajectory, laneI
 		
 	}
 	refpath->nodeNum = refpath->laneNodeInfos.size(); 
-	DEBUG("zlm::get_refpath: refpath->nodeNum  = %d \r\n",refpath->laneNodeInfos.size());
-	DEBUG("zlm::get_refpath: node_idx as follow \r\n/");
-	for(uint32 node_idx =0; node_idx < refpath->laneNodeInfos.size();node_idx+=2)
-	{
-		DEBUG("zlm::get_refpath: [node_idx_x, node_idx_y, node_idx_heading] = %f %f %f\r\n" ,refpath->laneNodeInfos[node_idx].x, \
-			refpath->laneNodeInfos[node_idx].y ,refpath->laneNodeInfos[node_idx].heading);
-	}
+	// DEBUG("zlm::get_refpath: refpath->nodeNum  = %d \r\n",refpath->laneNodeInfos.size());
+	// DEBUG("zlm::get_refpath: node_idx as follow \r\n/");
+	// for(uint32 node_idx =0; node_idx < refpath->laneNodeInfos.size();node_idx+=2)
+	// {
+	// 	DEBUG("zlm::get_refpath: [node_idx_x, node_idx_y, node_idx_heading] = %f %f %f\r\n" ,refpath->laneNodeInfos[node_idx].x, \
+	// 		refpath->laneNodeInfos[node_idx].y ,refpath->laneNodeInfos[node_idx].heading);
+	// }
 
 }
 
@@ -205,10 +205,15 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
      Dt_RECORD_LocalizationInfo *localInfos, Dt_RECORD_EnvModelInfos *envModelInfo, EgoConfigPara ego_config, objSecList *selectObj)
 {
 	memset(selectObj,0,sizeof(objSecList));
-	double obstalce_cipv_s =30;
+	double max_valid_s =30;
+	double obstalce_cipv_s = max_valid_s;
 	double obstalce_cipv_d =0;
+	double obstalce_sec_cipv_s = max_valid_s;
+	double obstalce_sec_cipv_d =0;
 	uint32 obstalce_cipv_idx =0;
+	uint32 obstalce_sec_cipv_idx =0;
 
+	double safeWidth = 2.6;
 	double laneWidth = 0;
     if(onpath)   // HDMAP
 		laneWidth = globePLane->PlanSeg[0].Lane[0].lane_width;
@@ -219,13 +224,17 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		laneWidth = envModelInfo->Lanes.width;
 
 	if(laneWidth ==0)
-		laneWidth = 2.8; // default lane width
+		laneWidth = safeWidth; // default lane width
 
 	laneInfo refpath; //define refpath
 	memset(&refpath, 0, sizeof(laneInfo));
 	decision::get_refpath(onpath, Trajectory, &refpath);
 	// decision::convert_flat_to_vehicle(localInfos, &refpath);  // get refpath in vehicle coordinate
-
+	if(refpath.nodeNum ==0) 
+	{
+		// DEBUG("zlm::obj_sel: no refpath  \r\n");
+		return;
+	}
 	// get refpath_x, refpath_y
 	std::vector<double> refpath_x;
 	std::vector<double> refpath_y;
@@ -235,6 +244,7 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		refpath_y.push_back(refpath.laneNodeInfos[point_idx].y);
 	}
 	
+
 	// calculate ego vehicle pos's s and d
 	std::vector<double> loc_sd = decision::getFrenet(0,0,0, refpath_x, refpath_y);
 			
@@ -242,6 +252,7 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 	
 	DEBUG("OBJ SELECTION----> envModelInfo->obstacle_num= %d\r\n                     ", envModelInfo->obstacle_num);
 	DEBUG("OBJ SELECTION----> lane_width / 2= %f\r\n                     ", laneWidth / 2);
+
 	//  iterater all obstacle to select CIPV
 	for (uint32 obj_idx = 0; obj_idx < envModelInfo->obstacle_num; obj_idx++)
 	// uint32 obj_idx =3;
@@ -264,17 +275,30 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 
 		DEBUG("OBJ SELECTION----> ObjDetect: obj[i]_s       = %f\r\n", obj_s);
 		DEBUG("OBJ SELECTION----> ObjDetect: obj[i]_d       = %f\r\n", obj_d);
-
-		if(obj_d > -laneWidth/2 && obj_d < laneWidth/2 &&  obj_s > 3 &&  obj_s < obstalce_cipv_s)
+		// first check
+		if(obj_d > -safeWidth/2 && obj_d < safeWidth/2 &&  obj_s > 3 &&  obj_s < obstalce_cipv_s)
 		{
 			obstalce_cipv_s = obj_s; // update min s
-			obstalce_cipv_d = obj_d; // update min s
+			obstalce_cipv_d = obj_d; // update d
 			obstalce_cipv_idx = obj_idx;
 			selectObj->frontMid.postion = 1;
 		}
+		// second check
+		if (obj_d > -laneWidth/2 && obj_d < laneWidth/2 && obj_s > 3 && obj_s < obstalce_cipv_s)
+		{
+			obstalce_sec_cipv_s = obj_s; // update min s
+			obstalce_sec_cipv_d = obj_d; // update d
+			obstalce_sec_cipv_idx = obj_idx;
+		}
+		
 	}
-
-	if(selectObj->frontMid.postion == 1)
+	if(selectObj->frontMid.postion == 0 && obstalce_sec_cipv_s < max_valid_s) //no collision && valid secCIPV
+	{
+		selectObj->frontMid.postion =3; // second cipv valid flag 
+		obstalce_cipv_idx = obstalce_sec_cipv_idx;
+	}
+		
+	if(selectObj->frontMid.postion > 0)
 	{
 		selectObj->frontMid.obj.id          = envModelInfo->Obstacles[obstalce_cipv_idx].id;
 		selectObj->frontMid.obj.type        = envModelInfo->Obstacles[obstalce_cipv_idx].type;

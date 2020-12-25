@@ -165,5 +165,17 @@ typedef struct _DecisionToPC
 	Dt_RECORD_TrajectoryPointsInfos my_trajectoryPointsInfo;
 	Dt_RECORD_ParkStartInfos my_parkStartInfo;
 
+		/*新增数据*/
+	Dt_RECORD_ParkingSpace my_parkingPlaceInfo;	   //车位融合模块发来的车位信息
+	Dt_RECORD_EnvModelInfos my_envModelInfo;		   //环境建模发来的障碍物交通灯等信息
+	Dt_RECORD_AccInfo my_vehicleInfo;				   //can解析模块发来的车辆信息
+	Dt_RECORD_AvpCMD my_sysmgtAvpCmdInfo;			   //系统管理模块发来的AVP状态请求信息泊取车指令状态，0：无请求1：代客泊车2：召唤取车
+	Dt_RECORD_AvpParkCMD my_avpParkCmd;			   //TBOX发来的AVP目标车位信息
+	Dt_RECORD_SysMgtStatus my_sysmgtStatusInfo;	   //系统管理模块发来的系统管理状态信息
+	Dt_RECORD_ApaUserReq my_apaUserReqInfo;		   //来自CtapCom模块的信息
+	Dt_RECORD_HdmapInfo my_hdmapInfo;				   //高精地图发来的是否在全局路径上等信息
+	Dt_RECORD_HdmapFrontPLane my_hdmapFrontPLaneInfo; //高精地图发来的全局路径信息
+	Dt_RECORD_HdmapLocalLane my_hdmapLocalLaneInfo;   //当不在全局路径上时，高精地图发来的本车道、相邻车道及下一段车道信息
+	Dt_RECORD_GlobalPathStatus my_globalPathStatus;   //高精地图发来的全局路径是否规划成功标志	
 }DecisionToPC;
 

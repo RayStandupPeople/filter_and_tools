@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/common_lib.dir/srcs/tcpsocket.cpp.o"
   "CMakeFiles/common_lib.dir/srcs/display.cpp.o"
+  "CMakeFiles/common_lib.dir/srcs/box.cpp.o"
   "libcommon_lib.pdb"
   "libcommon_lib.a"
 )

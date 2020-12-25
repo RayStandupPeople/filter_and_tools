@@ -67,7 +67,7 @@ CMakeFiles/obstacle_selection.dir/all: testlib_build/CMakeFiles/common_lib.dir/a
 CMakeFiles/obstacle_selection.dir/all: srcs/CMakeFiles/obstacle_sel_lib.dir/all
 	$(MAKE) -f CMakeFiles/obstacle_selection.dir/build.make CMakeFiles/obstacle_selection.dir/depend
 	$(MAKE) -f CMakeFiles/obstacle_selection.dir/build.make CMakeFiles/obstacle_selection.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=6,7,8,9,10,11 "Built target obstacle_selection"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=7,8,9,10,11,12 "Built target obstacle_selection"
 .PHONY : CMakeFiles/obstacle_selection.dir/all
 
 # Include target in all.
@@ -77,7 +77,7 @@ all: CMakeFiles/obstacle_selection.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/obstacle_selection.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles 11
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles 12
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/obstacle_selection.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles 0
 .PHONY : CMakeFiles/obstacle_selection.dir/rule
@@ -122,7 +122,7 @@ testlib_build/preinstall:
 testlib_build/CMakeFiles/common_lib.dir/all:
 	$(MAKE) -f testlib_build/CMakeFiles/common_lib.dir/build.make testlib_build/CMakeFiles/common_lib.dir/depend
 	$(MAKE) -f testlib_build/CMakeFiles/common_lib.dir/build.make testlib_build/CMakeFiles/common_lib.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=1,2,3 "Built target common_lib"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=1,2,3,4 "Built target common_lib"
 .PHONY : testlib_build/CMakeFiles/common_lib.dir/all
 
 # Include target in all.
@@ -132,7 +132,7 @@ all: testlib_build/CMakeFiles/common_lib.dir/all
 
 # Build rule for subdir invocation for target.
 testlib_build/CMakeFiles/common_lib.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 testlib_build/CMakeFiles/common_lib.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles 0
 .PHONY : testlib_build/CMakeFiles/common_lib.dir/rule
@@ -177,7 +177,7 @@ srcs/preinstall:
 srcs/CMakeFiles/obstacle_sel_lib.dir/all:
 	$(MAKE) -f srcs/CMakeFiles/obstacle_sel_lib.dir/build.make srcs/CMakeFiles/obstacle_sel_lib.dir/depend
 	$(MAKE) -f srcs/CMakeFiles/obstacle_sel_lib.dir/build.make srcs/CMakeFiles/obstacle_sel_lib.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=4,5 "Built target obstacle_sel_lib"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=5,6 "Built target obstacle_sel_lib"
 .PHONY : srcs/CMakeFiles/obstacle_sel_lib.dir/all
 
 # Include target in all.

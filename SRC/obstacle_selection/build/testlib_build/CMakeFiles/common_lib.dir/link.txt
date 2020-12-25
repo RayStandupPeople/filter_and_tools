@@ -1,2 +1,2 @@
-/usr/bin/ar qc libcommon_lib.a  CMakeFiles/common_lib.dir/srcs/tcpsocket.cpp.o CMakeFiles/common_lib.dir/srcs/display.cpp.o
+/usr/bin/ar qc libcommon_lib.a  CMakeFiles/common_lib.dir/srcs/tcpsocket.cpp.o CMakeFiles/common_lib.dir/srcs/display.cpp.o CMakeFiles/common_lib.dir/srcs/box.cpp.o
 /usr/bin/ranlib libcommon_lib.a

@@ -47,7 +47,7 @@ struct TableStruct_socket_5fall_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[17]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[25]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -58,12 +58,18 @@ namespace socket_all {
 class DecisionToPC;
 class DecisionToPCDefaultTypeInternal;
 extern DecisionToPCDefaultTypeInternal _DecisionToPC_default_instance_;
-class Dt_ARRAY_100_LaneNode;
-class Dt_ARRAY_100_LaneNodeDefaultTypeInternal;
-extern Dt_ARRAY_100_LaneNodeDefaultTypeInternal _Dt_ARRAY_100_LaneNode_default_instance_;
+class Dt_ARRAY_200_GridInfoX;
+class Dt_ARRAY_200_GridInfoXDefaultTypeInternal;
+extern Dt_ARRAY_200_GridInfoXDefaultTypeInternal _Dt_ARRAY_200_GridInfoX_default_instance_;
+class Dt_RECORD_AccInfo;
+class Dt_RECORD_AccInfoDefaultTypeInternal;
+extern Dt_RECORD_AccInfoDefaultTypeInternal _Dt_RECORD_AccInfo_default_instance_;
 class Dt_RECORD_Crosswalk;
 class Dt_RECORD_CrosswalkDefaultTypeInternal;
 extern Dt_RECORD_CrosswalkDefaultTypeInternal _Dt_RECORD_Crosswalk_default_instance_;
+class Dt_RECORD_EnvModelInfos;
+class Dt_RECORD_EnvModelInfosDefaultTypeInternal;
+extern Dt_RECORD_EnvModelInfosDefaultTypeInternal _Dt_RECORD_EnvModelInfos_default_instance_;
 class Dt_RECORD_HdMapLane;
 class Dt_RECORD_HdMapLaneDefaultTypeInternal;
 extern Dt_RECORD_HdMapLaneDefaultTypeInternal _Dt_RECORD_HdMapLane_default_instance_;
@@ -76,6 +82,15 @@ extern Dt_RECORD_HdmapInfoDefaultTypeInternal _Dt_RECORD_HdmapInfo_default_insta
 class Dt_RECORD_HdmapLocalLane;
 class Dt_RECORD_HdmapLocalLaneDefaultTypeInternal;
 extern Dt_RECORD_HdmapLocalLaneDefaultTypeInternal _Dt_RECORD_HdmapLocalLane_default_instance_;
+class Dt_RECORD_LaneLines;
+class Dt_RECORD_LaneLinesDefaultTypeInternal;
+extern Dt_RECORD_LaneLinesDefaultTypeInternal _Dt_RECORD_LaneLines_default_instance_;
+class Dt_RECORD_LaneNode;
+class Dt_RECORD_LaneNodeDefaultTypeInternal;
+extern Dt_RECORD_LaneNodeDefaultTypeInternal _Dt_RECORD_LaneNode_default_instance_;
+class Dt_RECORD_Lanes;
+class Dt_RECORD_LanesDefaultTypeInternal;
+extern Dt_RECORD_LanesDefaultTypeInternal _Dt_RECORD_Lanes_default_instance_;
 class Dt_RECORD_LocalizationInfo;
 class Dt_RECORD_LocalizationInfoDefaultTypeInternal;
 extern Dt_RECORD_LocalizationInfoDefaultTypeInternal _Dt_RECORD_LocalizationInfo_default_instance_;
@@ -85,12 +100,24 @@ extern Dt_RECORD_LocalizationResultDefaultTypeInternal _Dt_RECORD_LocalizationRe
 class Dt_RECORD_MarkArrow;
 class Dt_RECORD_MarkArrowDefaultTypeInternal;
 extern Dt_RECORD_MarkArrowDefaultTypeInternal _Dt_RECORD_MarkArrow_default_instance_;
+class Dt_RECORD_Obstacles;
+class Dt_RECORD_ObstaclesDefaultTypeInternal;
+extern Dt_RECORD_ObstaclesDefaultTypeInternal _Dt_RECORD_Obstacles_default_instance_;
 class Dt_RECORD_PlanSeg;
 class Dt_RECORD_PlanSegDefaultTypeInternal;
 extern Dt_RECORD_PlanSegDefaultTypeInternal _Dt_RECORD_PlanSeg_default_instance_;
 class Dt_RECORD_PoiObstacle;
 class Dt_RECORD_PoiObstacleDefaultTypeInternal;
 extern Dt_RECORD_PoiObstacleDefaultTypeInternal _Dt_RECORD_PoiObstacle_default_instance_;
+class Dt_RECORD_TrafficLights;
+class Dt_RECORD_TrafficLightsDefaultTypeInternal;
+extern Dt_RECORD_TrafficLightsDefaultTypeInternal _Dt_RECORD_TrafficLights_default_instance_;
+class Dt_RECORD_TrafficMarkings;
+class Dt_RECORD_TrafficMarkingsDefaultTypeInternal;
+extern Dt_RECORD_TrafficMarkingsDefaultTypeInternal _Dt_RECORD_TrafficMarkings_default_instance_;
+class Dt_RECORD_TrafficSigns;
+class Dt_RECORD_TrafficSignsDefaultTypeInternal;
+extern Dt_RECORD_TrafficSignsDefaultTypeInternal _Dt_RECORD_TrafficSigns_default_instance_;
 class Dt_RECORD_TrajectoryPoints;
 class Dt_RECORD_TrajectoryPointsDefaultTypeInternal;
 extern Dt_RECORD_TrajectoryPointsDefaultTypeInternal _Dt_RECORD_TrajectoryPoints_default_instance_;
@@ -100,30 +127,35 @@ extern Dt_RECORD_TrajectoryPointsInfosDefaultTypeInternal _Dt_RECORD_TrajectoryP
 class Frame;
 class FrameDefaultTypeInternal;
 extern FrameDefaultTypeInternal _Frame_default_instance_;
-class HdmapToPc_data;
-class HdmapToPc_dataDefaultTypeInternal;
-extern HdmapToPc_dataDefaultTypeInternal _HdmapToPc_data_default_instance_;
 class LogFile;
 class LogFileDefaultTypeInternal;
 extern LogFileDefaultTypeInternal _LogFile_default_instance_;
 }  // namespace socket_all
 PROTOBUF_NAMESPACE_OPEN
 template<> ::socket_all::DecisionToPC* Arena::CreateMaybeMessage<::socket_all::DecisionToPC>(Arena*);
-template<> ::socket_all::Dt_ARRAY_100_LaneNode* Arena::CreateMaybeMessage<::socket_all::Dt_ARRAY_100_LaneNode>(Arena*);
+template<> ::socket_all::Dt_ARRAY_200_GridInfoX* Arena::CreateMaybeMessage<::socket_all::Dt_ARRAY_200_GridInfoX>(Arena*);
+template<> ::socket_all::Dt_RECORD_AccInfo* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_AccInfo>(Arena*);
 template<> ::socket_all::Dt_RECORD_Crosswalk* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_Crosswalk>(Arena*);
+template<> ::socket_all::Dt_RECORD_EnvModelInfos* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_EnvModelInfos>(Arena*);
 template<> ::socket_all::Dt_RECORD_HdMapLane* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_HdMapLane>(Arena*);
 template<> ::socket_all::Dt_RECORD_HdmapFrontPLane* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_HdmapFrontPLane>(Arena*);
 template<> ::socket_all::Dt_RECORD_HdmapInfo* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_HdmapInfo>(Arena*);
 template<> ::socket_all::Dt_RECORD_HdmapLocalLane* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_HdmapLocalLane>(Arena*);
+template<> ::socket_all::Dt_RECORD_LaneLines* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_LaneLines>(Arena*);
+template<> ::socket_all::Dt_RECORD_LaneNode* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_LaneNode>(Arena*);
+template<> ::socket_all::Dt_RECORD_Lanes* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_Lanes>(Arena*);
 template<> ::socket_all::Dt_RECORD_LocalizationInfo* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_LocalizationInfo>(Arena*);
 template<> ::socket_all::Dt_RECORD_LocalizationResult* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_LocalizationResult>(Arena*);
 template<> ::socket_all::Dt_RECORD_MarkArrow* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_MarkArrow>(Arena*);
+template<> ::socket_all::Dt_RECORD_Obstacles* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_Obstacles>(Arena*);
 template<> ::socket_all::Dt_RECORD_PlanSeg* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_PlanSeg>(Arena*);
 template<> ::socket_all::Dt_RECORD_PoiObstacle* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_PoiObstacle>(Arena*);
+template<> ::socket_all::Dt_RECORD_TrafficLights* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_TrafficLights>(Arena*);
+template<> ::socket_all::Dt_RECORD_TrafficMarkings* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_TrafficMarkings>(Arena*);
+template<> ::socket_all::Dt_RECORD_TrafficSigns* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_TrafficSigns>(Arena*);
 template<> ::socket_all::Dt_RECORD_TrajectoryPoints* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_TrajectoryPoints>(Arena*);
 template<> ::socket_all::Dt_RECORD_TrajectoryPointsInfos* Arena::CreateMaybeMessage<::socket_all::Dt_RECORD_TrajectoryPointsInfos>(Arena*);
 template<> ::socket_all::Frame* Arena::CreateMaybeMessage<::socket_all::Frame>(Arena*);
-template<> ::socket_all::HdmapToPc_data* Arena::CreateMaybeMessage<::socket_all::HdmapToPc_data>(Arena*);
 template<> ::socket_all::LogFile* Arena::CreateMaybeMessage<::socket_all::LogFile>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace socket_all {
@@ -384,26 +416,10 @@ class Frame :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kHdmapToPcDataFieldNumber = 2,
-    kDecisionToPCFieldNumber = 3,
+    kDecisionToPCFieldNumber = 2,
     kFrameIdFieldNumber = 1,
   };
-  // .socket_all.HdmapToPc_data hdmapToPc_data = 2;
-  bool has_hdmaptopc_data() const;
-  private:
-  bool _internal_has_hdmaptopc_data() const;
-  public:
-  void clear_hdmaptopc_data();
-  const ::socket_all::HdmapToPc_data& hdmaptopc_data() const;
-  ::socket_all::HdmapToPc_data* release_hdmaptopc_data();
-  ::socket_all::HdmapToPc_data* mutable_hdmaptopc_data();
-  void set_allocated_hdmaptopc_data(::socket_all::HdmapToPc_data* hdmaptopc_data);
-  private:
-  const ::socket_all::HdmapToPc_data& _internal_hdmaptopc_data() const;
-  ::socket_all::HdmapToPc_data* _internal_mutable_hdmaptopc_data();
-  public:
-
-  // .socket_all.DecisionToPC decisionToPC = 3;
+  // .socket_all.DecisionToPC decisionToPC = 2;
   bool has_decisiontopc() const;
   private:
   bool _internal_has_decisiontopc() const;
@@ -432,177 +448,8 @@ class Frame :
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::socket_all::HdmapToPc_data* hdmaptopc_data_;
   ::socket_all::DecisionToPC* decisiontopc_;
   ::PROTOBUF_NAMESPACE_ID::int32 frame_id_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_socket_5fall_2eproto;
-};
-// -------------------------------------------------------------------
-
-class HdmapToPc_data :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:socket_all.HdmapToPc_data) */ {
- public:
-  HdmapToPc_data();
-  virtual ~HdmapToPc_data();
-
-  HdmapToPc_data(const HdmapToPc_data& from);
-  HdmapToPc_data(HdmapToPc_data&& from) noexcept
-    : HdmapToPc_data() {
-    *this = ::std::move(from);
-  }
-
-  inline HdmapToPc_data& operator=(const HdmapToPc_data& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline HdmapToPc_data& operator=(HdmapToPc_data&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
-  static const HdmapToPc_data& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const HdmapToPc_data* internal_default_instance() {
-    return reinterpret_cast<const HdmapToPc_data*>(
-               &_HdmapToPc_data_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    2;
-
-  friend void swap(HdmapToPc_data& a, HdmapToPc_data& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(HdmapToPc_data* other) {
-    if (other == this) return;
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline HdmapToPc_data* New() const final {
-    return CreateMaybeMessage<HdmapToPc_data>(nullptr);
-  }
-
-  HdmapToPc_data* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<HdmapToPc_data>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const HdmapToPc_data& from);
-  void MergeFrom(const HdmapToPc_data& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  inline void SharedCtor();
-  inline void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(HdmapToPc_data* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "socket_all.HdmapToPc_data";
-  }
-  private:
-  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_socket_5fall_2eproto);
-    return ::descriptor_table_socket_5fall_2eproto.file_level_metadata[kIndexInFileMessages];
-  }
-
-  public:
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kGHdmapInfoFieldNumber = 1,
-    kGFrontPLaneFieldNumber = 2,
-    kGLocalLaneFieldNumber = 3,
-  };
-  // .socket_all.Dt_RECORD_HdmapInfo G_HdmapInfo = 1;
-  bool has_g_hdmapinfo() const;
-  private:
-  bool _internal_has_g_hdmapinfo() const;
-  public:
-  void clear_g_hdmapinfo();
-  const ::socket_all::Dt_RECORD_HdmapInfo& g_hdmapinfo() const;
-  ::socket_all::Dt_RECORD_HdmapInfo* release_g_hdmapinfo();
-  ::socket_all::Dt_RECORD_HdmapInfo* mutable_g_hdmapinfo();
-  void set_allocated_g_hdmapinfo(::socket_all::Dt_RECORD_HdmapInfo* g_hdmapinfo);
-  private:
-  const ::socket_all::Dt_RECORD_HdmapInfo& _internal_g_hdmapinfo() const;
-  ::socket_all::Dt_RECORD_HdmapInfo* _internal_mutable_g_hdmapinfo();
-  public:
-
-  // .socket_all.Dt_RECORD_HdmapFrontPLane G_FrontPLane = 2;
-  bool has_g_frontplane() const;
-  private:
-  bool _internal_has_g_frontplane() const;
-  public:
-  void clear_g_frontplane();
-  const ::socket_all::Dt_RECORD_HdmapFrontPLane& g_frontplane() const;
-  ::socket_all::Dt_RECORD_HdmapFrontPLane* release_g_frontplane();
-  ::socket_all::Dt_RECORD_HdmapFrontPLane* mutable_g_frontplane();
-  void set_allocated_g_frontplane(::socket_all::Dt_RECORD_HdmapFrontPLane* g_frontplane);
-  private:
-  const ::socket_all::Dt_RECORD_HdmapFrontPLane& _internal_g_frontplane() const;
-  ::socket_all::Dt_RECORD_HdmapFrontPLane* _internal_mutable_g_frontplane();
-  public:
-
-  // .socket_all.Dt_RECORD_HdmapLocalLane G_LocalLane = 3;
-  bool has_g_locallane() const;
-  private:
-  bool _internal_has_g_locallane() const;
-  public:
-  void clear_g_locallane();
-  const ::socket_all::Dt_RECORD_HdmapLocalLane& g_locallane() const;
-  ::socket_all::Dt_RECORD_HdmapLocalLane* release_g_locallane();
-  ::socket_all::Dt_RECORD_HdmapLocalLane* mutable_g_locallane();
-  void set_allocated_g_locallane(::socket_all::Dt_RECORD_HdmapLocalLane* g_locallane);
-  private:
-  const ::socket_all::Dt_RECORD_HdmapLocalLane& _internal_g_locallane() const;
-  ::socket_all::Dt_RECORD_HdmapLocalLane* _internal_mutable_g_locallane();
-  public:
-
-  // @@protoc_insertion_point(class_scope:socket_all.HdmapToPc_data)
- private:
-  class _Internal;
-
-  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::socket_all::Dt_RECORD_HdmapInfo* g_hdmapinfo_;
-  ::socket_all::Dt_RECORD_HdmapFrontPLane* g_frontplane_;
-  ::socket_all::Dt_RECORD_HdmapLocalLane* g_locallane_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_socket_5fall_2eproto;
 };
@@ -650,7 +497,7 @@ class Dt_RECORD_HdmapInfo :
                &_Dt_RECORD_HdmapInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    2;
 
   friend void swap(Dt_RECORD_HdmapInfo& a, Dt_RECORD_HdmapInfo& b) {
     a.Swap(&b);
@@ -866,7 +713,7 @@ class Dt_RECORD_HdmapFrontPLane :
                &_Dt_RECORD_HdmapFrontPLane_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    3;
 
   friend void swap(Dt_RECORD_HdmapFrontPLane& a, Dt_RECORD_HdmapFrontPLane& b) {
     a.Swap(&b);
@@ -1014,7 +861,7 @@ class Dt_RECORD_PlanSeg :
                &_Dt_RECORD_PlanSeg_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    4;
 
   friend void swap(Dt_RECORD_PlanSeg& a, Dt_RECORD_PlanSeg& b) {
     a.Swap(&b);
@@ -1162,7 +1009,7 @@ class Dt_RECORD_HdMapLane :
                &_Dt_RECORD_HdMapLane_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    5;
 
   friend void swap(Dt_RECORD_HdMapLane& a, Dt_RECORD_HdMapLane& b) {
     a.Swap(&b);
@@ -1265,22 +1112,22 @@ class Dt_RECORD_HdMapLane :
     kHgnodeIDFieldNumber = 37,
     kHgnodeDistanceFieldNumber = 38,
   };
-  // repeated .socket_all.Dt_ARRAY_100_LaneNode LaneNode = 2;
+  // repeated .socket_all.Dt_RECORD_LaneNode LaneNode = 2;
   int lanenode_size() const;
   private:
   int _internal_lanenode_size() const;
   public:
   void clear_lanenode();
-  ::socket_all::Dt_ARRAY_100_LaneNode* mutable_lanenode(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_ARRAY_100_LaneNode >*
+  ::socket_all::Dt_RECORD_LaneNode* mutable_lanenode(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_LaneNode >*
       mutable_lanenode();
   private:
-  const ::socket_all::Dt_ARRAY_100_LaneNode& _internal_lanenode(int index) const;
-  ::socket_all::Dt_ARRAY_100_LaneNode* _internal_add_lanenode();
+  const ::socket_all::Dt_RECORD_LaneNode& _internal_lanenode(int index) const;
+  ::socket_all::Dt_RECORD_LaneNode* _internal_add_lanenode();
   public:
-  const ::socket_all::Dt_ARRAY_100_LaneNode& lanenode(int index) const;
-  ::socket_all::Dt_ARRAY_100_LaneNode* add_lanenode();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_ARRAY_100_LaneNode >&
+  const ::socket_all::Dt_RECORD_LaneNode& lanenode(int index) const;
+  ::socket_all::Dt_RECORD_LaneNode* add_lanenode();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_LaneNode >&
       lanenode() const;
 
   // repeated .socket_all.Dt_RECORD_PoiObstacle POI = 32;
@@ -1666,7 +1513,7 @@ class Dt_RECORD_HdMapLane :
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_ARRAY_100_LaneNode > lanenode_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_LaneNode > lanenode_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_PoiObstacle > poi_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_PoiObstacle > obstacle_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_MarkArrow > mark_;
@@ -1709,23 +1556,23 @@ class Dt_RECORD_HdMapLane :
 };
 // -------------------------------------------------------------------
 
-class Dt_ARRAY_100_LaneNode :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:socket_all.Dt_ARRAY_100_LaneNode) */ {
+class Dt_RECORD_LaneNode :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:socket_all.Dt_RECORD_LaneNode) */ {
  public:
-  Dt_ARRAY_100_LaneNode();
-  virtual ~Dt_ARRAY_100_LaneNode();
+  Dt_RECORD_LaneNode();
+  virtual ~Dt_RECORD_LaneNode();
 
-  Dt_ARRAY_100_LaneNode(const Dt_ARRAY_100_LaneNode& from);
-  Dt_ARRAY_100_LaneNode(Dt_ARRAY_100_LaneNode&& from) noexcept
-    : Dt_ARRAY_100_LaneNode() {
+  Dt_RECORD_LaneNode(const Dt_RECORD_LaneNode& from);
+  Dt_RECORD_LaneNode(Dt_RECORD_LaneNode&& from) noexcept
+    : Dt_RECORD_LaneNode() {
     *this = ::std::move(from);
   }
 
-  inline Dt_ARRAY_100_LaneNode& operator=(const Dt_ARRAY_100_LaneNode& from) {
+  inline Dt_RECORD_LaneNode& operator=(const Dt_RECORD_LaneNode& from) {
     CopyFrom(from);
     return *this;
   }
-  inline Dt_ARRAY_100_LaneNode& operator=(Dt_ARRAY_100_LaneNode&& from) noexcept {
+  inline Dt_RECORD_LaneNode& operator=(Dt_RECORD_LaneNode&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -1743,37 +1590,37 @@ class Dt_ARRAY_100_LaneNode :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const Dt_ARRAY_100_LaneNode& default_instance();
+  static const Dt_RECORD_LaneNode& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const Dt_ARRAY_100_LaneNode* internal_default_instance() {
-    return reinterpret_cast<const Dt_ARRAY_100_LaneNode*>(
-               &_Dt_ARRAY_100_LaneNode_default_instance_);
+  static inline const Dt_RECORD_LaneNode* internal_default_instance() {
+    return reinterpret_cast<const Dt_RECORD_LaneNode*>(
+               &_Dt_RECORD_LaneNode_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    6;
 
-  friend void swap(Dt_ARRAY_100_LaneNode& a, Dt_ARRAY_100_LaneNode& b) {
+  friend void swap(Dt_RECORD_LaneNode& a, Dt_RECORD_LaneNode& b) {
     a.Swap(&b);
   }
-  inline void Swap(Dt_ARRAY_100_LaneNode* other) {
+  inline void Swap(Dt_RECORD_LaneNode* other) {
     if (other == this) return;
     InternalSwap(other);
   }
 
   // implements Message ----------------------------------------------
 
-  inline Dt_ARRAY_100_LaneNode* New() const final {
-    return CreateMaybeMessage<Dt_ARRAY_100_LaneNode>(nullptr);
+  inline Dt_RECORD_LaneNode* New() const final {
+    return CreateMaybeMessage<Dt_RECORD_LaneNode>(nullptr);
   }
 
-  Dt_ARRAY_100_LaneNode* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<Dt_ARRAY_100_LaneNode>(arena);
+  Dt_RECORD_LaneNode* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Dt_RECORD_LaneNode>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const Dt_ARRAY_100_LaneNode& from);
-  void MergeFrom(const Dt_ARRAY_100_LaneNode& from);
+  void CopyFrom(const Dt_RECORD_LaneNode& from);
+  void MergeFrom(const Dt_RECORD_LaneNode& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -1787,10 +1634,10 @@ class Dt_ARRAY_100_LaneNode :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(Dt_ARRAY_100_LaneNode* other);
+  void InternalSwap(Dt_RECORD_LaneNode* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "socket_all.Dt_ARRAY_100_LaneNode";
+    return "socket_all.Dt_RECORD_LaneNode";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -1876,7 +1723,7 @@ class Dt_ARRAY_100_LaneNode :
   void _internal_set_slopev(float value);
   public:
 
-  // @@protoc_insertion_point(class_scope:socket_all.Dt_ARRAY_100_LaneNode)
+  // @@protoc_insertion_point(class_scope:socket_all.Dt_RECORD_LaneNode)
  private:
   class _Internal;
 
@@ -1934,7 +1781,7 @@ class Dt_RECORD_PoiObstacle :
                &_Dt_RECORD_PoiObstacle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    7;
 
   friend void swap(Dt_RECORD_PoiObstacle& a, Dt_RECORD_PoiObstacle& b) {
     a.Swap(&b);
@@ -2084,7 +1931,7 @@ class Dt_RECORD_MarkArrow :
                &_Dt_RECORD_MarkArrow_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    8;
 
   friend void swap(Dt_RECORD_MarkArrow& a, Dt_RECORD_MarkArrow& b) {
     a.Swap(&b);
@@ -2245,7 +2092,7 @@ class Dt_RECORD_HdmapLocalLane :
                &_Dt_RECORD_HdmapLocalLane_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    9;
 
   friend void swap(Dt_RECORD_HdmapLocalLane& a, Dt_RECORD_HdmapLocalLane& b) {
     a.Swap(&b);
@@ -2424,7 +2271,7 @@ class Dt_RECORD_Crosswalk :
                &_Dt_RECORD_Crosswalk_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    10;
 
   friend void swap(Dt_RECORD_Crosswalk& a, Dt_RECORD_Crosswalk& b) {
     a.Swap(&b);
@@ -2563,7 +2410,7 @@ class DecisionToPC :
                &_DecisionToPC_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    11;
 
   friend void swap(DecisionToPC& a, DecisionToPC& b) {
     a.Swap(&b);
@@ -2629,6 +2476,11 @@ class DecisionToPC :
   enum : int {
     kMyLocalizationInfoFieldNumber = 1,
     kMyTrajectoryPointsInfoFieldNumber = 2,
+    kMyVehicleInfoFieldNumber = 3,
+    kMyEnvModelInfoFieldNumber = 4,
+    kMyHdmapInfoFieldNumber = 5,
+    kMyHdmapFrontPLaneInfoFieldNumber = 6,
+    kMyHdmapLocalLaneInfoFieldNumber = 7,
   };
   // .socket_all.Dt_RECORD_LocalizationInfo my_localizationInfo = 1;
   bool has_my_localizationinfo() const;
@@ -2660,6 +2512,81 @@ class DecisionToPC :
   ::socket_all::Dt_RECORD_TrajectoryPointsInfos* _internal_mutable_my_trajectorypointsinfo();
   public:
 
+  // .socket_all.Dt_RECORD_AccInfo my_vehicleInfo = 3;
+  bool has_my_vehicleinfo() const;
+  private:
+  bool _internal_has_my_vehicleinfo() const;
+  public:
+  void clear_my_vehicleinfo();
+  const ::socket_all::Dt_RECORD_AccInfo& my_vehicleinfo() const;
+  ::socket_all::Dt_RECORD_AccInfo* release_my_vehicleinfo();
+  ::socket_all::Dt_RECORD_AccInfo* mutable_my_vehicleinfo();
+  void set_allocated_my_vehicleinfo(::socket_all::Dt_RECORD_AccInfo* my_vehicleinfo);
+  private:
+  const ::socket_all::Dt_RECORD_AccInfo& _internal_my_vehicleinfo() const;
+  ::socket_all::Dt_RECORD_AccInfo* _internal_mutable_my_vehicleinfo();
+  public:
+
+  // .socket_all.Dt_RECORD_EnvModelInfos my_envModelInfo = 4;
+  bool has_my_envmodelinfo() const;
+  private:
+  bool _internal_has_my_envmodelinfo() const;
+  public:
+  void clear_my_envmodelinfo();
+  const ::socket_all::Dt_RECORD_EnvModelInfos& my_envmodelinfo() const;
+  ::socket_all::Dt_RECORD_EnvModelInfos* release_my_envmodelinfo();
+  ::socket_all::Dt_RECORD_EnvModelInfos* mutable_my_envmodelinfo();
+  void set_allocated_my_envmodelinfo(::socket_all::Dt_RECORD_EnvModelInfos* my_envmodelinfo);
+  private:
+  const ::socket_all::Dt_RECORD_EnvModelInfos& _internal_my_envmodelinfo() const;
+  ::socket_all::Dt_RECORD_EnvModelInfos* _internal_mutable_my_envmodelinfo();
+  public:
+
+  // .socket_all.Dt_RECORD_HdmapInfo my_hdmapInfo = 5;
+  bool has_my_hdmapinfo() const;
+  private:
+  bool _internal_has_my_hdmapinfo() const;
+  public:
+  void clear_my_hdmapinfo();
+  const ::socket_all::Dt_RECORD_HdmapInfo& my_hdmapinfo() const;
+  ::socket_all::Dt_RECORD_HdmapInfo* release_my_hdmapinfo();
+  ::socket_all::Dt_RECORD_HdmapInfo* mutable_my_hdmapinfo();
+  void set_allocated_my_hdmapinfo(::socket_all::Dt_RECORD_HdmapInfo* my_hdmapinfo);
+  private:
+  const ::socket_all::Dt_RECORD_HdmapInfo& _internal_my_hdmapinfo() const;
+  ::socket_all::Dt_RECORD_HdmapInfo* _internal_mutable_my_hdmapinfo();
+  public:
+
+  // .socket_all.Dt_RECORD_HdmapFrontPLane my_hdmapFrontPLaneInfo = 6;
+  bool has_my_hdmapfrontplaneinfo() const;
+  private:
+  bool _internal_has_my_hdmapfrontplaneinfo() const;
+  public:
+  void clear_my_hdmapfrontplaneinfo();
+  const ::socket_all::Dt_RECORD_HdmapFrontPLane& my_hdmapfrontplaneinfo() const;
+  ::socket_all::Dt_RECORD_HdmapFrontPLane* release_my_hdmapfrontplaneinfo();
+  ::socket_all::Dt_RECORD_HdmapFrontPLane* mutable_my_hdmapfrontplaneinfo();
+  void set_allocated_my_hdmapfrontplaneinfo(::socket_all::Dt_RECORD_HdmapFrontPLane* my_hdmapfrontplaneinfo);
+  private:
+  const ::socket_all::Dt_RECORD_HdmapFrontPLane& _internal_my_hdmapfrontplaneinfo() const;
+  ::socket_all::Dt_RECORD_HdmapFrontPLane* _internal_mutable_my_hdmapfrontplaneinfo();
+  public:
+
+  // .socket_all.Dt_RECORD_HdmapLocalLane my_hdmapLocalLaneInfo = 7;
+  bool has_my_hdmaplocallaneinfo() const;
+  private:
+  bool _internal_has_my_hdmaplocallaneinfo() const;
+  public:
+  void clear_my_hdmaplocallaneinfo();
+  const ::socket_all::Dt_RECORD_HdmapLocalLane& my_hdmaplocallaneinfo() const;
+  ::socket_all::Dt_RECORD_HdmapLocalLane* release_my_hdmaplocallaneinfo();
+  ::socket_all::Dt_RECORD_HdmapLocalLane* mutable_my_hdmaplocallaneinfo();
+  void set_allocated_my_hdmaplocallaneinfo(::socket_all::Dt_RECORD_HdmapLocalLane* my_hdmaplocallaneinfo);
+  private:
+  const ::socket_all::Dt_RECORD_HdmapLocalLane& _internal_my_hdmaplocallaneinfo() const;
+  ::socket_all::Dt_RECORD_HdmapLocalLane* _internal_mutable_my_hdmaplocallaneinfo();
+  public:
+
   // @@protoc_insertion_point(class_scope:socket_all.DecisionToPC)
  private:
   class _Internal;
@@ -2667,6 +2594,11 @@ class DecisionToPC :
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::socket_all::Dt_RECORD_LocalizationInfo* my_localizationinfo_;
   ::socket_all::Dt_RECORD_TrajectoryPointsInfos* my_trajectorypointsinfo_;
+  ::socket_all::Dt_RECORD_AccInfo* my_vehicleinfo_;
+  ::socket_all::Dt_RECORD_EnvModelInfos* my_envmodelinfo_;
+  ::socket_all::Dt_RECORD_HdmapInfo* my_hdmapinfo_;
+  ::socket_all::Dt_RECORD_HdmapFrontPLane* my_hdmapfrontplaneinfo_;
+  ::socket_all::Dt_RECORD_HdmapLocalLane* my_hdmaplocallaneinfo_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_socket_5fall_2eproto;
 };
@@ -2714,7 +2646,7 @@ class Dt_RECORD_LocalizationInfo :
                &_Dt_RECORD_LocalizationInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    12;
 
   friend void swap(Dt_RECORD_LocalizationInfo& a, Dt_RECORD_LocalizationInfo& b) {
     a.Swap(&b);
@@ -2969,7 +2901,7 @@ class Dt_RECORD_LocalizationResult :
                &_Dt_RECORD_LocalizationResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    13;
 
   friend void swap(Dt_RECORD_LocalizationResult& a, Dt_RECORD_LocalizationResult& b) {
     a.Swap(&b);
@@ -3174,7 +3106,7 @@ class Dt_RECORD_TrajectoryPointsInfos :
                &_Dt_RECORD_TrajectoryPointsInfos_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    14;
 
   friend void swap(Dt_RECORD_TrajectoryPointsInfos& a, Dt_RECORD_TrajectoryPointsInfos& b) {
     a.Swap(&b);
@@ -3377,7 +3309,7 @@ class Dt_RECORD_TrajectoryPoints :
                &_Dt_RECORD_TrajectoryPoints_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    15;
 
   friend void swap(Dt_RECORD_TrajectoryPoints& a, Dt_RECORD_TrajectoryPoints& b) {
     a.Swap(&b);
@@ -3604,6 +3536,2002 @@ class Dt_RECORD_TrajectoryPoints :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_socket_5fall_2eproto;
 };
+// -------------------------------------------------------------------
+
+class Dt_RECORD_AccInfo :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:socket_all.Dt_RECORD_AccInfo) */ {
+ public:
+  Dt_RECORD_AccInfo();
+  virtual ~Dt_RECORD_AccInfo();
+
+  Dt_RECORD_AccInfo(const Dt_RECORD_AccInfo& from);
+  Dt_RECORD_AccInfo(Dt_RECORD_AccInfo&& from) noexcept
+    : Dt_RECORD_AccInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline Dt_RECORD_AccInfo& operator=(const Dt_RECORD_AccInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Dt_RECORD_AccInfo& operator=(Dt_RECORD_AccInfo&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Dt_RECORD_AccInfo& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Dt_RECORD_AccInfo* internal_default_instance() {
+    return reinterpret_cast<const Dt_RECORD_AccInfo*>(
+               &_Dt_RECORD_AccInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    16;
+
+  friend void swap(Dt_RECORD_AccInfo& a, Dt_RECORD_AccInfo& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Dt_RECORD_AccInfo* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Dt_RECORD_AccInfo* New() const final {
+    return CreateMaybeMessage<Dt_RECORD_AccInfo>(nullptr);
+  }
+
+  Dt_RECORD_AccInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Dt_RECORD_AccInfo>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Dt_RECORD_AccInfo& from);
+  void MergeFrom(const Dt_RECORD_AccInfo& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Dt_RECORD_AccInfo* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "socket_all.Dt_RECORD_AccInfo";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_socket_5fall_2eproto);
+    return ::descriptor_table_socket_5fall_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kESP0X318TimeStampFieldNumber = 1,
+    kESPVehSpdFieldNumber = 2,
+    kYRS0X242TimeStampFieldNumber = 3,
+    kYRSLgtAcceFieldNumber = 4,
+    kYRSLatAcceFieldNumber = 5,
+    kYRSYawRateFieldNumber = 6,
+  };
+  // uint32 ESP_0x318_time_stamp = 1;
+  void clear_esp_0x318_time_stamp();
+  ::PROTOBUF_NAMESPACE_ID::uint32 esp_0x318_time_stamp() const;
+  void set_esp_0x318_time_stamp(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_esp_0x318_time_stamp() const;
+  void _internal_set_esp_0x318_time_stamp(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // float ESP_VehSpd = 2;
+  void clear_esp_vehspd();
+  float esp_vehspd() const;
+  void set_esp_vehspd(float value);
+  private:
+  float _internal_esp_vehspd() const;
+  void _internal_set_esp_vehspd(float value);
+  public:
+
+  // uint32 YRS_0x242_time_stamp = 3;
+  void clear_yrs_0x242_time_stamp();
+  ::PROTOBUF_NAMESPACE_ID::uint32 yrs_0x242_time_stamp() const;
+  void set_yrs_0x242_time_stamp(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_yrs_0x242_time_stamp() const;
+  void _internal_set_yrs_0x242_time_stamp(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // float YRS_LgtAcce = 4;
+  void clear_yrs_lgtacce();
+  float yrs_lgtacce() const;
+  void set_yrs_lgtacce(float value);
+  private:
+  float _internal_yrs_lgtacce() const;
+  void _internal_set_yrs_lgtacce(float value);
+  public:
+
+  // float YRS_LatAcce = 5;
+  void clear_yrs_latacce();
+  float yrs_latacce() const;
+  void set_yrs_latacce(float value);
+  private:
+  float _internal_yrs_latacce() const;
+  void _internal_set_yrs_latacce(float value);
+  public:
+
+  // float YRS_YawRate = 6;
+  void clear_yrs_yawrate();
+  float yrs_yawrate() const;
+  void set_yrs_yawrate(float value);
+  private:
+  float _internal_yrs_yawrate() const;
+  void _internal_set_yrs_yawrate(float value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:socket_all.Dt_RECORD_AccInfo)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 esp_0x318_time_stamp_;
+  float esp_vehspd_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 yrs_0x242_time_stamp_;
+  float yrs_lgtacce_;
+  float yrs_latacce_;
+  float yrs_yawrate_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_socket_5fall_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Dt_RECORD_EnvModelInfos :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:socket_all.Dt_RECORD_EnvModelInfos) */ {
+ public:
+  Dt_RECORD_EnvModelInfos();
+  virtual ~Dt_RECORD_EnvModelInfos();
+
+  Dt_RECORD_EnvModelInfos(const Dt_RECORD_EnvModelInfos& from);
+  Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos&& from) noexcept
+    : Dt_RECORD_EnvModelInfos() {
+    *this = ::std::move(from);
+  }
+
+  inline Dt_RECORD_EnvModelInfos& operator=(const Dt_RECORD_EnvModelInfos& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Dt_RECORD_EnvModelInfos& operator=(Dt_RECORD_EnvModelInfos&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Dt_RECORD_EnvModelInfos& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Dt_RECORD_EnvModelInfos* internal_default_instance() {
+    return reinterpret_cast<const Dt_RECORD_EnvModelInfos*>(
+               &_Dt_RECORD_EnvModelInfos_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    17;
+
+  friend void swap(Dt_RECORD_EnvModelInfos& a, Dt_RECORD_EnvModelInfos& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Dt_RECORD_EnvModelInfos* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Dt_RECORD_EnvModelInfos* New() const final {
+    return CreateMaybeMessage<Dt_RECORD_EnvModelInfos>(nullptr);
+  }
+
+  Dt_RECORD_EnvModelInfos* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Dt_RECORD_EnvModelInfos>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Dt_RECORD_EnvModelInfos& from);
+  void MergeFrom(const Dt_RECORD_EnvModelInfos& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Dt_RECORD_EnvModelInfos* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "socket_all.Dt_RECORD_EnvModelInfos";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_socket_5fall_2eproto);
+    return ::descriptor_table_socket_5fall_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kObstaclesFieldNumber = 9,
+    kTrafficSignsFieldNumber = 10,
+    kTrafficMarkingsFieldNumber = 11,
+    kTrafficLightsFieldNumber = 12,
+    kObstacleGridMapFieldNumber = 13,
+    kLanesFieldNumber = 8,
+    kTimeStampFieldNumber = 2,
+    kFrameIndexFieldNumber = 1,
+    kObstacleNumFieldNumber = 3,
+    kTrafficSignNumFieldNumber = 4,
+    kTrafficMarkingNumFieldNumber = 5,
+    kTrafficLightNumFieldNumber = 6,
+    kResveredFieldNumber = 7,
+  };
+  // repeated .socket_all.Dt_RECORD_Obstacles Obstacles = 9;
+  int obstacles_size() const;
+  private:
+  int _internal_obstacles_size() const;
+  public:
+  void clear_obstacles();
+  ::socket_all::Dt_RECORD_Obstacles* mutable_obstacles(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_Obstacles >*
+      mutable_obstacles();
+  private:
+  const ::socket_all::Dt_RECORD_Obstacles& _internal_obstacles(int index) const;
+  ::socket_all::Dt_RECORD_Obstacles* _internal_add_obstacles();
+  public:
+  const ::socket_all::Dt_RECORD_Obstacles& obstacles(int index) const;
+  ::socket_all::Dt_RECORD_Obstacles* add_obstacles();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_Obstacles >&
+      obstacles() const;
+
+  // repeated .socket_all.Dt_RECORD_TrafficSigns TrafficSigns = 10;
+  int trafficsigns_size() const;
+  private:
+  int _internal_trafficsigns_size() const;
+  public:
+  void clear_trafficsigns();
+  ::socket_all::Dt_RECORD_TrafficSigns* mutable_trafficsigns(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_TrafficSigns >*
+      mutable_trafficsigns();
+  private:
+  const ::socket_all::Dt_RECORD_TrafficSigns& _internal_trafficsigns(int index) const;
+  ::socket_all::Dt_RECORD_TrafficSigns* _internal_add_trafficsigns();
+  public:
+  const ::socket_all::Dt_RECORD_TrafficSigns& trafficsigns(int index) const;
+  ::socket_all::Dt_RECORD_TrafficSigns* add_trafficsigns();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_TrafficSigns >&
+      trafficsigns() const;
+
+  // repeated .socket_all.Dt_RECORD_TrafficMarkings TrafficMarkings = 11;
+  int trafficmarkings_size() const;
+  private:
+  int _internal_trafficmarkings_size() const;
+  public:
+  void clear_trafficmarkings();
+  ::socket_all::Dt_RECORD_TrafficMarkings* mutable_trafficmarkings(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_TrafficMarkings >*
+      mutable_trafficmarkings();
+  private:
+  const ::socket_all::Dt_RECORD_TrafficMarkings& _internal_trafficmarkings(int index) const;
+  ::socket_all::Dt_RECORD_TrafficMarkings* _internal_add_trafficmarkings();
+  public:
+  const ::socket_all::Dt_RECORD_TrafficMarkings& trafficmarkings(int index) const;
+  ::socket_all::Dt_RECORD_TrafficMarkings* add_trafficmarkings();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_TrafficMarkings >&
+      trafficmarkings() const;
+
+  // repeated .socket_all.Dt_RECORD_TrafficLights TrafficLights = 12;
+  int trafficlights_size() const;
+  private:
+  int _internal_trafficlights_size() const;
+  public:
+  void clear_trafficlights();
+  ::socket_all::Dt_RECORD_TrafficLights* mutable_trafficlights(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_TrafficLights >*
+      mutable_trafficlights();
+  private:
+  const ::socket_all::Dt_RECORD_TrafficLights& _internal_trafficlights(int index) const;
+  ::socket_all::Dt_RECORD_TrafficLights* _internal_add_trafficlights();
+  public:
+  const ::socket_all::Dt_RECORD_TrafficLights& trafficlights(int index) const;
+  ::socket_all::Dt_RECORD_TrafficLights* add_trafficlights();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_TrafficLights >&
+      trafficlights() const;
+
+  // repeated .socket_all.Dt_ARRAY_200_GridInfoX ObstacleGridMap = 13;
+  int obstaclegridmap_size() const;
+  private:
+  int _internal_obstaclegridmap_size() const;
+  public:
+  void clear_obstaclegridmap();
+  ::socket_all::Dt_ARRAY_200_GridInfoX* mutable_obstaclegridmap(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_ARRAY_200_GridInfoX >*
+      mutable_obstaclegridmap();
+  private:
+  const ::socket_all::Dt_ARRAY_200_GridInfoX& _internal_obstaclegridmap(int index) const;
+  ::socket_all::Dt_ARRAY_200_GridInfoX* _internal_add_obstaclegridmap();
+  public:
+  const ::socket_all::Dt_ARRAY_200_GridInfoX& obstaclegridmap(int index) const;
+  ::socket_all::Dt_ARRAY_200_GridInfoX* add_obstaclegridmap();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_ARRAY_200_GridInfoX >&
+      obstaclegridmap() const;
+
+  // .socket_all.Dt_RECORD_Lanes Lanes = 8;
+  bool has_lanes() const;
+  private:
+  bool _internal_has_lanes() const;
+  public:
+  void clear_lanes();
+  const ::socket_all::Dt_RECORD_Lanes& lanes() const;
+  ::socket_all::Dt_RECORD_Lanes* release_lanes();
+  ::socket_all::Dt_RECORD_Lanes* mutable_lanes();
+  void set_allocated_lanes(::socket_all::Dt_RECORD_Lanes* lanes);
+  private:
+  const ::socket_all::Dt_RECORD_Lanes& _internal_lanes() const;
+  ::socket_all::Dt_RECORD_Lanes* _internal_mutable_lanes();
+  public:
+
+  // uint64 time_stamp = 2;
+  void clear_time_stamp();
+  ::PROTOBUF_NAMESPACE_ID::uint64 time_stamp() const;
+  void set_time_stamp(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_time_stamp() const;
+  void _internal_set_time_stamp(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // uint32 frame_index = 1;
+  void clear_frame_index();
+  ::PROTOBUF_NAMESPACE_ID::uint32 frame_index() const;
+  void set_frame_index(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_frame_index() const;
+  void _internal_set_frame_index(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 obstacle_num = 3;
+  void clear_obstacle_num();
+  ::PROTOBUF_NAMESPACE_ID::uint32 obstacle_num() const;
+  void set_obstacle_num(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_obstacle_num() const;
+  void _internal_set_obstacle_num(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 traffic_sign_num = 4;
+  void clear_traffic_sign_num();
+  ::PROTOBUF_NAMESPACE_ID::uint32 traffic_sign_num() const;
+  void set_traffic_sign_num(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_traffic_sign_num() const;
+  void _internal_set_traffic_sign_num(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 traffic_marking_num = 5;
+  void clear_traffic_marking_num();
+  ::PROTOBUF_NAMESPACE_ID::uint32 traffic_marking_num() const;
+  void set_traffic_marking_num(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_traffic_marking_num() const;
+  void _internal_set_traffic_marking_num(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 traffic_light_num = 6;
+  void clear_traffic_light_num();
+  ::PROTOBUF_NAMESPACE_ID::uint32 traffic_light_num() const;
+  void set_traffic_light_num(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_traffic_light_num() const;
+  void _internal_set_traffic_light_num(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 resvered = 7;
+  void clear_resvered();
+  ::PROTOBUF_NAMESPACE_ID::uint32 resvered() const;
+  void set_resvered(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_resvered() const;
+  void _internal_set_resvered(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:socket_all.Dt_RECORD_EnvModelInfos)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_Obstacles > obstacles_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_TrafficSigns > trafficsigns_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_TrafficMarkings > trafficmarkings_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_TrafficLights > trafficlights_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_ARRAY_200_GridInfoX > obstaclegridmap_;
+  ::socket_all::Dt_RECORD_Lanes* lanes_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 time_stamp_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 frame_index_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 obstacle_num_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 traffic_sign_num_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 traffic_marking_num_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 traffic_light_num_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 resvered_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_socket_5fall_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Dt_RECORD_Lanes :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:socket_all.Dt_RECORD_Lanes) */ {
+ public:
+  Dt_RECORD_Lanes();
+  virtual ~Dt_RECORD_Lanes();
+
+  Dt_RECORD_Lanes(const Dt_RECORD_Lanes& from);
+  Dt_RECORD_Lanes(Dt_RECORD_Lanes&& from) noexcept
+    : Dt_RECORD_Lanes() {
+    *this = ::std::move(from);
+  }
+
+  inline Dt_RECORD_Lanes& operator=(const Dt_RECORD_Lanes& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Dt_RECORD_Lanes& operator=(Dt_RECORD_Lanes&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Dt_RECORD_Lanes& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Dt_RECORD_Lanes* internal_default_instance() {
+    return reinterpret_cast<const Dt_RECORD_Lanes*>(
+               &_Dt_RECORD_Lanes_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    18;
+
+  friend void swap(Dt_RECORD_Lanes& a, Dt_RECORD_Lanes& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Dt_RECORD_Lanes* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Dt_RECORD_Lanes* New() const final {
+    return CreateMaybeMessage<Dt_RECORD_Lanes>(nullptr);
+  }
+
+  Dt_RECORD_Lanes* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Dt_RECORD_Lanes>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Dt_RECORD_Lanes& from);
+  void MergeFrom(const Dt_RECORD_Lanes& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Dt_RECORD_Lanes* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "socket_all.Dt_RECORD_Lanes";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_socket_5fall_2eproto);
+    return ::descriptor_table_socket_5fall_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kLaneLinesFieldNumber = 1,
+    kWidthFieldNumber = 2,
+    kLeftLaneDistanceFieldNumber = 3,
+    kRightLaneDistanceFieldNumber = 4,
+  };
+  // repeated .socket_all.Dt_RECORD_LaneLines LaneLines = 1;
+  int lanelines_size() const;
+  private:
+  int _internal_lanelines_size() const;
+  public:
+  void clear_lanelines();
+  ::socket_all::Dt_RECORD_LaneLines* mutable_lanelines(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_LaneLines >*
+      mutable_lanelines();
+  private:
+  const ::socket_all::Dt_RECORD_LaneLines& _internal_lanelines(int index) const;
+  ::socket_all::Dt_RECORD_LaneLines* _internal_add_lanelines();
+  public:
+  const ::socket_all::Dt_RECORD_LaneLines& lanelines(int index) const;
+  ::socket_all::Dt_RECORD_LaneLines* add_lanelines();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_LaneLines >&
+      lanelines() const;
+
+  // float width = 2;
+  void clear_width();
+  float width() const;
+  void set_width(float value);
+  private:
+  float _internal_width() const;
+  void _internal_set_width(float value);
+  public:
+
+  // float left_lane_distance = 3;
+  void clear_left_lane_distance();
+  float left_lane_distance() const;
+  void set_left_lane_distance(float value);
+  private:
+  float _internal_left_lane_distance() const;
+  void _internal_set_left_lane_distance(float value);
+  public:
+
+  // float right_lane_distance = 4;
+  void clear_right_lane_distance();
+  float right_lane_distance() const;
+  void set_right_lane_distance(float value);
+  private:
+  float _internal_right_lane_distance() const;
+  void _internal_set_right_lane_distance(float value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:socket_all.Dt_RECORD_Lanes)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_LaneLines > lanelines_;
+  float width_;
+  float left_lane_distance_;
+  float right_lane_distance_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_socket_5fall_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Dt_RECORD_LaneLines :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:socket_all.Dt_RECORD_LaneLines) */ {
+ public:
+  Dt_RECORD_LaneLines();
+  virtual ~Dt_RECORD_LaneLines();
+
+  Dt_RECORD_LaneLines(const Dt_RECORD_LaneLines& from);
+  Dt_RECORD_LaneLines(Dt_RECORD_LaneLines&& from) noexcept
+    : Dt_RECORD_LaneLines() {
+    *this = ::std::move(from);
+  }
+
+  inline Dt_RECORD_LaneLines& operator=(const Dt_RECORD_LaneLines& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Dt_RECORD_LaneLines& operator=(Dt_RECORD_LaneLines&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Dt_RECORD_LaneLines& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Dt_RECORD_LaneLines* internal_default_instance() {
+    return reinterpret_cast<const Dt_RECORD_LaneLines*>(
+               &_Dt_RECORD_LaneLines_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    19;
+
+  friend void swap(Dt_RECORD_LaneLines& a, Dt_RECORD_LaneLines& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Dt_RECORD_LaneLines* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Dt_RECORD_LaneLines* New() const final {
+    return CreateMaybeMessage<Dt_RECORD_LaneLines>(nullptr);
+  }
+
+  Dt_RECORD_LaneLines* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Dt_RECORD_LaneLines>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Dt_RECORD_LaneLines& from);
+  void MergeFrom(const Dt_RECORD_LaneLines& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Dt_RECORD_LaneLines* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "socket_all.Dt_RECORD_LaneLines";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_socket_5fall_2eproto);
+    return ::descriptor_table_socket_5fall_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIdFieldNumber = 1,
+    kConfidenceFieldNumber = 2,
+    kTypeFieldNumber = 3,
+    kColorFieldNumber = 4,
+    kLineWidthFieldNumber = 5,
+    kLengthFieldNumber = 6,
+    kLaneLineLineC0FieldNumber = 7,
+    kLaneLineLineC1FieldNumber = 8,
+    kLaneLineLineC2FieldNumber = 9,
+    kLaneLineLineC3FieldNumber = 10,
+  };
+  // uint32 id = 1;
+  void clear_id();
+  ::PROTOBUF_NAMESPACE_ID::uint32 id() const;
+  void set_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_id() const;
+  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 confidence = 2;
+  void clear_confidence();
+  ::PROTOBUF_NAMESPACE_ID::uint32 confidence() const;
+  void set_confidence(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_confidence() const;
+  void _internal_set_confidence(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 type = 3;
+  void clear_type();
+  ::PROTOBUF_NAMESPACE_ID::uint32 type() const;
+  void set_type(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_type() const;
+  void _internal_set_type(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 color = 4;
+  void clear_color();
+  ::PROTOBUF_NAMESPACE_ID::uint32 color() const;
+  void set_color(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_color() const;
+  void _internal_set_color(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // float line_width = 5;
+  void clear_line_width();
+  float line_width() const;
+  void set_line_width(float value);
+  private:
+  float _internal_line_width() const;
+  void _internal_set_line_width(float value);
+  public:
+
+  // float length = 6;
+  void clear_length();
+  float length() const;
+  void set_length(float value);
+  private:
+  float _internal_length() const;
+  void _internal_set_length(float value);
+  public:
+
+  // float lane_line_lineC0 = 7;
+  void clear_lane_line_linec0();
+  float lane_line_linec0() const;
+  void set_lane_line_linec0(float value);
+  private:
+  float _internal_lane_line_linec0() const;
+  void _internal_set_lane_line_linec0(float value);
+  public:
+
+  // float lane_line_lineC1 = 8;
+  void clear_lane_line_linec1();
+  float lane_line_linec1() const;
+  void set_lane_line_linec1(float value);
+  private:
+  float _internal_lane_line_linec1() const;
+  void _internal_set_lane_line_linec1(float value);
+  public:
+
+  // float lane_line_lineC2 = 9;
+  void clear_lane_line_linec2();
+  float lane_line_linec2() const;
+  void set_lane_line_linec2(float value);
+  private:
+  float _internal_lane_line_linec2() const;
+  void _internal_set_lane_line_linec2(float value);
+  public:
+
+  // float lane_line_lineC3 = 10;
+  void clear_lane_line_linec3();
+  float lane_line_linec3() const;
+  void set_lane_line_linec3(float value);
+  private:
+  float _internal_lane_line_linec3() const;
+  void _internal_set_lane_line_linec3(float value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:socket_all.Dt_RECORD_LaneLines)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 id_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 confidence_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 type_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 color_;
+  float line_width_;
+  float length_;
+  float lane_line_linec0_;
+  float lane_line_linec1_;
+  float lane_line_linec2_;
+  float lane_line_linec3_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_socket_5fall_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Dt_RECORD_Obstacles :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:socket_all.Dt_RECORD_Obstacles) */ {
+ public:
+  Dt_RECORD_Obstacles();
+  virtual ~Dt_RECORD_Obstacles();
+
+  Dt_RECORD_Obstacles(const Dt_RECORD_Obstacles& from);
+  Dt_RECORD_Obstacles(Dt_RECORD_Obstacles&& from) noexcept
+    : Dt_RECORD_Obstacles() {
+    *this = ::std::move(from);
+  }
+
+  inline Dt_RECORD_Obstacles& operator=(const Dt_RECORD_Obstacles& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Dt_RECORD_Obstacles& operator=(Dt_RECORD_Obstacles&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Dt_RECORD_Obstacles& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Dt_RECORD_Obstacles* internal_default_instance() {
+    return reinterpret_cast<const Dt_RECORD_Obstacles*>(
+               &_Dt_RECORD_Obstacles_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    20;
+
+  friend void swap(Dt_RECORD_Obstacles& a, Dt_RECORD_Obstacles& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Dt_RECORD_Obstacles* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Dt_RECORD_Obstacles* New() const final {
+    return CreateMaybeMessage<Dt_RECORD_Obstacles>(nullptr);
+  }
+
+  Dt_RECORD_Obstacles* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Dt_RECORD_Obstacles>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Dt_RECORD_Obstacles& from);
+  void MergeFrom(const Dt_RECORD_Obstacles& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Dt_RECORD_Obstacles* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "socket_all.Dt_RECORD_Obstacles";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_socket_5fall_2eproto);
+    return ::descriptor_table_socket_5fall_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIdFieldNumber = 1,
+    kTypeFieldNumber = 2,
+    kConfidenceStateFieldNumber = 3,
+    kStateFieldNumber = 4,
+    kLaneNoFieldNumber = 5,
+    kCIPVFlagFieldNumber = 6,
+    kValidTimeFieldNumber = 7,
+    kPosYFieldNumber = 8,
+    kPosXFieldNumber = 9,
+    kRelSpeedYFieldNumber = 10,
+    kRelSpeedXFieldNumber = 11,
+    kRelAccYFieldNumber = 12,
+    kRelAccXFieldNumber = 13,
+    kAbsSpeedYFieldNumber = 14,
+    kAbsSpeedXFieldNumber = 15,
+    kAbsAccYFieldNumber = 16,
+    kAbsAccXFieldNumber = 17,
+    kHeadingFieldNumber = 18,
+    kLengthFieldNumber = 19,
+    kWidthFieldNumber = 20,
+    kHeightFieldNumber = 21,
+    kImgXFieldNumber = 22,
+    kImgYFieldNumber = 23,
+    kImgWidthFieldNumber = 24,
+    kImgHeightFieldNumber = 25,
+  };
+  // uint32 id = 1;
+  void clear_id();
+  ::PROTOBUF_NAMESPACE_ID::uint32 id() const;
+  void set_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_id() const;
+  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 type = 2;
+  void clear_type();
+  ::PROTOBUF_NAMESPACE_ID::uint32 type() const;
+  void set_type(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_type() const;
+  void _internal_set_type(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 confidence_state = 3;
+  void clear_confidence_state();
+  ::PROTOBUF_NAMESPACE_ID::uint32 confidence_state() const;
+  void set_confidence_state(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_confidence_state() const;
+  void _internal_set_confidence_state(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 state = 4;
+  void clear_state();
+  ::PROTOBUF_NAMESPACE_ID::uint32 state() const;
+  void set_state(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_state() const;
+  void _internal_set_state(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 lane_no = 5;
+  void clear_lane_no();
+  ::PROTOBUF_NAMESPACE_ID::uint32 lane_no() const;
+  void set_lane_no(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_lane_no() const;
+  void _internal_set_lane_no(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 CIPV_flag = 6;
+  void clear_cipv_flag();
+  ::PROTOBUF_NAMESPACE_ID::uint32 cipv_flag() const;
+  void set_cipv_flag(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_cipv_flag() const;
+  void _internal_set_cipv_flag(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 valid_time = 7;
+  void clear_valid_time();
+  ::PROTOBUF_NAMESPACE_ID::uint32 valid_time() const;
+  void set_valid_time(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_valid_time() const;
+  void _internal_set_valid_time(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // float pos_y = 8;
+  void clear_pos_y();
+  float pos_y() const;
+  void set_pos_y(float value);
+  private:
+  float _internal_pos_y() const;
+  void _internal_set_pos_y(float value);
+  public:
+
+  // float pos_x = 9;
+  void clear_pos_x();
+  float pos_x() const;
+  void set_pos_x(float value);
+  private:
+  float _internal_pos_x() const;
+  void _internal_set_pos_x(float value);
+  public:
+
+  // float rel_speed_y = 10;
+  void clear_rel_speed_y();
+  float rel_speed_y() const;
+  void set_rel_speed_y(float value);
+  private:
+  float _internal_rel_speed_y() const;
+  void _internal_set_rel_speed_y(float value);
+  public:
+
+  // float rel_speed_x = 11;
+  void clear_rel_speed_x();
+  float rel_speed_x() const;
+  void set_rel_speed_x(float value);
+  private:
+  float _internal_rel_speed_x() const;
+  void _internal_set_rel_speed_x(float value);
+  public:
+
+  // float rel_acc_y = 12;
+  void clear_rel_acc_y();
+  float rel_acc_y() const;
+  void set_rel_acc_y(float value);
+  private:
+  float _internal_rel_acc_y() const;
+  void _internal_set_rel_acc_y(float value);
+  public:
+
+  // float rel_acc_x = 13;
+  void clear_rel_acc_x();
+  float rel_acc_x() const;
+  void set_rel_acc_x(float value);
+  private:
+  float _internal_rel_acc_x() const;
+  void _internal_set_rel_acc_x(float value);
+  public:
+
+  // float abs_speed_y = 14;
+  void clear_abs_speed_y();
+  float abs_speed_y() const;
+  void set_abs_speed_y(float value);
+  private:
+  float _internal_abs_speed_y() const;
+  void _internal_set_abs_speed_y(float value);
+  public:
+
+  // float abs_speed_x = 15;
+  void clear_abs_speed_x();
+  float abs_speed_x() const;
+  void set_abs_speed_x(float value);
+  private:
+  float _internal_abs_speed_x() const;
+  void _internal_set_abs_speed_x(float value);
+  public:
+
+  // float abs_acc_y = 16;
+  void clear_abs_acc_y();
+  float abs_acc_y() const;
+  void set_abs_acc_y(float value);
+  private:
+  float _internal_abs_acc_y() const;
+  void _internal_set_abs_acc_y(float value);
+  public:
+
+  // float abs_acc_x = 17;
+  void clear_abs_acc_x();
+  float abs_acc_x() const;
+  void set_abs_acc_x(float value);
+  private:
+  float _internal_abs_acc_x() const;
+  void _internal_set_abs_acc_x(float value);
+  public:
+
+  // float heading = 18;
+  void clear_heading();
+  float heading() const;
+  void set_heading(float value);
+  private:
+  float _internal_heading() const;
+  void _internal_set_heading(float value);
+  public:
+
+  // float length = 19;
+  void clear_length();
+  float length() const;
+  void set_length(float value);
+  private:
+  float _internal_length() const;
+  void _internal_set_length(float value);
+  public:
+
+  // float width = 20;
+  void clear_width();
+  float width() const;
+  void set_width(float value);
+  private:
+  float _internal_width() const;
+  void _internal_set_width(float value);
+  public:
+
+  // float height = 21;
+  void clear_height();
+  float height() const;
+  void set_height(float value);
+  private:
+  float _internal_height() const;
+  void _internal_set_height(float value);
+  public:
+
+  // uint32 img_x = 22;
+  void clear_img_x();
+  ::PROTOBUF_NAMESPACE_ID::uint32 img_x() const;
+  void set_img_x(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_img_x() const;
+  void _internal_set_img_x(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 img_y = 23;
+  void clear_img_y();
+  ::PROTOBUF_NAMESPACE_ID::uint32 img_y() const;
+  void set_img_y(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_img_y() const;
+  void _internal_set_img_y(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 img_width = 24;
+  void clear_img_width();
+  ::PROTOBUF_NAMESPACE_ID::uint32 img_width() const;
+  void set_img_width(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_img_width() const;
+  void _internal_set_img_width(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 img_height = 25;
+  void clear_img_height();
+  ::PROTOBUF_NAMESPACE_ID::uint32 img_height() const;
+  void set_img_height(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_img_height() const;
+  void _internal_set_img_height(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:socket_all.Dt_RECORD_Obstacles)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 id_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 type_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 confidence_state_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 state_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 lane_no_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cipv_flag_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 valid_time_;
+  float pos_y_;
+  float pos_x_;
+  float rel_speed_y_;
+  float rel_speed_x_;
+  float rel_acc_y_;
+  float rel_acc_x_;
+  float abs_speed_y_;
+  float abs_speed_x_;
+  float abs_acc_y_;
+  float abs_acc_x_;
+  float heading_;
+  float length_;
+  float width_;
+  float height_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 img_x_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 img_y_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 img_width_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 img_height_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_socket_5fall_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Dt_RECORD_TrafficSigns :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:socket_all.Dt_RECORD_TrafficSigns) */ {
+ public:
+  Dt_RECORD_TrafficSigns();
+  virtual ~Dt_RECORD_TrafficSigns();
+
+  Dt_RECORD_TrafficSigns(const Dt_RECORD_TrafficSigns& from);
+  Dt_RECORD_TrafficSigns(Dt_RECORD_TrafficSigns&& from) noexcept
+    : Dt_RECORD_TrafficSigns() {
+    *this = ::std::move(from);
+  }
+
+  inline Dt_RECORD_TrafficSigns& operator=(const Dt_RECORD_TrafficSigns& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Dt_RECORD_TrafficSigns& operator=(Dt_RECORD_TrafficSigns&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Dt_RECORD_TrafficSigns& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Dt_RECORD_TrafficSigns* internal_default_instance() {
+    return reinterpret_cast<const Dt_RECORD_TrafficSigns*>(
+               &_Dt_RECORD_TrafficSigns_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    21;
+
+  friend void swap(Dt_RECORD_TrafficSigns& a, Dt_RECORD_TrafficSigns& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Dt_RECORD_TrafficSigns* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Dt_RECORD_TrafficSigns* New() const final {
+    return CreateMaybeMessage<Dt_RECORD_TrafficSigns>(nullptr);
+  }
+
+  Dt_RECORD_TrafficSigns* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Dt_RECORD_TrafficSigns>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Dt_RECORD_TrafficSigns& from);
+  void MergeFrom(const Dt_RECORD_TrafficSigns& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Dt_RECORD_TrafficSigns* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "socket_all.Dt_RECORD_TrafficSigns";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_socket_5fall_2eproto);
+    return ::descriptor_table_socket_5fall_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIdFieldNumber = 1,
+    kTypeFieldNumber = 2,
+    kConfidenceFieldNumber = 3,
+    kPosYFieldNumber = 4,
+    kPosXFieldNumber = 5,
+    kPosZFieldNumber = 6,
+  };
+  // uint32 id = 1;
+  void clear_id();
+  ::PROTOBUF_NAMESPACE_ID::uint32 id() const;
+  void set_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_id() const;
+  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 type = 2;
+  void clear_type();
+  ::PROTOBUF_NAMESPACE_ID::uint32 type() const;
+  void set_type(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_type() const;
+  void _internal_set_type(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 confidence = 3;
+  void clear_confidence();
+  ::PROTOBUF_NAMESPACE_ID::uint32 confidence() const;
+  void set_confidence(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_confidence() const;
+  void _internal_set_confidence(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // float pos_y = 4;
+  void clear_pos_y();
+  float pos_y() const;
+  void set_pos_y(float value);
+  private:
+  float _internal_pos_y() const;
+  void _internal_set_pos_y(float value);
+  public:
+
+  // float pos_x = 5;
+  void clear_pos_x();
+  float pos_x() const;
+  void set_pos_x(float value);
+  private:
+  float _internal_pos_x() const;
+  void _internal_set_pos_x(float value);
+  public:
+
+  // float pos_z = 6;
+  void clear_pos_z();
+  float pos_z() const;
+  void set_pos_z(float value);
+  private:
+  float _internal_pos_z() const;
+  void _internal_set_pos_z(float value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:socket_all.Dt_RECORD_TrafficSigns)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 id_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 type_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 confidence_;
+  float pos_y_;
+  float pos_x_;
+  float pos_z_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_socket_5fall_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Dt_RECORD_TrafficMarkings :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:socket_all.Dt_RECORD_TrafficMarkings) */ {
+ public:
+  Dt_RECORD_TrafficMarkings();
+  virtual ~Dt_RECORD_TrafficMarkings();
+
+  Dt_RECORD_TrafficMarkings(const Dt_RECORD_TrafficMarkings& from);
+  Dt_RECORD_TrafficMarkings(Dt_RECORD_TrafficMarkings&& from) noexcept
+    : Dt_RECORD_TrafficMarkings() {
+    *this = ::std::move(from);
+  }
+
+  inline Dt_RECORD_TrafficMarkings& operator=(const Dt_RECORD_TrafficMarkings& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Dt_RECORD_TrafficMarkings& operator=(Dt_RECORD_TrafficMarkings&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Dt_RECORD_TrafficMarkings& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Dt_RECORD_TrafficMarkings* internal_default_instance() {
+    return reinterpret_cast<const Dt_RECORD_TrafficMarkings*>(
+               &_Dt_RECORD_TrafficMarkings_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    22;
+
+  friend void swap(Dt_RECORD_TrafficMarkings& a, Dt_RECORD_TrafficMarkings& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Dt_RECORD_TrafficMarkings* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Dt_RECORD_TrafficMarkings* New() const final {
+    return CreateMaybeMessage<Dt_RECORD_TrafficMarkings>(nullptr);
+  }
+
+  Dt_RECORD_TrafficMarkings* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Dt_RECORD_TrafficMarkings>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Dt_RECORD_TrafficMarkings& from);
+  void MergeFrom(const Dt_RECORD_TrafficMarkings& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Dt_RECORD_TrafficMarkings* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "socket_all.Dt_RECORD_TrafficMarkings";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_socket_5fall_2eproto);
+    return ::descriptor_table_socket_5fall_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIdFieldNumber = 1,
+    kTypeFieldNumber = 2,
+    kConfidenceFieldNumber = 3,
+    kLaneNoFieldNumber = 4,
+    kPosYFieldNumber = 5,
+    kPosXFieldNumber = 6,
+  };
+  // uint32 id = 1;
+  void clear_id();
+  ::PROTOBUF_NAMESPACE_ID::uint32 id() const;
+  void set_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_id() const;
+  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 type = 2;
+  void clear_type();
+  ::PROTOBUF_NAMESPACE_ID::uint32 type() const;
+  void set_type(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_type() const;
+  void _internal_set_type(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 confidence = 3;
+  void clear_confidence();
+  ::PROTOBUF_NAMESPACE_ID::uint32 confidence() const;
+  void set_confidence(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_confidence() const;
+  void _internal_set_confidence(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 lane_no = 4;
+  void clear_lane_no();
+  ::PROTOBUF_NAMESPACE_ID::uint32 lane_no() const;
+  void set_lane_no(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_lane_no() const;
+  void _internal_set_lane_no(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // float pos_y = 5;
+  void clear_pos_y();
+  float pos_y() const;
+  void set_pos_y(float value);
+  private:
+  float _internal_pos_y() const;
+  void _internal_set_pos_y(float value);
+  public:
+
+  // float pos_x = 6;
+  void clear_pos_x();
+  float pos_x() const;
+  void set_pos_x(float value);
+  private:
+  float _internal_pos_x() const;
+  void _internal_set_pos_x(float value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:socket_all.Dt_RECORD_TrafficMarkings)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 id_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 type_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 confidence_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 lane_no_;
+  float pos_y_;
+  float pos_x_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_socket_5fall_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Dt_RECORD_TrafficLights :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:socket_all.Dt_RECORD_TrafficLights) */ {
+ public:
+  Dt_RECORD_TrafficLights();
+  virtual ~Dt_RECORD_TrafficLights();
+
+  Dt_RECORD_TrafficLights(const Dt_RECORD_TrafficLights& from);
+  Dt_RECORD_TrafficLights(Dt_RECORD_TrafficLights&& from) noexcept
+    : Dt_RECORD_TrafficLights() {
+    *this = ::std::move(from);
+  }
+
+  inline Dt_RECORD_TrafficLights& operator=(const Dt_RECORD_TrafficLights& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Dt_RECORD_TrafficLights& operator=(Dt_RECORD_TrafficLights&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Dt_RECORD_TrafficLights& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Dt_RECORD_TrafficLights* internal_default_instance() {
+    return reinterpret_cast<const Dt_RECORD_TrafficLights*>(
+               &_Dt_RECORD_TrafficLights_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    23;
+
+  friend void swap(Dt_RECORD_TrafficLights& a, Dt_RECORD_TrafficLights& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Dt_RECORD_TrafficLights* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Dt_RECORD_TrafficLights* New() const final {
+    return CreateMaybeMessage<Dt_RECORD_TrafficLights>(nullptr);
+  }
+
+  Dt_RECORD_TrafficLights* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Dt_RECORD_TrafficLights>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Dt_RECORD_TrafficLights& from);
+  void MergeFrom(const Dt_RECORD_TrafficLights& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Dt_RECORD_TrafficLights* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "socket_all.Dt_RECORD_TrafficLights";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_socket_5fall_2eproto);
+    return ::descriptor_table_socket_5fall_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIdFieldNumber = 1,
+    kTypeFieldNumber = 2,
+    kConfidenceFieldNumber = 3,
+    kPosYFieldNumber = 4,
+    kPosXFieldNumber = 5,
+    kPosZFieldNumber = 6,
+    kStateFieldNumber = 7,
+    kLaneNoFieldNumber = 8,
+  };
+  // uint32 id = 1;
+  void clear_id();
+  ::PROTOBUF_NAMESPACE_ID::uint32 id() const;
+  void set_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_id() const;
+  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 type = 2;
+  void clear_type();
+  ::PROTOBUF_NAMESPACE_ID::uint32 type() const;
+  void set_type(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_type() const;
+  void _internal_set_type(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 confidence = 3;
+  void clear_confidence();
+  ::PROTOBUF_NAMESPACE_ID::uint32 confidence() const;
+  void set_confidence(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_confidence() const;
+  void _internal_set_confidence(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // float pos_y = 4;
+  void clear_pos_y();
+  float pos_y() const;
+  void set_pos_y(float value);
+  private:
+  float _internal_pos_y() const;
+  void _internal_set_pos_y(float value);
+  public:
+
+  // float pos_x = 5;
+  void clear_pos_x();
+  float pos_x() const;
+  void set_pos_x(float value);
+  private:
+  float _internal_pos_x() const;
+  void _internal_set_pos_x(float value);
+  public:
+
+  // float pos_z = 6;
+  void clear_pos_z();
+  float pos_z() const;
+  void set_pos_z(float value);
+  private:
+  float _internal_pos_z() const;
+  void _internal_set_pos_z(float value);
+  public:
+
+  // uint32 state = 7;
+  void clear_state();
+  ::PROTOBUF_NAMESPACE_ID::uint32 state() const;
+  void set_state(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_state() const;
+  void _internal_set_state(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 lane_no = 8;
+  void clear_lane_no();
+  ::PROTOBUF_NAMESPACE_ID::uint32 lane_no() const;
+  void set_lane_no(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_lane_no() const;
+  void _internal_set_lane_no(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:socket_all.Dt_RECORD_TrafficLights)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 id_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 type_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 confidence_;
+  float pos_y_;
+  float pos_x_;
+  float pos_z_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 state_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 lane_no_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_socket_5fall_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Dt_ARRAY_200_GridInfoX :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:socket_all.Dt_ARRAY_200_GridInfoX) */ {
+ public:
+  Dt_ARRAY_200_GridInfoX();
+  virtual ~Dt_ARRAY_200_GridInfoX();
+
+  Dt_ARRAY_200_GridInfoX(const Dt_ARRAY_200_GridInfoX& from);
+  Dt_ARRAY_200_GridInfoX(Dt_ARRAY_200_GridInfoX&& from) noexcept
+    : Dt_ARRAY_200_GridInfoX() {
+    *this = ::std::move(from);
+  }
+
+  inline Dt_ARRAY_200_GridInfoX& operator=(const Dt_ARRAY_200_GridInfoX& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Dt_ARRAY_200_GridInfoX& operator=(Dt_ARRAY_200_GridInfoX&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Dt_ARRAY_200_GridInfoX& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Dt_ARRAY_200_GridInfoX* internal_default_instance() {
+    return reinterpret_cast<const Dt_ARRAY_200_GridInfoX*>(
+               &_Dt_ARRAY_200_GridInfoX_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    24;
+
+  friend void swap(Dt_ARRAY_200_GridInfoX& a, Dt_ARRAY_200_GridInfoX& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Dt_ARRAY_200_GridInfoX* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Dt_ARRAY_200_GridInfoX* New() const final {
+    return CreateMaybeMessage<Dt_ARRAY_200_GridInfoX>(nullptr);
+  }
+
+  Dt_ARRAY_200_GridInfoX* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Dt_ARRAY_200_GridInfoX>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Dt_ARRAY_200_GridInfoX& from);
+  void MergeFrom(const Dt_ARRAY_200_GridInfoX& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Dt_ARRAY_200_GridInfoX* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "socket_all.Dt_ARRAY_200_GridInfoX";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_socket_5fall_2eproto);
+    return ::descriptor_table_socket_5fall_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kGridNodeFieldNumber = 1,
+  };
+  // repeated uint32 grid_node = 1;
+  int grid_node_size() const;
+  private:
+  int _internal_grid_node_size() const;
+  public:
+  void clear_grid_node();
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_grid_node(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+      _internal_grid_node() const;
+  void _internal_add_grid_node(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+      _internal_mutable_grid_node();
+  public:
+  ::PROTOBUF_NAMESPACE_ID::uint32 grid_node(int index) const;
+  void set_grid_node(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
+  void add_grid_node(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+      grid_node() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+      mutable_grid_node();
+
+  // @@protoc_insertion_point(class_scope:socket_all.Dt_ARRAY_200_GridInfoX)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > grid_node_;
+  mutable std::atomic<int> _grid_node_cached_byte_size_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_socket_5fall_2eproto;
+};
 // ===================================================================
 
 
@@ -3698,67 +5626,7 @@ inline void Frame::set_frame_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:socket_all.Frame.frame_id)
 }
 
-// .socket_all.HdmapToPc_data hdmapToPc_data = 2;
-inline bool Frame::_internal_has_hdmaptopc_data() const {
-  return this != internal_default_instance() && hdmaptopc_data_ != nullptr;
-}
-inline bool Frame::has_hdmaptopc_data() const {
-  return _internal_has_hdmaptopc_data();
-}
-inline void Frame::clear_hdmaptopc_data() {
-  if (GetArenaNoVirtual() == nullptr && hdmaptopc_data_ != nullptr) {
-    delete hdmaptopc_data_;
-  }
-  hdmaptopc_data_ = nullptr;
-}
-inline const ::socket_all::HdmapToPc_data& Frame::_internal_hdmaptopc_data() const {
-  const ::socket_all::HdmapToPc_data* p = hdmaptopc_data_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::socket_all::HdmapToPc_data*>(
-      &::socket_all::_HdmapToPc_data_default_instance_);
-}
-inline const ::socket_all::HdmapToPc_data& Frame::hdmaptopc_data() const {
-  // @@protoc_insertion_point(field_get:socket_all.Frame.hdmapToPc_data)
-  return _internal_hdmaptopc_data();
-}
-inline ::socket_all::HdmapToPc_data* Frame::release_hdmaptopc_data() {
-  // @@protoc_insertion_point(field_release:socket_all.Frame.hdmapToPc_data)
-  
-  ::socket_all::HdmapToPc_data* temp = hdmaptopc_data_;
-  hdmaptopc_data_ = nullptr;
-  return temp;
-}
-inline ::socket_all::HdmapToPc_data* Frame::_internal_mutable_hdmaptopc_data() {
-  
-  if (hdmaptopc_data_ == nullptr) {
-    auto* p = CreateMaybeMessage<::socket_all::HdmapToPc_data>(GetArenaNoVirtual());
-    hdmaptopc_data_ = p;
-  }
-  return hdmaptopc_data_;
-}
-inline ::socket_all::HdmapToPc_data* Frame::mutable_hdmaptopc_data() {
-  // @@protoc_insertion_point(field_mutable:socket_all.Frame.hdmapToPc_data)
-  return _internal_mutable_hdmaptopc_data();
-}
-inline void Frame::set_allocated_hdmaptopc_data(::socket_all::HdmapToPc_data* hdmaptopc_data) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
-  if (message_arena == nullptr) {
-    delete hdmaptopc_data_;
-  }
-  if (hdmaptopc_data) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
-    if (message_arena != submessage_arena) {
-      hdmaptopc_data = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, hdmaptopc_data, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  hdmaptopc_data_ = hdmaptopc_data;
-  // @@protoc_insertion_point(field_set_allocated:socket_all.Frame.hdmapToPc_data)
-}
-
-// .socket_all.DecisionToPC decisionToPC = 3;
+// .socket_all.DecisionToPC decisionToPC = 2;
 inline bool Frame::_internal_has_decisiontopc() const {
   return this != internal_default_instance() && decisiontopc_ != nullptr;
 }
@@ -3816,190 +5684,6 @@ inline void Frame::set_allocated_decisiontopc(::socket_all::DecisionToPC* decisi
   }
   decisiontopc_ = decisiontopc;
   // @@protoc_insertion_point(field_set_allocated:socket_all.Frame.decisionToPC)
-}
-
-// -------------------------------------------------------------------
-
-// HdmapToPc_data
-
-// .socket_all.Dt_RECORD_HdmapInfo G_HdmapInfo = 1;
-inline bool HdmapToPc_data::_internal_has_g_hdmapinfo() const {
-  return this != internal_default_instance() && g_hdmapinfo_ != nullptr;
-}
-inline bool HdmapToPc_data::has_g_hdmapinfo() const {
-  return _internal_has_g_hdmapinfo();
-}
-inline void HdmapToPc_data::clear_g_hdmapinfo() {
-  if (GetArenaNoVirtual() == nullptr && g_hdmapinfo_ != nullptr) {
-    delete g_hdmapinfo_;
-  }
-  g_hdmapinfo_ = nullptr;
-}
-inline const ::socket_all::Dt_RECORD_HdmapInfo& HdmapToPc_data::_internal_g_hdmapinfo() const {
-  const ::socket_all::Dt_RECORD_HdmapInfo* p = g_hdmapinfo_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::socket_all::Dt_RECORD_HdmapInfo*>(
-      &::socket_all::_Dt_RECORD_HdmapInfo_default_instance_);
-}
-inline const ::socket_all::Dt_RECORD_HdmapInfo& HdmapToPc_data::g_hdmapinfo() const {
-  // @@protoc_insertion_point(field_get:socket_all.HdmapToPc_data.G_HdmapInfo)
-  return _internal_g_hdmapinfo();
-}
-inline ::socket_all::Dt_RECORD_HdmapInfo* HdmapToPc_data::release_g_hdmapinfo() {
-  // @@protoc_insertion_point(field_release:socket_all.HdmapToPc_data.G_HdmapInfo)
-  
-  ::socket_all::Dt_RECORD_HdmapInfo* temp = g_hdmapinfo_;
-  g_hdmapinfo_ = nullptr;
-  return temp;
-}
-inline ::socket_all::Dt_RECORD_HdmapInfo* HdmapToPc_data::_internal_mutable_g_hdmapinfo() {
-  
-  if (g_hdmapinfo_ == nullptr) {
-    auto* p = CreateMaybeMessage<::socket_all::Dt_RECORD_HdmapInfo>(GetArenaNoVirtual());
-    g_hdmapinfo_ = p;
-  }
-  return g_hdmapinfo_;
-}
-inline ::socket_all::Dt_RECORD_HdmapInfo* HdmapToPc_data::mutable_g_hdmapinfo() {
-  // @@protoc_insertion_point(field_mutable:socket_all.HdmapToPc_data.G_HdmapInfo)
-  return _internal_mutable_g_hdmapinfo();
-}
-inline void HdmapToPc_data::set_allocated_g_hdmapinfo(::socket_all::Dt_RECORD_HdmapInfo* g_hdmapinfo) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
-  if (message_arena == nullptr) {
-    delete g_hdmapinfo_;
-  }
-  if (g_hdmapinfo) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
-    if (message_arena != submessage_arena) {
-      g_hdmapinfo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, g_hdmapinfo, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  g_hdmapinfo_ = g_hdmapinfo;
-  // @@protoc_insertion_point(field_set_allocated:socket_all.HdmapToPc_data.G_HdmapInfo)
-}
-
-// .socket_all.Dt_RECORD_HdmapFrontPLane G_FrontPLane = 2;
-inline bool HdmapToPc_data::_internal_has_g_frontplane() const {
-  return this != internal_default_instance() && g_frontplane_ != nullptr;
-}
-inline bool HdmapToPc_data::has_g_frontplane() const {
-  return _internal_has_g_frontplane();
-}
-inline void HdmapToPc_data::clear_g_frontplane() {
-  if (GetArenaNoVirtual() == nullptr && g_frontplane_ != nullptr) {
-    delete g_frontplane_;
-  }
-  g_frontplane_ = nullptr;
-}
-inline const ::socket_all::Dt_RECORD_HdmapFrontPLane& HdmapToPc_data::_internal_g_frontplane() const {
-  const ::socket_all::Dt_RECORD_HdmapFrontPLane* p = g_frontplane_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::socket_all::Dt_RECORD_HdmapFrontPLane*>(
-      &::socket_all::_Dt_RECORD_HdmapFrontPLane_default_instance_);
-}
-inline const ::socket_all::Dt_RECORD_HdmapFrontPLane& HdmapToPc_data::g_frontplane() const {
-  // @@protoc_insertion_point(field_get:socket_all.HdmapToPc_data.G_FrontPLane)
-  return _internal_g_frontplane();
-}
-inline ::socket_all::Dt_RECORD_HdmapFrontPLane* HdmapToPc_data::release_g_frontplane() {
-  // @@protoc_insertion_point(field_release:socket_all.HdmapToPc_data.G_FrontPLane)
-  
-  ::socket_all::Dt_RECORD_HdmapFrontPLane* temp = g_frontplane_;
-  g_frontplane_ = nullptr;
-  return temp;
-}
-inline ::socket_all::Dt_RECORD_HdmapFrontPLane* HdmapToPc_data::_internal_mutable_g_frontplane() {
-  
-  if (g_frontplane_ == nullptr) {
-    auto* p = CreateMaybeMessage<::socket_all::Dt_RECORD_HdmapFrontPLane>(GetArenaNoVirtual());
-    g_frontplane_ = p;
-  }
-  return g_frontplane_;
-}
-inline ::socket_all::Dt_RECORD_HdmapFrontPLane* HdmapToPc_data::mutable_g_frontplane() {
-  // @@protoc_insertion_point(field_mutable:socket_all.HdmapToPc_data.G_FrontPLane)
-  return _internal_mutable_g_frontplane();
-}
-inline void HdmapToPc_data::set_allocated_g_frontplane(::socket_all::Dt_RECORD_HdmapFrontPLane* g_frontplane) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
-  if (message_arena == nullptr) {
-    delete g_frontplane_;
-  }
-  if (g_frontplane) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
-    if (message_arena != submessage_arena) {
-      g_frontplane = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, g_frontplane, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  g_frontplane_ = g_frontplane;
-  // @@protoc_insertion_point(field_set_allocated:socket_all.HdmapToPc_data.G_FrontPLane)
-}
-
-// .socket_all.Dt_RECORD_HdmapLocalLane G_LocalLane = 3;
-inline bool HdmapToPc_data::_internal_has_g_locallane() const {
-  return this != internal_default_instance() && g_locallane_ != nullptr;
-}
-inline bool HdmapToPc_data::has_g_locallane() const {
-  return _internal_has_g_locallane();
-}
-inline void HdmapToPc_data::clear_g_locallane() {
-  if (GetArenaNoVirtual() == nullptr && g_locallane_ != nullptr) {
-    delete g_locallane_;
-  }
-  g_locallane_ = nullptr;
-}
-inline const ::socket_all::Dt_RECORD_HdmapLocalLane& HdmapToPc_data::_internal_g_locallane() const {
-  const ::socket_all::Dt_RECORD_HdmapLocalLane* p = g_locallane_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::socket_all::Dt_RECORD_HdmapLocalLane*>(
-      &::socket_all::_Dt_RECORD_HdmapLocalLane_default_instance_);
-}
-inline const ::socket_all::Dt_RECORD_HdmapLocalLane& HdmapToPc_data::g_locallane() const {
-  // @@protoc_insertion_point(field_get:socket_all.HdmapToPc_data.G_LocalLane)
-  return _internal_g_locallane();
-}
-inline ::socket_all::Dt_RECORD_HdmapLocalLane* HdmapToPc_data::release_g_locallane() {
-  // @@protoc_insertion_point(field_release:socket_all.HdmapToPc_data.G_LocalLane)
-  
-  ::socket_all::Dt_RECORD_HdmapLocalLane* temp = g_locallane_;
-  g_locallane_ = nullptr;
-  return temp;
-}
-inline ::socket_all::Dt_RECORD_HdmapLocalLane* HdmapToPc_data::_internal_mutable_g_locallane() {
-  
-  if (g_locallane_ == nullptr) {
-    auto* p = CreateMaybeMessage<::socket_all::Dt_RECORD_HdmapLocalLane>(GetArenaNoVirtual());
-    g_locallane_ = p;
-  }
-  return g_locallane_;
-}
-inline ::socket_all::Dt_RECORD_HdmapLocalLane* HdmapToPc_data::mutable_g_locallane() {
-  // @@protoc_insertion_point(field_mutable:socket_all.HdmapToPc_data.G_LocalLane)
-  return _internal_mutable_g_locallane();
-}
-inline void HdmapToPc_data::set_allocated_g_locallane(::socket_all::Dt_RECORD_HdmapLocalLane* g_locallane) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
-  if (message_arena == nullptr) {
-    delete g_locallane_;
-  }
-  if (g_locallane) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
-    if (message_arena != submessage_arena) {
-      g_locallane = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, g_locallane, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  g_locallane_ = g_locallane;
-  // @@protoc_insertion_point(field_set_allocated:socket_all.HdmapToPc_data.G_LocalLane)
 }
 
 // -------------------------------------------------------------------
@@ -4336,7 +6020,7 @@ inline void Dt_RECORD_HdMapLane::set_node_count(::PROTOBUF_NAMESPACE_ID::uint32 
   // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_HdMapLane.node_count)
 }
 
-// repeated .socket_all.Dt_ARRAY_100_LaneNode LaneNode = 2;
+// repeated .socket_all.Dt_RECORD_LaneNode LaneNode = 2;
 inline int Dt_RECORD_HdMapLane::_internal_lanenode_size() const {
   return lanenode_.size();
 }
@@ -4346,30 +6030,30 @@ inline int Dt_RECORD_HdMapLane::lanenode_size() const {
 inline void Dt_RECORD_HdMapLane::clear_lanenode() {
   lanenode_.Clear();
 }
-inline ::socket_all::Dt_ARRAY_100_LaneNode* Dt_RECORD_HdMapLane::mutable_lanenode(int index) {
+inline ::socket_all::Dt_RECORD_LaneNode* Dt_RECORD_HdMapLane::mutable_lanenode(int index) {
   // @@protoc_insertion_point(field_mutable:socket_all.Dt_RECORD_HdMapLane.LaneNode)
   return lanenode_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_ARRAY_100_LaneNode >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_LaneNode >*
 Dt_RECORD_HdMapLane::mutable_lanenode() {
   // @@protoc_insertion_point(field_mutable_list:socket_all.Dt_RECORD_HdMapLane.LaneNode)
   return &lanenode_;
 }
-inline const ::socket_all::Dt_ARRAY_100_LaneNode& Dt_RECORD_HdMapLane::_internal_lanenode(int index) const {
+inline const ::socket_all::Dt_RECORD_LaneNode& Dt_RECORD_HdMapLane::_internal_lanenode(int index) const {
   return lanenode_.Get(index);
 }
-inline const ::socket_all::Dt_ARRAY_100_LaneNode& Dt_RECORD_HdMapLane::lanenode(int index) const {
+inline const ::socket_all::Dt_RECORD_LaneNode& Dt_RECORD_HdMapLane::lanenode(int index) const {
   // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_HdMapLane.LaneNode)
   return _internal_lanenode(index);
 }
-inline ::socket_all::Dt_ARRAY_100_LaneNode* Dt_RECORD_HdMapLane::_internal_add_lanenode() {
+inline ::socket_all::Dt_RECORD_LaneNode* Dt_RECORD_HdMapLane::_internal_add_lanenode() {
   return lanenode_.Add();
 }
-inline ::socket_all::Dt_ARRAY_100_LaneNode* Dt_RECORD_HdMapLane::add_lanenode() {
+inline ::socket_all::Dt_RECORD_LaneNode* Dt_RECORD_HdMapLane::add_lanenode() {
   // @@protoc_insertion_point(field_add:socket_all.Dt_RECORD_HdMapLane.LaneNode)
   return _internal_add_lanenode();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_ARRAY_100_LaneNode >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_LaneNode >&
 Dt_RECORD_HdMapLane::lanenode() const {
   // @@protoc_insertion_point(field_list:socket_all.Dt_RECORD_HdMapLane.LaneNode)
   return lanenode_;
@@ -5192,126 +6876,126 @@ inline void Dt_RECORD_HdMapLane::set_hgnode_distance(float value) {
 
 // -------------------------------------------------------------------
 
-// Dt_ARRAY_100_LaneNode
+// Dt_RECORD_LaneNode
 
 // float hdmap_x = 1;
-inline void Dt_ARRAY_100_LaneNode::clear_hdmap_x() {
+inline void Dt_RECORD_LaneNode::clear_hdmap_x() {
   hdmap_x_ = 0;
 }
-inline float Dt_ARRAY_100_LaneNode::_internal_hdmap_x() const {
+inline float Dt_RECORD_LaneNode::_internal_hdmap_x() const {
   return hdmap_x_;
 }
-inline float Dt_ARRAY_100_LaneNode::hdmap_x() const {
-  // @@protoc_insertion_point(field_get:socket_all.Dt_ARRAY_100_LaneNode.hdmap_x)
+inline float Dt_RECORD_LaneNode::hdmap_x() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_LaneNode.hdmap_x)
   return _internal_hdmap_x();
 }
-inline void Dt_ARRAY_100_LaneNode::_internal_set_hdmap_x(float value) {
+inline void Dt_RECORD_LaneNode::_internal_set_hdmap_x(float value) {
   
   hdmap_x_ = value;
 }
-inline void Dt_ARRAY_100_LaneNode::set_hdmap_x(float value) {
+inline void Dt_RECORD_LaneNode::set_hdmap_x(float value) {
   _internal_set_hdmap_x(value);
-  // @@protoc_insertion_point(field_set:socket_all.Dt_ARRAY_100_LaneNode.hdmap_x)
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_LaneNode.hdmap_x)
 }
 
 // float hdmap_y = 2;
-inline void Dt_ARRAY_100_LaneNode::clear_hdmap_y() {
+inline void Dt_RECORD_LaneNode::clear_hdmap_y() {
   hdmap_y_ = 0;
 }
-inline float Dt_ARRAY_100_LaneNode::_internal_hdmap_y() const {
+inline float Dt_RECORD_LaneNode::_internal_hdmap_y() const {
   return hdmap_y_;
 }
-inline float Dt_ARRAY_100_LaneNode::hdmap_y() const {
-  // @@protoc_insertion_point(field_get:socket_all.Dt_ARRAY_100_LaneNode.hdmap_y)
+inline float Dt_RECORD_LaneNode::hdmap_y() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_LaneNode.hdmap_y)
   return _internal_hdmap_y();
 }
-inline void Dt_ARRAY_100_LaneNode::_internal_set_hdmap_y(float value) {
+inline void Dt_RECORD_LaneNode::_internal_set_hdmap_y(float value) {
   
   hdmap_y_ = value;
 }
-inline void Dt_ARRAY_100_LaneNode::set_hdmap_y(float value) {
+inline void Dt_RECORD_LaneNode::set_hdmap_y(float value) {
   _internal_set_hdmap_y(value);
-  // @@protoc_insertion_point(field_set:socket_all.Dt_ARRAY_100_LaneNode.hdmap_y)
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_LaneNode.hdmap_y)
 }
 
 // float hdmap_z = 3;
-inline void Dt_ARRAY_100_LaneNode::clear_hdmap_z() {
+inline void Dt_RECORD_LaneNode::clear_hdmap_z() {
   hdmap_z_ = 0;
 }
-inline float Dt_ARRAY_100_LaneNode::_internal_hdmap_z() const {
+inline float Dt_RECORD_LaneNode::_internal_hdmap_z() const {
   return hdmap_z_;
 }
-inline float Dt_ARRAY_100_LaneNode::hdmap_z() const {
-  // @@protoc_insertion_point(field_get:socket_all.Dt_ARRAY_100_LaneNode.hdmap_z)
+inline float Dt_RECORD_LaneNode::hdmap_z() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_LaneNode.hdmap_z)
   return _internal_hdmap_z();
 }
-inline void Dt_ARRAY_100_LaneNode::_internal_set_hdmap_z(float value) {
+inline void Dt_RECORD_LaneNode::_internal_set_hdmap_z(float value) {
   
   hdmap_z_ = value;
 }
-inline void Dt_ARRAY_100_LaneNode::set_hdmap_z(float value) {
+inline void Dt_RECORD_LaneNode::set_hdmap_z(float value) {
   _internal_set_hdmap_z(value);
-  // @@protoc_insertion_point(field_set:socket_all.Dt_ARRAY_100_LaneNode.hdmap_z)
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_LaneNode.hdmap_z)
 }
 
 // float heading = 4;
-inline void Dt_ARRAY_100_LaneNode::clear_heading() {
+inline void Dt_RECORD_LaneNode::clear_heading() {
   heading_ = 0;
 }
-inline float Dt_ARRAY_100_LaneNode::_internal_heading() const {
+inline float Dt_RECORD_LaneNode::_internal_heading() const {
   return heading_;
 }
-inline float Dt_ARRAY_100_LaneNode::heading() const {
-  // @@protoc_insertion_point(field_get:socket_all.Dt_ARRAY_100_LaneNode.heading)
+inline float Dt_RECORD_LaneNode::heading() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_LaneNode.heading)
   return _internal_heading();
 }
-inline void Dt_ARRAY_100_LaneNode::_internal_set_heading(float value) {
+inline void Dt_RECORD_LaneNode::_internal_set_heading(float value) {
   
   heading_ = value;
 }
-inline void Dt_ARRAY_100_LaneNode::set_heading(float value) {
+inline void Dt_RECORD_LaneNode::set_heading(float value) {
   _internal_set_heading(value);
-  // @@protoc_insertion_point(field_set:socket_all.Dt_ARRAY_100_LaneNode.heading)
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_LaneNode.heading)
 }
 
 // float curvature = 5;
-inline void Dt_ARRAY_100_LaneNode::clear_curvature() {
+inline void Dt_RECORD_LaneNode::clear_curvature() {
   curvature_ = 0;
 }
-inline float Dt_ARRAY_100_LaneNode::_internal_curvature() const {
+inline float Dt_RECORD_LaneNode::_internal_curvature() const {
   return curvature_;
 }
-inline float Dt_ARRAY_100_LaneNode::curvature() const {
-  // @@protoc_insertion_point(field_get:socket_all.Dt_ARRAY_100_LaneNode.curvature)
+inline float Dt_RECORD_LaneNode::curvature() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_LaneNode.curvature)
   return _internal_curvature();
 }
-inline void Dt_ARRAY_100_LaneNode::_internal_set_curvature(float value) {
+inline void Dt_RECORD_LaneNode::_internal_set_curvature(float value) {
   
   curvature_ = value;
 }
-inline void Dt_ARRAY_100_LaneNode::set_curvature(float value) {
+inline void Dt_RECORD_LaneNode::set_curvature(float value) {
   _internal_set_curvature(value);
-  // @@protoc_insertion_point(field_set:socket_all.Dt_ARRAY_100_LaneNode.curvature)
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_LaneNode.curvature)
 }
 
 // float slopev = 6;
-inline void Dt_ARRAY_100_LaneNode::clear_slopev() {
+inline void Dt_RECORD_LaneNode::clear_slopev() {
   slopev_ = 0;
 }
-inline float Dt_ARRAY_100_LaneNode::_internal_slopev() const {
+inline float Dt_RECORD_LaneNode::_internal_slopev() const {
   return slopev_;
 }
-inline float Dt_ARRAY_100_LaneNode::slopev() const {
-  // @@protoc_insertion_point(field_get:socket_all.Dt_ARRAY_100_LaneNode.slopev)
+inline float Dt_RECORD_LaneNode::slopev() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_LaneNode.slopev)
   return _internal_slopev();
 }
-inline void Dt_ARRAY_100_LaneNode::_internal_set_slopev(float value) {
+inline void Dt_RECORD_LaneNode::_internal_set_slopev(float value) {
   
   slopev_ = value;
 }
-inline void Dt_ARRAY_100_LaneNode::set_slopev(float value) {
+inline void Dt_RECORD_LaneNode::set_slopev(float value) {
   _internal_set_slopev(value);
-  // @@protoc_insertion_point(field_set:socket_all.Dt_ARRAY_100_LaneNode.slopev)
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_LaneNode.slopev)
 }
 
 // -------------------------------------------------------------------
@@ -5750,6 +7434,306 @@ inline void DecisionToPC::set_allocated_my_trajectorypointsinfo(::socket_all::Dt
   }
   my_trajectorypointsinfo_ = my_trajectorypointsinfo;
   // @@protoc_insertion_point(field_set_allocated:socket_all.DecisionToPC.my_trajectoryPointsInfo)
+}
+
+// .socket_all.Dt_RECORD_AccInfo my_vehicleInfo = 3;
+inline bool DecisionToPC::_internal_has_my_vehicleinfo() const {
+  return this != internal_default_instance() && my_vehicleinfo_ != nullptr;
+}
+inline bool DecisionToPC::has_my_vehicleinfo() const {
+  return _internal_has_my_vehicleinfo();
+}
+inline void DecisionToPC::clear_my_vehicleinfo() {
+  if (GetArenaNoVirtual() == nullptr && my_vehicleinfo_ != nullptr) {
+    delete my_vehicleinfo_;
+  }
+  my_vehicleinfo_ = nullptr;
+}
+inline const ::socket_all::Dt_RECORD_AccInfo& DecisionToPC::_internal_my_vehicleinfo() const {
+  const ::socket_all::Dt_RECORD_AccInfo* p = my_vehicleinfo_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::socket_all::Dt_RECORD_AccInfo*>(
+      &::socket_all::_Dt_RECORD_AccInfo_default_instance_);
+}
+inline const ::socket_all::Dt_RECORD_AccInfo& DecisionToPC::my_vehicleinfo() const {
+  // @@protoc_insertion_point(field_get:socket_all.DecisionToPC.my_vehicleInfo)
+  return _internal_my_vehicleinfo();
+}
+inline ::socket_all::Dt_RECORD_AccInfo* DecisionToPC::release_my_vehicleinfo() {
+  // @@protoc_insertion_point(field_release:socket_all.DecisionToPC.my_vehicleInfo)
+  
+  ::socket_all::Dt_RECORD_AccInfo* temp = my_vehicleinfo_;
+  my_vehicleinfo_ = nullptr;
+  return temp;
+}
+inline ::socket_all::Dt_RECORD_AccInfo* DecisionToPC::_internal_mutable_my_vehicleinfo() {
+  
+  if (my_vehicleinfo_ == nullptr) {
+    auto* p = CreateMaybeMessage<::socket_all::Dt_RECORD_AccInfo>(GetArenaNoVirtual());
+    my_vehicleinfo_ = p;
+  }
+  return my_vehicleinfo_;
+}
+inline ::socket_all::Dt_RECORD_AccInfo* DecisionToPC::mutable_my_vehicleinfo() {
+  // @@protoc_insertion_point(field_mutable:socket_all.DecisionToPC.my_vehicleInfo)
+  return _internal_mutable_my_vehicleinfo();
+}
+inline void DecisionToPC::set_allocated_my_vehicleinfo(::socket_all::Dt_RECORD_AccInfo* my_vehicleinfo) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete my_vehicleinfo_;
+  }
+  if (my_vehicleinfo) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      my_vehicleinfo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, my_vehicleinfo, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  my_vehicleinfo_ = my_vehicleinfo;
+  // @@protoc_insertion_point(field_set_allocated:socket_all.DecisionToPC.my_vehicleInfo)
+}
+
+// .socket_all.Dt_RECORD_EnvModelInfos my_envModelInfo = 4;
+inline bool DecisionToPC::_internal_has_my_envmodelinfo() const {
+  return this != internal_default_instance() && my_envmodelinfo_ != nullptr;
+}
+inline bool DecisionToPC::has_my_envmodelinfo() const {
+  return _internal_has_my_envmodelinfo();
+}
+inline void DecisionToPC::clear_my_envmodelinfo() {
+  if (GetArenaNoVirtual() == nullptr && my_envmodelinfo_ != nullptr) {
+    delete my_envmodelinfo_;
+  }
+  my_envmodelinfo_ = nullptr;
+}
+inline const ::socket_all::Dt_RECORD_EnvModelInfos& DecisionToPC::_internal_my_envmodelinfo() const {
+  const ::socket_all::Dt_RECORD_EnvModelInfos* p = my_envmodelinfo_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::socket_all::Dt_RECORD_EnvModelInfos*>(
+      &::socket_all::_Dt_RECORD_EnvModelInfos_default_instance_);
+}
+inline const ::socket_all::Dt_RECORD_EnvModelInfos& DecisionToPC::my_envmodelinfo() const {
+  // @@protoc_insertion_point(field_get:socket_all.DecisionToPC.my_envModelInfo)
+  return _internal_my_envmodelinfo();
+}
+inline ::socket_all::Dt_RECORD_EnvModelInfos* DecisionToPC::release_my_envmodelinfo() {
+  // @@protoc_insertion_point(field_release:socket_all.DecisionToPC.my_envModelInfo)
+  
+  ::socket_all::Dt_RECORD_EnvModelInfos* temp = my_envmodelinfo_;
+  my_envmodelinfo_ = nullptr;
+  return temp;
+}
+inline ::socket_all::Dt_RECORD_EnvModelInfos* DecisionToPC::_internal_mutable_my_envmodelinfo() {
+  
+  if (my_envmodelinfo_ == nullptr) {
+    auto* p = CreateMaybeMessage<::socket_all::Dt_RECORD_EnvModelInfos>(GetArenaNoVirtual());
+    my_envmodelinfo_ = p;
+  }
+  return my_envmodelinfo_;
+}
+inline ::socket_all::Dt_RECORD_EnvModelInfos* DecisionToPC::mutable_my_envmodelinfo() {
+  // @@protoc_insertion_point(field_mutable:socket_all.DecisionToPC.my_envModelInfo)
+  return _internal_mutable_my_envmodelinfo();
+}
+inline void DecisionToPC::set_allocated_my_envmodelinfo(::socket_all::Dt_RECORD_EnvModelInfos* my_envmodelinfo) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete my_envmodelinfo_;
+  }
+  if (my_envmodelinfo) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      my_envmodelinfo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, my_envmodelinfo, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  my_envmodelinfo_ = my_envmodelinfo;
+  // @@protoc_insertion_point(field_set_allocated:socket_all.DecisionToPC.my_envModelInfo)
+}
+
+// .socket_all.Dt_RECORD_HdmapInfo my_hdmapInfo = 5;
+inline bool DecisionToPC::_internal_has_my_hdmapinfo() const {
+  return this != internal_default_instance() && my_hdmapinfo_ != nullptr;
+}
+inline bool DecisionToPC::has_my_hdmapinfo() const {
+  return _internal_has_my_hdmapinfo();
+}
+inline void DecisionToPC::clear_my_hdmapinfo() {
+  if (GetArenaNoVirtual() == nullptr && my_hdmapinfo_ != nullptr) {
+    delete my_hdmapinfo_;
+  }
+  my_hdmapinfo_ = nullptr;
+}
+inline const ::socket_all::Dt_RECORD_HdmapInfo& DecisionToPC::_internal_my_hdmapinfo() const {
+  const ::socket_all::Dt_RECORD_HdmapInfo* p = my_hdmapinfo_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::socket_all::Dt_RECORD_HdmapInfo*>(
+      &::socket_all::_Dt_RECORD_HdmapInfo_default_instance_);
+}
+inline const ::socket_all::Dt_RECORD_HdmapInfo& DecisionToPC::my_hdmapinfo() const {
+  // @@protoc_insertion_point(field_get:socket_all.DecisionToPC.my_hdmapInfo)
+  return _internal_my_hdmapinfo();
+}
+inline ::socket_all::Dt_RECORD_HdmapInfo* DecisionToPC::release_my_hdmapinfo() {
+  // @@protoc_insertion_point(field_release:socket_all.DecisionToPC.my_hdmapInfo)
+  
+  ::socket_all::Dt_RECORD_HdmapInfo* temp = my_hdmapinfo_;
+  my_hdmapinfo_ = nullptr;
+  return temp;
+}
+inline ::socket_all::Dt_RECORD_HdmapInfo* DecisionToPC::_internal_mutable_my_hdmapinfo() {
+  
+  if (my_hdmapinfo_ == nullptr) {
+    auto* p = CreateMaybeMessage<::socket_all::Dt_RECORD_HdmapInfo>(GetArenaNoVirtual());
+    my_hdmapinfo_ = p;
+  }
+  return my_hdmapinfo_;
+}
+inline ::socket_all::Dt_RECORD_HdmapInfo* DecisionToPC::mutable_my_hdmapinfo() {
+  // @@protoc_insertion_point(field_mutable:socket_all.DecisionToPC.my_hdmapInfo)
+  return _internal_mutable_my_hdmapinfo();
+}
+inline void DecisionToPC::set_allocated_my_hdmapinfo(::socket_all::Dt_RECORD_HdmapInfo* my_hdmapinfo) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete my_hdmapinfo_;
+  }
+  if (my_hdmapinfo) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      my_hdmapinfo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, my_hdmapinfo, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  my_hdmapinfo_ = my_hdmapinfo;
+  // @@protoc_insertion_point(field_set_allocated:socket_all.DecisionToPC.my_hdmapInfo)
+}
+
+// .socket_all.Dt_RECORD_HdmapFrontPLane my_hdmapFrontPLaneInfo = 6;
+inline bool DecisionToPC::_internal_has_my_hdmapfrontplaneinfo() const {
+  return this != internal_default_instance() && my_hdmapfrontplaneinfo_ != nullptr;
+}
+inline bool DecisionToPC::has_my_hdmapfrontplaneinfo() const {
+  return _internal_has_my_hdmapfrontplaneinfo();
+}
+inline void DecisionToPC::clear_my_hdmapfrontplaneinfo() {
+  if (GetArenaNoVirtual() == nullptr && my_hdmapfrontplaneinfo_ != nullptr) {
+    delete my_hdmapfrontplaneinfo_;
+  }
+  my_hdmapfrontplaneinfo_ = nullptr;
+}
+inline const ::socket_all::Dt_RECORD_HdmapFrontPLane& DecisionToPC::_internal_my_hdmapfrontplaneinfo() const {
+  const ::socket_all::Dt_RECORD_HdmapFrontPLane* p = my_hdmapfrontplaneinfo_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::socket_all::Dt_RECORD_HdmapFrontPLane*>(
+      &::socket_all::_Dt_RECORD_HdmapFrontPLane_default_instance_);
+}
+inline const ::socket_all::Dt_RECORD_HdmapFrontPLane& DecisionToPC::my_hdmapfrontplaneinfo() const {
+  // @@protoc_insertion_point(field_get:socket_all.DecisionToPC.my_hdmapFrontPLaneInfo)
+  return _internal_my_hdmapfrontplaneinfo();
+}
+inline ::socket_all::Dt_RECORD_HdmapFrontPLane* DecisionToPC::release_my_hdmapfrontplaneinfo() {
+  // @@protoc_insertion_point(field_release:socket_all.DecisionToPC.my_hdmapFrontPLaneInfo)
+  
+  ::socket_all::Dt_RECORD_HdmapFrontPLane* temp = my_hdmapfrontplaneinfo_;
+  my_hdmapfrontplaneinfo_ = nullptr;
+  return temp;
+}
+inline ::socket_all::Dt_RECORD_HdmapFrontPLane* DecisionToPC::_internal_mutable_my_hdmapfrontplaneinfo() {
+  
+  if (my_hdmapfrontplaneinfo_ == nullptr) {
+    auto* p = CreateMaybeMessage<::socket_all::Dt_RECORD_HdmapFrontPLane>(GetArenaNoVirtual());
+    my_hdmapfrontplaneinfo_ = p;
+  }
+  return my_hdmapfrontplaneinfo_;
+}
+inline ::socket_all::Dt_RECORD_HdmapFrontPLane* DecisionToPC::mutable_my_hdmapfrontplaneinfo() {
+  // @@protoc_insertion_point(field_mutable:socket_all.DecisionToPC.my_hdmapFrontPLaneInfo)
+  return _internal_mutable_my_hdmapfrontplaneinfo();
+}
+inline void DecisionToPC::set_allocated_my_hdmapfrontplaneinfo(::socket_all::Dt_RECORD_HdmapFrontPLane* my_hdmapfrontplaneinfo) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete my_hdmapfrontplaneinfo_;
+  }
+  if (my_hdmapfrontplaneinfo) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      my_hdmapfrontplaneinfo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, my_hdmapfrontplaneinfo, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  my_hdmapfrontplaneinfo_ = my_hdmapfrontplaneinfo;
+  // @@protoc_insertion_point(field_set_allocated:socket_all.DecisionToPC.my_hdmapFrontPLaneInfo)
+}
+
+// .socket_all.Dt_RECORD_HdmapLocalLane my_hdmapLocalLaneInfo = 7;
+inline bool DecisionToPC::_internal_has_my_hdmaplocallaneinfo() const {
+  return this != internal_default_instance() && my_hdmaplocallaneinfo_ != nullptr;
+}
+inline bool DecisionToPC::has_my_hdmaplocallaneinfo() const {
+  return _internal_has_my_hdmaplocallaneinfo();
+}
+inline void DecisionToPC::clear_my_hdmaplocallaneinfo() {
+  if (GetArenaNoVirtual() == nullptr && my_hdmaplocallaneinfo_ != nullptr) {
+    delete my_hdmaplocallaneinfo_;
+  }
+  my_hdmaplocallaneinfo_ = nullptr;
+}
+inline const ::socket_all::Dt_RECORD_HdmapLocalLane& DecisionToPC::_internal_my_hdmaplocallaneinfo() const {
+  const ::socket_all::Dt_RECORD_HdmapLocalLane* p = my_hdmaplocallaneinfo_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::socket_all::Dt_RECORD_HdmapLocalLane*>(
+      &::socket_all::_Dt_RECORD_HdmapLocalLane_default_instance_);
+}
+inline const ::socket_all::Dt_RECORD_HdmapLocalLane& DecisionToPC::my_hdmaplocallaneinfo() const {
+  // @@protoc_insertion_point(field_get:socket_all.DecisionToPC.my_hdmapLocalLaneInfo)
+  return _internal_my_hdmaplocallaneinfo();
+}
+inline ::socket_all::Dt_RECORD_HdmapLocalLane* DecisionToPC::release_my_hdmaplocallaneinfo() {
+  // @@protoc_insertion_point(field_release:socket_all.DecisionToPC.my_hdmapLocalLaneInfo)
+  
+  ::socket_all::Dt_RECORD_HdmapLocalLane* temp = my_hdmaplocallaneinfo_;
+  my_hdmaplocallaneinfo_ = nullptr;
+  return temp;
+}
+inline ::socket_all::Dt_RECORD_HdmapLocalLane* DecisionToPC::_internal_mutable_my_hdmaplocallaneinfo() {
+  
+  if (my_hdmaplocallaneinfo_ == nullptr) {
+    auto* p = CreateMaybeMessage<::socket_all::Dt_RECORD_HdmapLocalLane>(GetArenaNoVirtual());
+    my_hdmaplocallaneinfo_ = p;
+  }
+  return my_hdmaplocallaneinfo_;
+}
+inline ::socket_all::Dt_RECORD_HdmapLocalLane* DecisionToPC::mutable_my_hdmaplocallaneinfo() {
+  // @@protoc_insertion_point(field_mutable:socket_all.DecisionToPC.my_hdmapLocalLaneInfo)
+  return _internal_mutable_my_hdmaplocallaneinfo();
+}
+inline void DecisionToPC::set_allocated_my_hdmaplocallaneinfo(::socket_all::Dt_RECORD_HdmapLocalLane* my_hdmaplocallaneinfo) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete my_hdmaplocallaneinfo_;
+  }
+  if (my_hdmaplocallaneinfo) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      my_hdmaplocallaneinfo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, my_hdmaplocallaneinfo, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  my_hdmaplocallaneinfo_ = my_hdmaplocallaneinfo;
+  // @@protoc_insertion_point(field_set_allocated:socket_all.DecisionToPC.my_hdmapLocalLaneInfo)
 }
 
 // -------------------------------------------------------------------
@@ -6647,9 +8631,1822 @@ inline void Dt_RECORD_TrajectoryPoints::set_road_no(::PROTOBUF_NAMESPACE_ID::uin
   // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrajectoryPoints.road_no)
 }
 
+// -------------------------------------------------------------------
+
+// Dt_RECORD_AccInfo
+
+// uint32 ESP_0x318_time_stamp = 1;
+inline void Dt_RECORD_AccInfo::clear_esp_0x318_time_stamp() {
+  esp_0x318_time_stamp_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_AccInfo::_internal_esp_0x318_time_stamp() const {
+  return esp_0x318_time_stamp_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_AccInfo::esp_0x318_time_stamp() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_AccInfo.ESP_0x318_time_stamp)
+  return _internal_esp_0x318_time_stamp();
+}
+inline void Dt_RECORD_AccInfo::_internal_set_esp_0x318_time_stamp(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  esp_0x318_time_stamp_ = value;
+}
+inline void Dt_RECORD_AccInfo::set_esp_0x318_time_stamp(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_esp_0x318_time_stamp(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_AccInfo.ESP_0x318_time_stamp)
+}
+
+// float ESP_VehSpd = 2;
+inline void Dt_RECORD_AccInfo::clear_esp_vehspd() {
+  esp_vehspd_ = 0;
+}
+inline float Dt_RECORD_AccInfo::_internal_esp_vehspd() const {
+  return esp_vehspd_;
+}
+inline float Dt_RECORD_AccInfo::esp_vehspd() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_AccInfo.ESP_VehSpd)
+  return _internal_esp_vehspd();
+}
+inline void Dt_RECORD_AccInfo::_internal_set_esp_vehspd(float value) {
+  
+  esp_vehspd_ = value;
+}
+inline void Dt_RECORD_AccInfo::set_esp_vehspd(float value) {
+  _internal_set_esp_vehspd(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_AccInfo.ESP_VehSpd)
+}
+
+// uint32 YRS_0x242_time_stamp = 3;
+inline void Dt_RECORD_AccInfo::clear_yrs_0x242_time_stamp() {
+  yrs_0x242_time_stamp_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_AccInfo::_internal_yrs_0x242_time_stamp() const {
+  return yrs_0x242_time_stamp_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_AccInfo::yrs_0x242_time_stamp() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_AccInfo.YRS_0x242_time_stamp)
+  return _internal_yrs_0x242_time_stamp();
+}
+inline void Dt_RECORD_AccInfo::_internal_set_yrs_0x242_time_stamp(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  yrs_0x242_time_stamp_ = value;
+}
+inline void Dt_RECORD_AccInfo::set_yrs_0x242_time_stamp(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_yrs_0x242_time_stamp(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_AccInfo.YRS_0x242_time_stamp)
+}
+
+// float YRS_LgtAcce = 4;
+inline void Dt_RECORD_AccInfo::clear_yrs_lgtacce() {
+  yrs_lgtacce_ = 0;
+}
+inline float Dt_RECORD_AccInfo::_internal_yrs_lgtacce() const {
+  return yrs_lgtacce_;
+}
+inline float Dt_RECORD_AccInfo::yrs_lgtacce() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_AccInfo.YRS_LgtAcce)
+  return _internal_yrs_lgtacce();
+}
+inline void Dt_RECORD_AccInfo::_internal_set_yrs_lgtacce(float value) {
+  
+  yrs_lgtacce_ = value;
+}
+inline void Dt_RECORD_AccInfo::set_yrs_lgtacce(float value) {
+  _internal_set_yrs_lgtacce(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_AccInfo.YRS_LgtAcce)
+}
+
+// float YRS_LatAcce = 5;
+inline void Dt_RECORD_AccInfo::clear_yrs_latacce() {
+  yrs_latacce_ = 0;
+}
+inline float Dt_RECORD_AccInfo::_internal_yrs_latacce() const {
+  return yrs_latacce_;
+}
+inline float Dt_RECORD_AccInfo::yrs_latacce() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_AccInfo.YRS_LatAcce)
+  return _internal_yrs_latacce();
+}
+inline void Dt_RECORD_AccInfo::_internal_set_yrs_latacce(float value) {
+  
+  yrs_latacce_ = value;
+}
+inline void Dt_RECORD_AccInfo::set_yrs_latacce(float value) {
+  _internal_set_yrs_latacce(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_AccInfo.YRS_LatAcce)
+}
+
+// float YRS_YawRate = 6;
+inline void Dt_RECORD_AccInfo::clear_yrs_yawrate() {
+  yrs_yawrate_ = 0;
+}
+inline float Dt_RECORD_AccInfo::_internal_yrs_yawrate() const {
+  return yrs_yawrate_;
+}
+inline float Dt_RECORD_AccInfo::yrs_yawrate() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_AccInfo.YRS_YawRate)
+  return _internal_yrs_yawrate();
+}
+inline void Dt_RECORD_AccInfo::_internal_set_yrs_yawrate(float value) {
+  
+  yrs_yawrate_ = value;
+}
+inline void Dt_RECORD_AccInfo::set_yrs_yawrate(float value) {
+  _internal_set_yrs_yawrate(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_AccInfo.YRS_YawRate)
+}
+
+// -------------------------------------------------------------------
+
+// Dt_RECORD_EnvModelInfos
+
+// uint32 frame_index = 1;
+inline void Dt_RECORD_EnvModelInfos::clear_frame_index() {
+  frame_index_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_EnvModelInfos::_internal_frame_index() const {
+  return frame_index_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_EnvModelInfos::frame_index() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_EnvModelInfos.frame_index)
+  return _internal_frame_index();
+}
+inline void Dt_RECORD_EnvModelInfos::_internal_set_frame_index(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  frame_index_ = value;
+}
+inline void Dt_RECORD_EnvModelInfos::set_frame_index(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_frame_index(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_EnvModelInfos.frame_index)
+}
+
+// uint64 time_stamp = 2;
+inline void Dt_RECORD_EnvModelInfos::clear_time_stamp() {
+  time_stamp_ = PROTOBUF_ULONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Dt_RECORD_EnvModelInfos::_internal_time_stamp() const {
+  return time_stamp_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Dt_RECORD_EnvModelInfos::time_stamp() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_EnvModelInfos.time_stamp)
+  return _internal_time_stamp();
+}
+inline void Dt_RECORD_EnvModelInfos::_internal_set_time_stamp(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  time_stamp_ = value;
+}
+inline void Dt_RECORD_EnvModelInfos::set_time_stamp(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_time_stamp(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_EnvModelInfos.time_stamp)
+}
+
+// uint32 obstacle_num = 3;
+inline void Dt_RECORD_EnvModelInfos::clear_obstacle_num() {
+  obstacle_num_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_EnvModelInfos::_internal_obstacle_num() const {
+  return obstacle_num_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_EnvModelInfos::obstacle_num() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_EnvModelInfos.obstacle_num)
+  return _internal_obstacle_num();
+}
+inline void Dt_RECORD_EnvModelInfos::_internal_set_obstacle_num(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  obstacle_num_ = value;
+}
+inline void Dt_RECORD_EnvModelInfos::set_obstacle_num(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_obstacle_num(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_EnvModelInfos.obstacle_num)
+}
+
+// uint32 traffic_sign_num = 4;
+inline void Dt_RECORD_EnvModelInfos::clear_traffic_sign_num() {
+  traffic_sign_num_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_EnvModelInfos::_internal_traffic_sign_num() const {
+  return traffic_sign_num_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_EnvModelInfos::traffic_sign_num() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_EnvModelInfos.traffic_sign_num)
+  return _internal_traffic_sign_num();
+}
+inline void Dt_RECORD_EnvModelInfos::_internal_set_traffic_sign_num(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  traffic_sign_num_ = value;
+}
+inline void Dt_RECORD_EnvModelInfos::set_traffic_sign_num(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_traffic_sign_num(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_EnvModelInfos.traffic_sign_num)
+}
+
+// uint32 traffic_marking_num = 5;
+inline void Dt_RECORD_EnvModelInfos::clear_traffic_marking_num() {
+  traffic_marking_num_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_EnvModelInfos::_internal_traffic_marking_num() const {
+  return traffic_marking_num_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_EnvModelInfos::traffic_marking_num() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_EnvModelInfos.traffic_marking_num)
+  return _internal_traffic_marking_num();
+}
+inline void Dt_RECORD_EnvModelInfos::_internal_set_traffic_marking_num(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  traffic_marking_num_ = value;
+}
+inline void Dt_RECORD_EnvModelInfos::set_traffic_marking_num(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_traffic_marking_num(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_EnvModelInfos.traffic_marking_num)
+}
+
+// uint32 traffic_light_num = 6;
+inline void Dt_RECORD_EnvModelInfos::clear_traffic_light_num() {
+  traffic_light_num_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_EnvModelInfos::_internal_traffic_light_num() const {
+  return traffic_light_num_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_EnvModelInfos::traffic_light_num() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_EnvModelInfos.traffic_light_num)
+  return _internal_traffic_light_num();
+}
+inline void Dt_RECORD_EnvModelInfos::_internal_set_traffic_light_num(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  traffic_light_num_ = value;
+}
+inline void Dt_RECORD_EnvModelInfos::set_traffic_light_num(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_traffic_light_num(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_EnvModelInfos.traffic_light_num)
+}
+
+// uint32 resvered = 7;
+inline void Dt_RECORD_EnvModelInfos::clear_resvered() {
+  resvered_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_EnvModelInfos::_internal_resvered() const {
+  return resvered_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_EnvModelInfos::resvered() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_EnvModelInfos.resvered)
+  return _internal_resvered();
+}
+inline void Dt_RECORD_EnvModelInfos::_internal_set_resvered(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  resvered_ = value;
+}
+inline void Dt_RECORD_EnvModelInfos::set_resvered(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_resvered(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_EnvModelInfos.resvered)
+}
+
+// .socket_all.Dt_RECORD_Lanes Lanes = 8;
+inline bool Dt_RECORD_EnvModelInfos::_internal_has_lanes() const {
+  return this != internal_default_instance() && lanes_ != nullptr;
+}
+inline bool Dt_RECORD_EnvModelInfos::has_lanes() const {
+  return _internal_has_lanes();
+}
+inline void Dt_RECORD_EnvModelInfos::clear_lanes() {
+  if (GetArenaNoVirtual() == nullptr && lanes_ != nullptr) {
+    delete lanes_;
+  }
+  lanes_ = nullptr;
+}
+inline const ::socket_all::Dt_RECORD_Lanes& Dt_RECORD_EnvModelInfos::_internal_lanes() const {
+  const ::socket_all::Dt_RECORD_Lanes* p = lanes_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::socket_all::Dt_RECORD_Lanes*>(
+      &::socket_all::_Dt_RECORD_Lanes_default_instance_);
+}
+inline const ::socket_all::Dt_RECORD_Lanes& Dt_RECORD_EnvModelInfos::lanes() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_EnvModelInfos.Lanes)
+  return _internal_lanes();
+}
+inline ::socket_all::Dt_RECORD_Lanes* Dt_RECORD_EnvModelInfos::release_lanes() {
+  // @@protoc_insertion_point(field_release:socket_all.Dt_RECORD_EnvModelInfos.Lanes)
+  
+  ::socket_all::Dt_RECORD_Lanes* temp = lanes_;
+  lanes_ = nullptr;
+  return temp;
+}
+inline ::socket_all::Dt_RECORD_Lanes* Dt_RECORD_EnvModelInfos::_internal_mutable_lanes() {
+  
+  if (lanes_ == nullptr) {
+    auto* p = CreateMaybeMessage<::socket_all::Dt_RECORD_Lanes>(GetArenaNoVirtual());
+    lanes_ = p;
+  }
+  return lanes_;
+}
+inline ::socket_all::Dt_RECORD_Lanes* Dt_RECORD_EnvModelInfos::mutable_lanes() {
+  // @@protoc_insertion_point(field_mutable:socket_all.Dt_RECORD_EnvModelInfos.Lanes)
+  return _internal_mutable_lanes();
+}
+inline void Dt_RECORD_EnvModelInfos::set_allocated_lanes(::socket_all::Dt_RECORD_Lanes* lanes) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete lanes_;
+  }
+  if (lanes) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      lanes = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, lanes, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  lanes_ = lanes;
+  // @@protoc_insertion_point(field_set_allocated:socket_all.Dt_RECORD_EnvModelInfos.Lanes)
+}
+
+// repeated .socket_all.Dt_RECORD_Obstacles Obstacles = 9;
+inline int Dt_RECORD_EnvModelInfos::_internal_obstacles_size() const {
+  return obstacles_.size();
+}
+inline int Dt_RECORD_EnvModelInfos::obstacles_size() const {
+  return _internal_obstacles_size();
+}
+inline void Dt_RECORD_EnvModelInfos::clear_obstacles() {
+  obstacles_.Clear();
+}
+inline ::socket_all::Dt_RECORD_Obstacles* Dt_RECORD_EnvModelInfos::mutable_obstacles(int index) {
+  // @@protoc_insertion_point(field_mutable:socket_all.Dt_RECORD_EnvModelInfos.Obstacles)
+  return obstacles_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_Obstacles >*
+Dt_RECORD_EnvModelInfos::mutable_obstacles() {
+  // @@protoc_insertion_point(field_mutable_list:socket_all.Dt_RECORD_EnvModelInfos.Obstacles)
+  return &obstacles_;
+}
+inline const ::socket_all::Dt_RECORD_Obstacles& Dt_RECORD_EnvModelInfos::_internal_obstacles(int index) const {
+  return obstacles_.Get(index);
+}
+inline const ::socket_all::Dt_RECORD_Obstacles& Dt_RECORD_EnvModelInfos::obstacles(int index) const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_EnvModelInfos.Obstacles)
+  return _internal_obstacles(index);
+}
+inline ::socket_all::Dt_RECORD_Obstacles* Dt_RECORD_EnvModelInfos::_internal_add_obstacles() {
+  return obstacles_.Add();
+}
+inline ::socket_all::Dt_RECORD_Obstacles* Dt_RECORD_EnvModelInfos::add_obstacles() {
+  // @@protoc_insertion_point(field_add:socket_all.Dt_RECORD_EnvModelInfos.Obstacles)
+  return _internal_add_obstacles();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_Obstacles >&
+Dt_RECORD_EnvModelInfos::obstacles() const {
+  // @@protoc_insertion_point(field_list:socket_all.Dt_RECORD_EnvModelInfos.Obstacles)
+  return obstacles_;
+}
+
+// repeated .socket_all.Dt_RECORD_TrafficSigns TrafficSigns = 10;
+inline int Dt_RECORD_EnvModelInfos::_internal_trafficsigns_size() const {
+  return trafficsigns_.size();
+}
+inline int Dt_RECORD_EnvModelInfos::trafficsigns_size() const {
+  return _internal_trafficsigns_size();
+}
+inline void Dt_RECORD_EnvModelInfos::clear_trafficsigns() {
+  trafficsigns_.Clear();
+}
+inline ::socket_all::Dt_RECORD_TrafficSigns* Dt_RECORD_EnvModelInfos::mutable_trafficsigns(int index) {
+  // @@protoc_insertion_point(field_mutable:socket_all.Dt_RECORD_EnvModelInfos.TrafficSigns)
+  return trafficsigns_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_TrafficSigns >*
+Dt_RECORD_EnvModelInfos::mutable_trafficsigns() {
+  // @@protoc_insertion_point(field_mutable_list:socket_all.Dt_RECORD_EnvModelInfos.TrafficSigns)
+  return &trafficsigns_;
+}
+inline const ::socket_all::Dt_RECORD_TrafficSigns& Dt_RECORD_EnvModelInfos::_internal_trafficsigns(int index) const {
+  return trafficsigns_.Get(index);
+}
+inline const ::socket_all::Dt_RECORD_TrafficSigns& Dt_RECORD_EnvModelInfos::trafficsigns(int index) const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_EnvModelInfos.TrafficSigns)
+  return _internal_trafficsigns(index);
+}
+inline ::socket_all::Dt_RECORD_TrafficSigns* Dt_RECORD_EnvModelInfos::_internal_add_trafficsigns() {
+  return trafficsigns_.Add();
+}
+inline ::socket_all::Dt_RECORD_TrafficSigns* Dt_RECORD_EnvModelInfos::add_trafficsigns() {
+  // @@protoc_insertion_point(field_add:socket_all.Dt_RECORD_EnvModelInfos.TrafficSigns)
+  return _internal_add_trafficsigns();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_TrafficSigns >&
+Dt_RECORD_EnvModelInfos::trafficsigns() const {
+  // @@protoc_insertion_point(field_list:socket_all.Dt_RECORD_EnvModelInfos.TrafficSigns)
+  return trafficsigns_;
+}
+
+// repeated .socket_all.Dt_RECORD_TrafficMarkings TrafficMarkings = 11;
+inline int Dt_RECORD_EnvModelInfos::_internal_trafficmarkings_size() const {
+  return trafficmarkings_.size();
+}
+inline int Dt_RECORD_EnvModelInfos::trafficmarkings_size() const {
+  return _internal_trafficmarkings_size();
+}
+inline void Dt_RECORD_EnvModelInfos::clear_trafficmarkings() {
+  trafficmarkings_.Clear();
+}
+inline ::socket_all::Dt_RECORD_TrafficMarkings* Dt_RECORD_EnvModelInfos::mutable_trafficmarkings(int index) {
+  // @@protoc_insertion_point(field_mutable:socket_all.Dt_RECORD_EnvModelInfos.TrafficMarkings)
+  return trafficmarkings_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_TrafficMarkings >*
+Dt_RECORD_EnvModelInfos::mutable_trafficmarkings() {
+  // @@protoc_insertion_point(field_mutable_list:socket_all.Dt_RECORD_EnvModelInfos.TrafficMarkings)
+  return &trafficmarkings_;
+}
+inline const ::socket_all::Dt_RECORD_TrafficMarkings& Dt_RECORD_EnvModelInfos::_internal_trafficmarkings(int index) const {
+  return trafficmarkings_.Get(index);
+}
+inline const ::socket_all::Dt_RECORD_TrafficMarkings& Dt_RECORD_EnvModelInfos::trafficmarkings(int index) const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_EnvModelInfos.TrafficMarkings)
+  return _internal_trafficmarkings(index);
+}
+inline ::socket_all::Dt_RECORD_TrafficMarkings* Dt_RECORD_EnvModelInfos::_internal_add_trafficmarkings() {
+  return trafficmarkings_.Add();
+}
+inline ::socket_all::Dt_RECORD_TrafficMarkings* Dt_RECORD_EnvModelInfos::add_trafficmarkings() {
+  // @@protoc_insertion_point(field_add:socket_all.Dt_RECORD_EnvModelInfos.TrafficMarkings)
+  return _internal_add_trafficmarkings();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_TrafficMarkings >&
+Dt_RECORD_EnvModelInfos::trafficmarkings() const {
+  // @@protoc_insertion_point(field_list:socket_all.Dt_RECORD_EnvModelInfos.TrafficMarkings)
+  return trafficmarkings_;
+}
+
+// repeated .socket_all.Dt_RECORD_TrafficLights TrafficLights = 12;
+inline int Dt_RECORD_EnvModelInfos::_internal_trafficlights_size() const {
+  return trafficlights_.size();
+}
+inline int Dt_RECORD_EnvModelInfos::trafficlights_size() const {
+  return _internal_trafficlights_size();
+}
+inline void Dt_RECORD_EnvModelInfos::clear_trafficlights() {
+  trafficlights_.Clear();
+}
+inline ::socket_all::Dt_RECORD_TrafficLights* Dt_RECORD_EnvModelInfos::mutable_trafficlights(int index) {
+  // @@protoc_insertion_point(field_mutable:socket_all.Dt_RECORD_EnvModelInfos.TrafficLights)
+  return trafficlights_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_TrafficLights >*
+Dt_RECORD_EnvModelInfos::mutable_trafficlights() {
+  // @@protoc_insertion_point(field_mutable_list:socket_all.Dt_RECORD_EnvModelInfos.TrafficLights)
+  return &trafficlights_;
+}
+inline const ::socket_all::Dt_RECORD_TrafficLights& Dt_RECORD_EnvModelInfos::_internal_trafficlights(int index) const {
+  return trafficlights_.Get(index);
+}
+inline const ::socket_all::Dt_RECORD_TrafficLights& Dt_RECORD_EnvModelInfos::trafficlights(int index) const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_EnvModelInfos.TrafficLights)
+  return _internal_trafficlights(index);
+}
+inline ::socket_all::Dt_RECORD_TrafficLights* Dt_RECORD_EnvModelInfos::_internal_add_trafficlights() {
+  return trafficlights_.Add();
+}
+inline ::socket_all::Dt_RECORD_TrafficLights* Dt_RECORD_EnvModelInfos::add_trafficlights() {
+  // @@protoc_insertion_point(field_add:socket_all.Dt_RECORD_EnvModelInfos.TrafficLights)
+  return _internal_add_trafficlights();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_TrafficLights >&
+Dt_RECORD_EnvModelInfos::trafficlights() const {
+  // @@protoc_insertion_point(field_list:socket_all.Dt_RECORD_EnvModelInfos.TrafficLights)
+  return trafficlights_;
+}
+
+// repeated .socket_all.Dt_ARRAY_200_GridInfoX ObstacleGridMap = 13;
+inline int Dt_RECORD_EnvModelInfos::_internal_obstaclegridmap_size() const {
+  return obstaclegridmap_.size();
+}
+inline int Dt_RECORD_EnvModelInfos::obstaclegridmap_size() const {
+  return _internal_obstaclegridmap_size();
+}
+inline void Dt_RECORD_EnvModelInfos::clear_obstaclegridmap() {
+  obstaclegridmap_.Clear();
+}
+inline ::socket_all::Dt_ARRAY_200_GridInfoX* Dt_RECORD_EnvModelInfos::mutable_obstaclegridmap(int index) {
+  // @@protoc_insertion_point(field_mutable:socket_all.Dt_RECORD_EnvModelInfos.ObstacleGridMap)
+  return obstaclegridmap_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_ARRAY_200_GridInfoX >*
+Dt_RECORD_EnvModelInfos::mutable_obstaclegridmap() {
+  // @@protoc_insertion_point(field_mutable_list:socket_all.Dt_RECORD_EnvModelInfos.ObstacleGridMap)
+  return &obstaclegridmap_;
+}
+inline const ::socket_all::Dt_ARRAY_200_GridInfoX& Dt_RECORD_EnvModelInfos::_internal_obstaclegridmap(int index) const {
+  return obstaclegridmap_.Get(index);
+}
+inline const ::socket_all::Dt_ARRAY_200_GridInfoX& Dt_RECORD_EnvModelInfos::obstaclegridmap(int index) const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_EnvModelInfos.ObstacleGridMap)
+  return _internal_obstaclegridmap(index);
+}
+inline ::socket_all::Dt_ARRAY_200_GridInfoX* Dt_RECORD_EnvModelInfos::_internal_add_obstaclegridmap() {
+  return obstaclegridmap_.Add();
+}
+inline ::socket_all::Dt_ARRAY_200_GridInfoX* Dt_RECORD_EnvModelInfos::add_obstaclegridmap() {
+  // @@protoc_insertion_point(field_add:socket_all.Dt_RECORD_EnvModelInfos.ObstacleGridMap)
+  return _internal_add_obstaclegridmap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_ARRAY_200_GridInfoX >&
+Dt_RECORD_EnvModelInfos::obstaclegridmap() const {
+  // @@protoc_insertion_point(field_list:socket_all.Dt_RECORD_EnvModelInfos.ObstacleGridMap)
+  return obstaclegridmap_;
+}
+
+// -------------------------------------------------------------------
+
+// Dt_RECORD_Lanes
+
+// repeated .socket_all.Dt_RECORD_LaneLines LaneLines = 1;
+inline int Dt_RECORD_Lanes::_internal_lanelines_size() const {
+  return lanelines_.size();
+}
+inline int Dt_RECORD_Lanes::lanelines_size() const {
+  return _internal_lanelines_size();
+}
+inline void Dt_RECORD_Lanes::clear_lanelines() {
+  lanelines_.Clear();
+}
+inline ::socket_all::Dt_RECORD_LaneLines* Dt_RECORD_Lanes::mutable_lanelines(int index) {
+  // @@protoc_insertion_point(field_mutable:socket_all.Dt_RECORD_Lanes.LaneLines)
+  return lanelines_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_LaneLines >*
+Dt_RECORD_Lanes::mutable_lanelines() {
+  // @@protoc_insertion_point(field_mutable_list:socket_all.Dt_RECORD_Lanes.LaneLines)
+  return &lanelines_;
+}
+inline const ::socket_all::Dt_RECORD_LaneLines& Dt_RECORD_Lanes::_internal_lanelines(int index) const {
+  return lanelines_.Get(index);
+}
+inline const ::socket_all::Dt_RECORD_LaneLines& Dt_RECORD_Lanes::lanelines(int index) const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Lanes.LaneLines)
+  return _internal_lanelines(index);
+}
+inline ::socket_all::Dt_RECORD_LaneLines* Dt_RECORD_Lanes::_internal_add_lanelines() {
+  return lanelines_.Add();
+}
+inline ::socket_all::Dt_RECORD_LaneLines* Dt_RECORD_Lanes::add_lanelines() {
+  // @@protoc_insertion_point(field_add:socket_all.Dt_RECORD_Lanes.LaneLines)
+  return _internal_add_lanelines();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::socket_all::Dt_RECORD_LaneLines >&
+Dt_RECORD_Lanes::lanelines() const {
+  // @@protoc_insertion_point(field_list:socket_all.Dt_RECORD_Lanes.LaneLines)
+  return lanelines_;
+}
+
+// float width = 2;
+inline void Dt_RECORD_Lanes::clear_width() {
+  width_ = 0;
+}
+inline float Dt_RECORD_Lanes::_internal_width() const {
+  return width_;
+}
+inline float Dt_RECORD_Lanes::width() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Lanes.width)
+  return _internal_width();
+}
+inline void Dt_RECORD_Lanes::_internal_set_width(float value) {
+  
+  width_ = value;
+}
+inline void Dt_RECORD_Lanes::set_width(float value) {
+  _internal_set_width(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Lanes.width)
+}
+
+// float left_lane_distance = 3;
+inline void Dt_RECORD_Lanes::clear_left_lane_distance() {
+  left_lane_distance_ = 0;
+}
+inline float Dt_RECORD_Lanes::_internal_left_lane_distance() const {
+  return left_lane_distance_;
+}
+inline float Dt_RECORD_Lanes::left_lane_distance() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Lanes.left_lane_distance)
+  return _internal_left_lane_distance();
+}
+inline void Dt_RECORD_Lanes::_internal_set_left_lane_distance(float value) {
+  
+  left_lane_distance_ = value;
+}
+inline void Dt_RECORD_Lanes::set_left_lane_distance(float value) {
+  _internal_set_left_lane_distance(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Lanes.left_lane_distance)
+}
+
+// float right_lane_distance = 4;
+inline void Dt_RECORD_Lanes::clear_right_lane_distance() {
+  right_lane_distance_ = 0;
+}
+inline float Dt_RECORD_Lanes::_internal_right_lane_distance() const {
+  return right_lane_distance_;
+}
+inline float Dt_RECORD_Lanes::right_lane_distance() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Lanes.right_lane_distance)
+  return _internal_right_lane_distance();
+}
+inline void Dt_RECORD_Lanes::_internal_set_right_lane_distance(float value) {
+  
+  right_lane_distance_ = value;
+}
+inline void Dt_RECORD_Lanes::set_right_lane_distance(float value) {
+  _internal_set_right_lane_distance(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Lanes.right_lane_distance)
+}
+
+// -------------------------------------------------------------------
+
+// Dt_RECORD_LaneLines
+
+// uint32 id = 1;
+inline void Dt_RECORD_LaneLines::clear_id() {
+  id_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_LaneLines::_internal_id() const {
+  return id_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_LaneLines::id() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_LaneLines.id)
+  return _internal_id();
+}
+inline void Dt_RECORD_LaneLines::_internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  id_ = value;
+}
+inline void Dt_RECORD_LaneLines::set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_LaneLines.id)
+}
+
+// uint32 confidence = 2;
+inline void Dt_RECORD_LaneLines::clear_confidence() {
+  confidence_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_LaneLines::_internal_confidence() const {
+  return confidence_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_LaneLines::confidence() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_LaneLines.confidence)
+  return _internal_confidence();
+}
+inline void Dt_RECORD_LaneLines::_internal_set_confidence(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  confidence_ = value;
+}
+inline void Dt_RECORD_LaneLines::set_confidence(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_confidence(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_LaneLines.confidence)
+}
+
+// uint32 type = 3;
+inline void Dt_RECORD_LaneLines::clear_type() {
+  type_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_LaneLines::_internal_type() const {
+  return type_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_LaneLines::type() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_LaneLines.type)
+  return _internal_type();
+}
+inline void Dt_RECORD_LaneLines::_internal_set_type(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  type_ = value;
+}
+inline void Dt_RECORD_LaneLines::set_type(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_type(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_LaneLines.type)
+}
+
+// uint32 color = 4;
+inline void Dt_RECORD_LaneLines::clear_color() {
+  color_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_LaneLines::_internal_color() const {
+  return color_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_LaneLines::color() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_LaneLines.color)
+  return _internal_color();
+}
+inline void Dt_RECORD_LaneLines::_internal_set_color(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  color_ = value;
+}
+inline void Dt_RECORD_LaneLines::set_color(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_color(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_LaneLines.color)
+}
+
+// float line_width = 5;
+inline void Dt_RECORD_LaneLines::clear_line_width() {
+  line_width_ = 0;
+}
+inline float Dt_RECORD_LaneLines::_internal_line_width() const {
+  return line_width_;
+}
+inline float Dt_RECORD_LaneLines::line_width() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_LaneLines.line_width)
+  return _internal_line_width();
+}
+inline void Dt_RECORD_LaneLines::_internal_set_line_width(float value) {
+  
+  line_width_ = value;
+}
+inline void Dt_RECORD_LaneLines::set_line_width(float value) {
+  _internal_set_line_width(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_LaneLines.line_width)
+}
+
+// float length = 6;
+inline void Dt_RECORD_LaneLines::clear_length() {
+  length_ = 0;
+}
+inline float Dt_RECORD_LaneLines::_internal_length() const {
+  return length_;
+}
+inline float Dt_RECORD_LaneLines::length() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_LaneLines.length)
+  return _internal_length();
+}
+inline void Dt_RECORD_LaneLines::_internal_set_length(float value) {
+  
+  length_ = value;
+}
+inline void Dt_RECORD_LaneLines::set_length(float value) {
+  _internal_set_length(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_LaneLines.length)
+}
+
+// float lane_line_lineC0 = 7;
+inline void Dt_RECORD_LaneLines::clear_lane_line_linec0() {
+  lane_line_linec0_ = 0;
+}
+inline float Dt_RECORD_LaneLines::_internal_lane_line_linec0() const {
+  return lane_line_linec0_;
+}
+inline float Dt_RECORD_LaneLines::lane_line_linec0() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_LaneLines.lane_line_lineC0)
+  return _internal_lane_line_linec0();
+}
+inline void Dt_RECORD_LaneLines::_internal_set_lane_line_linec0(float value) {
+  
+  lane_line_linec0_ = value;
+}
+inline void Dt_RECORD_LaneLines::set_lane_line_linec0(float value) {
+  _internal_set_lane_line_linec0(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_LaneLines.lane_line_lineC0)
+}
+
+// float lane_line_lineC1 = 8;
+inline void Dt_RECORD_LaneLines::clear_lane_line_linec1() {
+  lane_line_linec1_ = 0;
+}
+inline float Dt_RECORD_LaneLines::_internal_lane_line_linec1() const {
+  return lane_line_linec1_;
+}
+inline float Dt_RECORD_LaneLines::lane_line_linec1() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_LaneLines.lane_line_lineC1)
+  return _internal_lane_line_linec1();
+}
+inline void Dt_RECORD_LaneLines::_internal_set_lane_line_linec1(float value) {
+  
+  lane_line_linec1_ = value;
+}
+inline void Dt_RECORD_LaneLines::set_lane_line_linec1(float value) {
+  _internal_set_lane_line_linec1(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_LaneLines.lane_line_lineC1)
+}
+
+// float lane_line_lineC2 = 9;
+inline void Dt_RECORD_LaneLines::clear_lane_line_linec2() {
+  lane_line_linec2_ = 0;
+}
+inline float Dt_RECORD_LaneLines::_internal_lane_line_linec2() const {
+  return lane_line_linec2_;
+}
+inline float Dt_RECORD_LaneLines::lane_line_linec2() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_LaneLines.lane_line_lineC2)
+  return _internal_lane_line_linec2();
+}
+inline void Dt_RECORD_LaneLines::_internal_set_lane_line_linec2(float value) {
+  
+  lane_line_linec2_ = value;
+}
+inline void Dt_RECORD_LaneLines::set_lane_line_linec2(float value) {
+  _internal_set_lane_line_linec2(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_LaneLines.lane_line_lineC2)
+}
+
+// float lane_line_lineC3 = 10;
+inline void Dt_RECORD_LaneLines::clear_lane_line_linec3() {
+  lane_line_linec3_ = 0;
+}
+inline float Dt_RECORD_LaneLines::_internal_lane_line_linec3() const {
+  return lane_line_linec3_;
+}
+inline float Dt_RECORD_LaneLines::lane_line_linec3() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_LaneLines.lane_line_lineC3)
+  return _internal_lane_line_linec3();
+}
+inline void Dt_RECORD_LaneLines::_internal_set_lane_line_linec3(float value) {
+  
+  lane_line_linec3_ = value;
+}
+inline void Dt_RECORD_LaneLines::set_lane_line_linec3(float value) {
+  _internal_set_lane_line_linec3(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_LaneLines.lane_line_lineC3)
+}
+
+// -------------------------------------------------------------------
+
+// Dt_RECORD_Obstacles
+
+// uint32 id = 1;
+inline void Dt_RECORD_Obstacles::clear_id() {
+  id_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::_internal_id() const {
+  return id_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::id() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.id)
+  return _internal_id();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  id_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.id)
+}
+
+// uint32 type = 2;
+inline void Dt_RECORD_Obstacles::clear_type() {
+  type_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::_internal_type() const {
+  return type_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::type() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.type)
+  return _internal_type();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_type(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  type_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_type(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_type(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.type)
+}
+
+// uint32 confidence_state = 3;
+inline void Dt_RECORD_Obstacles::clear_confidence_state() {
+  confidence_state_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::_internal_confidence_state() const {
+  return confidence_state_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::confidence_state() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.confidence_state)
+  return _internal_confidence_state();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_confidence_state(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  confidence_state_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_confidence_state(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_confidence_state(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.confidence_state)
+}
+
+// uint32 state = 4;
+inline void Dt_RECORD_Obstacles::clear_state() {
+  state_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::_internal_state() const {
+  return state_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::state() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.state)
+  return _internal_state();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_state(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  state_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_state(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_state(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.state)
+}
+
+// uint32 lane_no = 5;
+inline void Dt_RECORD_Obstacles::clear_lane_no() {
+  lane_no_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::_internal_lane_no() const {
+  return lane_no_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::lane_no() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.lane_no)
+  return _internal_lane_no();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_lane_no(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  lane_no_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_lane_no(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_lane_no(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.lane_no)
+}
+
+// uint32 CIPV_flag = 6;
+inline void Dt_RECORD_Obstacles::clear_cipv_flag() {
+  cipv_flag_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::_internal_cipv_flag() const {
+  return cipv_flag_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::cipv_flag() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.CIPV_flag)
+  return _internal_cipv_flag();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_cipv_flag(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  cipv_flag_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_cipv_flag(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_cipv_flag(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.CIPV_flag)
+}
+
+// uint32 valid_time = 7;
+inline void Dt_RECORD_Obstacles::clear_valid_time() {
+  valid_time_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::_internal_valid_time() const {
+  return valid_time_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::valid_time() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.valid_time)
+  return _internal_valid_time();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_valid_time(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  valid_time_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_valid_time(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_valid_time(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.valid_time)
+}
+
+// float pos_y = 8;
+inline void Dt_RECORD_Obstacles::clear_pos_y() {
+  pos_y_ = 0;
+}
+inline float Dt_RECORD_Obstacles::_internal_pos_y() const {
+  return pos_y_;
+}
+inline float Dt_RECORD_Obstacles::pos_y() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.pos_y)
+  return _internal_pos_y();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_pos_y(float value) {
+  
+  pos_y_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_pos_y(float value) {
+  _internal_set_pos_y(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.pos_y)
+}
+
+// float pos_x = 9;
+inline void Dt_RECORD_Obstacles::clear_pos_x() {
+  pos_x_ = 0;
+}
+inline float Dt_RECORD_Obstacles::_internal_pos_x() const {
+  return pos_x_;
+}
+inline float Dt_RECORD_Obstacles::pos_x() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.pos_x)
+  return _internal_pos_x();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_pos_x(float value) {
+  
+  pos_x_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_pos_x(float value) {
+  _internal_set_pos_x(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.pos_x)
+}
+
+// float rel_speed_y = 10;
+inline void Dt_RECORD_Obstacles::clear_rel_speed_y() {
+  rel_speed_y_ = 0;
+}
+inline float Dt_RECORD_Obstacles::_internal_rel_speed_y() const {
+  return rel_speed_y_;
+}
+inline float Dt_RECORD_Obstacles::rel_speed_y() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.rel_speed_y)
+  return _internal_rel_speed_y();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_rel_speed_y(float value) {
+  
+  rel_speed_y_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_rel_speed_y(float value) {
+  _internal_set_rel_speed_y(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.rel_speed_y)
+}
+
+// float rel_speed_x = 11;
+inline void Dt_RECORD_Obstacles::clear_rel_speed_x() {
+  rel_speed_x_ = 0;
+}
+inline float Dt_RECORD_Obstacles::_internal_rel_speed_x() const {
+  return rel_speed_x_;
+}
+inline float Dt_RECORD_Obstacles::rel_speed_x() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.rel_speed_x)
+  return _internal_rel_speed_x();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_rel_speed_x(float value) {
+  
+  rel_speed_x_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_rel_speed_x(float value) {
+  _internal_set_rel_speed_x(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.rel_speed_x)
+}
+
+// float rel_acc_y = 12;
+inline void Dt_RECORD_Obstacles::clear_rel_acc_y() {
+  rel_acc_y_ = 0;
+}
+inline float Dt_RECORD_Obstacles::_internal_rel_acc_y() const {
+  return rel_acc_y_;
+}
+inline float Dt_RECORD_Obstacles::rel_acc_y() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.rel_acc_y)
+  return _internal_rel_acc_y();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_rel_acc_y(float value) {
+  
+  rel_acc_y_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_rel_acc_y(float value) {
+  _internal_set_rel_acc_y(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.rel_acc_y)
+}
+
+// float rel_acc_x = 13;
+inline void Dt_RECORD_Obstacles::clear_rel_acc_x() {
+  rel_acc_x_ = 0;
+}
+inline float Dt_RECORD_Obstacles::_internal_rel_acc_x() const {
+  return rel_acc_x_;
+}
+inline float Dt_RECORD_Obstacles::rel_acc_x() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.rel_acc_x)
+  return _internal_rel_acc_x();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_rel_acc_x(float value) {
+  
+  rel_acc_x_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_rel_acc_x(float value) {
+  _internal_set_rel_acc_x(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.rel_acc_x)
+}
+
+// float abs_speed_y = 14;
+inline void Dt_RECORD_Obstacles::clear_abs_speed_y() {
+  abs_speed_y_ = 0;
+}
+inline float Dt_RECORD_Obstacles::_internal_abs_speed_y() const {
+  return abs_speed_y_;
+}
+inline float Dt_RECORD_Obstacles::abs_speed_y() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.abs_speed_y)
+  return _internal_abs_speed_y();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_abs_speed_y(float value) {
+  
+  abs_speed_y_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_abs_speed_y(float value) {
+  _internal_set_abs_speed_y(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.abs_speed_y)
+}
+
+// float abs_speed_x = 15;
+inline void Dt_RECORD_Obstacles::clear_abs_speed_x() {
+  abs_speed_x_ = 0;
+}
+inline float Dt_RECORD_Obstacles::_internal_abs_speed_x() const {
+  return abs_speed_x_;
+}
+inline float Dt_RECORD_Obstacles::abs_speed_x() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.abs_speed_x)
+  return _internal_abs_speed_x();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_abs_speed_x(float value) {
+  
+  abs_speed_x_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_abs_speed_x(float value) {
+  _internal_set_abs_speed_x(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.abs_speed_x)
+}
+
+// float abs_acc_y = 16;
+inline void Dt_RECORD_Obstacles::clear_abs_acc_y() {
+  abs_acc_y_ = 0;
+}
+inline float Dt_RECORD_Obstacles::_internal_abs_acc_y() const {
+  return abs_acc_y_;
+}
+inline float Dt_RECORD_Obstacles::abs_acc_y() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.abs_acc_y)
+  return _internal_abs_acc_y();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_abs_acc_y(float value) {
+  
+  abs_acc_y_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_abs_acc_y(float value) {
+  _internal_set_abs_acc_y(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.abs_acc_y)
+}
+
+// float abs_acc_x = 17;
+inline void Dt_RECORD_Obstacles::clear_abs_acc_x() {
+  abs_acc_x_ = 0;
+}
+inline float Dt_RECORD_Obstacles::_internal_abs_acc_x() const {
+  return abs_acc_x_;
+}
+inline float Dt_RECORD_Obstacles::abs_acc_x() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.abs_acc_x)
+  return _internal_abs_acc_x();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_abs_acc_x(float value) {
+  
+  abs_acc_x_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_abs_acc_x(float value) {
+  _internal_set_abs_acc_x(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.abs_acc_x)
+}
+
+// float heading = 18;
+inline void Dt_RECORD_Obstacles::clear_heading() {
+  heading_ = 0;
+}
+inline float Dt_RECORD_Obstacles::_internal_heading() const {
+  return heading_;
+}
+inline float Dt_RECORD_Obstacles::heading() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.heading)
+  return _internal_heading();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_heading(float value) {
+  
+  heading_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_heading(float value) {
+  _internal_set_heading(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.heading)
+}
+
+// float length = 19;
+inline void Dt_RECORD_Obstacles::clear_length() {
+  length_ = 0;
+}
+inline float Dt_RECORD_Obstacles::_internal_length() const {
+  return length_;
+}
+inline float Dt_RECORD_Obstacles::length() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.length)
+  return _internal_length();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_length(float value) {
+  
+  length_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_length(float value) {
+  _internal_set_length(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.length)
+}
+
+// float width = 20;
+inline void Dt_RECORD_Obstacles::clear_width() {
+  width_ = 0;
+}
+inline float Dt_RECORD_Obstacles::_internal_width() const {
+  return width_;
+}
+inline float Dt_RECORD_Obstacles::width() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.width)
+  return _internal_width();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_width(float value) {
+  
+  width_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_width(float value) {
+  _internal_set_width(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.width)
+}
+
+// float height = 21;
+inline void Dt_RECORD_Obstacles::clear_height() {
+  height_ = 0;
+}
+inline float Dt_RECORD_Obstacles::_internal_height() const {
+  return height_;
+}
+inline float Dt_RECORD_Obstacles::height() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.height)
+  return _internal_height();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_height(float value) {
+  
+  height_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_height(float value) {
+  _internal_set_height(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.height)
+}
+
+// uint32 img_x = 22;
+inline void Dt_RECORD_Obstacles::clear_img_x() {
+  img_x_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::_internal_img_x() const {
+  return img_x_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::img_x() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.img_x)
+  return _internal_img_x();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_img_x(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  img_x_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_img_x(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_img_x(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.img_x)
+}
+
+// uint32 img_y = 23;
+inline void Dt_RECORD_Obstacles::clear_img_y() {
+  img_y_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::_internal_img_y() const {
+  return img_y_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::img_y() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.img_y)
+  return _internal_img_y();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_img_y(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  img_y_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_img_y(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_img_y(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.img_y)
+}
+
+// uint32 img_width = 24;
+inline void Dt_RECORD_Obstacles::clear_img_width() {
+  img_width_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::_internal_img_width() const {
+  return img_width_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::img_width() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.img_width)
+  return _internal_img_width();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_img_width(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  img_width_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_img_width(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_img_width(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.img_width)
+}
+
+// uint32 img_height = 25;
+inline void Dt_RECORD_Obstacles::clear_img_height() {
+  img_height_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::_internal_img_height() const {
+  return img_height_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_Obstacles::img_height() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_Obstacles.img_height)
+  return _internal_img_height();
+}
+inline void Dt_RECORD_Obstacles::_internal_set_img_height(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  img_height_ = value;
+}
+inline void Dt_RECORD_Obstacles::set_img_height(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_img_height(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_Obstacles.img_height)
+}
+
+// -------------------------------------------------------------------
+
+// Dt_RECORD_TrafficSigns
+
+// uint32 id = 1;
+inline void Dt_RECORD_TrafficSigns::clear_id() {
+  id_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficSigns::_internal_id() const {
+  return id_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficSigns::id() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficSigns.id)
+  return _internal_id();
+}
+inline void Dt_RECORD_TrafficSigns::_internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  id_ = value;
+}
+inline void Dt_RECORD_TrafficSigns::set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficSigns.id)
+}
+
+// uint32 type = 2;
+inline void Dt_RECORD_TrafficSigns::clear_type() {
+  type_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficSigns::_internal_type() const {
+  return type_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficSigns::type() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficSigns.type)
+  return _internal_type();
+}
+inline void Dt_RECORD_TrafficSigns::_internal_set_type(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  type_ = value;
+}
+inline void Dt_RECORD_TrafficSigns::set_type(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_type(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficSigns.type)
+}
+
+// uint32 confidence = 3;
+inline void Dt_RECORD_TrafficSigns::clear_confidence() {
+  confidence_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficSigns::_internal_confidence() const {
+  return confidence_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficSigns::confidence() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficSigns.confidence)
+  return _internal_confidence();
+}
+inline void Dt_RECORD_TrafficSigns::_internal_set_confidence(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  confidence_ = value;
+}
+inline void Dt_RECORD_TrafficSigns::set_confidence(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_confidence(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficSigns.confidence)
+}
+
+// float pos_y = 4;
+inline void Dt_RECORD_TrafficSigns::clear_pos_y() {
+  pos_y_ = 0;
+}
+inline float Dt_RECORD_TrafficSigns::_internal_pos_y() const {
+  return pos_y_;
+}
+inline float Dt_RECORD_TrafficSigns::pos_y() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficSigns.pos_y)
+  return _internal_pos_y();
+}
+inline void Dt_RECORD_TrafficSigns::_internal_set_pos_y(float value) {
+  
+  pos_y_ = value;
+}
+inline void Dt_RECORD_TrafficSigns::set_pos_y(float value) {
+  _internal_set_pos_y(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficSigns.pos_y)
+}
+
+// float pos_x = 5;
+inline void Dt_RECORD_TrafficSigns::clear_pos_x() {
+  pos_x_ = 0;
+}
+inline float Dt_RECORD_TrafficSigns::_internal_pos_x() const {
+  return pos_x_;
+}
+inline float Dt_RECORD_TrafficSigns::pos_x() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficSigns.pos_x)
+  return _internal_pos_x();
+}
+inline void Dt_RECORD_TrafficSigns::_internal_set_pos_x(float value) {
+  
+  pos_x_ = value;
+}
+inline void Dt_RECORD_TrafficSigns::set_pos_x(float value) {
+  _internal_set_pos_x(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficSigns.pos_x)
+}
+
+// float pos_z = 6;
+inline void Dt_RECORD_TrafficSigns::clear_pos_z() {
+  pos_z_ = 0;
+}
+inline float Dt_RECORD_TrafficSigns::_internal_pos_z() const {
+  return pos_z_;
+}
+inline float Dt_RECORD_TrafficSigns::pos_z() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficSigns.pos_z)
+  return _internal_pos_z();
+}
+inline void Dt_RECORD_TrafficSigns::_internal_set_pos_z(float value) {
+  
+  pos_z_ = value;
+}
+inline void Dt_RECORD_TrafficSigns::set_pos_z(float value) {
+  _internal_set_pos_z(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficSigns.pos_z)
+}
+
+// -------------------------------------------------------------------
+
+// Dt_RECORD_TrafficMarkings
+
+// uint32 id = 1;
+inline void Dt_RECORD_TrafficMarkings::clear_id() {
+  id_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficMarkings::_internal_id() const {
+  return id_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficMarkings::id() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficMarkings.id)
+  return _internal_id();
+}
+inline void Dt_RECORD_TrafficMarkings::_internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  id_ = value;
+}
+inline void Dt_RECORD_TrafficMarkings::set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficMarkings.id)
+}
+
+// uint32 type = 2;
+inline void Dt_RECORD_TrafficMarkings::clear_type() {
+  type_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficMarkings::_internal_type() const {
+  return type_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficMarkings::type() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficMarkings.type)
+  return _internal_type();
+}
+inline void Dt_RECORD_TrafficMarkings::_internal_set_type(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  type_ = value;
+}
+inline void Dt_RECORD_TrafficMarkings::set_type(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_type(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficMarkings.type)
+}
+
+// uint32 confidence = 3;
+inline void Dt_RECORD_TrafficMarkings::clear_confidence() {
+  confidence_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficMarkings::_internal_confidence() const {
+  return confidence_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficMarkings::confidence() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficMarkings.confidence)
+  return _internal_confidence();
+}
+inline void Dt_RECORD_TrafficMarkings::_internal_set_confidence(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  confidence_ = value;
+}
+inline void Dt_RECORD_TrafficMarkings::set_confidence(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_confidence(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficMarkings.confidence)
+}
+
+// uint32 lane_no = 4;
+inline void Dt_RECORD_TrafficMarkings::clear_lane_no() {
+  lane_no_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficMarkings::_internal_lane_no() const {
+  return lane_no_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficMarkings::lane_no() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficMarkings.lane_no)
+  return _internal_lane_no();
+}
+inline void Dt_RECORD_TrafficMarkings::_internal_set_lane_no(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  lane_no_ = value;
+}
+inline void Dt_RECORD_TrafficMarkings::set_lane_no(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_lane_no(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficMarkings.lane_no)
+}
+
+// float pos_y = 5;
+inline void Dt_RECORD_TrafficMarkings::clear_pos_y() {
+  pos_y_ = 0;
+}
+inline float Dt_RECORD_TrafficMarkings::_internal_pos_y() const {
+  return pos_y_;
+}
+inline float Dt_RECORD_TrafficMarkings::pos_y() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficMarkings.pos_y)
+  return _internal_pos_y();
+}
+inline void Dt_RECORD_TrafficMarkings::_internal_set_pos_y(float value) {
+  
+  pos_y_ = value;
+}
+inline void Dt_RECORD_TrafficMarkings::set_pos_y(float value) {
+  _internal_set_pos_y(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficMarkings.pos_y)
+}
+
+// float pos_x = 6;
+inline void Dt_RECORD_TrafficMarkings::clear_pos_x() {
+  pos_x_ = 0;
+}
+inline float Dt_RECORD_TrafficMarkings::_internal_pos_x() const {
+  return pos_x_;
+}
+inline float Dt_RECORD_TrafficMarkings::pos_x() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficMarkings.pos_x)
+  return _internal_pos_x();
+}
+inline void Dt_RECORD_TrafficMarkings::_internal_set_pos_x(float value) {
+  
+  pos_x_ = value;
+}
+inline void Dt_RECORD_TrafficMarkings::set_pos_x(float value) {
+  _internal_set_pos_x(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficMarkings.pos_x)
+}
+
+// -------------------------------------------------------------------
+
+// Dt_RECORD_TrafficLights
+
+// uint32 id = 1;
+inline void Dt_RECORD_TrafficLights::clear_id() {
+  id_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficLights::_internal_id() const {
+  return id_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficLights::id() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficLights.id)
+  return _internal_id();
+}
+inline void Dt_RECORD_TrafficLights::_internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  id_ = value;
+}
+inline void Dt_RECORD_TrafficLights::set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficLights.id)
+}
+
+// uint32 type = 2;
+inline void Dt_RECORD_TrafficLights::clear_type() {
+  type_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficLights::_internal_type() const {
+  return type_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficLights::type() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficLights.type)
+  return _internal_type();
+}
+inline void Dt_RECORD_TrafficLights::_internal_set_type(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  type_ = value;
+}
+inline void Dt_RECORD_TrafficLights::set_type(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_type(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficLights.type)
+}
+
+// uint32 confidence = 3;
+inline void Dt_RECORD_TrafficLights::clear_confidence() {
+  confidence_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficLights::_internal_confidence() const {
+  return confidence_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficLights::confidence() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficLights.confidence)
+  return _internal_confidence();
+}
+inline void Dt_RECORD_TrafficLights::_internal_set_confidence(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  confidence_ = value;
+}
+inline void Dt_RECORD_TrafficLights::set_confidence(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_confidence(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficLights.confidence)
+}
+
+// float pos_y = 4;
+inline void Dt_RECORD_TrafficLights::clear_pos_y() {
+  pos_y_ = 0;
+}
+inline float Dt_RECORD_TrafficLights::_internal_pos_y() const {
+  return pos_y_;
+}
+inline float Dt_RECORD_TrafficLights::pos_y() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficLights.pos_y)
+  return _internal_pos_y();
+}
+inline void Dt_RECORD_TrafficLights::_internal_set_pos_y(float value) {
+  
+  pos_y_ = value;
+}
+inline void Dt_RECORD_TrafficLights::set_pos_y(float value) {
+  _internal_set_pos_y(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficLights.pos_y)
+}
+
+// float pos_x = 5;
+inline void Dt_RECORD_TrafficLights::clear_pos_x() {
+  pos_x_ = 0;
+}
+inline float Dt_RECORD_TrafficLights::_internal_pos_x() const {
+  return pos_x_;
+}
+inline float Dt_RECORD_TrafficLights::pos_x() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficLights.pos_x)
+  return _internal_pos_x();
+}
+inline void Dt_RECORD_TrafficLights::_internal_set_pos_x(float value) {
+  
+  pos_x_ = value;
+}
+inline void Dt_RECORD_TrafficLights::set_pos_x(float value) {
+  _internal_set_pos_x(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficLights.pos_x)
+}
+
+// float pos_z = 6;
+inline void Dt_RECORD_TrafficLights::clear_pos_z() {
+  pos_z_ = 0;
+}
+inline float Dt_RECORD_TrafficLights::_internal_pos_z() const {
+  return pos_z_;
+}
+inline float Dt_RECORD_TrafficLights::pos_z() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficLights.pos_z)
+  return _internal_pos_z();
+}
+inline void Dt_RECORD_TrafficLights::_internal_set_pos_z(float value) {
+  
+  pos_z_ = value;
+}
+inline void Dt_RECORD_TrafficLights::set_pos_z(float value) {
+  _internal_set_pos_z(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficLights.pos_z)
+}
+
+// uint32 state = 7;
+inline void Dt_RECORD_TrafficLights::clear_state() {
+  state_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficLights::_internal_state() const {
+  return state_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficLights::state() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficLights.state)
+  return _internal_state();
+}
+inline void Dt_RECORD_TrafficLights::_internal_set_state(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  state_ = value;
+}
+inline void Dt_RECORD_TrafficLights::set_state(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_state(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficLights.state)
+}
+
+// uint32 lane_no = 8;
+inline void Dt_RECORD_TrafficLights::clear_lane_no() {
+  lane_no_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficLights::_internal_lane_no() const {
+  return lane_no_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_RECORD_TrafficLights::lane_no() const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_RECORD_TrafficLights.lane_no)
+  return _internal_lane_no();
+}
+inline void Dt_RECORD_TrafficLights::_internal_set_lane_no(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  lane_no_ = value;
+}
+inline void Dt_RECORD_TrafficLights::set_lane_no(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_lane_no(value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_RECORD_TrafficLights.lane_no)
+}
+
+// -------------------------------------------------------------------
+
+// Dt_ARRAY_200_GridInfoX
+
+// repeated uint32 grid_node = 1;
+inline int Dt_ARRAY_200_GridInfoX::_internal_grid_node_size() const {
+  return grid_node_.size();
+}
+inline int Dt_ARRAY_200_GridInfoX::grid_node_size() const {
+  return _internal_grid_node_size();
+}
+inline void Dt_ARRAY_200_GridInfoX::clear_grid_node() {
+  grid_node_.Clear();
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_ARRAY_200_GridInfoX::_internal_grid_node(int index) const {
+  return grid_node_.Get(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Dt_ARRAY_200_GridInfoX::grid_node(int index) const {
+  // @@protoc_insertion_point(field_get:socket_all.Dt_ARRAY_200_GridInfoX.grid_node)
+  return _internal_grid_node(index);
+}
+inline void Dt_ARRAY_200_GridInfoX::set_grid_node(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  grid_node_.Set(index, value);
+  // @@protoc_insertion_point(field_set:socket_all.Dt_ARRAY_200_GridInfoX.grid_node)
+}
+inline void Dt_ARRAY_200_GridInfoX::_internal_add_grid_node(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  grid_node_.Add(value);
+}
+inline void Dt_ARRAY_200_GridInfoX::add_grid_node(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_add_grid_node(value);
+  // @@protoc_insertion_point(field_add:socket_all.Dt_ARRAY_200_GridInfoX.grid_node)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+Dt_ARRAY_200_GridInfoX::_internal_grid_node() const {
+  return grid_node_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+Dt_ARRAY_200_GridInfoX::grid_node() const {
+  // @@protoc_insertion_point(field_list:socket_all.Dt_ARRAY_200_GridInfoX.grid_node)
+  return _internal_grid_node();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+Dt_ARRAY_200_GridInfoX::_internal_mutable_grid_node() {
+  return &grid_node_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+Dt_ARRAY_200_GridInfoX::mutable_grid_node() {
+  // @@protoc_insertion_point(field_mutable_list:socket_all.Dt_ARRAY_200_GridInfoX.grid_node)
+  return _internal_mutable_grid_node();
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -9,15 +9,8 @@ message LogFile {
 
 message Frame {
     int32 frame_id =1;
-    HdmapToPc_data hdmapToPc_data =2;
-    DecisionToPC decisionToPC =3;
+    DecisionToPC decisionToPC =2;
   
-}
-
-message HdmapToPc_data {
-	Dt_RECORD_HdmapInfo G_HdmapInfo =1;
-	Dt_RECORD_HdmapFrontPLane G_FrontPLane =2;
-	Dt_RECORD_HdmapLocalLane G_LocalLane= 3;
 }
 
 message Dt_RECORD_HdmapInfo {
@@ -44,7 +37,7 @@ message Dt_RECORD_PlanSeg {
 
 message Dt_RECORD_HdMapLane {
     uint32 node_count =1;
-    repeated Dt_ARRAY_100_LaneNode LaneNode =2;
+    repeated Dt_RECORD_LaneNode LaneNode =2;
     uint32 laneID =3;
     bool change_lane_flag =4;
     int32 lane_NO =5;
@@ -83,7 +76,7 @@ message Dt_RECORD_HdMapLane {
     float hgnode_distance =38;
 }
 
-message Dt_ARRAY_100_LaneNode {
+message Dt_RECORD_LaneNode {
     float hdmap_x =1;
     float hdmap_y =2;
     float hdmap_z =3;
@@ -118,7 +111,12 @@ message Dt_RECORD_Crosswalk {
 
 message DecisionToPC {
     Dt_RECORD_LocalizationInfo my_localizationInfo =1;
-	Dt_RECORD_TrajectoryPointsInfos my_trajectoryPointsInfo =2;
+    Dt_RECORD_TrajectoryPointsInfos my_trajectoryPointsInfo =2;
+    Dt_RECORD_AccInfo my_vehicleInfo = 3;				   //can解析模块发来的车辆信息
+    Dt_RECORD_EnvModelInfos my_envModelInfo = 4;
+    Dt_RECORD_HdmapInfo my_hdmapInfo =5;
+    Dt_RECORD_HdmapFrontPLane my_hdmapFrontPLaneInfo=6;
+    Dt_RECORD_HdmapLocalLane my_hdmapLocalLaneInfo=7;
 }
 
 message Dt_RECORD_LocalizationInfo {
@@ -171,4 +169,104 @@ message Dt_RECORD_TrajectoryPoints {
     float slope =12;
     uint32 lane_no =13;
     uint32 road_no =14;
+}
+message Dt_RECORD_AccInfo {
+    uint32 ESP_0x318_time_stamp =1;
+    float ESP_VehSpd =2;
+    uint32 YRS_0x242_time_stamp =3;
+    float YRS_LgtAcce =4;
+    float YRS_LatAcce =5;
+    float YRS_YawRate =6;
+}
+
+message Dt_RECORD_EnvModelInfos {
+    uint32 frame_index =1;
+    uint64 time_stamp =2;
+    uint32 obstacle_num =3;
+    uint32 traffic_sign_num =4;
+    uint32 traffic_marking_num =5;
+    uint32 traffic_light_num =6;
+    uint32 resvered =7;
+    Dt_RECORD_Lanes Lanes =8;
+    repeated Dt_RECORD_Obstacles Obstacles =9;
+    repeated Dt_RECORD_TrafficSigns TrafficSigns =10;
+    repeated Dt_RECORD_TrafficMarkings TrafficMarkings =11;
+    repeated Dt_RECORD_TrafficLights TrafficLights =12;
+    repeated Dt_ARRAY_200_GridInfoX ObstacleGridMap =13;
+}
+message Dt_RECORD_Lanes {
+    repeated Dt_RECORD_LaneLines LaneLines =1;
+    float width =2;
+    float left_lane_distance =3;
+    float right_lane_distance =4;
+}
+message Dt_RECORD_LaneLines {
+    uint32 id= 1;
+    uint32 confidence= 2;
+    uint32 type= 3;
+    uint32 color= 4;
+    float line_width= 5;
+    float length= 6;
+    float lane_line_lineC0= 7;
+    float lane_line_lineC1= 8;
+    float lane_line_lineC2= 9;
+    float lane_line_lineC3= 10;
+}
+
+message Dt_RECORD_Obstacles {
+    uint32 id =1;
+    uint32 type =2;
+    uint32 confidence_state =3;
+    uint32 state =4;
+    uint32 lane_no =5;
+    uint32 CIPV_flag =6;
+    uint32 valid_time =7;
+    float pos_y =8;
+    float pos_x =9;
+    float rel_speed_y =10;
+    float rel_speed_x =11;
+    float rel_acc_y =12;
+    float rel_acc_x =13;
+    float abs_speed_y= 14;
+    float abs_speed_x =15;
+    float abs_acc_y =16;
+    float abs_acc_x =17;
+    float heading =18;
+    float length =19;
+    float width =20;
+    float height =21;
+    uint32 img_x =22;
+    uint32 img_y =23;
+    uint32 img_width =24;
+    uint32 img_height =25;
+}
+
+message Dt_RECORD_TrafficSigns {
+    uint32 id =1;
+    uint32 type =2;
+    uint32 confidence =3;
+    float pos_y =4;
+    float pos_x =5;
+    float pos_z =6;
+}
+message Dt_RECORD_TrafficMarkings {
+    uint32 id =1;
+    uint32 type =2;
+    uint32 confidence =3;
+    uint32 lane_no =4;
+    float pos_y =5;
+    float pos_x =6;
+}
+message Dt_RECORD_TrafficLights {
+    uint32 id =1;
+    uint32 type =2;
+    uint32 confidence =3;
+    float pos_y =4;
+    float pos_x =5;
+    float pos_z =6;
+    uint32 state =7;
+    uint32 lane_no =8;
+}
+message Dt_ARRAY_200_GridInfoX {
+    repeated uint32 grid_node =1;
 }

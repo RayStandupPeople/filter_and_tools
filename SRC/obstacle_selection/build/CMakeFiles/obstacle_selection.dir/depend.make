@@ -58,6 +58,7 @@ CMakeFiles/obstacle_selection.dir/test_selection.cc.o: ../../common/libs/user_st
 CMakeFiles/obstacle_selection.dir/test_selection.cc.o: ../../obstacle_selection/libs/obstacle_selection.h
 CMakeFiles/obstacle_selection.dir/test_selection.cc.o: /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/Platform_Types.h
 CMakeFiles/obstacle_selection.dir/test_selection.cc.o: /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/Rte_Type.h
+CMakeFiles/obstacle_selection.dir/test_selection.cc.o: /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/box.h
 CMakeFiles/obstacle_selection.dir/test_selection.cc.o: /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/decision_struct.h
 CMakeFiles/obstacle_selection.dir/test_selection.cc.o: /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/display.h
 CMakeFiles/obstacle_selection.dir/test_selection.cc.o: /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/matplotlibcpp.h

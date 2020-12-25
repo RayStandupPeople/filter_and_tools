@@ -119,6 +119,7 @@ bool TCPSocket::connect(unsigned short int port, const char *ip) const
 {
     if (!isValid())
         return false;
+    std::cout << "zlm" ;
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port);
@@ -135,6 +136,7 @@ bool TCPSocket::connect(unsigned short int port, const char *ip) const
 #if defined _LINUX_PLATFORM_
 bool TCPSocket::setNonBlocking(bool flag) const
 {
+    std::cout <<"flag= " <<flag <<std::endl;
     if (!isValid())
         return false;
     int opt = fcntl(m_sockfd, F_GETFL, 0);
@@ -201,6 +203,7 @@ cout << "tcp client connect error" << endl;
 */
 TCPClient::TCPClient(unsigned short int port, const char *ip)
 {
+    std::cout << "222";
 	if (create() == false)
 	{
 		cout << "tcp client create error" << endl;
