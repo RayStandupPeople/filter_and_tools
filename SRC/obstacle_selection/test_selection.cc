@@ -496,8 +496,19 @@ int main(int argc, const char** argv) {
         if(MODE == "log")
             std::cout << "Mode: log, display and log" << std::endl;
 
-        if(MODE ==  "replay")
+        else if(MODE ==  "replay" && argc==3)
             std::cout << "Mode: replay, display proto file data" << std::endl;
+
+        else if(MODE ==  "replay" && argc==2)
+            std::cout << "Mode: replay, display User simulate data" << std::endl;
+
+        else
+        {
+            std::cout << "ERROR MODE"<<std::endl;
+            return -1;
+        }
+        
+        
     }
     
     uint32 frame_index =0; //logfile frame index
@@ -544,8 +555,20 @@ int main(int argc, const char** argv) {
         {
             // read from proto
             // assign value
-            std::string file_name = static_cast<string>(argv[2]);
-            read_from_proto_file( rev_DecisionToPC_data, file_name);  
+            if(argc ==3)
+            {
+                std::string file_name = static_cast<string>(argv[2]);
+                read_from_proto_file( rev_DecisionToPC_data, file_name);
+                if(app_stopped_req == true)
+                    app_shutdown =true;   
+            }
+            else
+            {
+                // read_from_simulate_data();
+                if(app_stopped_req == true)
+                    app_shutdown =true;   
+            }
+            
             if(app_stopped_req == true)
                 app_shutdown =true;   
                  

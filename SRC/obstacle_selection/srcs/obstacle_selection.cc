@@ -213,6 +213,7 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 	uint32 obstalce_cipv_idx =0;
 	uint32 obstalce_sec_cipv_idx =0;
 
+
 	double safeWidth = 2.6;
 	double laneWidth = 0;
     if(onpath)   // HDMAP
@@ -232,7 +233,19 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 	// decision::convert_flat_to_vehicle(localInfos, &refpath);  // get refpath in vehicle coordinate
 	if(refpath.nodeNum ==0) 
 	{
-		// DEBUG("zlm::obj_sel: no refpath  \r\n");
+		DEBUG("zlm::obj_sel: no refpath  \r\n");
+		DEBUG("OBJ SELECTION----> onpath= %d\r\n                     ", onpath);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.postion= %d \r\n", selectObj->frontMid.postion);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.id = %d \r\n", selectObj->frontMid.obj.id);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.s = %f \r\n", selectObj->frontMid.obj.s);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.d = %f \r\n", selectObj->frontMid.obj.d);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.pos_x = %f \r\n", selectObj->frontMid.obj.pos_x);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.pos_y = %f \r\n", selectObj->frontMid.obj.pos_y);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.heading = %f \r\n", selectObj->frontMid.obj.heading);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.rel_speed_x = %f \r\n", selectObj->frontMid.obj.rel_speed_x);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.rel_speed_y = %f \r\n", selectObj->frontMid.obj.rel_speed_y);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.abs_speed_x  = %f \r\n", selectObj->frontMid.obj.abs_speed_x);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.type  = %d \r\n", selectObj->frontMid.obj.type);
 		return;
 	}
 	// get refpath_x, refpath_y
@@ -302,7 +315,7 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 	{
 		selectObj->frontMid.obj.id          = envModelInfo->Obstacles[obstalce_cipv_idx].id;
 		selectObj->frontMid.obj.type        = envModelInfo->Obstacles[obstalce_cipv_idx].type;
-		selectObj->frontMid.obj.pos_x       = envModelInfo->Obstacles[obstalce_cipv_idx].pos_x;
+		selectObj->frontMid.obj.pos_x       = envModelInfo->Obstacles[obstalce_cipv_idx].pos_x - veh;
 		selectObj->frontMid.obj.pos_y       = envModelInfo->Obstacles[obstalce_cipv_idx].pos_y;
 		selectObj->frontMid.obj.heading       = envModelInfo->Obstacles[obstalce_cipv_idx].heading;
 		selectObj->frontMid.obj.abs_speed_x = envModelInfo->Obstacles[obstalce_cipv_idx].abs_speed_x;
