@@ -27,6 +27,8 @@ public:
     void ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_HdmapInfo *hdmapInfos,\
         Dt_RECORD_HdmapFrontPLane *globePLane, Dt_RECORD_HdmapLocalLane *localPLanne, \
         Dt_RECORD_LocalizationInfo *localInfos, Dt_RECORD_EnvModelInfos *envModelInfo, EgoConfigPara ego_config, objSecList *selectObj);
-
+	void getSegsBoundary(int onpath, hdMapTrajectory* Trajectory, Dt_RECORD_HdmapFrontPLane* globePLane, Dt_RECORD_HdmapLocalLane* localPLanne, const std::vector<double> &refpath_x, const std::vector<double> &refpath_y, std::vector<std::vector<double>> &segs_boundary);
+    void assign_obstacle_property(Obj_sel &left, const Dt_RECORD_Obstacles & right);
+    void debug_obstacle_property(const string &str, const objSec &obstacle);
 };
 

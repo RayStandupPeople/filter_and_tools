@@ -21,7 +21,7 @@
 #include <utility>
 #include <iostream>
 
-Box2d::Box2d(const std::vector<double> &center, const double &heading)
+Box2d::Box2d(const std::vector<double> &center, const double &heading, const double &length_,  const double &width_)
     : center_(center),
       half_length_(length_ / 2.0),
       half_width_(width_ / 2.0),
@@ -32,10 +32,10 @@ Box2d::Box2d(const std::vector<double> &center, const double &heading)
 }
 
 void Box2d::InitCorners() {
-  const double dx1 = cos_heading_ * half_length_;
-  const double dy1 = sin_heading_ * half_length_;
-  const double dx2 = sin_heading_ * half_width_;
-  const double dy2 = -cos_heading_ * half_width_;
+  const double dx1 = cos_heading_ * half_width_;
+  const double dy1 = sin_heading_ * half_width_;
+  const double dx2 = sin_heading_ * half_length_;
+  const double dy2 = -cos_heading_ * half_length_;
   corners_.clear();
   corners_.emplace_back(std::vector<double>{center_[0] + dx1 + dx2, center_[1] + dy1 + dy2});
   corners_.emplace_back(std::vector<double>{center_[0] + dx1 - dx2, center_[1] + dy1 - dy2});

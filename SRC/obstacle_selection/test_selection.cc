@@ -19,6 +19,8 @@
 
 #include "time.h"
 #include <signal.h> 
+#define SOCKETON
+
 
 #define OFFSET(st, field)     (size_t)&(((st*)0)->field)
 uint32 glo_initsocket_lock;   // global value which for initing socket
@@ -36,7 +38,7 @@ void sigint_handler(int sig){
 
 void get_globalpath(laneInfo &globalPath){
 
-    std::ifstream in_file("../../../log/lg_curv.csv",std::ios::in);
+    std::ifstream in_file("../../../log/gwh_curv.csv",std::ios::in);
     if(!in_file.is_open()){
         std::cout << "ERROR: OPEN  file "<<std::endl;
     }
@@ -117,6 +119,7 @@ std::vector<std::vector<Obj_sel>> get_obstalce_lists(){
                 _obstacle_sel.pos_x   = _obstacle.pos_x();
                 _obstacle_sel.pos_y   = _obstacle.pos_y();
                 _obstacle_list.push_back(_obstacle_sel);
+
         }
         _obstacle_list_vec.push_back(_obstacle_list);
     }
@@ -128,11 +131,11 @@ std::vector<std::vector<Obj_sel>> get_obstalce_lists(){
 
 void get_hdMapTrajectory(hdMapTrajectory &_trajectory, const laneInfo &globalpath){
 
-    _trajectory.pathLane[0].segNum = 1;
-    _trajectory.pathLane[0].hdmapPathInfo[0].laneNum = 1; //no nearby lane
-    _trajectory.pathLane[0].hdmapPathInfo[0].laneInfos[0].nodeNum = globalpath.nodeNum;
-    // std::cout<<"_trajectory.pathLane[0].hdmapPathInfo[0].laneInfos[0].nodeNum:" <<globalpath.data.size();
-    for(int node_idx=0; node_idx < globalpath.laneNodeInfos.size(); ++node_idx)
+    _trajectory.pathLane[0].segNum = 3;
+    
+    int begin_ =0;
+    int end_ =0;
+    for(int node_idx=0; node_idx < globalpath.laneNodeInfos.size()*5/10; ++node_idx)
     {
         laneNode _lane_node;
         memset(&_lane_node, 0, sizeof(laneNode));
@@ -140,7 +143,51 @@ void get_hdMapTrajectory(hdMapTrajectory &_trajectory, const laneInfo &globalpat
         _lane_node.y = globalpath.laneNodeInfos[node_idx].y;
         _lane_node.heading = globalpath.laneNodeInfos[node_idx].heading;
         _trajectory.pathLane[0].hdmapPathInfo[0].laneInfos[0].laneNodeInfos.push_back(_lane_node);
+        end_ = node_idx;
     }
+    // std::cout << "statt :  end" << begin_ << "   " << end_ << std::endl;
+    // std::cout << "begin :  end" << _trajectory.pathLane[0].hdmapPathInfo[0].laneInfos[0].laneNodeInfos.front().x << \
+    " "<<  _trajectory.pathLane[0].hdmapPathInfo[0].laneInfos[0].laneNodeInfos.back().x << std::endl;
+
+    _trajectory.pathLane[0].hdmapPathInfo[0].laneNum = 1; //no nearby lane
+    _trajectory.pathLane[0].hdmapPathInfo[0].laneInfos[0].nodeNum = end_ - begin_;
+
+
+    begin_=end_;
+    for(int node_idx=0; node_idx < globalpath.laneNodeInfos.size()*1/10; ++node_idx)
+    {
+        laneNode _lane_node;
+        memset(&_lane_node, 0, sizeof(laneNode));
+        _lane_node.x = globalpath.laneNodeInfos[begin_+ node_idx].x;
+        _lane_node.y = globalpath.laneNodeInfos[begin_+ node_idx].y;
+        _lane_node.heading = globalpath.laneNodeInfos[begin_ +node_idx].heading;
+        _trajectory.pathLane[0].hdmapPathInfo[1].laneInfos[0].laneNodeInfos.push_back(_lane_node);
+        end_ = node_idx + begin_;
+    }
+        // std::cout << "statt : end" << begin_ << " " << end_  << std::endl;
+        //  std::cout << "begin :  end" << _trajectory.pathLane[0].hdmapPathInfo[1].laneInfos[0].laneNodeInfos.front().x << \
+    " "<<  _trajectory.pathLane[0].hdmapPathInfo[1].laneInfos[0].laneNodeInfos.back().x << std::endl;
+     _trajectory.pathLane[0].hdmapPathInfo[1].laneNum = 1; //no nearby lane
+    _trajectory.pathLane[0].hdmapPathInfo[1].laneInfos[0].nodeNum = end_ - begin_;
+
+
+    begin_=end_;
+    for(int node_idx=0; node_idx < globalpath.laneNodeInfos.size() *4/10; ++node_idx)
+    {
+        laneNode _lane_node;
+        memset(&_lane_node, 0, sizeof(laneNode));
+        _lane_node.x = globalpath.laneNodeInfos[begin_+ node_idx].x;
+        _lane_node.y = globalpath.laneNodeInfos[begin_+ node_idx].y;
+        _lane_node.heading = globalpath.laneNodeInfos[begin_ + node_idx].heading;
+        _trajectory.pathLane[0].hdmapPathInfo[2].laneInfos[0].laneNodeInfos.push_back(_lane_node);
+        end_ = node_idx + begin_;
+    }
+    // std::cout << "statt : end" << begin_ << " " << end_ <<  std::endl;
+    //  std::cout << "begin :  end" << _trajectory.pathLane[0].hdmapPathInfo[2].laneInfos[0].laneNodeInfos.front().x << \
+    // " "<<  _trajectory.pathLane[0].hdmapPathInfo[2].laneInfos[0].laneNodeInfos.back().x << std::endl;
+    _trajectory.pathLane[0].hdmapPathInfo[2].laneNum = 1; //no nearby lane
+    _trajectory.pathLane[0].hdmapPathInfo[2].laneInfos[0].nodeNum = end_ - begin_;
+
 }
 
 void get_Dt_RECORD_LocalizationInfo( Dt_RECORD_LocalizationInfo &location, int i)
@@ -157,41 +204,92 @@ void get_Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos &_envmodle_info)
     std::vector<std::vector<Obj_sel>> obj_list_vet = get_obstalce_lists();
     std::vector<Obj_sel> obj_list = obj_list_vet[i];
 
-    _envmodle_info.obstacle_num = obj_list.size();
-    for(int idx =0; idx <obj_list.size(); ++idx)
-    {
+    // _envmodle_info.obstacle_num = obj_list.size();
+    // for(int idx =0; idx <obj_list.size(); ++idx)
+    // {
+    //     Dt_RECORD_Obstacles _obstacle;
+    //     memset(&_obstacle, 0, sizeof(Dt_RECORD_Obstacles));
+    //     _obstacle.id          = obj_list[idx].id;
+    //     _obstacle.type        = static_cast<uint8>(obj_list[idx].type);
+    //     _obstacle.pos_x       = obj_list[idx].pos_x;
+    //     _obstacle.pos_y       = obj_list[idx].pos_y;
+    //     _obstacle.heading     = obj_list[idx].heading;
+    //     _obstacle.rel_speed_x = obj_list[idx].rel_speed_x;
+    //     _obstacle.rel_speed_y = obj_list[idx].rel_speed_y;
+    //     _obstacle.abs_speed_x = obj_list[idx].abs_speed_x;
+    //     _obstacle.abs_speed_y = obj_list[idx].abs_speed_y;
+    //     // _obstacle.pos_s       = obj_list[idx].pos_s;
+    //     // _obstacle.pos_d       = obj_list[idx].pos_d;
+    //     _envmodle_info.Obstacles[idx] = _obstacle;
+
+    // }
+
+      _envmodle_info.obstacle_num =3;
         Dt_RECORD_Obstacles _obstacle;
         memset(&_obstacle, 0, sizeof(Dt_RECORD_Obstacles));
-        _obstacle.id          = obj_list[idx].id;
-        _obstacle.type        = obj_list[idx].type;
-        _obstacle.pos_x       = obj_list[idx].pos_x;
-        _obstacle.pos_y       = obj_list[idx].pos_y;
-        _obstacle.heading     = obj_list[idx].heading;
-        _obstacle.rel_speed_x = obj_list[idx].rel_speed_x;
-        _obstacle.rel_speed_y = obj_list[idx].rel_speed_y;
-        _obstacle.abs_speed_x = obj_list[idx].abs_speed_x;
-        _obstacle.abs_speed_y = obj_list[idx].abs_speed_y;
+        _obstacle.id          = 99;
+        _obstacle.type        = 1;
+        _obstacle.pos_x       = 23;
+        _obstacle.pos_y       = 1;
+        _obstacle.heading     = 0;
+        _obstacle.rel_speed_x = 0;
+        _obstacle.rel_speed_y = 0;
+        _obstacle.abs_speed_x = 0;
+        _obstacle.abs_speed_y = 0;
         // _obstacle.pos_s       = obj_list[idx].pos_s;
         // _obstacle.pos_d       = obj_list[idx].pos_d;
-        _envmodle_info.Obstacles[idx] = _obstacle;
-    }
-   
+        _envmodle_info.Obstacles[0] = _obstacle;
+
+        memset(&_obstacle, 0, sizeof(Dt_RECORD_Obstacles));
+        _obstacle.id          = 98;
+        _obstacle.type        = 0;
+        _obstacle.pos_x       = 15;
+        _obstacle.pos_y       = -2.3;
+        _obstacle.heading     = 0;
+        _obstacle.rel_speed_x = 0;
+        _obstacle.rel_speed_y = 0;
+        _obstacle.abs_speed_x = 0;
+        _obstacle.abs_speed_y = 0;
+        // _obstacle.pos_s       = obj_list[idx].pos_s;
+        // _obstacle.pos_d       = obj_list[idx].pos_d;
+        _envmodle_info.Obstacles[1] = _obstacle;
+
+        memset(&_obstacle, 0, sizeof(Dt_RECORD_Obstacles));
+        _obstacle.id          = 97;
+        _obstacle.type        = 1;
+        _obstacle.pos_x       = 7;
+        _obstacle.pos_y       = 2.5;
+        _obstacle.heading     = 0;
+        _obstacle.rel_speed_x = 0;
+        _obstacle.rel_speed_y = 0;
+        _obstacle.abs_speed_x = 0;
+        _obstacle.abs_speed_y = 0;
+        // _obstacle.pos_s       = obj_list[idx].pos_s;
+        // _obstacle.pos_d       = obj_list[idx].pos_d;
+        _envmodle_info.Obstacles[2] = _obstacle;
+
 }
 
 void get_Dt_RECORD_HdmapFrontPLane(Dt_RECORD_HdmapFrontPLane &_globePLane)
 {
-    getchar();
 
-    _globePLane.plan_seg_count = 2;
-    _globePLane.PlanSeg[0].Lane[0].node_count = 30;
-    _globePLane.PlanSeg[1].Lane[0].node_count = 30;
+    // _globePLane.plan_seg_count = 2;
+    // _globePLane.PlanSeg[0].Lane[0].node_count = 30;
+    // _globePLane.PlanSeg[1].Lane[0].node_count = 30;
 
-    for(int idx_seg =0; idx_seg <_globePLane.plan_seg_count; ++idx_seg)
-    for(int idx_node =0; idx_node <_globePLane.PlanSeg[idx_seg].Lane[0].node_count; ++idx_node)
-    {
-        _globePLane.PlanSeg[idx_seg].Lane[0].LaneNode[idx_node].hdmap_x = idx_seg *10 + idx_node;
-        _globePLane.PlanSeg[idx_seg].Lane[0].LaneNode[idx_node].hdmap_y = idx_seg *5 + idx_node;
-    }
+    // for(int idx_seg =0; idx_seg <_globePLane.plan_seg_count; ++idx_seg)
+    // for(int idx_node =0; idx_node <_globePLane.PlanSeg[idx_seg].Lane[0].node_count; ++idx_node)
+    // {
+    //     _globePLane.PlanSeg[idx_seg].Lane[0].LaneNode[idx_node].hdmap_x = idx_seg *10 + idx_node;
+    //     _globePLane.PlanSeg[idx_seg].Lane[0].LaneNode[idx_node].hdmap_y = idx_seg *5 + idx_node;
+    // }
+
+    _globePLane.plan_seg_count=3;
+    _globePLane.PlanSeg[0].Lane[0].lane_width = 3.6;
+    _globePLane.PlanSeg[1].Lane[0].lane_width =0;
+    _globePLane.PlanSeg[2].Lane[0].lane_width =5.6;
+
+
 
 }
 
@@ -396,7 +494,7 @@ void log_protobuf_file( DecisionToPC &rev_DecisionToPC_data, uint32 index, socke
         //     }
         // }
 
-        DecisionToPC_pb->set_allocated_my_envmodelinfo(Dt_RECORD_EnvModelInfos_pb);
+    DecisionToPC_pb->set_allocated_my_envmodelinfo(Dt_RECORD_EnvModelInfos_pb);
     frame_pb->set_allocated_decisiontopc(DecisionToPC_pb);  
 
     if(app_stopped_req == true)
@@ -411,6 +509,7 @@ void log_protobuf_file( DecisionToPC &rev_DecisionToPC_data, uint32 index, socke
     }
     
 }
+
 void read_from_proto_file(DecisionToPC &rev_DecisionToPC_data, const std::string &file_name){
     std::ifstream in_file("../data/"+file_name,std::ios::in);
     if(!in_file.is_open()){
@@ -446,6 +545,32 @@ void read_from_proto_file(DecisionToPC &rev_DecisionToPC_data, const std::string
     // std::cout << _obstacle_list_vec[1000].size() << std::endl;
     
 }
+
+void read_from_simulate_data(hdMapTrajectory &Trajectory, DecisionToPC &rev_DecisionToPC_data){
+    laneInfo globalpath;
+    get_globalpath(globalpath);
+    get_hdMapTrajectory(Trajectory, globalpath);
+    get_Dt_RECORD_EnvModelInfos(rev_DecisionToPC_data.my_envModelInfo);
+    get_Dt_RECORD_HdmapFrontPLane(rev_DecisionToPC_data.my_hdmapFrontPLaneInfo);
+    
+
+}
+
+void convet_trajectory(hdMapTrajectory &Trajectory, Dt_RECORD_TrajectoryPointsInfos &trajectoryPointsInfo){
+        int node_=0;
+        for(uint32 seg=0; seg<Trajectory.pathLane[0].segNum; ++seg)
+        {
+            for(uint32 node=0; node<Trajectory.pathLane[0].hdmapPathInfo[seg].laneInfos[0].nodeNum; ++node)
+            {
+                trajectoryPointsInfo.TrajectoryPoints[node_].x = Trajectory.pathLane[0].hdmapPathInfo[seg].laneInfos[0].laneNodeInfos[node].x;
+                trajectoryPointsInfo.TrajectoryPoints[node_].y = Trajectory.pathLane[0].hdmapPathInfo[seg].laneInfos[0].laneNodeInfos[node].y;
+                trajectoryPointsInfo.TrajectoryPoints[node_].theta =Trajectory.pathLane[0].hdmapPathInfo[seg].laneInfos[0].laneNodeInfos[node].heading;
+                node_++;
+            }
+        }
+        trajectoryPointsInfo.point_num = node_;
+}
+
 int main(int argc, const char** argv) {
         clock_t g_t_s, g_t_e;
     /* DATA Define and init */
@@ -474,10 +599,10 @@ int main(int argc, const char** argv) {
     memset(&selectObj,0,sizeof(objSecList));
 
     // socket data
-    // HdmapToPc_data rev_hdmapToPC_data;
     DecisionToPC   rev_DecisionToPC_data;
-    // TCPClient sclient_zu2;
-    // TCPClient sclient_zu5;
+    #ifdef  SOCKETON
+    TCPClient sclient_zu5;
+    #endif
 
     // alogorithm data
     decision decision_obj;   
@@ -507,8 +632,6 @@ int main(int argc, const char** argv) {
             std::cout << "ERROR MODE"<<std::endl;
             return -1;
         }
-        
-        
     }
     
     uint32 frame_index =0; //logfile frame index
@@ -525,19 +648,16 @@ int main(int argc, const char** argv) {
             if(glo_initsocket_lock ==0)
             {
                 std::cout << "connecting socket..." << std::endl;
-                // TCPClient sclient_zu2(8001, "192.168.1.60");
-                
-                // TCPClient sclient_zu5(static_cast<unsigned short int>(8001), "192.168.1.70");
-
+                #ifdef  SOCKETON
+                TCPClient sclient_zu5(static_cast<unsigned short int>(8001), "192.168.1.70");
+                #endif
                 glo_initsocket_lock =1;
             }
             // read from socket
-            // receive_zu5Andparse_socket(rev_DecisionToPC_data, sclient_zu5);
+            #ifdef  SOCKETON
+            receive_zu5Andparse_socket(rev_DecisionToPC_data, sclient_zu5);
+            #endif
 
-            // thread socket_thread_zu2(receive_zu2Andparse_socket, std::ref(rev_hdmapToPC_data), std::ref(sclient_zu2));
-            // thread socket_thread_zu5(receive_zu5Andparse_socket, std::ref(rev_DecisionToPC_data),std::ref(sclient_zu5));
-            // socket_thread_zu2.join();
-            // socket_thread_zu5.join();
             if(MODE =="log") // Log Proto 
             {
                 std::string file_name = static_cast<string>(argv[2]);
@@ -564,7 +684,7 @@ int main(int argc, const char** argv) {
             }
             else
             {
-                // read_from_simulate_data();
+                read_from_simulate_data(Trajectory, rev_DecisionToPC_data);
                 if(app_stopped_req == true)
                     app_shutdown =true;   
             }
@@ -575,10 +695,6 @@ int main(int argc, const char** argv) {
         }
 
         /*    ASSIGN VALUES    */
-        // laneInfo globalpath;
-        // get_globalpath(globalpath);
-        // get_hdMapTrajectory(Trajectory, globalpath);
-        // Trajectory = rev_DecisionToPC_data.my_trajectoryPointsInfo;
         trajectoryPointsInfo = rev_DecisionToPC_data.my_trajectoryPointsInfo; // out2 next SWC
         globePLanehdmapInfos = rev_DecisionToPC_data.my_hdmapInfo;
         globePLane = rev_DecisionToPC_data.my_hdmapFrontPLaneInfo;
@@ -586,17 +702,20 @@ int main(int argc, const char** argv) {
         localInfos = rev_DecisionToPC_data.my_localizationInfo;
         envModelInfo = rev_DecisionToPC_data.my_envModelInfo;
         vehicleInfo = rev_DecisionToPC_data.my_vehicleInfo;
-        // get_Dt_RECORD_EnvModelInfos(envModelInfo);
 
         std::cout << "current frame idx:" << frame_index <<std::endl;
 
+
         /*   ALGORITHMs  */
         decision_obj.ObjDetect(1, &Trajectory, &globePLanehdmapInfos, &globePLane, &localPLanne, &localInfos, &envModelInfo, ego_config, &selectObj);
-        
+        // convet_trajectory(Trajectory, trajectoryPointsInfo);
+
+
 
         /*   DISPALY    */
-        plot(trajectoryPointsInfo, globePLanehdmapInfos, globePLane, localInfos, envModelInfo,vehicleInfo, selectObj);
+        plot(Trajectory, globePLane, globePLanehdmapInfos, globePLane, localInfos, envModelInfo,vehicleInfo, selectObj);
         
+
         /* OTHER ITEMS */
         signal(SIGINT, sigint_handler);
         frame_index++;
