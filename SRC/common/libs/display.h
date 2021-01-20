@@ -33,3 +33,4 @@ const Dt_RECORD_LocalizationInfo &localInfos, const Dt_RECORD_EnvModelInfos &env
 // const Dt_RECORD_LocalizationInfo &localInfos, const Dt_RECORD_EnvModelInfos &envModelInfo, const Dt_RECORD_AccInfo &vehicleInfo, const objSecList &selectObj);
 
 void plot_lane(const Dt_RECORD_TrajectoryPointsInfos &TrajectoryPoints, const Dt_RECORD_HdmapFrontPLane &HdmapFrontPLane);
+void plot_gridmap(const Dt_RECORD_EnvModelInfos &envModelInfo);

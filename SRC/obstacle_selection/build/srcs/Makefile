@@ -152,6 +152,33 @@ obstacle_selection.cc.s:
 	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build && $(MAKE) -f srcs/CMakeFiles/obstacle_sel_lib.dir/build.make srcs/CMakeFiles/obstacle_sel_lib.dir/obstacle_selection.cc.s
 .PHONY : obstacle_selection.cc.s
 
+static_objSel.o: static_objSel.cc.o
+
+.PHONY : static_objSel.o
+
+# target to build an object file
+static_objSel.cc.o:
+	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build && $(MAKE) -f srcs/CMakeFiles/obstacle_sel_lib.dir/build.make srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o
+.PHONY : static_objSel.cc.o
+
+static_objSel.i: static_objSel.cc.i
+
+.PHONY : static_objSel.i
+
+# target to preprocess a source file
+static_objSel.cc.i:
+	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build && $(MAKE) -f srcs/CMakeFiles/obstacle_sel_lib.dir/build.make srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.i
+.PHONY : static_objSel.cc.i
+
+static_objSel.s: static_objSel.cc.s
+
+.PHONY : static_objSel.s
+
+# target to generate assembly for a file
+static_objSel.cc.s:
+	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build && $(MAKE) -f srcs/CMakeFiles/obstacle_sel_lib.dir/build.make srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.s
+.PHONY : static_objSel.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -164,6 +191,9 @@ help:
 	@echo "... obstacle_selection.o"
 	@echo "... obstacle_selection.i"
 	@echo "... obstacle_selection.s"
+	@echo "... static_objSel.o"
+	@echo "... static_objSel.i"
+	@echo "... static_objSel.s"
 .PHONY : help
 
 

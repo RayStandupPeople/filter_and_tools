@@ -6,6 +6,37 @@
 
 #include "../libs/display.h"
 namespace plt = matplotlibcpp;
+void plot_gridmap(const Dt_RECORD_EnvModelInfos &envModelInfo){
+     std::vector<double> grid_x_dynamic;
+     std::vector<double> grid_y_dynamic;
+     std::vector<double> grid_x_static;
+     std::vector<double> grid_y_static;
+     for(uint32 x=0; x<400; ++x)
+     for(uint32 y=0; y<200; ++y)
+     {
+         if(envModelInfo.ObstacleGridMap[x][y] == 1)
+         {
+             double x_vehi = 40 - static_cast<double>(x)/10;
+             double y_vehi = 10 - static_cast<double>(y)/10; 
+
+             grid_y_static.push_back(x_vehi);
+             grid_x_static.push_back(y_vehi*-1);
+         }
+         if(envModelInfo.ObstacleGridMap[x][y] == 2)
+         {
+             double x_vehi = 40 -static_cast<double>(x)/10;
+             double y_vehi = 10 -static_cast<double>(y)/10; 
+             grid_y_dynamic.push_back(x_vehi);
+             grid_x_dynamic.push_back(y_vehi*-1);
+
+         }
+     }
+     plt::plot(grid_x_static,grid_y_static,"k.");// black point  -> static
+     plt::plot(grid_x_dynamic,grid_y_dynamic,"c.");// 
+
+
+}
+
 void plot_lane(const hdMapTrajectory &TrajectoryPoints, const Dt_RECORD_HdmapFrontPLane &HdmapFrontPLane)
 {
     std::vector<std::vector<double>> lane_left_x(TrajectoryPoints.pathLane[0].segNum); 
@@ -116,41 +147,6 @@ void plot_box(std::vector<double> cent_x, std::vector<double> cent_y, std::vecto
 
 }
 
-// void plot_vehicleCoordi_wind(const Dt_RECORD_TrajectoryPointsInfos &trajectoryPointsInfo, const Dt_RECORD_EnvModelInfos &envModelInfo, const objSecList &selectObj){
-//     std::vector<double> ref_path_x;
-//     std::vector<double> ref_path_y;
-//     std::vector<double> ref_path_h;
-//     std::vector<double> dis_cipv_x;
-//     std::vector<double> dis_cipv_y;
-//     std::vector<double> obj_list_cent_x;
-//     std::vector<double> obj_list_cent_y;
-//     std::vector<double> obj_list_heading;
-    
-//     plt::subplot2grid(2,3,0,0,2,1);
-//     plt::xlim(-10,10);
-//     plt::ylim(-10,40);
-//     for(unsigned int node_idx=0; node_idx<  trajectoryPointsInfo.point_num; node_idx+=10)
-//     {
-//          ref_path_x.push_back(trajectoryPointsInfo.TrajectoryPoints[node_idx].y  * -1);
-//          ref_path_y.push_back(trajectoryPointsInfo.TrajectoryPoints[node_idx].x);
-//          ref_path_h.push_back(trajectoryPointsInfo.TrajectoryPoints[node_idx].theta);
-//     }
-//     dis_cipv_x.push_back(selectObj.frontMid.obj.pos_y * -1);
-//     dis_cipv_y.push_back(selectObj.frontMid.obj.pos_x);
-//     // std::cout << "obs_num: "<<  envModelInfo.obstacle_num << std::endl;
-//     for(unsigned int obs_idx=0; obs_idx < envModelInfo.obstacle_num; ++obs_idx)
-//     {
-//         obj_list_cent_x.push_back(envModelInfo.Obstacles-> pos_y * -1);
-//         obj_list_cent_y.push_back(envModelInfo.Obstacles-> pos_x);
-//         obj_list_heading.push_back(envModelInfo.Obstacles-> heading);
-//         // std::cout << envModelInfo.Obstacles->pos_x<< envModelInfo.Obstacles->pos_y << std::endl;
-//     }
-//     
-//     plot_box(obj_list_cent_x,obj_list_cent_y,obj_list_heading);
-//     plt::plot(ref_path_x, ref_path_y,"y--");
-//     plt::plot(dis_cipv_x, dis_cipv_y,"ro");
-//     plt::plot(obj_list_cent_x, obj_list_cent_y,"bo");
-// }
 
 void plot_vehicleCoordi_wind(const hdMapTrajectory &hdMapTrajectory,const Dt_RECORD_HdmapFrontPLane &HdmapFrontPLane, const Dt_RECORD_EnvModelInfos &envModelInfo, const objSecList &selectObj){
     std::vector<double> ref_path_x;
@@ -183,7 +179,7 @@ void plot_vehicleCoordi_wind(const hdMapTrajectory &hdMapTrajectory,const Dt_REC
          ref_path_y.push_back(hdMapTrajectory.pathLane[0].hdmapPathInfo[seg_idx].laneInfos[0].laneNodeInfos[node_idx].x);
          ref_path_h.push_back(hdMapTrajectory.pathLane[0].hdmapPathInfo[seg_idx].laneInfos[0].laneNodeInfos[node_idx].heading);
     }
-    if(selectObj.frontMid.postion ==1)// CIPV_1
+    if(selectObj.frontMid.postion ==1 )// CIPV_1
     {
         dis_cipv_1_x.push_back(selectObj.frontMid.obj.pos_y * -1);
         dis_cipv_1_y.push_back(selectObj.frontMid.obj.pos_x);
@@ -205,6 +201,22 @@ void plot_vehicleCoordi_wind(const hdMapTrajectory &hdMapTrajectory,const Dt_REC
         dis_cipv_2_y.push_back(selectObj.frontMidRight.obj.pos_x);
         dis_cipv_2_h.push_back(selectObj.frontMidRight.obj.heading);
         dis_cipv_2_type.push_back((int)selectObj.frontMidRight.obj.type);
+    }
+
+    if(selectObj.frontLeft.postion ==1 ) // CIPV_2
+    {
+        dis_cipv_2_x.push_back(selectObj.frontLeft.obj.pos_y * -1);
+        dis_cipv_2_y.push_back(selectObj.frontLeft.obj.pos_x);
+        dis_cipv_2_h.push_back(selectObj.frontLeft.obj.heading);
+        dis_cipv_2_type.push_back((int)selectObj.frontLeft.obj.type);
+    }
+
+    if( selectObj.frontRight.postion ==1) // CIPV_2
+    {
+        dis_cipv_2_x.push_back(selectObj.frontRight.obj.pos_y * -1);
+        dis_cipv_2_y.push_back(selectObj.frontRight.obj.pos_x);
+        dis_cipv_2_h.push_back(selectObj.frontRight.obj.heading);
+        dis_cipv_2_type.push_back((int)selectObj.frontRight.obj.type);
     }
     
       
@@ -231,6 +243,7 @@ void plot_vehicleCoordi_wind(const hdMapTrajectory &hdMapTrajectory,const Dt_REC
     plot_box(dis_cipv_1_x,dis_cipv_1_y,dis_cipv_1_h, dis_cipv_1_type, ObsType::CIPV_V1);
     plot_box(dis_cipv_2_x,dis_cipv_2_y,dis_cipv_2_h, dis_cipv_2_type, ObsType::CIPV_V2);
 
+    plot_gridmap(envModelInfo);
     // plot_box(obj_list_cent_x,obj_list_cent_y,obj_list_heading, ObsType::NotImpor_Obs);
 }
 

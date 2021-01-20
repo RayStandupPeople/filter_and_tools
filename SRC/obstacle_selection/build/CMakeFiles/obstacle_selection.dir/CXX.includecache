@@ -40,6 +40,22 @@ string.h
 ../../common/libs/decision_struct.h
 ../../common/libs/decision_struct.h
 
+../../obstacle_selection/libs/static_objSel.h
+iostream
+-
+vector
+-
+math.h
+-
+string.h
+../../obstacle_selection/libs/string.h
+../../common/libs/Rte_Type.h
+../../common/libs/Rte_Type.h
+../../common/libs/user_struct.h
+../../common/libs/user_struct.h
+../../common/libs/decision_struct.h
+../../common/libs/decision_struct.h
+
 /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/Platform_Types.h
 
 /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/Rte_Type.h
@@ -363,6 +379,8 @@ thread
 /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/socket_lib/tcpsocket.h
 ../common/libs/socket_lib/data_definition.h
 /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/socket_lib/data_definition.h
+../../obstacle_selection/libs/static_objSel.h
+/home/ze/Documents/LogAnalysis_Algos/obstacle_selection/libs/static_objSel.h
 build/types.pb.h
 /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/types.pb.h
 build/obstacleSel.pb.h

@@ -56,6 +56,7 @@ CMakeFiles/obstacle_selection.dir/test_selection.cc.o: ../../common/libs/Rte_Typ
 CMakeFiles/obstacle_selection.dir/test_selection.cc.o: ../../common/libs/decision_struct.h
 CMakeFiles/obstacle_selection.dir/test_selection.cc.o: ../../common/libs/user_struct.h
 CMakeFiles/obstacle_selection.dir/test_selection.cc.o: ../../obstacle_selection/libs/obstacle_selection.h
+CMakeFiles/obstacle_selection.dir/test_selection.cc.o: ../../obstacle_selection/libs/static_objSel.h
 CMakeFiles/obstacle_selection.dir/test_selection.cc.o: /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/Platform_Types.h
 CMakeFiles/obstacle_selection.dir/test_selection.cc.o: /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/Rte_Type.h
 CMakeFiles/obstacle_selection.dir/test_selection.cc.o: /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/box.h

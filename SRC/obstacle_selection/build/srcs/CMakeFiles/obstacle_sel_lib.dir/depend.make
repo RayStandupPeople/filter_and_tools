@@ -8,3 +8,10 @@ srcs/CMakeFiles/obstacle_sel_lib.dir/obstacle_selection.cc.o: /home/ze/Documents
 srcs/CMakeFiles/obstacle_sel_lib.dir/obstacle_selection.cc.o: ../libs/obstacle_selection.h
 srcs/CMakeFiles/obstacle_sel_lib.dir/obstacle_selection.cc.o: ../srcs/obstacle_selection.cc
 
+srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o: /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/Platform_Types.h
+srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o: /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/Rte_Type.h
+srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o: /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/decision_struct.h
+srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o: /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/user_struct.h
+srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o: ../libs/static_objSel.h
+srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o: ../srcs/static_objSel.cc
+

@@ -57,9 +57,33 @@ include srcs/CMakeFiles/obstacle_sel_lib.dir/progress.make
 # Include the compile flags for this target's objects.
 include srcs/CMakeFiles/obstacle_sel_lib.dir/flags.make
 
+srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o: srcs/CMakeFiles/obstacle_sel_lib.dir/flags.make
+srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o: ../srcs/static_objSel.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o"
+	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/srcs && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o -c /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/srcs/static_objSel.cc
+
+srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.i"
+	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/srcs && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/srcs/static_objSel.cc > CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.i
+
+srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.s"
+	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/srcs && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/srcs/static_objSel.cc -o CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.s
+
+srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o.requires:
+
+.PHONY : srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o.requires
+
+srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o.provides: srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o.requires
+	$(MAKE) -f srcs/CMakeFiles/obstacle_sel_lib.dir/build.make srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o.provides.build
+.PHONY : srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o.provides
+
+srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o.provides.build: srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o
+
+
 srcs/CMakeFiles/obstacle_sel_lib.dir/obstacle_selection.cc.o: srcs/CMakeFiles/obstacle_sel_lib.dir/flags.make
 srcs/CMakeFiles/obstacle_sel_lib.dir/obstacle_selection.cc.o: ../srcs/obstacle_selection.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object srcs/CMakeFiles/obstacle_sel_lib.dir/obstacle_selection.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object srcs/CMakeFiles/obstacle_sel_lib.dir/obstacle_selection.cc.o"
 	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/srcs && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/obstacle_sel_lib.dir/obstacle_selection.cc.o -c /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/srcs/obstacle_selection.cc
 
 srcs/CMakeFiles/obstacle_sel_lib.dir/obstacle_selection.cc.i: cmake_force
@@ -83,15 +107,17 @@ srcs/CMakeFiles/obstacle_sel_lib.dir/obstacle_selection.cc.o.provides.build: src
 
 # Object files for target obstacle_sel_lib
 obstacle_sel_lib_OBJECTS = \
+"CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o" \
 "CMakeFiles/obstacle_sel_lib.dir/obstacle_selection.cc.o"
 
 # External object files for target obstacle_sel_lib
 obstacle_sel_lib_EXTERNAL_OBJECTS =
 
+srcs/libobstacle_sel_lib.a: srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o
 srcs/libobstacle_sel_lib.a: srcs/CMakeFiles/obstacle_sel_lib.dir/obstacle_selection.cc.o
 srcs/libobstacle_sel_lib.a: srcs/CMakeFiles/obstacle_sel_lib.dir/build.make
 srcs/libobstacle_sel_lib.a: srcs/CMakeFiles/obstacle_sel_lib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libobstacle_sel_lib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libobstacle_sel_lib.a"
 	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/srcs && $(CMAKE_COMMAND) -P CMakeFiles/obstacle_sel_lib.dir/cmake_clean_target.cmake
 	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build/srcs && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/obstacle_sel_lib.dir/link.txt --verbose=$(VERBOSE)
 
@@ -100,6 +126,7 @@ srcs/CMakeFiles/obstacle_sel_lib.dir/build: srcs/libobstacle_sel_lib.a
 
 .PHONY : srcs/CMakeFiles/obstacle_sel_lib.dir/build
 
+srcs/CMakeFiles/obstacle_sel_lib.dir/requires: srcs/CMakeFiles/obstacle_sel_lib.dir/static_objSel.cc.o.requires
 srcs/CMakeFiles/obstacle_sel_lib.dir/requires: srcs/CMakeFiles/obstacle_sel_lib.dir/obstacle_selection.cc.o.requires
 
 .PHONY : srcs/CMakeFiles/obstacle_sel_lib.dir/requires

@@ -10,7 +10,12 @@
 
 class decision{
 public:
-
+    void DealWithHdmap(Dt_RECORD_HdmapInfo *hdmapInfos, double xVeh, double yVeh, double heading, Dt_RECORD_HdmapFrontPLane *globePLane, Dt_RECORD_HdmapLocalLane *localPLanne, hdMapTrajectory *Trajectory);
+    void DealWithNode(double dis, Dt_RECORD_HdMapLane *frontLane, laneInfo *globalTraj, double xVeh, double yVeh, double heading, double mapHeading);
+    int generateTrajWithLineCurvature(double distance, double xs, double ys, double cs, double hs, double rs,double xt, double yt, double ct, double ht,double rt, laneInfo *frontTraj, double *sengmentDis);
+    static int getGridCoordiFromParkXY(const double veh_heading, const double park_y_heading, const double x_veh, 
+		const double y_veh, const double x_pt, const double y_pt, double* x_out, double* y_out);
+    
     double distance(double x1, double y1, double x2, double y2);
 
     int ClosestWaypoint(double x, double y, const std::vector<double> &maps_x, const std::vector<double> &maps_y);
@@ -20,14 +25,13 @@ public:
     std::vector<double> getFrenet(double x, double y, double theta, const std::vector<double> &maps_x, \
         const std::vector<double> &maps_y);
 
-    void get_refpath(const int &onpath, hdMapTrajectory *Trajectory, laneInfo *refpath);
-    
+    void get_refpath(const int &onpath, hdMapTrajectory *Trajectory, laneInfo *refpath, Dt_RECORD_LocalizationInfo *localizationInfo, decision_info *decisionInfo);
     void convert_flat_to_vehicle(Dt_RECORD_LocalizationInfo *loc_info, laneInfo *refpath);
 
     void ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_HdmapInfo *hdmapInfos,\
         Dt_RECORD_HdmapFrontPLane *globePLane, Dt_RECORD_HdmapLocalLane *localPLanne, \
-        Dt_RECORD_LocalizationInfo *localInfos, Dt_RECORD_EnvModelInfos *envModelInfo, EgoConfigPara ego_config, objSecList *selectObj);
-	void getSegsBoundary(int onpath, hdMapTrajectory* Trajectory, Dt_RECORD_HdmapFrontPLane* globePLane, Dt_RECORD_HdmapLocalLane* localPLanne, const std::vector<double> &refpath_x, const std::vector<double> &refpath_y, std::vector<std::vector<double>> &segs_boundary);
+        Dt_RECORD_LocalizationInfo *localInfos, Dt_RECORD_EnvModelInfos *envModelInfo, EgoConfigPara ego_config, decision_info *decisionInfo, objSecList *selectObj);
+   	void getSegsBoundary(int onpath, hdMapTrajectory* Trajectory, Dt_RECORD_HdmapFrontPLane* globePLane, Dt_RECORD_HdmapLocalLane* localPLanne, Dt_RECORD_LocalizationInfo *localizationInfo, const std::vector<double> &refpath_x, const std::vector<double> &refpath_y, std::vector<std::vector<double>> &segs_boundary);
     void assign_obstacle_property(Obj_sel &left, const Dt_RECORD_Obstacles & right);
     void debug_obstacle_property(const string &str, const objSec &obstacle);
 };

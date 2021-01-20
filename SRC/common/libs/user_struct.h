@@ -50,3 +50,15 @@ typedef struct _objSecList_
 	objSec staticFrontMidLeft;//��ǰ����̬�ϰ���
 	objSec staticFrontMidRight;//��ǰ����̬�ϰ���
 }objSecList;
+
+
+/*通用的决策信息.*/
+typedef struct _decision_info_
+{
+	unsigned int decision_command;   //1：巡航；2：跟车；3：左变道；4：右变道；5：左避障；6：右避障；7：停车；8：AEB；9：右转大曲率；10：左转大曲率
+	float velocity;					//期望速度限幅值
+	unsigned int lamp;				//0：不亮；1：右转灯；2：左转灯;3:双闪灯
+	// trajectory_point stop_point;	//停车点坐标
+	// object SelectedObstacles;		//20200326,wsy,增加决策发出的筛选后的障碍物
+	unsigned int stopCmd;             //决策发给控制的停车指令   20200410
+}decision_info;						//行为决策输出

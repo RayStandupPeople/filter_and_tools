@@ -54,7 +54,9 @@
         "algorithm": "cpp",
         "memory": "cpp",
         "string": "cpp",
-        "csignal": "cpp"
+        "csignal": "cpp",
+        "iterator": "cpp",
+        "random": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

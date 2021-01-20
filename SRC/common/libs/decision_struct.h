@@ -5,25 +5,29 @@
 
 using namespace std;
 
-#define CARWIDTH     1.9
-#define UNFINED 0      //空状态
-#define CRUISE 1       //巡航
-#define FOLLOW 2       //跟车
-#define LEFTCHANGE 3   //左变道
-#define RIGHTCHANGE 4  //右变道
-#define LEFTAVOIDACE   5   //左避障
-#define RIGHTAVOIDACE   6  //右避障
-#define STOP   7       //停车
-#define AEB   8        //紧急停车
-#define PARKING 9    //泊车SDJ20191011
-#define SPEEDLIMIT 15  //停车场限速值
-#define AMAXLIMIT    //横向加速度限幅值
+#define UNFINED  0     //��״̬
+#define CRUISE 1       //Ѳ��
+#define FOLLOW 2       //����
+#define LEFTCHANGE 3   //����
+#define RIGHTCHANGE 4  //�ұ��
+#define LEFTAVOID   5   //�����
+#define RIGHTAVOID   6  //�ұ���
+#define STOP   7       //ͣ��
+#define AEB   8        //����ͣ��
+#define RIGHT_TURN_LARGE_CURVATURE   9   //��ת������
+#define LEFT_TURN_LARGE_CURVATURE    10  //��ת������
+
 #define NODE_SIZE 0.1
-#define grid_origin_x 0
-#define grid_origin_y 0
+#define SUCCEED 1	//表示函数运行成功
+#define FAIL	0	//表示函数运行失败
+
+#define STATIC_SPEED_THRESHOLD 0.1						//�ٶ�С�ڸ���ֵʱ��Ϊ�Ǿ�̬�ϰ���
+
+#define MAX_TRAJ_POINT_NUM	500					//�켣��������
+
 #define ROUND(a)  (a-(int)a>0.5?((int)a+1):(int)a)
-#define GRID_WIDTH  400
-#define GRID_HEIGHT 200
+
+
 
 
  #define __DEBUG__  //需要打印时放开，不需要打印时注释掉
@@ -157,6 +161,9 @@ typedef struct
 	float64 x_r;
 	float64 y_r;
 	float64 s_r;
+	int obj_midLeft_flag;
+	int obj_midRight_flag;
+	
 }gridmap_coll_obj;
 
 typedef struct _DecisionToPC

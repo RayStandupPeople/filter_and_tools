@@ -12,6 +12,7 @@
 #include "../common/libs/display.h"
 #include "../common/libs/socket_lib/tcpsocket.h"
 #include "../common/libs/socket_lib/data_definition.h"
+#include "../../obstacle_selection/libs/static_objSel.h"
 
 #include "build/types.pb.h"
 #include "build/obstacleSel.pb.h"
@@ -19,7 +20,7 @@
 
 #include "time.h"
 #include <signal.h> 
-#define SOCKETON
+// #define SOCKETON
 
 
 #define OFFSET(st, field)     (size_t)&(((st*)0)->field)
@@ -39,6 +40,8 @@ void sigint_handler(int sig){
 void get_globalpath(laneInfo &globalPath){
 
     std::ifstream in_file("../../../log/gwh_curv.csv",std::ios::in);
+    // std::ifstream in_file("../../../log/trunning_termi_bug.csv",std::ios::in);
+
     if(!in_file.is_open()){
         std::cout << "ERROR: OPEN  file "<<std::endl;
     }
@@ -190,12 +193,15 @@ void get_hdMapTrajectory(hdMapTrajectory &_trajectory, const laneInfo &globalpat
 
 }
 
-void get_Dt_RECORD_LocalizationInfo( Dt_RECORD_LocalizationInfo &location, int i)
+void get_Dt_RECORD_LocalizationInfo( Dt_RECORD_LocalizationInfo &location)
 {
   
-    location.LocalizationResult.x = -20 - i;
-    location.LocalizationResult.y = 8;
-    location.yaw = 10;
+    location.LocalizationResult.x = 0;
+    location.LocalizationResult.y = 0;
+    // location.yaw = 95.29;
+    location.yaw = 0;
+
+    
 }
 
 void get_Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos &_envmodle_info)
@@ -229,8 +235,8 @@ void get_Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos &_envmodle_info)
         memset(&_obstacle, 0, sizeof(Dt_RECORD_Obstacles));
         _obstacle.id          = 99;
         _obstacle.type        = 1;
-        _obstacle.pos_x       = 23;
-        _obstacle.pos_y       = 1;
+        _obstacle.pos_x       = 7;
+        _obstacle.pos_y       = 0;
         _obstacle.heading     = 0;
         _obstacle.rel_speed_x = 0;
         _obstacle.rel_speed_y = 0;
@@ -244,7 +250,7 @@ void get_Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos &_envmodle_info)
         _obstacle.id          = 98;
         _obstacle.type        = 0;
         _obstacle.pos_x       = 15;
-        _obstacle.pos_y       = -2.3;
+        _obstacle.pos_y       = 2;
         _obstacle.heading     = 0;
         _obstacle.rel_speed_x = 0;
         _obstacle.rel_speed_y = 0;
@@ -258,7 +264,7 @@ void get_Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos &_envmodle_info)
         _obstacle.id          = 97;
         _obstacle.type        = 1;
         _obstacle.pos_x       = 7;
-        _obstacle.pos_y       = 2.5;
+        _obstacle.pos_y       = -2.5;
         _obstacle.heading     = 0;
         _obstacle.rel_speed_x = 0;
         _obstacle.rel_speed_y = 0;
@@ -267,6 +273,125 @@ void get_Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos &_envmodle_info)
         // _obstacle.pos_s       = obj_list[idx].pos_s;
         // _obstacle.pos_d       = obj_list[idx].pos_d;
         _envmodle_info.Obstacles[2] = _obstacle;
+
+
+        // Grid Map
+        // _envmodle_info.ObstacleGridMap[399][99] =1; // 后轴中心
+
+
+
+        for(uint32 x=390-1; x<400; ++x)// front 10 ~ 20 meter
+        for(uint32 y=122-1;  y<136; ++y) // vehicle_mid = 100 
+        {
+             _envmodle_info.ObstacleGridMap[x][y]=1;
+        }
+
+
+// _envmodle_info.ObstacleGridMap[339][98] = 1;
+// _envmodle_info.ObstacleGridMap[340][98] = 1;
+// _envmodle_info.ObstacleGridMap[339][99] = 1;
+// _envmodle_info.ObstacleGridMap[340][99] = 1;
+// _envmodle_info.ObstacleGridMap[339][100] = 1;
+// _envmodle_info.ObstacleGridMap[340][100] = 1;
+// _envmodle_info.ObstacleGridMap[339][101] = 1;
+// _envmodle_info.ObstacleGridMap[340][101] = 1;
+// _envmodle_info.ObstacleGridMap[339][102] = 1;
+// _envmodle_info.ObstacleGridMap[340][102] = 1;
+// _envmodle_info.ObstacleGridMap[339][103] = 1;
+// _envmodle_info.ObstacleGridMap[340][103] = 1;
+// _envmodle_info.ObstacleGridMap[339][104] = 1;
+// _envmodle_info.ObstacleGridMap[340][104] = 1;
+// _envmodle_info.ObstacleGridMap[339][105] = 1;
+// _envmodle_info.ObstacleGridMap[340][105] = 1;
+// _envmodle_info.ObstacleGridMap[339][106] = 1;
+// _envmodle_info.ObstacleGridMap[340][106] = 1;
+// _envmodle_info.ObstacleGridMap[339][107] = 1;
+// _envmodle_info.ObstacleGridMap[340][107] = 1;
+// _envmodle_info.ObstacleGridMap[339][108] = 1;
+// _envmodle_info.ObstacleGridMap[340][108] = 1;
+// _envmodle_info.ObstacleGridMap[339][109] = 1;
+// _envmodle_info.ObstacleGridMap[340][109] = 1;
+// _envmodle_info.ObstacleGridMap[339][110] = 1;
+// _envmodle_info.ObstacleGridMap[340][110] = 1;
+// _envmodle_info.ObstacleGridMap[339][111] = 1;
+// _envmodle_info.ObstacleGridMap[340][111] = 1;
+// _envmodle_info.ObstacleGridMap[339][112] = 1;
+// _envmodle_info.ObstacleGridMap[340][112] = 1;
+// _envmodle_info.ObstacleGridMap[339][111] = 1;
+// _envmodle_info.ObstacleGridMap[340][111] = 1;
+// _envmodle_info.ObstacleGridMap[339][112] = 1;
+// _envmodle_info.ObstacleGridMap[340][112] = 1;
+// _envmodle_info.ObstacleGridMap[339][113] = 1;
+// _envmodle_info.ObstacleGridMap[340][113] = 1;
+// _envmodle_info.ObstacleGridMap[339][114] = 1;
+// _envmodle_info.ObstacleGridMap[340][114] = 1;
+// _envmodle_info.ObstacleGridMap[339][115] = 1;
+// _envmodle_info.ObstacleGridMap[340][115] = 1;
+// _envmodle_info.ObstacleGridMap[338][98] = 1;
+// _envmodle_info.ObstacleGridMap[339][98] = 1;
+// _envmodle_info.ObstacleGridMap[338][99] = 1;
+// _envmodle_info.ObstacleGridMap[339][99] = 1;
+// _envmodle_info.ObstacleGridMap[338][100] = 1;
+// _envmodle_info.ObstacleGridMap[339][100] = 1;
+// _envmodle_info.ObstacleGridMap[338][101] = 1;
+// _envmodle_info.ObstacleGridMap[339][101] = 1;
+// _envmodle_info.ObstacleGridMap[338][102] = 1;
+// _envmodle_info.ObstacleGridMap[339][102] = 1;
+// _envmodle_info.ObstacleGridMap[338][103] = 1;
+// _envmodle_info.ObstacleGridMap[339][103] = 1;
+// _envmodle_info.ObstacleGridMap[338][104] = 1;
+// _envmodle_info.ObstacleGridMap[339][104] = 1;
+// _envmodle_info.ObstacleGridMap[338][105] = 1;
+// _envmodle_info.ObstacleGridMap[339][105] = 1;
+// _envmodle_info.ObstacleGridMap[338][106] = 1;
+// _envmodle_info.ObstacleGridMap[339][106] = 1;
+// _envmodle_info.ObstacleGridMap[338][107] = 1;
+// _envmodle_info.ObstacleGridMap[339][107] = 1;
+// _envmodle_info.ObstacleGridMap[338][108] = 1;
+// _envmodle_info.ObstacleGridMap[339][108] = 1;
+// _envmodle_info.ObstacleGridMap[338][109] = 1;
+// _envmodle_info.ObstacleGridMap[339][109] = 1;
+// _envmodle_info.ObstacleGridMap[338][110] = 1;
+// _envmodle_info.ObstacleGridMap[339][110] = 1;
+// _envmodle_info.ObstacleGridMap[338][111] = 1;
+// _envmodle_info.ObstacleGridMap[339][111] = 1;
+// _envmodle_info.ObstacleGridMap[338][112] = 1;
+// _envmodle_info.ObstacleGridMap[339][112] = 1;
+// _envmodle_info.ObstacleGridMap[340][98] = 1;
+// _envmodle_info.ObstacleGridMap[340][99] = 1;
+// _envmodle_info.ObstacleGridMap[340][100] = 1;
+// _envmodle_info.ObstacleGridMap[340][101] = 1;
+// _envmodle_info.ObstacleGridMap[340][102] = 1;
+// _envmodle_info.ObstacleGridMap[340][103] = 1;
+// _envmodle_info.ObstacleGridMap[340][104] = 1;
+// _envmodle_info.ObstacleGridMap[340][105] = 1;
+// _envmodle_info.ObstacleGridMap[340][106] = 1;
+// _envmodle_info.ObstacleGridMap[340][107] = 1;
+// _envmodle_info.ObstacleGridMap[340][108] = 1;
+// _envmodle_info.ObstacleGridMap[340][109] = 1;
+// _envmodle_info.ObstacleGridMap[340][110] = 1;
+// _envmodle_info.ObstacleGridMap[340][111] = 1;
+// _envmodle_info.ObstacleGridMap[340][112] = 1;
+// _envmodle_info.ObstacleGridMap[338][110] = 1;
+// _envmodle_info.ObstacleGridMap[339][110] = 1;
+// _envmodle_info.ObstacleGridMap[338][111] = 1;
+// _envmodle_info.ObstacleGridMap[339][111] = 1;
+// _envmodle_info.ObstacleGridMap[338][112] = 1;
+// _envmodle_info.ObstacleGridMap[339][112] = 1;
+// _envmodle_info.ObstacleGridMap[338][113] = 1;
+// _envmodle_info.ObstacleGridMap[339][113] = 1;
+// _envmodle_info.ObstacleGridMap[338][114] = 1;
+// _envmodle_info.ObstacleGridMap[339][114] = 1;
+// _envmodle_info.ObstacleGridMap[338][115] = 1;
+// _envmodle_info.ObstacleGridMap[339][115] = 1;
+// _envmodle_info.ObstacleGridMap[340][110] = 1;
+// _envmodle_info.ObstacleGridMap[340][111] = 1;
+// _envmodle_info.ObstacleGridMap[340][112] = 1;
+// _envmodle_info.ObstacleGridMap[340][113] = 1;
+// _envmodle_info.ObstacleGridMap[340][114] = 1;
+// _envmodle_info.ObstacleGridMap[340][115] = 1;
+
+
 
 }
 
@@ -286,10 +411,8 @@ void get_Dt_RECORD_HdmapFrontPLane(Dt_RECORD_HdmapFrontPLane &_globePLane)
 
     _globePLane.plan_seg_count=3;
     _globePLane.PlanSeg[0].Lane[0].lane_width = 3.6;
-    _globePLane.PlanSeg[1].Lane[0].lane_width =0;
-    _globePLane.PlanSeg[2].Lane[0].lane_width =5.6;
-
-
+    _globePLane.PlanSeg[1].Lane[0].lane_width = 0;
+    _globePLane.PlanSeg[2].Lane[0].lane_width = 5.6;
 
 }
 
@@ -497,6 +620,7 @@ void log_protobuf_file( DecisionToPC &rev_DecisionToPC_data, uint32 index, socke
     DecisionToPC_pb->set_allocated_my_envmodelinfo(Dt_RECORD_EnvModelInfos_pb);
     frame_pb->set_allocated_decisiontopc(DecisionToPC_pb);  
 
+
     if(app_stopped_req == true)
     {
         std::ofstream ofile("../data/"+file_name,std::ios::out);
@@ -504,7 +628,7 @@ void log_protobuf_file( DecisionToPC &rev_DecisionToPC_data, uint32 index, socke
                 std::cout << "can not find data_convert file" << std::endl;
             logfile.SerializeToOstream(&ofile);
             ofile.close();
-        std::cout << "***************LOG FILE SAVE SUCCESSFULLY*************" <<std::endl;
+        std::cout << "***************LOG FILE SAVE SUCCESSFULLY******** Frame size: " << logfile.frame_size() << std::endl;
         app_shutdown =true;
     }
     
@@ -552,6 +676,7 @@ void read_from_simulate_data(hdMapTrajectory &Trajectory, DecisionToPC &rev_Deci
     get_hdMapTrajectory(Trajectory, globalpath);
     get_Dt_RECORD_EnvModelInfos(rev_DecisionToPC_data.my_envModelInfo);
     get_Dt_RECORD_HdmapFrontPLane(rev_DecisionToPC_data.my_hdmapFrontPLaneInfo);
+    get_Dt_RECORD_LocalizationInfo(rev_DecisionToPC_data.my_localizationInfo);
     
 
 }
@@ -605,8 +730,10 @@ int main(int argc, const char** argv) {
     #endif
 
     // alogorithm data
-    decision decision_obj;   
-
+    decision decision_obj;  
+    StaticDecision static_decision_obj; 
+    decision_info decisionToPlan;
+    // decisionToPlan.decision_command = LEFTAVOIDACE; // temp 
     // init socket and mode
     string MODE;
     if(argc==1) 
@@ -661,6 +788,9 @@ int main(int argc, const char** argv) {
             if(MODE =="log") // Log Proto 
             {
                 std::string file_name = static_cast<string>(argv[2]);
+
+                // read_from_simulate_data(Trajectory, rev_DecisionToPC_data); /// temp should be del
+
                 // clock_t t_s = clock();
                     log_protobuf_file(rev_DecisionToPC_data, frame_index, logfile, file_name);
                 // clock_t t_e = clock();
@@ -707,9 +837,12 @@ int main(int argc, const char** argv) {
 
 
         /*   ALGORITHMs  */
-        decision_obj.ObjDetect(1, &Trajectory, &globePLanehdmapInfos, &globePLane, &localPLanne, &localInfos, &envModelInfo, ego_config, &selectObj);
+		// decision_obj.DealWithHdmap(&globePLanehdmapInfos, localizationInfo.LocalizationResult.x, localizationInfo.LocalizationResult.y, localizationInfo.yaw, &globePLane, &localPLanne, &Trajectory);
+        decision_obj.ObjDetect(1, &Trajectory, &globePLanehdmapInfos, &globePLane, &localPLanne, &localInfos, &envModelInfo, ego_config, &decisionToPlan,&selectObj);
         // convet_trajectory(Trajectory, trajectoryPointsInfo);
 
+        gridmap_coll_obj coll_obj;
+        static_decision_obj.RouteObjDectbyGrid(localInfos.yaw, 1, &Trajectory, &globePLanehdmapInfos, &envModelInfo, &coll_obj, &globePLane, &localPLanne, &decisionToPlan);
 
 
         /*   DISPALY    */
