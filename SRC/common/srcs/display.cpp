@@ -239,11 +239,11 @@ void plot_vehicleCoordi_wind(const hdMapTrajectory &hdMapTrajectory,const Dt_REC
 
     plot_lane(hdMapTrajectory, HdmapFrontPLane);
     plot_box(std::vector<double>{0},std::vector<double>{0},std::vector<double>{0}, std::vector<int>{1},ObsType::Ego_Vehicle);
-    plot_box(obj_list_cent_x,obj_list_cent_y,obj_list_heading, obj_list_type, ObsType::NotImpor_Obs);
-    plot_box(dis_cipv_1_x,dis_cipv_1_y,dis_cipv_1_h, dis_cipv_1_type, ObsType::CIPV_V1);
-    plot_box(dis_cipv_2_x,dis_cipv_2_y,dis_cipv_2_h, dis_cipv_2_type, ObsType::CIPV_V2);
+    // plot_box(obj_list_cent_x,obj_list_cent_y,obj_list_heading, obj_list_type, ObsType::NotImpor_Obs);
+    // plot_box(dis_cipv_1_x,dis_cipv_1_y,dis_cipv_1_h, dis_cipv_1_type, ObsType::CIPV_V1);
+    // plot_box(dis_cipv_2_x,dis_cipv_2_y,dis_cipv_2_h, dis_cipv_2_type, ObsType::CIPV_V2);
 
-    plot_gridmap(envModelInfo);
+    // plot_gridmap(envModelInfo);
     // plot_box(obj_list_cent_x,obj_list_cent_y,obj_list_heading, ObsType::NotImpor_Obs);
 }
 

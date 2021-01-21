@@ -5,6 +5,13 @@
 #include <cmath>
 #include <thread>
 
+#include <stdio.h>
+#include <string.h>	 
+#include <stdlib.h>	
+#include <unistd.h>	
+#include <arpa/inet.h>
+#include <sys/socket.h>
+
 #include "../common/libs/user_struct.h"
 #include "../common/libs/decision_struct.h"
 
@@ -39,7 +46,7 @@ void sigint_handler(int sig){
 
 void get_globalpath(laneInfo &globalPath){
 
-    std::ifstream in_file("../../../log/gwh_curv.csv",std::ios::in);
+    std::ifstream in_file("../../../log/geely.csv",std::ios::in);
     // std::ifstream in_file("../../../log/trunning_termi_bug.csv",std::ios::in);
 
     if(!in_file.is_open()){
@@ -725,6 +732,20 @@ int main(int argc, const char** argv) {
 
     // socket data
     DecisionToPC   rev_DecisionToPC_data;
+
+
+    
+    char buffer[sizeof(rev_DecisionToPC_data)];
+    //创建套接字
+    int sock = socket(AF_INET, SOCK_STREAM, 0); //向服务器（特定的IP和端口）发起请求
+    struct sockaddr_in serv_addr;
+    memset(&serv_addr, 0, sizeof(serv_addr)); //每个字节都用0填充
+    serv_addr.sin_family = AF_INET; //使用IPv4地址
+    serv_addr.sin_addr.s_addr = inet_addr("192.168.43.32"); //具体的IP地址
+    serv_addr.sin_port = htons(8000); //端口
+
+
+
     #ifdef  SOCKETON
     TCPClient sclient_zu5;
     #endif
@@ -740,6 +761,10 @@ int main(int argc, const char** argv) {
     {
         MODE = "pure";
         std::cout << "Mode: pure, just display without log" << std::endl;
+
+
+      
+        connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr));//读取服务器传回的数据
     }
     else  
     {
@@ -784,6 +809,29 @@ int main(int argc, const char** argv) {
             #ifdef  SOCKETON
             receive_zu5Andparse_socket(rev_DecisionToPC_data, sclient_zu5);
             #endif
+
+            int readLen=0;
+            int readSize = read(sock, buffer, sizeof(buffer)-1);
+            int sumLen=0;
+            memcpy(&sumLen,buffer,4);
+            printf("sumLen = %d\n",sumLen);
+            if(sumLen>0)
+            {
+                int len=0;
+                while(readLen<sumLen)
+                {
+                    int curLen=0;
+                    curLen=read(sock, buffer+len, sizeof(buffer)-1);
+                    readLen+=curLen;
+                    len=readLen;
+                    printf("readLen = %d\n",readLen);
+                }
+
+            }
+
+             printf("Message form server: %s,readSize=%d \n", buffer,readSize);
+             memcpy(&rev_DecisionToPC_data, buffer, sizeof(DecisionToPC));
+            //  printf("LocalizationResult.x: %f \n", rev_DecisionToPC_data.my_localizationInfo.LocalizationResult.x);//关闭套接字
 
             if(MODE =="log") // Log Proto 
             {
@@ -837,7 +885,7 @@ int main(int argc, const char** argv) {
 
 
         /*   ALGORITHMs  */
-		// decision_obj.DealWithHdmap(&globePLanehdmapInfos, localizationInfo.LocalizationResult.x, localizationInfo.LocalizationResult.y, localizationInfo.yaw, &globePLane, &localPLanne, &Trajectory);
+		decision_obj.DealWithHdmap(&globePLanehdmapInfos, localInfos.LocalizationResult.x, localInfos.LocalizationResult.y, localInfos.yaw, &globePLane, &localPLanne, &Trajectory);
         decision_obj.ObjDetect(1, &Trajectory, &globePLanehdmapInfos, &globePLane, &localPLanne, &localInfos, &envModelInfo, ego_config, &decisionToPlan,&selectObj);
         // convet_trajectory(Trajectory, trajectoryPointsInfo);
 
@@ -855,8 +903,11 @@ int main(int argc, const char** argv) {
         g_t_e = clock();
         std::cout << "----> PER frame time cost: " << (double)(g_t_e -g_t_s)/CLOCKS_PER_SEC << "s"<< std::endl;;
         if(app_shutdown ==true)
+        {
+            close(sock); 
             return 0;
+        }
     }
-    
+    close(sock); 
     return 0;
 }
