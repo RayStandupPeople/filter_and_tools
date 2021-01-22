@@ -280,8 +280,14 @@ void get_Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos &_envmodle_info)
 
 
 
-        for(uint32 x=390-1; x<400; ++x)// front 10 ~ 20 meter
-        for(uint32 y=122-1;  y<136; ++y) // vehicle_mid = 100 
+        for(uint32 x=360-1; x<400; ++x)// front 10 ~ 20 meter
+        for(uint32 y=100-12;  y<100+12; ++y) // vehicle_mid = 100 
+        {
+             _envmodle_info.ObstacleGridMap[x][y]=1;
+        }
+
+        for(uint32 x=380-1; x<420; ++x)// front 10 ~ 20 meter
+        for(uint32 y=100+20;  y<100+42; ++y) // vehicle_mid = 100 
         {
              _envmodle_info.ObstacleGridMap[x][y]=1;
         }
@@ -733,7 +739,7 @@ int main(int argc, const char** argv) {
     decision decision_obj;  
     StaticDecision static_decision_obj; 
     decision_info decisionToPlan;
-    // decisionToPlan.decision_command = LEFTAVOIDACE; // temp 
+    decisionToPlan.decision_command = LEFTAVOID; // temp 
     // init socket and mode
     string MODE;
     if(argc==1) 

@@ -24,5 +24,5 @@ public:
     
     static std::vector<int>  collisionCheckInGridMapWithDetail(const double ego_x, const double ego_y, const double ego_yaw, const double lanewidth, const double veh_width,
 	    const double veh_rear_axel_to_head, const double veh_rear_axel_to_tail, const double collision_dist,
-	    const Dt_ARRAY_80000_ObstacleGridMap ObstacleGridMap, const std::vector<std::vector<double>> &detect_range);
+	    const Dt_ARRAY_80000_ObstacleGridMap ObstacleGridMap);
 };

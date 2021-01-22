@@ -17,21 +17,10 @@ void StaticDecision::segmentCollisionCheckWithDetail(float veh_heading, float ve
 	 float veh_rear_axel_to_tail, float collision_dist, laneInfo single_laneinfo, Dt_RECORD_EnvModelInfos *envModelInfo,\
 	 std::vector<int> &coll_flag, float64 *position, const double &lane_width,  decision_info *decisionInfo)
 {
-	std::vector<std::vector<double>> detect_range = {{0, 199}, {0, 355}}; // default range {lateral, longitudinal}
-	if (decisionInfo->decision_command== LEFTAVOID)
-	{
-		detect_range[0] = {100 + 12, 199};  // just detect right side 
-		detect_range[1] = {0, 399};    //  whole longitudinal range
-	}
 
-	if (decisionInfo->decision_command == RIGHTAVOID) // Avoiding
-	{
-		detect_range[0] = {0, 99 - 12};     // just detect left side
-		detect_range[1] = {0, 399};    //  whole longitudinal range
-	}
+	// for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum++) //隔10cm进行检测 
+	for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum+=3) //隔30cm进行检测 zlm 2021-0119
 
-
-	for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum++) //隔1m进行检测
 	{
 		float LocDeltaHeading = 0;
 		if (nodenum == 0)
@@ -40,7 +29,7 @@ void StaticDecision::segmentCollisionCheckWithDetail(float veh_heading, float ve
 		}
 		else
 		{
-			LocDeltaHeading =  single_laneinfo.laneNodeInfos[nodenum].heading - veh_heading + 90; // zlm temp del
+			LocDeltaHeading =  single_laneinfo.laneNodeInfos[nodenum].heading - veh_heading + 90; 
 			// LocDeltaHeading =  single_laneinfo.laneNodeInfos[nodenum].heading + 90;
 
 		}
@@ -64,7 +53,7 @@ void StaticDecision::segmentCollisionCheckWithDetail(float veh_heading, float ve
 		float Loc_ego_y = 40 - single_laneinfo.laneNodeInfos[nodenum].x;
 		#if 1 // zlm 2021- 0107 add new fun(support in-lane obstacle avoid)
 		coll_flag = StaticDecision::collisionCheckInGridMapWithDetail(Loc_ego_x, Loc_ego_y, LocDeltaHeading, lane_width, veh_width,
-														 veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, envModelInfo->ObstacleGridMap, detect_range);
+														 veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, envModelInfo->ObstacleGridMap);
    		#endif
 
     	#if 0
@@ -115,7 +104,8 @@ void StaticDecision::segmentCollisionCheck(float veh_heading, float veh_width, f
 	 float veh_rear_axel_to_tail, float collision_dist, laneInfo single_laneinfo, Dt_RECORD_EnvModelInfos *envModelInfo,\
 	 int *coll_flag, float64 *position)
 {
-	for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum++) //隔1m进行检测
+	// for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum++) //隔10cm进行检测
+	for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum+=3) //隔30cm进行检测 zlm 2021-0119
 	{
 		float LocDeltaHeading = 0;
 		if (nodenum == 0)
@@ -127,7 +117,7 @@ void StaticDecision::segmentCollisionCheck(float veh_heading, float veh_width, f
 			LocDeltaHeading =  single_laneinfo.laneNodeInfos[nodenum].heading - veh_heading + 90;
 		}
 		//测试，lkw,20201225
-		LocDeltaHeading = 90;
+		// LocDeltaHeading = 90;
 		if (LocDeltaHeading > 360)
 		{
 			LocDeltaHeading = (LocDeltaHeading - 360) / 180 * M_PI;
@@ -204,7 +194,7 @@ void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTraj
 	else 				   // read valid lane
 		cur_lane_width = valid_lane_width;
 		
-	double detect_range = 355;
+	//double detect_range = 355;
 	if (onpath == TRUE || decisionInfo->decision_command == LEFTAVOID || decisionInfo->decision_command == RIGHTAVOID)
 	{
 		//在全局轨迹上
@@ -1155,12 +1145,13 @@ Table Accessed:     
 Table Updated:      
 Input: 车辆后轴中心在栅格图坐标系下坐标，车辆航向，车宽，后轴中心与车头距离，后轴中心与车尾距离，膨胀尺寸，栅格图
 Output: 0-不发生碰撞, 1-发生碰撞  
-Others: 20210110,zlm, add Midleft and Midright detect range
+Others: 20210121,zlm, restrict dectet range which help to exclude ego car's body miss recognize
+		20210110,zlm, add Midleft and Midright detect range
 		20200617,wsy
 		20201022,wsy，修改为检测有障碍物的栅格数大于一定阈值认为发生碰撞
 **************************************************************************************************/
 std::vector<int> StaticDecision::collisionCheckInGridMapWithDetail(const double ego_x, const double ego_y, const double ego_yaw, double lane_width, const double veh_width,
-	const double veh_rear_axel_to_head, const double veh_rear_axel_to_tail, const double collision_dist, const Dt_ARRAY_80000_ObstacleGridMap ObstacleGridMap, const std::vector<std::vector<double>> &detect_range)
+	const double veh_rear_axel_to_head, const double veh_rear_axel_to_tail, const double collision_dist, const Dt_ARRAY_80000_ObstacleGridMap ObstacleGridMap)
 {
 	//车辆坐标系，向前为x正，向左为y正,坐标原点在后轴中心
 	//栅格图原点位于左上角，向右为X轴正方向，向下为Y轴正方向。车辆后轴中心在栅格图坐标系下坐标：(10,40)
@@ -1247,10 +1238,12 @@ std::vector<int> StaticDecision::collisionCheckInGridMapWithDetail(const double 
 				grid_y1 = ROUND(y1);
 				//DEBUG("Grid_point: (%d,%d), \n", grid_y1, grid_x1);
 
-				if (grid_x1 >= detect_range[0][0] && grid_x1 < detect_range[0][1] && grid_y1 >=detect_range[1][0] && grid_y1 < detect_range[1][1])  
-					//如果矩形中的点在地图之外，不进行判断，输出非碰撞；栅格图左上角编号为（0，0），右下角为（200，400）
+				//如果矩形中的点在地图之外，不进行判断，输出非碰撞；栅格图左上角编号为（0，0），右下角为（200，400）
 					//车头所在的栅格Y坐标序号为(362,99)
+				if (grid_x1 >= 0 && grid_x1 < 199 && grid_y1 >= 0 && grid_y1 < 399)  
 				{
+					if(grid_x1 >= 100 - 12 && grid_x1 < 100 + 12 && grid_y1 >= 355 && grid_y1 < 399) // exclude ego vehicle range
+					continue;
 					//往前后左右四个方向扩展格子，如果有障碍物，则插入队尾
 					int di[4] = {0,1,0,1};
 					int dj[4] = {0,0,1,1};

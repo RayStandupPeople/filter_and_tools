@@ -578,6 +578,7 @@ void decision::convert_flat_to_vehicle(Dt_RECORD_LocalizationInfo *loc_info, lan
 void decision::get_refpath(const int &onpath, hdMapTrajectory *Trajectory, laneInfo *refpath, Dt_RECORD_LocalizationInfo *localizationInfo, decision_info *decisionInfo)
 {
 	hdmapPathInfos path_;
+	// when vehicle onpath, or duiring LEFT AVOID Fun, set global path as refpath. else set local path
 	if(onpath==true || decisionInfo->decision_command == LEFTAVOID || decisionInfo->decision_command == RIGHTAVOID)
 	{
 		path_ = Trajectory->pathLane[0];
@@ -798,15 +799,10 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		obj_sd[0] = obj_sd[0] - loc_sd[0]; // update obstacle property s, which make it start from ego vehicle pos
 		DEBUG("OBJ SELECTION----> ObjDetect: veh_loc_x , y =%f %f\r\n", loc_sd[0], loc_sd[1]);
 		double obj_s = obj_sd[0];
-		double obj_d = obj_sd[1]; // corrent the error by ego offset of line
+		double obj_d = obj_sd[1]; 
 
 		DEBUG("zlm::ObjDetect: obj_sd : %f  %f \r\n", obj_s, obj_d);
-		// DEBUG("OBJ SELECTION----> ObjDetect: obj[i]_x       = %f\r\n", envModelInfo->Obstacles[obj_idx].pos_x);
-		// DEBUG("OBJ SELECTION----> ObjDetect: obj[i]_y       = %f\r\n", envModelInfo->Obstacles[obj_idx].pos_y);
-		// DEBUG("OBJ SELECTION----> ObjDetect: obj[i]_heading = %f\r\n", envModelInfo->Obstacles[obj_idx].heading);
-
-		// DEBUG("OBJ SELECTION----> ObjDetect: obj[i]_s       = %f\r\n", obj_s);
-		// DEBUG("OBJ SELECTION----> ObjDetect: obj[i]_d       = %f\r\n", obj_d);
+		
 
 		// var 'vehilce_width/2'  help to consider obstacle's boundary( mid_point + vehicle_width/2 = side boundary)    
 		// TO DO : should consider obstacle's  attitude(with obstacle's heading)
@@ -824,8 +820,12 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		double obstacle_width = vehicle_width; // default obstacle as vehicle width	
 		if(envModelInfo->Obstacles[obj_idx].type ==0) 
 			obstacle_width = pedestain_width;
+		double min_dis = 3.75; // distance from rear axis to vehicle head 
+		if(decisionInfo->decision_command == LEFTAVOID || decisionInfo->decision_command == RIGHTAVOID)
+			min_dis =0.1;
 
-		if(obj_d > -(safeWidth/2 + obstacle_width/2) && obj_d < (safeWidth/2 + obstacle_width/2) &&  obj_s > 3 &&  obj_s < obstalce_cipv_s[0])
+		// collision trajectory check
+		if(obj_d > -(safeWidth/2 + obstacle_width/2) && obj_d < (safeWidth/2 + obstacle_width/2) &&  obj_s > min_dis &&  obj_s < obstalce_cipv_s[0])
 		{
 			obstalce_cipv_flag[0] = 1; // CIPV_1 valid flag
 			obstalce_cipv_s[0] = obj_s; // update min s
@@ -844,8 +844,8 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		//     |    .| |.    |
 		
 		
-		// Mid Lane  
-		if (obj_d > -(segs_max_width/2 + obstacle_width/2) && obj_d < (segs_max_width/2 + obstacle_width/2) && obj_s > 3 &&  obj_s < max_valid_s)
+		// Mid Lane  (midLeft && midRight)
+		if (obj_d > -(segs_max_width/2 + obstacle_width/2) && obj_d < (segs_max_width/2 + obstacle_width/2) && obj_s > min_dis &&  obj_s < max_valid_s)
 		{
 			// select obstacle by itearte each segment boundary && Min distance S
 			// segs_boundary, [0]->min_s  [1]->max_x [2]->width  of each segment
@@ -874,7 +874,7 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		}
 
 		// Side Lane
-		if (obj_d > -1.5 * segs_max_width  && obj_d < 1.5 * segs_max_width  &&  obj_s < max_valid_s)
+		if (obj_d > -2 * segs_max_width  && obj_d < 2 * segs_max_width  &&  obj_s < max_valid_s)
 		{
 			// select obstacle by itearte each segment boundary && Min distance S
 			// segs_boundary, [0]->min_s  [1]->max_x [2]->width  of each segment
