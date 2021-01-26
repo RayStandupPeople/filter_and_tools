@@ -17,18 +17,8 @@
 void StaticDecision::segmentCollisionCheckWithDetail(float veh_heading, float veh_width, float veh_rear_axel_to_head, \
 	 float veh_rear_axel_to_tail, float collision_dist, laneInfo single_laneinfo, Dt_RECORD_EnvModelInfos *envModelInfo,\
 	 std::vector<int> &coll_flag, float64 *position, const double &lane_width,  decision_info *decisionInfo)
-{
-<<<<<<< HEAD
-
-	// for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum++) //隔10cm进行检测 
-	for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum+=3) //隔30cm进行检测 zlm 2021-0119
-
-=======
-	std::vector<std::vector<double>> detect_range = {{0, 199}, {0, 355}}; // default range {lateral, longitudinal}
-	
-
+{	
 	for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum+=3) //隔30cmm进行检测
->>>>>>> feature/socketfromWin2021-0119
 	{
 		float LocDeltaHeading = 0;
 		if (nodenum == 0)
@@ -60,26 +50,8 @@ void StaticDecision::segmentCollisionCheckWithDetail(float veh_heading, float ve
 		float Loc_ego_x = 10 - single_laneinfo.laneNodeInfos[nodenum].y;
 		float Loc_ego_y = 40 - single_laneinfo.laneNodeInfos[nodenum].x;
 	
-		coll_flag = StaticDecision::collisionCheckInGridMapWithDetail(Loc_ego_x, Loc_ego_y, LocDeltaHeading, lane_width, veh_width,
-<<<<<<< HEAD
-														 veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, envModelInfo->ObstacleGridMap);
-   		#endif
-
-    	#if 0
-		*coll_flag = StaticDecision::collisionCheckInGridMap(Loc_ego_x, Loc_ego_y, LocDeltaHeading, veh_width,
-														 veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, envModelInfo->ObstacleGridMap);
-   		#endif
-
-		#if 0
-		*coll_flag = CommonMath::collisionCheckInGridMapWithBFS(Loc_ego_x, Loc_ego_y, LocDeltaHeading, veh_width,
-																veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, envModelInfo->ObstacleGridMap);
-    	#endif
-
-		// if (*coll_flag != 0)    // zlm 2021-0107 comment
-=======
-														 veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, envModelInfo->ObstacleGridMap, detect_range);
+		coll_flag = StaticDecision::collisionCheckInGridMapWithDetail(Loc_ego_x, Loc_ego_y, LocDeltaHeading, lane_width, veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, envModelInfo->ObstacleGridMap);
    		
->>>>>>> feature/socketfromWin2021-0119
 		for(uint32 part_idx =0; part_idx<3;++part_idx)
 		{
 			if(coll_flag[part_idx]!= 0 )
@@ -112,12 +84,7 @@ void StaticDecision::segmentCollisionCheck(float veh_heading, float veh_width, f
 	 float veh_rear_axel_to_tail, float collision_dist, laneInfo single_laneinfo, Dt_RECORD_EnvModelInfos *envModelInfo,\
 	 int *coll_flag, float64 *position)
 {
-<<<<<<< HEAD
-	// for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum++) //隔10cm进行检测
-	for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum+=3) //隔30cm进行检测 zlm 2021-0119
-=======
 	for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum+=3) //隔30 cm进行检测
->>>>>>> feature/socketfromWin2021-0119
 	{
 		float LocDeltaHeading = 0;
 		if (nodenum == 0)
@@ -212,13 +179,8 @@ void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTraj
 	else 				   // read valid lane
 		cur_lane_width = valid_lane_width;
 		
-<<<<<<< HEAD
-	//double detect_range = 355;
-	if (onpath == TRUE || decisionInfo->decision_command == LEFTAVOID || decisionInfo->decision_command == RIGHTAVOID)
-=======
 	// double detect_range = 355;
 	if (onpath == TRUE || decisionInfo->decision_command == LEFTAVOID || decisionInfo->decision_command == RIGHTAVOID)//在全局轨迹上或者壁障中
->>>>>>> feature/socketfromWin2021-0119
 	{
 		// check mid lane with all segments
 		for (uint32 segNum = 0; segNum < Trajectory->pathLane[0].segNum; segNum++)

@@ -824,12 +824,8 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		double obj_s = obj_sd[0];
 		double obj_d = obj_sd[1]; 
 
-<<<<<<< HEAD
-		DEBUG("zlm::ObjDetect: obj_sd : %f  %f \r\n", obj_s, obj_d);
-=======
 		DEBUG("OBJ SELECTION----> obj_id, obj_s, obj_d, obj_posx, obj_posy:  %2d     %f     %f     %f    %f\r\n", envModelInfo->Obstacles[obj_idx].id, obj_s, obj_d, \
 		envModelInfo->Obstacles[obj_idx].pos_x, envModelInfo->Obstacles[obj_idx].pos_y);
->>>>>>> feature/socketfromWin2021-0119
 		
 
 		// var 'vehilce_width/2'  help to consider obstacle's boundary( mid_point + vehicle_width/2 = side boundary)    
@@ -848,17 +844,13 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		double obstacle_width = vehicle_width; // default obstacle as vehicle width	
 		if(envModelInfo->Obstacles[obj_idx].type ==0) 
 			obstacle_width = pedestain_width;
-<<<<<<< HEAD
+
 		double min_dis = 3.75; // distance from rear axis to vehicle head 
 		if(decisionInfo->decision_command == LEFTAVOID || decisionInfo->decision_command == RIGHTAVOID)
 			min_dis =0.1;
 
-		// collision trajectory check
-		if(obj_d > -(safeWidth/2 + obstacle_width/2) && obj_d < (safeWidth/2 + obstacle_width/2) &&  obj_s > min_dis &&  obj_s < obstalce_cipv_s[0])
-=======
 		// (safeWidth + obstacle_width)/2  = |2.1| or |1.6|
-		if(obj_d > -(safeWidth/2 + obstacle_width/2) && obj_d < (safeWidth/2 + obstacle_width/2) &&  obj_s > 3 &&  obj_s < obstalce_cipv_s[0])
->>>>>>> feature/socketfromWin2021-0119
+		if(obj_d > -(safeWidth/2 + obstacle_width/2) && obj_d < (safeWidth/2 + obstacle_width/2) &&  obj_s > min_dis &&  obj_s < obstalce_cipv_s[0])
 		{
 			obstalce_cipv_flag[0] = 1; // CIPV_1 valid flag
 			obstalce_cipv_s[0] = obj_s; // update min s
