@@ -8,10 +8,10 @@
 //@param grid_s_lane                 : the distance s of grid map collision check for specified lane; unit meter
 //@param && output   selectObj_lane  : the struct of cipv selection for specified lane; 
 //@param lane_name                   : indicate your interested lane
-void decision::objSelectFusion(int grid_flg_lane, double grid_s_lane, objSec* selectObj_lane, string lane_name)
+void fusion_decision::objSelectFusion(int grid_flg_lane, double grid_s_lane, objSec* selectObj_lane, string lane_name)
 {
 	double Threshold = 1; // unit: meter, help to distinguish whether two valid obs is the same one;
-	DEBUG("OBJ SELECT FUSION----> %s : grid_flg, grid_s, selectObj_s =  %d   %f   %f\r\n",lane_name.c_str(), grid_flg_lane,  grid_s_lane, selectObj_lane->obj.s);
+	DEBUG("OBJ SELECT FUSION----> %s [Before Fusion] : grid_flg, grid_s, selectObj_s =  %d   %2f   %2f\r\n",lane_name.c_str(), grid_flg_lane,  grid_s_lane, selectObj_lane->obj.s);
 	if(selectObj_lane->postion == 0)  // obj List : no objList output
 	{
 		switch (grid_flg_lane)
@@ -72,6 +72,6 @@ void decision::objSelectFusion(int grid_flg_lane, double grid_s_lane, objSec* se
 				}
 		}
 	}
-	DEBUG("OBJ SELECT FUSION----> %s : selectObj_lane->postion, selectObj_lane_fusion.s,  selectObj_lane_fusion.d, selectObj_lane_fusion.type = %d   %f   %f   %d\r\n", \
+	DEBUG("OBJ SELECT FUSION----> %s [After  Fusion] : selectObj_lane->postion, selectObj_lane_fusion.s,  selectObj_lane_fusion.d, selectObj_lane_fusion.type = %d   %2f   %2f   %d\r\n", \
 	 lane_name.c_str(), selectObj_lane->postion, selectObj_lane->obj.s,  selectObj_lane->obj.d, selectObj_lane->obj.type);
 }

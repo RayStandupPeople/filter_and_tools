@@ -11,16 +11,24 @@
 * 输  出: int                  发送给泊车模块的可泊车位信息
 输入&输出       parkStartFlag                  泊车开始标志位
 调用函数：无
-更新:    V2.0 add SideAvoid Logic
+更新:    
+ 		V2.0 improve compute effi   2021 - 01 -21
 ***************************************************************************************************/
 void StaticDecision::segmentCollisionCheckWithDetail(float veh_heading, float veh_width, float veh_rear_axel_to_head, \
 	 float veh_rear_axel_to_tail, float collision_dist, laneInfo single_laneinfo, Dt_RECORD_EnvModelInfos *envModelInfo,\
 	 std::vector<int> &coll_flag, float64 *position, const double &lane_width,  decision_info *decisionInfo)
 {
+<<<<<<< HEAD
 
 	// for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum++) //隔10cm进行检测 
 	for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum+=3) //隔30cm进行检测 zlm 2021-0119
 
+=======
+	std::vector<std::vector<double>> detect_range = {{0, 199}, {0, 355}}; // default range {lateral, longitudinal}
+	
+
+	for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum+=3) //隔30cmm进行检测
+>>>>>>> feature/socketfromWin2021-0119
 	{
 		float LocDeltaHeading = 0;
 		if (nodenum == 0)
@@ -51,8 +59,9 @@ void StaticDecision::segmentCollisionCheckWithDetail(float veh_heading, float ve
 		//计算轨迹点在栅格图下的坐标
 		float Loc_ego_x = 10 - single_laneinfo.laneNodeInfos[nodenum].y;
 		float Loc_ego_y = 40 - single_laneinfo.laneNodeInfos[nodenum].x;
-		#if 1 // zlm 2021- 0107 add new fun(support in-lane obstacle avoid)
+	
 		coll_flag = StaticDecision::collisionCheckInGridMapWithDetail(Loc_ego_x, Loc_ego_y, LocDeltaHeading, lane_width, veh_width,
+<<<<<<< HEAD
 														 veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, envModelInfo->ObstacleGridMap);
    		#endif
 
@@ -67,6 +76,10 @@ void StaticDecision::segmentCollisionCheckWithDetail(float veh_heading, float ve
     	#endif
 
 		// if (*coll_flag != 0)    // zlm 2021-0107 comment
+=======
+														 veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, envModelInfo->ObstacleGridMap, detect_range);
+   		
+>>>>>>> feature/socketfromWin2021-0119
 		for(uint32 part_idx =0; part_idx<3;++part_idx)
 		{
 			if(coll_flag[part_idx]!= 0 )
@@ -89,23 +102,22 @@ void StaticDecision::segmentCollisionCheckWithDetail(float veh_heading, float ve
 
 
 /***************************************************************************************************
-* 功  能: 基于栅格地图信息对车辆行驶前方地图模块发布的单端道路各路点是否存在碰撞进行检测
-* 输  入: Dt_RECORD_EnvModelInfos *envModelInfo   环境建模信息
-		  float veh_width   车辆宽度
-		  float veh_rear_axel_to_head 后轴中心到车头长度
-		  float veh_rear_axel_to_tail 后轴中心到车位长度
-		  float collision_dist 车辆膨胀宽度
-		  laneInfo single_laneinfo 单端道路路点信息
-* 输  出: int                  发送给泊车模块的可泊车位信息
-输入&输出       parkStartFlag                  泊车开始标志位
-调用函数：无
+* 功  能: coordinate convert help to convert grid to vehicle
+* 输  入: vehicle size info, lane to check, obstacle grid info 
+* 输  出: collsion flag , obstacle distance s
+
+更新:    V2.0 add SideAvoid Logic    2021 - 01 -18
 ***************************************************************************************************/
 void StaticDecision::segmentCollisionCheck(float veh_heading, float veh_width, float veh_rear_axel_to_head,\
 	 float veh_rear_axel_to_tail, float collision_dist, laneInfo single_laneinfo, Dt_RECORD_EnvModelInfos *envModelInfo,\
 	 int *coll_flag, float64 *position)
 {
+<<<<<<< HEAD
 	// for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum++) //隔10cm进行检测
 	for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum+=3) //隔30cm进行检测 zlm 2021-0119
+=======
+	for (uint32 nodenum = 0; nodenum < single_laneinfo.nodeNum; nodenum+=3) //隔30 cm进行检测
+>>>>>>> feature/socketfromWin2021-0119
 	{
 		float LocDeltaHeading = 0;
 		if (nodenum == 0)
@@ -134,15 +146,10 @@ void StaticDecision::segmentCollisionCheck(float veh_heading, float veh_width, f
 		float Loc_ego_x = 10 - single_laneinfo.laneNodeInfos[nodenum].y;
 		float Loc_ego_y = 40 - single_laneinfo.laneNodeInfos[nodenum].x;
 
-    	#if 1
+    
 		*coll_flag = StaticDecision::collisionCheckInGridMap(Loc_ego_x, Loc_ego_y, LocDeltaHeading, veh_width,
 														 veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, envModelInfo->ObstacleGridMap);
-   		#endif
-
-		#if 0
-		*coll_flag = CommonMath::collisionCheckInGridMapWithBFS(Loc_ego_x, Loc_ego_y, LocDeltaHeading, veh_width,
-																veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, envModelInfo->ObstacleGridMap);
-    	#endif
+   		
 
 		if (*coll_flag != 0)    
 		{
@@ -162,10 +169,21 @@ void StaticDecision::segmentCollisionCheck(float veh_heading, float veh_width, f
 }
 
 //行驶轨迹上障碍物判断
-#define zhulimin
-#ifdef zhulimin
-void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_HdmapInfo *hdmapInfos, Dt_RECORD_EnvModelInfos *envModelInfo, gridmap_coll_obj *coll_obj,\
-		Dt_RECORD_HdmapFrontPLane *globePLane, 	Dt_RECORD_HdmapLocalLane *localPLanne,  decision_info *decisionInfo)
+/***************************************************************************************************
+* 功  能: grid check Main Logic, which help to check interseted area at diff scenario
+* 输  入: Dt_RECORD_EnvModelInfos *envModelInfo   环境建模信息
+		  float veh_width   车辆宽度
+		  float veh_rear_axel_to_head 后轴中心到车头长度
+		  float veh_rear_axel_to_tail 后轴中心到车位长度
+		  float collision_dist 车辆膨胀宽度
+		  laneInfo s qualified-id in declaration beforeingle_laneinfo 单端道路路点信息
+* 输  出: int                  发送给泊车模块的可泊车位信息
+输入&输出       parkStartFlag                  泊车开始标志位
+Update： V2.1 review code, and fix some format errors 2021-01-20
+		 V2.0 add Side Avoid Logic 2021-01-18
+***************************************************************************************************/
+void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_HdmapInfo *hdmapInfos,\
+ 		Dt_RECORD_EnvModelInfos *envModelInfo, gridmap_coll_obj *coll_obj, Dt_RECORD_HdmapFrontPLane *globePLane, Dt_RECORD_HdmapLocalLane *localPLanne,  decision_info *decisionInfo)
 {
 	float veh_width = 1.95;
 	float veh_rear_axel_to_head = 3.75;
@@ -194,10 +212,15 @@ void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTraj
 	else 				   // read valid lane
 		cur_lane_width = valid_lane_width;
 		
+<<<<<<< HEAD
 	//double detect_range = 355;
 	if (onpath == TRUE || decisionInfo->decision_command == LEFTAVOID || decisionInfo->decision_command == RIGHTAVOID)
+=======
+	// double detect_range = 355;
+	if (onpath == TRUE || decisionInfo->decision_command == LEFTAVOID || decisionInfo->decision_command == RIGHTAVOID)//在全局轨迹上或者壁障中
+>>>>>>> feature/socketfromWin2021-0119
 	{
-		//在全局轨迹上
+		// check mid lane with all segments
 		for (uint32 segNum = 0; segNum < Trajectory->pathLane[0].segNum; segNum++)
 		{
 			DEBUG("Trajectory->pathLane[0].hdmapPathInfo[0].laneInfos[0].nodeNum= %d\r\n", Trajectory->pathLane[0].hdmapPathInfo[0].laneInfos[0].nodeNum);
@@ -206,12 +229,10 @@ void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTraj
 				//DEBUG("decision=hdmaperror \r\n");
 				return;
 			}
-
-			segmentCollisionCheckWithDetail(veh_heading, veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, \
-				collision_dist, Trajectory->pathLane[0].hdmapPathInfo[segNum].laneInfos[0], envModelInfo, \
+			// check ego lane with midleft mid midright
+			segmentCollisionCheckWithDetail(veh_heading, veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->pathLane[0].hdmapPathInfo[segNum].laneInfos[0], envModelInfo,\
 				obj_flag_mid_array, temp_position, cur_lane_width, decisionInfo);
 
-			// if (obj_flag_mid != 0)  zlm 2021-0107 comment
 			for(uint32 part_idx=0; part_idx<3; ++part_idx) //iterate each part of one lane
 			{
 				if(obj_flag_mid_array[part_idx]!=0)
@@ -255,189 +276,105 @@ void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTraj
 			    }
 			}
 			if(coll_obj->obj_mid_flag!=0) break; //current sgement make collision, quit iteration
-		}
+		}// check mid lane with all segments
 
-		//如果当前车道会发生碰撞，则判断左右车道障碍物
-		// if (obj_flag_mid != 0)   // zlm comment, check side lane all the time
-		{
+		//判断左右车道障碍物
 		for (uint32 segNum = 0; segNum < Trajectory->pathLane[0].segNum; segNum++)
 		{
 			//判断当前段车道是否有左右车道
 			DEBUG("Trajectory->pathLane[0].hdmapPathInfo[segNum].laneNum = %d \r\n", Trajectory->pathLane[0].hdmapPathInfo[segNum].laneNum);
 			switch (Trajectory->pathLane[0].hdmapPathInfo[segNum].laneNum)
 			{
-			case 2: //只有左车道
-				if (obj_flag_left == 0)
-				{
-					segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->pathLane[0].hdmapPathInfo[segNum].laneInfos[1], envModelInfo, &obj_flag_left, temp_position);
-					if (obj_flag_left != 0)
+				case 2: //只有左车道
+					if (obj_flag_left == 0)
 					{
-						DEBUG("===decision.cpp===there have a left obj...\r\n");
-						coll_obj->obj_lef_flag = obj_flag_left;
-						coll_obj->x_l = temp_position[0];
-						coll_obj->y_l = temp_position[1];
-						coll_obj->s_l = temp_position[2];
-						DEBUG("[===decision.cpp===]:coll_obj->x_l = %f\r\n", coll_obj->x_l);
-						DEBUG("[===decision.cpp===]:coll_obj->y_l = %f\r\n", coll_obj->y_l);
-						DEBUG("[===decision.cpp===]:coll_obj->s_l = %f\r\n", coll_obj->s_l);
+						segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->pathLane[0].hdmapPathInfo[segNum].laneInfos[1], envModelInfo, &obj_flag_left, temp_position);
+						if (obj_flag_left != 0)
+						{
+							DEBUG("===decision.cpp===there have a left obj...\r\n");
+							coll_obj->obj_lef_flag = obj_flag_left;
+							coll_obj->x_l = temp_position[0];
+							coll_obj->y_l = temp_position[1];
+							coll_obj->s_l = temp_position[2];
+							DEBUG("[===decision.cpp===]:coll_obj->x_l = %f\r\n", coll_obj->x_l);
+							DEBUG("[===decision.cpp===]:coll_obj->y_l = %f\r\n", coll_obj->y_l);
+							DEBUG("[===decision.cpp===]:coll_obj->s_l = %f\r\n", coll_obj->s_l);
+						}
 					}
-				}
-				break;
-			case 3: //只有右车道
-				if (obj_flag_right == 0)
-				{
-					segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->pathLane[0].hdmapPathInfo[segNum].laneInfos[2], envModelInfo, &obj_flag_right, temp_position);
-					if (obj_flag_right != 0)
+					break;
+						
+				case 3: //只有右车道
+					if (obj_flag_right == 0)
 					{
-						DEBUG("===decision.cpp===there have a right obj...\r\n");
-						coll_obj->obj_rig_flag = obj_flag_right;
-						coll_obj->x_r = temp_position[0];
-						coll_obj->y_r = temp_position[1];
-						coll_obj->s_r = temp_position[2];
-						DEBUG("[===decision.cpp===]:coll_obj->x_r = %f\r\n", coll_obj->x_r);
-						DEBUG("[===decision.cpp===]:coll_obj->y_r = %f\r\n", coll_obj->y_r);
-						DEBUG("[===decision.cpp===]:coll_obj->s_r = %f\r\n", coll_obj->s_r);
+						segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->pathLane[0].hdmapPathInfo[segNum].laneInfos[2], envModelInfo, &obj_flag_right, temp_position);
+						if (obj_flag_right != 0)
+						{
+							DEBUG("===decision.cpp===there have a right obj...\r\n");
+							coll_obj->obj_rig_flag = obj_flag_right;
+							coll_obj->x_r = temp_position[0];
+							coll_obj->y_r = temp_position[1];
+							coll_obj->s_r = temp_position[2];
+							DEBUG("[===decision.cpp===]:coll_obj->x_r = %f\r\n", coll_obj->x_r);
+							DEBUG("[===decision.cpp===]:coll_obj->y_r = %f\r\n", coll_obj->y_r);
+							DEBUG("[===decision.cpp===]:coll_obj->s_r = %f\r\n", coll_obj->s_r);
+						}
 					}
-				}
-				break;for (uint32 segNum = 0; segNum < Trajectory->localPath[0].segNum; segNum++)
-		{
-			//判断当前段车道是否有左右车道
-			DEBUG("Trajectory->localPath[0].hdmapPathInfo[segNum].laneNum = %d \r\n", Trajectory->localPath[0].hdmapPathInfo[segNum].laneNum);
-			switch (Trajectory->localPath[0].hdmapPathInfo[segNum].laneNum)
-			{
-			case 2: //只有左车道
-				if (obj_flag_left == 0)
-				{
-					segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->localPath[0].hdmapPathInfo[segNum].laneInfos[1], envModelInfo, &obj_flag_left, temp_position);
-					if (obj_flag_left != 0)
+					break;
+			
+				case 4: //左右车道均有
+					if (obj_flag_left == 0)
 					{
-						DEBUG("===decision.cpp===there have a left obj...\r\n");
-						coll_obj->obj_lef_flag = obj_flag_left;
-						coll_obj->x_l = temp_position[0];
-						coll_obj->y_l = temp_position[1];
-						coll_obj->s_l = temp_position[2];
-						DEBUG("[===decision.cpp===]:coll_obj->x_l = %f\r\n", coll_obj->x_l);
-						DEBUG("[===decision.cpp===]:coll_obj->y_l = %f\r\n", coll_obj->y_l);
-						DEBUG("[===decision.cpp===]:coll_obj->s_l = %f\r\n", coll_obj->s_l);
+						segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->pathLane[0].hdmapPathInfo[segNum].laneInfos[1], envModelInfo, &obj_flag_left, temp_position);
+						if (obj_flag_left != 0)
+						{
+							DEBUG("===decision.cpp===there have a left obj...\r\n");
+							coll_obj->obj_lef_flag = obj_flag_left;
+							coll_obj->x_l = temp_position[0];
+							coll_obj->y_l = temp_position[1];
+							coll_obj->s_l = temp_position[2];
+							DEBUG("[===decision.cpp===]:coll_obj->x_l = %f\r\n", coll_obj->x_l);
+							DEBUG("[===decision.cpp===]:coll_obj->y_l = %f\r\n", coll_obj->y_l);
+							DEBUG("[===decision.cpp===]:coll_obj->s_l = %f\r\n", coll_obj->s_l);
+						}
 					}
-				}
-				break;
-			case 3: //只有右车道
-				if (obj_flag_right == 0)
-				{
-					segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->localPath[0].hdmapPathInfo[segNum].laneInfos[2], envModelInfo, &obj_flag_right, temp_position);
-					if (obj_flag_right != 0)
+					if (obj_flag_right == 0)
 					{
-						DEBUG("===decision.cpp===there have a right obj...\r\n");
-						coll_obj->obj_rig_flag = obj_flag_right;
-						coll_obj->x_r = temp_position[0];
-						coll_obj->y_r = temp_position[1];
-						coll_obj->s_r = temp_position[2];
-						DEBUG("[===decision.cpp===]:coll_obj->x_r = %f\r\n", coll_obj->x_r);
-						DEBUG("[===decision.cpp===]:coll_obj->y_r = %f\r\n", coll_obj->y_r);
-						DEBUG("[===decision.cpp===]:coll_obj->s_r = %f\r\n", coll_obj->s_r);
+						segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->pathLane[0].hdmapPathInfo[segNum].laneInfos[2], envModelInfo, &obj_flag_right, temp_position);
+						if (obj_flag_right != 0)
+						{
+							DEBUG("===decision.cpp===there have a right obj...\r\n");
+							coll_obj->obj_rig_flag = obj_flag_right;
+							coll_obj->x_r = temp_position[0];
+							coll_obj->y_r = temp_position[1];
+							coll_obj->s_r = temp_position[2];
+							DEBUG("[===decision.cpp===]:coll_obj->x_r = %f\r\n", coll_obj->x_r);
+							DEBUG("[===decision.cpp===]:coll_obj->y_r = %f\r\n", coll_obj->y_r);
+							DEBUG("[===decision.cpp===]:coll_obj->s_r = %f\r\n", coll_obj->s_r);
+						}
 					}
-				}
-				break;
-			case 4: //左右车道均有
-				if (obj_flag_left == 0)
-				{
-					segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->localPath[0].hdmapPathInfo[segNum].laneInfos[1], envModelInfo, &obj_flag_left, temp_position);
-					if (obj_flag_left != 0)
-					{
-						DEBUG("===decision.cpp===there have a left obj...\r\n");
-						coll_obj->obj_lef_flag = obj_flag_left;
-						coll_obj->x_l = temp_position[0];
-						coll_obj->y_l = temp_position[1];
-						coll_obj->s_l = temp_position[2];
-						DEBUG("[===decision.cpp===]:coll_obj->x_l = %f\r\n", coll_obj->x_l);
-						DEBUG("[===decision.cpp===]:coll_obj->y_l = %f\r\n", coll_obj->y_l);
-						DEBUG("[===decision.cpp===]:coll_obj->s_l = %f\r\n", coll_obj->s_l);
-					}
-				}
-				if (obj_flag_right == 0)
-				{
-					segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->localPath[0].hdmapPathInfo[segNum].laneInfos[2], envModelInfo, &obj_flag_right, temp_position);
-					if (obj_flag_right != 0)
-					{
-						DEBUG("===decision.cpp===there have a right obj...\r\n");
-						coll_obj->obj_rig_flag = obj_flag_right;
-						coll_obj->x_r = temp_position[0];
-						coll_obj->y_r = temp_position[1];
-						coll_obj->s_r = temp_position[2];
-						DEBUG("[===decision.cpp===]:coll_obj->x_r = %f\r\n", coll_obj->x_r);
-						DEBUG("[===decision.cpp===]:coll_obj->y_r = %f\r\n", coll_obj->y_r);
-						DEBUG("[===decision.cpp===]:coll_obj->s_r = %f\r\n", coll_obj->s_r);
-					}
-				}
-				break;
-			default:
-				break;
-			}
+					break;
+				default:
+					break;
+			}// switch, check side lane
 			if (coll_obj->obj_lef_flag > 0 && coll_obj->obj_rig_flag > 0)
-			{
 				break;
-			}
-		}
-				{
-					segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->pathLane[0].hdmapPathInfo[segNum].laneInfos[1], envModelInfo, &obj_flag_left, temp_position);
-					if (obj_flag_left != 0)
-					{
-						DEBUG("===decision.cpp===there have a left obj...\r\n");
-						coll_obj->obj_lef_flag = obj_flag_left;
-						coll_obj->x_l = temp_position[0];
-						coll_obj->y_l = temp_position[1];
-						coll_obj->s_l = temp_position[2];
-						DEBUG("[===decision.cpp===]:coll_obj->x_l = %f\r\n", coll_obj->x_l);
-						DEBUG("[===decision.cpp===]:coll_obj->y_l = %f\r\n", coll_obj->y_l);
-						DEBUG("[===decision.cpp===]:coll_obj->s_l = %f\r\n", coll_obj->s_l);
-					}
-				}
-				if (obj_flag_right == 0)
-				{
-					segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->pathLane[0].hdmapPathInfo[segNum].laneInfos[2], envModelInfo, &obj_flag_right, temp_position);
-					if (obj_flag_right != 0)
-					{
-						DEBUG("===decision.cpp===there have a right obj...\r\n");
-						coll_obj->obj_rig_flag = obj_flag_right;
-						coll_obj->x_r = temp_position[0];
-						coll_obj->y_r = temp_position[1];
-						coll_obj->s_r = temp_position[2];
-						DEBUG("[===decision.cpp===]:coll_obj->x_r = %f\r\n", coll_obj->x_r);
-						DEBUG("[===decision.cpp===]:coll_obj->y_r = %f\r\n", coll_obj->y_r);
-						DEBUG("[===decision.cpp===]:coll_obj->s_r = %f\r\n", coll_obj->s_r);
-					}
-				}
-				break;
-			default:
-				break;
-			}
-			if (coll_obj->obj_lef_flag > 0 && coll_obj->obj_rig_flag > 0)
-			{
-				break;
-			}
-		}
-		}
+		}//for, check all segments
 
-		//////////////////////////////////////
-		// 被动变道轨迹进行处理   zlm  全局路径
-		//////////////////////////////////////
+
 		
-		// 被动变道场景检测 
-		// DEBUG("[passive lane change scenario Begin],basicInfo-> globePLane->plan_seg_count = %d \r\n", globePLane->plan_seg_count);
-				
+		// 被动变道场景检测 	
 		for (uint32 segNum = 0; segNum < globePLane->plan_seg_count; segNum++)
 		{
 			if(globePLane->PlanSeg[segNum].Lane[0].change_lane_flag ==1) // 存在被动变道的路段
 			{
 				
-				if (fabs(float(globePLane->PlanSeg[segNum].Lane[0].lane_NO)) < \
-					fabs(float(globePLane->PlanSeg[segNum+1].Lane[0].lane_NO)))
-				lc_exist_type =1; // 向右侧变道
+				if (fabs(float(globePLane->PlanSeg[segNum].Lane[0].lane_NO)) < fabs(float(globePLane->PlanSeg[segNum+1].Lane[0].lane_NO)))
+				{
+					lc_exist_type =1; // 向右侧变道
+				}
 				lc_exist_flag =1;
 				lc_exist_segnum = segNum;
-				DEBUG("[passive lane change scenario],basicInfo-> lc_exist_flag =%d , lc_exist_segnum= %d，lc_exist_type= %d\r\n", 
-					lc_exist_flag, lc_exist_segnum, lc_exist_type);
+				DEBUG("[passive lane change scenario],basicInfo-> lc_exist_flag =%d , lc_exist_segnum= %d，lc_exist_type= %d\r\n", lc_exist_flag, lc_exist_segnum, lc_exist_type);
 			}
 		}
 		// 被动变道场景 并且前方发生碰撞
@@ -450,14 +387,12 @@ void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTraj
 			obj_flag_left = 0; 
 			obj_flag_right = 0; 
 			
-
 			for (uint32 segNum = 0; segNum <= lc_exist_segnum; segNum++)
 			{
 				//对本车道进行二次碰撞检测 
 				if(obj_flag_mid == 0) 
 					segmentCollisionCheckWithDetail(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, \
-						collision_dist, Trajectory->pathLane[0].hdmapPathInfo[segNum].laneInfos[0], envModelInfo,\
-					 	obj_flag_mid_array, temp_position, cur_lane_width, decisionInfo);
+						collision_dist, Trajectory->pathLane[0].hdmapPathInfo[segNum].laneInfos[0], envModelInfo, obj_flag_mid_array, temp_position, cur_lane_width, decisionInfo);
 			}
 			if(obj_flag_mid==0)   // 本车道处理
 			{
@@ -468,7 +403,7 @@ void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTraj
 				DEBUG("[passive lane change scenario] second mid lane check, no collison...\r\n");
 				// break;
 			}
-			for (uint32 segNum = 0; segNum <= lc_exist_segnum; segNum++) //相邻车道处理
+			for (uint32 segNum = 0; segNum <= lc_exist_segnum; segNum++) //处理碰撞segment及其前路段相邻车道
 			{
 				//对相邻车道进行碰撞检测
 				DEBUG("[Passive Lane change scenario, deal lc_exist_seg nearby lanes] : Trajectory->pathLane[0].hdmapPathInfo[segNum].laneNum = %d \r\n", \
@@ -545,7 +480,7 @@ void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTraj
 					default:
 						break;
 				}
-			}
+			}//处理碰撞segment及其前路段相邻车道
 
 			//变道后碰撞检测与处理
 			DEBUG("[Passive Lane change scenario]:Trajectory->pathLane[0].segNum = %d \r\n", Trajectory->pathLane[0].segNum);
@@ -640,15 +575,15 @@ void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTraj
 							DEBUG("[Passive Lane change scenario lc_exist rig change]:coll_obj->s_r = %f\r\n", coll_obj->s_r);
 						}
 					}
-					
 				}
-			}
-		}	
-
-	}
-	else
+			}//变道后碰撞检测与处理
+		}// 被动变道场景 并且前方发生碰撞
+	}// if Onpath or during avoiding
+	
+	
+	else // Local path 
 	{
-		// Local path 
+		
 		for (uint32 segNum = 0; segNum < Trajectory->localPath[0].segNum; segNum++)
 		{
 			DEBUG("Trajectory->localPath[0].hdmapPathInfo[0].laneInfos[0].nodeNum= %d\r\n", Trajectory->localPath[0].hdmapPathInfo[0].laneInfos[0].nodeNum);
@@ -709,121 +644,109 @@ void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTraj
 		}
 
 		//如果当前车道会发生碰撞，则判断左右车道障碍物
-		// if (obj_flag_mid != 0)   // zlm comment, check side lane all the time 
-		{
+		
 		for (uint32 segNum = 0; segNum < Trajectory->localPath[0].segNum; segNum++)
 		{
 			//判断当前段车道是否有左右车道
 			DEBUG("Trajectory->localPath[0].hdmapPathInfo[segNum].laneNum = %d \r\n", Trajectory->localPath[0].hdmapPathInfo[segNum].laneNum);
 			switch (Trajectory->localPath[0].hdmapPathInfo[segNum].laneNum)
 			{
-			case 2: //只有左车道
-				if (obj_flag_left == 0)
-				{
-					segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->localPath[0].hdmapPathInfo[segNum].laneInfos[1], envModelInfo, &obj_flag_left, temp_position);
-					if (obj_flag_left != 0)
+				case 2: //只有左车道
+					if (obj_flag_left == 0)
 					{
-						DEBUG("===decision.cpp===there have a left obj...\r\n");
-						coll_obj->obj_lef_flag = obj_flag_left;
-						coll_obj->x_l = temp_position[0];
-						coll_obj->y_l = temp_position[1];
-						coll_obj->s_l = temp_position[2];
-						DEBUG("[===decision.cpp===]:coll_obj->x_l = %f\r\n", coll_obj->x_l);
-						DEBUG("[===decision.cpp===]:coll_obj->y_l = %f\r\n", coll_obj->y_l);
-						DEBUG("[===decision.cpp===]:coll_obj->s_l = %f\r\n", coll_obj->s_l);
+						segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->localPath[0].hdmapPathInfo[segNum].laneInfos[1], envModelInfo, &obj_flag_left, temp_position);
+						if (obj_flag_left != 0)
+						{
+							DEBUG("===decision.cpp===there have a left obj...\r\n");
+							coll_obj->obj_lef_flag = obj_flag_left;
+							coll_obj->x_l = temp_position[0];
+							coll_obj->y_l = temp_position[1];
+							coll_obj->s_l = temp_position[2];
+							DEBUG("[===decision.cpp===]:coll_obj->x_l = %f\r\n", coll_obj->x_l);
+							DEBUG("[===decision.cpp===]:coll_obj->y_l = %f\r\n", coll_obj->y_l);
+							DEBUG("[===decision.cpp===]:coll_obj->s_l = %f\r\n", coll_obj->s_l);
+						}
 					}
-				}
-				break;
-			case 3: //只有右车道
-				if (obj_flag_right == 0)
-				{
-					segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->localPath[0].hdmapPathInfo[segNum].laneInfos[2], envModelInfo, &obj_flag_right, temp_position);
-					if (obj_flag_right != 0)
+					break;
+				case 3: //只有右车道
+					if (obj_flag_right == 0)
 					{
-						DEBUG("===decision.cpp===there have a right obj...\r\n");
-						coll_obj->obj_rig_flag = obj_flag_right;
-						coll_obj->x_r = temp_position[0];
-						coll_obj->y_r = temp_position[1];
-						coll_obj->s_r = temp_position[2];
-						DEBUG("[===decision.cpp===]:coll_obj->x_r = %f\r\n", coll_obj->x_r);
-						DEBUG("[===decision.cpp===]:coll_obj->y_r = %f\r\n", coll_obj->y_r);
-						DEBUG("[===decision.cpp===]:coll_obj->s_r = %f\r\n", coll_obj->s_r);
+						segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->localPath[0].hdmapPathInfo[segNum].laneInfos[2], envModelInfo, &obj_flag_right, temp_position);
+						if (obj_flag_right != 0)
+						{
+							DEBUG("===decision.cpp===there have a right obj...\r\n");
+							coll_obj->obj_rig_flag = obj_flag_right;
+							coll_obj->x_r = temp_position[0];
+							coll_obj->y_r = temp_position[1];
+							coll_obj->s_r = temp_position[2];
+							DEBUG("[===decision.cpp===]:coll_obj->x_r = %f\r\n", coll_obj->x_r);
+							DEBUG("[===decision.cpp===]:coll_obj->y_r = %f\r\n", coll_obj->y_r);
+							DEBUG("[===decision.cpp===]:coll_obj->s_r = %f\r\n", coll_obj->s_r);
+						}
 					}
-				}
-				break;
-			case 4: //左右车道均有
-				if (obj_flag_left == 0)
-				{
-					segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->localPath[0].hdmapPathInfo[segNum].laneInfos[1], envModelInfo, &obj_flag_left, temp_position);
-					if (obj_flag_left != 0)
+					break;
+				case 4: //左右车道均有
+					if (obj_flag_left == 0)
 					{
-						DEBUG("===decision.cpp===there have a left obj...\r\n");
-						coll_obj->obj_lef_flag = obj_flag_left;
-						coll_obj->x_l = temp_position[0];
-						coll_obj->y_l = temp_position[1];
-						coll_obj->s_l = temp_position[2];
-						DEBUG("[===decision.cpp===]:coll_obj->x_l = %f\r\n", coll_obj->x_l);
-						DEBUG("[===decision.cpp===]:coll_obj->y_l = %f\r\n", coll_obj->y_l);
-						DEBUG("[===decision.cpp===]:coll_obj->s_l = %f\r\n", coll_obj->s_l);
+						segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->localPath[0].hdmapPathInfo[segNum].laneInfos[1], envModelInfo, &obj_flag_left, temp_position);
+						if (obj_flag_left != 0)
+						{
+							DEBUG("===decision.cpp===there have a left obj...\r\n");
+							coll_obj->obj_lef_flag = obj_flag_left;
+							coll_obj->x_l = temp_position[0];
+							coll_obj->y_l = temp_position[1];
+							coll_obj->s_l = temp_position[2];
+							DEBUG("[===decision.cpp===]:coll_obj->x_l = %f\r\n", coll_obj->x_l);
+							DEBUG("[===decision.cpp===]:coll_obj->y_l = %f\r\n", coll_obj->y_l);
+							DEBUG("[===decision.cpp===]:coll_obj->s_l = %f\r\n", coll_obj->s_l);
+						}
 					}
-				}
-				if (obj_flag_right == 0)
-				{
-					segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->localPath[0].hdmapPathInfo[segNum].laneInfos[2], envModelInfo, &obj_flag_right, temp_position);
-					if (obj_flag_right != 0)
+					if (obj_flag_right == 0)
 					{
-						DEBUG("===decision.cpp===there have a right obj...\r\n");
-						coll_obj->obj_rig_flag = obj_flag_right;
-						coll_obj->x_r = temp_position[0];
-						coll_obj->y_r = temp_position[1];
-						coll_obj->s_r = temp_position[2];
-						DEBUG("[===decision.cpp===]:coll_obj->x_r = %f\r\n", coll_obj->x_r);
-						DEBUG("[===decision.cpp===]:coll_obj->y_r = %f\r\n", coll_obj->y_r);
-						DEBUG("[===decision.cpp===]:coll_obj->s_r = %f\r\n", coll_obj->s_r);
+						segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->localPath[0].hdmapPathInfo[segNum].laneInfos[2], envModelInfo, &obj_flag_right, temp_position);
+						if (obj_flag_right != 0)
+						{
+							DEBUG("===decision.cpp===there have a right obj...\r\n");
+							coll_obj->obj_rig_flag = obj_flag_right;
+							coll_obj->x_r = temp_position[0];
+							coll_obj->y_r = temp_position[1];
+							coll_obj->s_r = temp_position[2];
+							DEBUG("[===decision.cpp===]:coll_obj->x_r = %f\r\n", coll_obj->x_r);
+							DEBUG("[===decision.cpp===]:coll_obj->y_r = %f\r\n", coll_obj->y_r);
+							DEBUG("[===decision.cpp===]:coll_obj->s_r = %f\r\n", coll_obj->s_r);
+						}
 					}
-				}
-				break;
-			default:
-				break;
+					break;
+				default:
+					break;
 			}
 			if (coll_obj->obj_lef_flag > 0 && coll_obj->obj_rig_flag > 0)
-			{
 				break;
-			}
 		}
-		}
-
-		//////////////////////////////////////
-		// 被动变道轨迹进行处理   zlm  全局路径
-		//////////////////////////////////////
-		
 		// 被动变道场景检测 
-		// DEBUG("[passive lane change scenario Begin],basicInfo-> globePLane->plan_seg_count = %d \r\n", globePLane->plan_seg_count);
 				
-		for (uint32 segNum = 0; segNum < globePLane->plan_seg_count; segNum++)
+		for (uint32 segNum = 0; segNum < localPLanne->next_seg_count; segNum++)
 		{
-			if(globePLane->PlanSeg[segNum].Lane[0].change_lane_flag ==1) // 存在被动变道的路段
+			if(localPLanne->NextSeg[segNum].Lane[0].change_lane_flag ==1) // 存在被动变道的路段
 			{
 				
-				if (fabs(float(globePLane->PlanSeg[segNum].Lane[0].lane_NO)) < \
-					fabs(float(globePLane->PlanSeg[segNum+1].Lane[0].lane_NO)))
-				lc_exist_type =1; // 向右侧变道
+				if (fabs(float(localPLanne->NextSeg[segNum].Lane[0].lane_NO)) < fabs(float(localPLanne->NextSeg[segNum+1].Lane[0].lane_NO)))
+				{
+					lc_exist_type =1; // 向右侧变道
+				}
 				lc_exist_flag =1;
 				lc_exist_segnum = segNum;
-				DEBUG("[passive lane change scenario],basicInfo-> lc_exist_flag =%d , lc_exist_segnum= %d，lc_exist_type= %d\r\n", 
-					lc_exist_flag, lc_exist_segnum, lc_exist_type);
+				DEBUG("[passive lane change scenario],basicInfo-> lc_exist_flag =%d , lc_exist_segnum= %d，lc_exist_type= %d\r\n", lc_exist_flag, lc_exist_segnum, lc_exist_type);
 			}
 		}
 		// 被动变道场景 并且前方发生碰撞
 		if(lc_exist_flag == 1 && obj_flag_mid!=0)
 		{
-			DEBUG("[passive lane change scenario] now lc_exist_flag == 1 && obj_flag_mid!=0 \r\n");
-			//变道前的碰撞检测与处理
+			DEBUG("[passive lane change scenario] now lc_exist_flag == 1 && obj_flag_mid!=0 \r\n"); 
 
 			obj_flag_mid = 0; //状态清理
 			obj_flag_left = 0; 
 			obj_flag_right = 0; 
-			
 
 			for (uint32 segNum = 0; segNum <= lc_exist_segnum; segNum++)
 			{
@@ -842,7 +765,7 @@ void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTraj
 				DEBUG("[passive lane change scenario] second mid lane check, no collison...\r\n");
 				// break;
 			}
-			for (uint32 segNum = 0; segNum <= lc_exist_segnum; segNum++) //相邻车道处理
+			for (uint32 segNum = 0; segNum <= lc_exist_segnum; segNum++) ////变道前相邻车道处理
 			{
 				//对相邻车道进行碰撞检测
 				DEBUG("[Passive Lane change scenario, deal lc_exist_seg nearby lanes] : Trajectory->localPath[0].hdmapPathInfo[segNum].laneNum = %d \r\n", \
@@ -852,7 +775,7 @@ void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTraj
 					case 2: //只有左车道
 						if (obj_flag_left == 0)
 						{
-							segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->pathLane[0].hdmapPathInfo[segNum].laneInfos[1], envModelInfo, &obj_flag_left, temp_position);
+							segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->localPath[0].hdmapPathInfo[segNum].laneInfos[1], envModelInfo, &obj_flag_left, temp_position);
 							if (obj_flag_left != 0)
 							{
 								DEBUG("[Passive Lane change scenario case2]:there have a left obj befor LC...\r\n");
@@ -968,7 +891,6 @@ void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTraj
 							DEBUG("[Passive Lane change scenario lc_exist lf change]:coll_obj->s_l = %f\r\n", coll_obj->s_l);
 						}
 					}
-					
 				}
 				if(lc_exist_type==1) //当前为右变道
 				{
@@ -998,8 +920,7 @@ void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTraj
 					if(obj_flag_right==0)
 					{
 						DEBUG("[Passive Lane change scenario, rht change]:right no collision, check this seg ego\r\n");
-						segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, \
-							collision_dist, Trajectory->localPath[0].hdmapPathInfo[segNum].laneInfos[0], envModelInfo,\
+						segmentCollisionCheck(veh_heading,veh_width, veh_rear_axel_to_head, veh_rear_axel_to_tail, collision_dist, Trajectory->localPath[0].hdmapPathInfo[segNum].laneInfos[0], envModelInfo,\
 							&obj_flag_right, temp_position);
 
 						if(obj_flag_right != 0)
@@ -1014,13 +935,12 @@ void StaticDecision::RouteObjDectbyGrid(float veh_heading, int onpath, hdMapTraj
 							DEBUG("[Passive Lane change scenario lc_exist rig change]:coll_obj->s_r = %f\r\n", coll_obj->s_r);
 						}
 					}
-					
 				}
-			}
-		}	
-	}
+			}//变道后碰撞检测与处理
+		}// 被动变道场景 并且前方发生碰撞
+	}// localPath
 }
-#endif
+
 
 /**************************************************************************************************
 Function:           

@@ -21,6 +21,7 @@ void decision::DealWithHdmap(Dt_RECORD_HdmapInfo *hdmapInfos, double xVeh, doubl
 	{
 		if ((globePLane->PlanSeg[count].Lane[0].node_count > 100) || (globePLane->PlanSeg[count].Lane[0].node_count == 0))
 		{
+			std::cout <<"TEST:::" <<(double)globePLane->PlanSeg[count].Lane[0].node_count;
 			DEBUG("PlanSegInfoerror \r\n");
 			return;
 		}
@@ -252,6 +253,8 @@ void decision::DealWithNode(double dis, Dt_RECORD_HdMapLane *frontLane, laneInfo
 	{
 		double gx = outglobalTraj.laneNodeInfos[m].x;
 		double gy = outglobalTraj.laneNodeInfos[m].y;
+
+		// std::cout<<"TEST: gx gy :" << gx << " " <<gy << std::endl;
 		double sengmentDis = 0.0;
 		int ret_trans = decision::getGridCoordiFromParkXY(heading, mapHeading, xVeh, yVeh, gx, gy, &localLaneNodes.x, &localLaneNodes.y);
 		if (m == 0)
@@ -485,8 +488,10 @@ std::vector<double> decision::getFrenet(double x, double y, double theta, const 
 {
 	std::vector<double> res_;
 	int next_wp = decision::NextWaypoint(x,y, theta, maps_x,maps_y);
+
 	int prev_wp;
 	prev_wp = next_wp-1;
+
 	if(next_wp == 0)
 	{
 		prev_wp  = maps_x.size()-1;
@@ -525,7 +530,7 @@ std::vector<double> decision::getFrenet(double x, double y, double theta, const 
 	frenet_s += decision::distance(0,0,proj_x,proj_y);
 	res_.push_back(frenet_s);
 	res_.push_back(frenet_d);
-
+	// std::cout << "frenet_s: " << frenet_s << "  frenet_d: " <<frenet_d <<std::endl;
 	return res_;
 
 }
@@ -540,31 +545,34 @@ std::vector<double> decision::getFrenet(double x, double y, double theta, const 
 //* 输  出: 参考路径信息(车体坐标系)
 
 //***************************************************************************************************/
-void decision::convert_flat_to_vehicle(Dt_RECORD_LocalizationInfo *loc_info, laneInfo *refpath){
-     double a = loc_info->LocalizationResult.x;
+void decision::convert_flat_to_vehicle(Dt_RECORD_LocalizationInfo *loc_info, const Dt_RECORD_HdmapFrontPLane &_globePLane){
+    double a = loc_info->LocalizationResult.x;
     double b = loc_info->LocalizationResult.y;
-    double t = -loc_info->yaw * M_PI/180; // base direction not sure
+    double t = loc_info->yaw * M_PI/180; // base direction not sure
 	// std::cout <<"zlm::convert_flat_to_vehicle: node_idx as follow /" << std::endl;
 	// std::cout <<"zlm::convert_flat_to_vehicle: loc_info->LocalizationResult.x : " << a << std::endl;
 	// std::cout <<"zlm::convert_flat_to_vehicle: loc_info->LocalizationResult.y: " << b << std::endl;
 	// std::cout <<"zlm::convert_flat_to_vehicle: -loc_info->yaw * M_PI/180 : " << t << std::endl;
+	laneInfo vehipath;
+	vehipath.nodeNum =_globePLane.PlanSeg[0].Lane[0].node_count;
+	vehipath.laneNodeInfos.resize(vehipath.nodeNum);
 
-    for(uint32 i=0;i<refpath->nodeNum;++i)
+    for(uint32 i=0;i<_globePLane.PlanSeg[0].Lane[0].node_count;++i)
     {
-        double x_ = ( refpath->laneNodeInfos[i].x - a)*cos(t)   + (refpath->laneNodeInfos[i].y - b)*sin(t);
-        double y_ = ( refpath->laneNodeInfos[i].x - a)*-sin(t)  + (refpath->laneNodeInfos[i].y - b)*cos(t);
-		refpath->laneNodeInfos[i].x = x_;
-		refpath->laneNodeInfos[i].y = y_;
+        double x_ = ( _globePLane.PlanSeg[0].Lane[0].LaneNode[i].hdmap_x - a)*cos(t)  + (_globePLane.PlanSeg[0].Lane[0].LaneNode[i].hdmap_y - b)*sin(t);
+        double y_ = ( _globePLane.PlanSeg[0].Lane[0].LaneNode[i].hdmap_x - a)*-sin(t) + (_globePLane.PlanSeg[0].Lane[0].LaneNode[i].hdmap_y - b)*cos(t);
+		vehipath.laneNodeInfos[i].x = y_;
+		vehipath.laneNodeInfos[i].y = x_;
     }
 
-	// DEBUG("zlm::convert_flat_to_vehicle: refpath->nodeNum  = %d \r\n",refpath->laneNodeInfos.size());
-	// for(uint32 node_idx =0; node_idx < refpath->laneNodeInfos.size();++node_idx)
-	// {
-	// 	DEBUG("zlm::convert_flat_to_vehicle: node_idx as follow \r\n/");
-	// 	DEBUG("zlm::convert_flat_to_vehicle: node_idx_x %f: \r\n", refpath->laneNodeInfos[node_idx].x );
-	// 	DEBUG("zlm::convert_flat_to_vehicle: node_idx_y : %f\r\n", refpath->laneNodeInfos[node_idx].y );
-	// 	DEBUG("zlm::convert_flat_to_vehicle: node_idx_heading %f: \r\n", refpath->laneNodeInfos[node_idx].heading);
-	// }
+	DEBUG("zlm::convert_flat_to_vehicle: vehipath->nodeNum  = %d \r\n",vehipath.nodeNum);
+	for(uint32 node_idx =0; node_idx < vehipath.nodeNum;++node_idx)
+	{
+		DEBUG("zlm::convert_flat_to_vehicle: node_idx as follow \r\n/");
+		DEBUG("zlm::convert_flat_to_vehicle: node_idx_x %f: \r\n",vehipath.laneNodeInfos[node_idx].x );
+		DEBUG("zlm::convert_flat_to_vehicle: node_idx_y : %f\r\n", vehipath.laneNodeInfos[node_idx].y );
+		DEBUG("zlm::convert_flat_to_vehicle: node_idx_heading %f: \r\n", vehipath.laneNodeInfos[node_idx].heading);
+	}
 }
 
 ///***************************************************************************************************
@@ -582,15 +590,17 @@ void decision::get_refpath(const int &onpath, hdMapTrajectory *Trajectory, laneI
 	if(onpath==true || decisionInfo->decision_command == LEFTAVOID || decisionInfo->decision_command == RIGHTAVOID)
 	{
 		path_ = Trajectory->pathLane[0];
+		DEBUG("zlm::get_refpath: path_ = Trajectory->pathLane[0] \r\n"); // zlm 2021-01-23 add
 	}
 	else
 	{
 		path_ = Trajectory->localPath[0];
+		DEBUG("zlm::get_refpath: path_ = Trajectory->localPath \r\n"); // zlm 2021-01-23 add
 	}
 	
 	for (uint32 lane_seg_idx = 0; lane_seg_idx < path_.segNum; lane_seg_idx++)// range all lane segments
 	{
-		for(uint32 path_node_idx = 0; path_node_idx < path_.hdmapPathInfo[lane_seg_idx].laneInfos[0].nodeNum; path_node_idx+=5)
+		for(uint32 path_node_idx = 0; path_node_idx < path_.hdmapPathInfo[lane_seg_idx].laneInfos[0].nodeNum; path_node_idx+=5) 
 		{
 			
 			laneNode node_; // add temp node
@@ -632,12 +642,16 @@ void decision::getSegsBoundary(int onpath, hdMapTrajectory* Trajectory, Dt_RECOR
 		path_ = Trajectory->pathLane[0];
 	else
 		path_ = Trajectory->localPath[0];
-	DEBUG("getSegsBoundary----> path_.segNum: %d\r\n",  path_.segNum);
+	DEBUG("OBJ SELECTION----> segments nums is %d\r\n",path_.segNum);
 	for (uint32 seg_idx = 0; seg_idx < path_.segNum; ++seg_idx)
 	{
 		// get key point of each segment
 		double node_num = path_.hdmapPathInfo[seg_idx].laneInfos[0].nodeNum;
-		if (node_num < 2) continue;
+		if (node_num < 2) 
+		{
+			DEBUG("OBJ SELECTION----> ERROR : There is only %f points in segments[%d]\r\n",node_num, seg_idx);
+			continue;
+		}
 		double x_s = path_.hdmapPathInfo[seg_idx].laneInfos[0].laneNodeInfos[0].x;
 		double y_s = path_.hdmapPathInfo[seg_idx].laneInfos[0].laneNodeInfos[0].y;
 		double h_s = path_.hdmapPathInfo[seg_idx].laneInfos[0].laneNodeInfos[0].heading - localizationInfo->yaw;
@@ -680,7 +694,8 @@ void decision::getSegsBoundary(int onpath, hdMapTrajectory* Trajectory, Dt_RECOR
 
 ///***************************************************************************************************
 //* 功  能: 障碍物筛选
-//* 版  本: V4.1 2020-01-18 add Left and Right Side detect logic
+//* 版  本: V4.2 2020-01-22 close side detect; comment format longtitude frenet s with ego vehl;
+//		   V4.1 2020-01-18 add Left and Right Side detect logic
 //*        V4.0 2020-01-07 
 //* 处  理：1.获取目标所在车道宽度  
 //*        2. frenet障碍物投影  
@@ -710,7 +725,7 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 
 
 	double vehicle_width = 1.93;
-	double pedestain_width = 1;
+	double pedestain_width = 0.5;// zlm 2021-0121 change from 1 to 0.5
 	double safeDis = 0.2; 
 	double laneWidth = 0;
 	double safeWidth =  vehicle_width + safeDis * 2;
@@ -744,17 +759,17 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 	{
 		DEBUG("zlm::obj_sel: no refpath\r\n");
 		DEBUG("OBJ SELECTION----> onpath= %d\r\n", onpath);
-		DEBUG("OBJ SELECTION----> selectObj->frontMid.postion= %d \r\n", selectObj->frontMid.postion);
-		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.id = %d \r\n", selectObj->frontMid.obj.id);
-		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.s = %f \r\n", selectObj->frontMid.obj.s);
-		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.d = %f \r\n", selectObj->frontMid.obj.d);
-		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.pos_x = %f \r\n", selectObj->frontMid.obj.pos_x);
-		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.pos_y = %f \r\n", selectObj->frontMid.obj.pos_y);
-		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.heading = %f \r\n", selectObj->frontMid.obj.heading);
-		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.rel_speed_x = %f \r\n", selectObj->frontMid.obj.rel_speed_x);
-		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.rel_speed_y = %f \r\n", selectObj->frontMid.obj.rel_speed_y);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.postion          = %d \r\n", selectObj->frontMid.postion);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.id           = %d \r\n", selectObj->frontMid.obj.id);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.s            = %f \r\n", selectObj->frontMid.obj.s);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.d            = %f \r\n", selectObj->frontMid.obj.d);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.pos_x        = %f \r\n", selectObj->frontMid.obj.pos_x);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.pos_y        = %f \r\n", selectObj->frontMid.obj.pos_y);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.heading      = %f \r\n", selectObj->frontMid.obj.heading);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.rel_speed_x  = %f \r\n", selectObj->frontMid.obj.rel_speed_x);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.rel_speed_y  = %f \r\n", selectObj->frontMid.obj.rel_speed_y);
 		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.abs_speed_x  = %f \r\n", selectObj->frontMid.obj.abs_speed_x);
-		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.type  = %d \r\n", selectObj->frontMid.obj.type);
+		DEBUG("OBJ SELECTION----> selectObj->frontMid.obj.type         = %d \r\n", selectObj->frontMid.obj.type);
 		return;
 	}
 	// get refpath_x, refpath_y
@@ -776,13 +791,21 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 	{
 		if (segs_boundary[seg_idx].back() > segs_max_width)
 			segs_max_width = segs_boundary[seg_idx].back(); // iterate each seg's width
+		
+		DEBUG("OBJ SELECTION----> segs_boundary[%d].laneNumber = %d \r\n", seg_idx, globePLane->PlanSeg[seg_idx].lane_count);
+
+		if(segs_boundary[seg_idx].back() ==0) // fix slove error
+		{
+			DEBUG("OBJ SELECTION----> ERROR: segs_boundary[%d].back() = %f, and now padded by %f\r\n",seg_idx, segs_max_width, laneWidth);
+			segs_boundary[seg_idx].back() = laneWidth;
+		}
 	}
 	DEBUG("OBJ SELECTION----> segs_max_width = %2f\r\n", segs_max_width);
 
 	// calculate ego vehicle pos's s and d
 	std::vector<double> loc_sd = decision::getFrenet(0,0,0, refpath_x, refpath_y);
 			
-	std::cout << "zlm::ObjDetect: localization_sd :" << loc_sd[0] <<" " << loc_sd[1] <<std::endl;
+	std::cout << "OBJ SELECTION----> localization_sd :" << loc_sd[0] <<" " << loc_sd[1] <<std::endl;
 	
 	DEBUG("OBJ SELECTION----> envModelInfo->obstacle_num= %d\r\n", envModelInfo->obstacle_num);
 	DEBUG("OBJ SELECTION----> current lane_width / 2= %f\r\n", laneWidth / 2);
@@ -792,16 +815,21 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 	{	
 		if(envModelInfo->Obstacles[obj_idx].pos_x <0) // skip backward obj select
 			continue;
+
 		std::vector<double> obj_sd = decision::getFrenet(envModelInfo->Obstacles[obj_idx].pos_x, envModelInfo->Obstacles[obj_idx].pos_y, \
-			0, refpath_x, refpath_y); 
-		// std::cout << "zlm::ObjDetect: obj_posx obj_posy :" << envModelInfo->Obstacles[obj_idx].pos_x \
-		// 	<<" " << envModelInfo->Obstacles[obj_idx].pos_y <<std::endl;
-		obj_sd[0] = obj_sd[0] - loc_sd[0]; // update obstacle property s, which make it start from ego vehicle pos
-		DEBUG("OBJ SELECTION----> ObjDetect: veh_loc_x , y =%f %f\r\n", loc_sd[0], loc_sd[1]);
+			0, refpath_x, refpath_y); // not consider obs'heading
+		
+		// obj_sd[0] = obj_sd[0] - loc_sd[0]; // zlm 2021-122 commnent, not uncomment until solve back sel. update obstacle property s
+		
 		double obj_s = obj_sd[0];
 		double obj_d = obj_sd[1]; 
 
+<<<<<<< HEAD
 		DEBUG("zlm::ObjDetect: obj_sd : %f  %f \r\n", obj_s, obj_d);
+=======
+		DEBUG("OBJ SELECTION----> obj_id, obj_s, obj_d, obj_posx, obj_posy:  %2d     %f     %f     %f    %f\r\n", envModelInfo->Obstacles[obj_idx].id, obj_s, obj_d, \
+		envModelInfo->Obstacles[obj_idx].pos_x, envModelInfo->Obstacles[obj_idx].pos_y);
+>>>>>>> feature/socketfromWin2021-0119
 		
 
 		// var 'vehilce_width/2'  help to consider obstacle's boundary( mid_point + vehicle_width/2 = side boundary)    
@@ -820,12 +848,17 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		double obstacle_width = vehicle_width; // default obstacle as vehicle width	
 		if(envModelInfo->Obstacles[obj_idx].type ==0) 
 			obstacle_width = pedestain_width;
+<<<<<<< HEAD
 		double min_dis = 3.75; // distance from rear axis to vehicle head 
 		if(decisionInfo->decision_command == LEFTAVOID || decisionInfo->decision_command == RIGHTAVOID)
 			min_dis =0.1;
 
 		// collision trajectory check
 		if(obj_d > -(safeWidth/2 + obstacle_width/2) && obj_d < (safeWidth/2 + obstacle_width/2) &&  obj_s > min_dis &&  obj_s < obstalce_cipv_s[0])
+=======
+		// (safeWidth + obstacle_width)/2  = |2.1| or |1.6|
+		if(obj_d > -(safeWidth/2 + obstacle_width/2) && obj_d < (safeWidth/2 + obstacle_width/2) &&  obj_s > 3 &&  obj_s < obstalce_cipv_s[0])
+>>>>>>> feature/socketfromWin2021-0119
 		{
 			obstalce_cipv_flag[0] = 1; // CIPV_1 valid flag
 			obstalce_cipv_s[0] = obj_s; // update min s
@@ -900,6 +933,29 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 					obstalce_cipv_s[4] = obj_s; // update min s
 					obstalce_cipv_d[4] = obj_d; // update d
 					obstalce_cipv_idx[4] = obj_idx;
+				}
+				// 2021- 0121  help to deal with side lane miss dectect
+				double lanenum = 4; // have both left and right lane
+				if(onpath)
+					lanenum = Trajectory->pathLane[0].hdmapPathInfo[0].laneNum;
+				else
+					lanenum = Trajectory->localPath[0].hdmapPathInfo[0].laneNum;
+
+				
+				lanenum =1; //zlm TEMP  !!!! 2021- 01-22 close side lane detect
+				if(lanenum == 2 || lanenum ==1)// no right lane  0 crossing , 1 only ego, 2 only left,  3 only right, 4 have both
+				{
+					obstalce_cipv_flag[4] =0; //  (right lane) valid flag 
+					obstalce_cipv_s[4] = 0; // update min s
+					obstalce_cipv_d[4] = 0; // update d
+					obstalce_cipv_idx[4] = 0;	
+				}
+				if(lanenum==3 || lanenum ==1) // no left lane
+				{
+					obstalce_cipv_flag[3] =0; //  (left lane) valid flag 
+					obstalce_cipv_s[3] = 0; // update min s
+					obstalce_cipv_d[3] = 0; // update d
+					obstalce_cipv_idx[3] = 0;	
 				}
 			}
 		}
@@ -982,15 +1038,15 @@ void decision::assign_obstacle_property(Obj_sel &left, const Dt_RECORD_Obstacles
 //@param obstacle, obstacle's property
 void decision::debug_obstacle_property(const string &str, const objSec &obstacle)
 {
-	DEBUG("OBJ SELECTION----> selectObj->%s.postion= %d \r\n", str.c_str(), obstacle.postion);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.id = %d \r\n", str.c_str(), obstacle.obj.id);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.s = %f \r\n", str.c_str(), obstacle.obj.s);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.d = %f \r\n", str.c_str(), obstacle.obj.d);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.pos_x = %f \r\n", str.c_str(), obstacle.obj.pos_x);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.pos_y = %f \r\n", str.c_str(), obstacle.obj.pos_y);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.heading = %f \r\n", str.c_str(), obstacle.obj.heading);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.rel_speed_x = %f \r\n", str.c_str(), obstacle.obj.rel_speed_x);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.rel_speed_y = %f \r\n", str.c_str(), obstacle.obj.rel_speed_y);
+	DEBUG("OBJ SELECTION----> selectObj->%s.postion=           %d \r\n", str.c_str(), obstacle.postion);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.id =           %d \r\n", str.c_str(), obstacle.obj.id);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.s =            %f \r\n", str.c_str(), obstacle.obj.s);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.d =            %f \r\n", str.c_str(), obstacle.obj.d);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.pos_x =        %f \r\n", str.c_str(), obstacle.obj.pos_x);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.pos_y =        %f \r\n", str.c_str(), obstacle.obj.pos_y);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.heading =      %f \r\n", str.c_str(), obstacle.obj.heading);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.rel_speed_x =  %f \r\n", str.c_str(), obstacle.obj.rel_speed_x);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.rel_speed_y =  %f \r\n", str.c_str(), obstacle.obj.rel_speed_y);
 	DEBUG("OBJ SELECTION----> selectObj->%s.obj.abs_speed_x  = %f \r\n", str.c_str(), obstacle.obj.abs_speed_x);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.type  = %d \r\n", str.c_str(), obstacle.obj.type);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.type  =        %d \r\n", str.c_str(), obstacle.obj.type);
 }

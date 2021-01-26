@@ -10,7 +10,7 @@
 #include "decision_struct.h"
 
 
-class decision{
+class fusion_decision{
 public:
   void objSelectFusion(int grid_flg_lane, double grid_s_lane, objSec* selectObj_lane, string lane_name);
 
