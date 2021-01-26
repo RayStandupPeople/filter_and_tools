@@ -6,6 +6,20 @@
 
 #IncludeRegexTransform: 
 
+../../common/libs/Platform_Types.h
+
+../../common/libs/Rte_Type.h
+Platform_Types.h
+../../common/libs/Platform_Types.h
+
+../../common/libs/decision_struct.h
+iostream
+-
+vector
+-
+Platform_Types.h
+../../common/libs/Platform_Types.h
+
 /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/Platform_Types.h
 
 /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/Rte_Type.h
@@ -23,8 +37,28 @@ Platform_Types.h
 /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/user_struct.h
 iostream
 -
+vector
+-
 Rte_Type.h
 /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/Rte_Type.h
+
+/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/libs/objSelectFusion.h
+iostream
+-
+vector
+-
+math.h
+-
+cmath
+-
+Rte_Type.h
+/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/libs/Rte_Type.h
+string.h
+/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/libs/string.h
+../../common/libs/user_struct.h
+/home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/user_struct.h
+decision_struct.h
+/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/libs/decision_struct.h
 
 /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/libs/obstacle_selection.h
 iostream
@@ -57,6 +91,10 @@ string.h
 /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/user_struct.h
 ../../common/libs/decision_struct.h
 /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/decision_struct.h
+
+/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/srcs/objSelectFusion.cc
+../libs/objSelectFusion.h
+/home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/libs/objSelectFusion.h
 
 /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/srcs/obstacle_selection.cc
 ../libs/obstacle_selection.h

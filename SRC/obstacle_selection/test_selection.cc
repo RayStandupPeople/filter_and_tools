@@ -20,6 +20,7 @@
 #include "../common/libs/socket_lib/tcpsocket.h"
 #include "../common/libs/socket_lib/data_definition.h"
 #include "../../obstacle_selection/libs/static_objSel.h"
+#include "../../obstacle_selection/libs/objSelectFusion.h"
 
 #include "build/types.pb.h"
 #include "build/obstacleSel.pb.h"
@@ -46,7 +47,7 @@ void sigint_handler(int sig){
 
 void get_globalpath(laneInfo &globalPath){
 
-    std::ifstream in_file("../../../log/geely.csv",std::ios::in);
+    std::ifstream in_file("../../../log/gwh_lc_bug.csv",std::ios::in);
     // std::ifstream in_file("../../../log/trunning_termi_bug.csv",std::ios::in);
 
     if(!in_file.is_open()){
@@ -141,6 +142,8 @@ std::vector<std::vector<Obj_sel>> get_obstalce_lists(){
 
 void get_hdMapTrajectory(hdMapTrajectory &_trajectory, const laneInfo &globalpath){
 
+
+
     _trajectory.pathLane[0].segNum = 3;
     
     int begin_ =0;
@@ -177,7 +180,7 @@ void get_hdMapTrajectory(hdMapTrajectory &_trajectory, const laneInfo &globalpat
         // std::cout << "statt : end" << begin_ << " " << end_  << std::endl;
         //  std::cout << "begin :  end" << _trajectory.pathLane[0].hdmapPathInfo[1].laneInfos[0].laneNodeInfos.front().x << \
     " "<<  _trajectory.pathLane[0].hdmapPathInfo[1].laneInfos[0].laneNodeInfos.back().x << std::endl;
-     _trajectory.pathLane[0].hdmapPathInfo[1].laneNum = 1; //no nearby lane
+     _trajectory.pathLane[0].hdmapPathInfo[1].laneNum = 4; //no nearby lane
     _trajectory.pathLane[0].hdmapPathInfo[1].laneInfos[0].nodeNum = end_ - begin_;
 
 
@@ -203,10 +206,10 @@ void get_hdMapTrajectory(hdMapTrajectory &_trajectory, const laneInfo &globalpat
 void get_Dt_RECORD_LocalizationInfo( Dt_RECORD_LocalizationInfo &location)
 {
   
-    location.LocalizationResult.x = 0;
-    location.LocalizationResult.y = 0;
+    location.LocalizationResult.x = 85.1;
+    location.LocalizationResult.y = 106.2;
     // location.yaw = 95.29;
-    location.yaw = 0;
+    location.yaw = 216.2;
 
     
 }
@@ -237,27 +240,26 @@ void get_Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos &_envmodle_info)
 
     // }
 
-      _envmodle_info.obstacle_num =3;
+      _envmodle_info.obstacle_num =5;
         Dt_RECORD_Obstacles _obstacle;
+
         memset(&_obstacle, 0, sizeof(Dt_RECORD_Obstacles));
-        _obstacle.id          = 99;
+        _obstacle.id          = 145;
         _obstacle.type        = 1;
-        _obstacle.pos_x       = 7;
-        _obstacle.pos_y       = 0;
+        _obstacle.pos_x       = -4.1;
+        _obstacle.pos_y       = 3.92;
         _obstacle.heading     = 0;
-        _obstacle.rel_speed_x = 0;
+        _obstacle.rel_speed_x = -1.3;
         _obstacle.rel_speed_y = 0;
         _obstacle.abs_speed_x = 0;
         _obstacle.abs_speed_y = 0;
-        // _obstacle.pos_s       = obj_list[idx].pos_s;
-        // _obstacle.pos_d       = obj_list[idx].pos_d;
         _envmodle_info.Obstacles[0] = _obstacle;
 
         memset(&_obstacle, 0, sizeof(Dt_RECORD_Obstacles));
-        _obstacle.id          = 98;
-        _obstacle.type        = 0;
-        _obstacle.pos_x       = 15;
-        _obstacle.pos_y       = 2;
+        _obstacle.id          = 150;
+        _obstacle.type        = 1;
+        _obstacle.pos_x       = -15;
+        _obstacle.pos_y       = 8;
         _obstacle.heading     = 0;
         _obstacle.rel_speed_x = 0;
         _obstacle.rel_speed_y = 0;
@@ -268,10 +270,10 @@ void get_Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos &_envmodle_info)
         _envmodle_info.Obstacles[1] = _obstacle;
 
         memset(&_obstacle, 0, sizeof(Dt_RECORD_Obstacles));
-        _obstacle.id          = 97;
+        _obstacle.id          = 213;
         _obstacle.type        = 1;
-        _obstacle.pos_x       = 7;
-        _obstacle.pos_y       = -2.5;
+        _obstacle.pos_x       = 4.2;
+        _obstacle.pos_y       = 3.8;
         _obstacle.heading     = 0;
         _obstacle.rel_speed_x = 0;
         _obstacle.rel_speed_y = 0;
@@ -281,122 +283,94 @@ void get_Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos &_envmodle_info)
         // _obstacle.pos_d       = obj_list[idx].pos_d;
         _envmodle_info.Obstacles[2] = _obstacle;
 
+        memset(&_obstacle, 0, sizeof(Dt_RECORD_Obstacles));
+        _obstacle.id          = 19;
+        _obstacle.type        = 0;
+        _obstacle.pos_x       = 3.6;
+        _obstacle.pos_y       = -3.6;
+        _obstacle.heading     = 0;
+        _obstacle.rel_speed_x = 0;
+        _obstacle.rel_speed_y = 0;
+        _obstacle.abs_speed_x = 0;
+        _obstacle.abs_speed_y = 0;
+        // _obstacle.pos_s       = obj_list[idx].pos_s;
+        // _obstacle.pos_d       = obj_list[idx].pos_d;
+        _envmodle_info.Obstacles[3] = _obstacle;
+
+        memset(&_obstacle, 0, sizeof(Dt_RECORD_Obstacles));
+        _obstacle.id          = 20;
+        _obstacle.type        = 1;
+        _obstacle.pos_x       = 5.2;
+        _obstacle.pos_y       = 3.4;
+        _obstacle.heading     = 0;
+        _obstacle.rel_speed_x = 0;
+        _obstacle.rel_speed_y = 0;
+        _obstacle.abs_speed_x = 0;
+        _obstacle.abs_speed_y = 0;
+        // _obstacle.pos_s       = obj_list[idx].pos_s;
+        // _obstacle.pos_d       = obj_list[idx].pos_d;
+        _envmodle_info.Obstacles[4] = _obstacle;
+
 
         // Grid Map
         // _envmodle_info.ObstacleGridMap[399][99] =1; // 后轴中心
 
 
 
-        for(uint32 x=390-1; x<400; ++x)// front 10 ~ 20 meter
-        for(uint32 y=122-1;  y<136; ++y) // vehicle_mid = 100 
-        {
-             _envmodle_info.ObstacleGridMap[x][y]=1;
-        }
+        // for(uint32 x=390-1; x<400; ++x)// front 10 ~ 20 meter
+        // for(uint32 y=122-1;  y<136; ++y) // vehicle_mid = 100 
+        // {
+        //      _envmodle_info.ObstacleGridMap[x][y]=1;
+        // }
 
 
-// _envmodle_info.ObstacleGridMap[339][98] = 1;
-// _envmodle_info.ObstacleGridMap[340][98] = 1;
-// _envmodle_info.ObstacleGridMap[339][99] = 1;
-// _envmodle_info.ObstacleGridMap[340][99] = 1;
-// _envmodle_info.ObstacleGridMap[339][100] = 1;
-// _envmodle_info.ObstacleGridMap[340][100] = 1;
-// _envmodle_info.ObstacleGridMap[339][101] = 1;
-// _envmodle_info.ObstacleGridMap[340][101] = 1;
-// _envmodle_info.ObstacleGridMap[339][102] = 1;
-// _envmodle_info.ObstacleGridMap[340][102] = 1;
-// _envmodle_info.ObstacleGridMap[339][103] = 1;
-// _envmodle_info.ObstacleGridMap[340][103] = 1;
-// _envmodle_info.ObstacleGridMap[339][104] = 1;
-// _envmodle_info.ObstacleGridMap[340][104] = 1;
-// _envmodle_info.ObstacleGridMap[339][105] = 1;
-// _envmodle_info.ObstacleGridMap[340][105] = 1;
-// _envmodle_info.ObstacleGridMap[339][106] = 1;
-// _envmodle_info.ObstacleGridMap[340][106] = 1;
-// _envmodle_info.ObstacleGridMap[339][107] = 1;
-// _envmodle_info.ObstacleGridMap[340][107] = 1;
-// _envmodle_info.ObstacleGridMap[339][108] = 1;
-// _envmodle_info.ObstacleGridMap[340][108] = 1;
-// _envmodle_info.ObstacleGridMap[339][109] = 1;
-// _envmodle_info.ObstacleGridMap[340][109] = 1;
-// _envmodle_info.ObstacleGridMap[339][110] = 1;
-// _envmodle_info.ObstacleGridMap[340][110] = 1;
-// _envmodle_info.ObstacleGridMap[339][111] = 1;
-// _envmodle_info.ObstacleGridMap[340][111] = 1;
-// _envmodle_info.ObstacleGridMap[339][112] = 1;
-// _envmodle_info.ObstacleGridMap[340][112] = 1;
-// _envmodle_info.ObstacleGridMap[339][111] = 1;
-// _envmodle_info.ObstacleGridMap[340][111] = 1;
-// _envmodle_info.ObstacleGridMap[339][112] = 1;
-// _envmodle_info.ObstacleGridMap[340][112] = 1;
-// _envmodle_info.ObstacleGridMap[339][113] = 1;
-// _envmodle_info.ObstacleGridMap[340][113] = 1;
-// _envmodle_info.ObstacleGridMap[339][114] = 1;
-// _envmodle_info.ObstacleGridMap[340][114] = 1;
-// _envmodle_info.ObstacleGridMap[339][115] = 1;
-// _envmodle_info.ObstacleGridMap[340][115] = 1;
-// _envmodle_info.ObstacleGridMap[338][98] = 1;
-// _envmodle_info.ObstacleGridMap[339][98] = 1;
-// _envmodle_info.ObstacleGridMap[338][99] = 1;
-// _envmodle_info.ObstacleGridMap[339][99] = 1;
-// _envmodle_info.ObstacleGridMap[338][100] = 1;
-// _envmodle_info.ObstacleGridMap[339][100] = 1;
-// _envmodle_info.ObstacleGridMap[338][101] = 1;
-// _envmodle_info.ObstacleGridMap[339][101] = 1;
-// _envmodle_info.ObstacleGridMap[338][102] = 1;
-// _envmodle_info.ObstacleGridMap[339][102] = 1;
-// _envmodle_info.ObstacleGridMap[338][103] = 1;
-// _envmodle_info.ObstacleGridMap[339][103] = 1;
-// _envmodle_info.ObstacleGridMap[338][104] = 1;
-// _envmodle_info.ObstacleGridMap[339][104] = 1;
-// _envmodle_info.ObstacleGridMap[338][105] = 1;
-// _envmodle_info.ObstacleGridMap[339][105] = 1;
-// _envmodle_info.ObstacleGridMap[338][106] = 1;
-// _envmodle_info.ObstacleGridMap[339][106] = 1;
-// _envmodle_info.ObstacleGridMap[338][107] = 1;
-// _envmodle_info.ObstacleGridMap[339][107] = 1;
-// _envmodle_info.ObstacleGridMap[338][108] = 1;
-// _envmodle_info.ObstacleGridMap[339][108] = 1;
-// _envmodle_info.ObstacleGridMap[338][109] = 1;
-// _envmodle_info.ObstacleGridMap[339][109] = 1;
-// _envmodle_info.ObstacleGridMap[338][110] = 1;
-// _envmodle_info.ObstacleGridMap[339][110] = 1;
-// _envmodle_info.ObstacleGridMap[338][111] = 1;
-// _envmodle_info.ObstacleGridMap[339][111] = 1;
-// _envmodle_info.ObstacleGridMap[338][112] = 1;
-// _envmodle_info.ObstacleGridMap[339][112] = 1;
-// _envmodle_info.ObstacleGridMap[340][98] = 1;
-// _envmodle_info.ObstacleGridMap[340][99] = 1;
-// _envmodle_info.ObstacleGridMap[340][100] = 1;
-// _envmodle_info.ObstacleGridMap[340][101] = 1;
-// _envmodle_info.ObstacleGridMap[340][102] = 1;
-// _envmodle_info.ObstacleGridMap[340][103] = 1;
-// _envmodle_info.ObstacleGridMap[340][104] = 1;
-// _envmodle_info.ObstacleGridMap[340][105] = 1;
-// _envmodle_info.ObstacleGridMap[340][106] = 1;
-// _envmodle_info.ObstacleGridMap[340][107] = 1;
-// _envmodle_info.ObstacleGridMap[340][108] = 1;
-// _envmodle_info.ObstacleGridMap[340][109] = 1;
-// _envmodle_info.ObstacleGridMap[340][110] = 1;
-// _envmodle_info.ObstacleGridMap[340][111] = 1;
-// _envmodle_info.ObstacleGridMap[340][112] = 1;
-// _envmodle_info.ObstacleGridMap[338][110] = 1;
-// _envmodle_info.ObstacleGridMap[339][110] = 1;
-// _envmodle_info.ObstacleGridMap[338][111] = 1;
-// _envmodle_info.ObstacleGridMap[339][111] = 1;
-// _envmodle_info.ObstacleGridMap[338][112] = 1;
-// _envmodle_info.ObstacleGridMap[339][112] = 1;
-// _envmodle_info.ObstacleGridMap[338][113] = 1;
-// _envmodle_info.ObstacleGridMap[339][113] = 1;
-// _envmodle_info.ObstacleGridMap[338][114] = 1;
-// _envmodle_info.ObstacleGridMap[339][114] = 1;
-// _envmodle_info.ObstacleGridMap[338][115] = 1;
-// _envmodle_info.ObstacleGridMap[339][115] = 1;
-// _envmodle_info.ObstacleGridMap[340][110] = 1;
-// _envmodle_info.ObstacleGridMap[340][111] = 1;
-// _envmodle_info.ObstacleGridMap[340][112] = 1;
-// _envmodle_info.ObstacleGridMap[340][113] = 1;
-// _envmodle_info.ObstacleGridMap[340][114] = 1;
-// _envmodle_info.ObstacleGridMap[340][115] = 1;
+_envmodle_info.ObstacleGridMap[149][167] = 1;
+_envmodle_info.ObstacleGridMap[149][167] = 1;
+_envmodle_info.ObstacleGridMap[150][167] = 1;
+_envmodle_info.ObstacleGridMap[149][168] = 1;
+_envmodle_info.ObstacleGridMap[150][168] = 1;
+_envmodle_info.ObstacleGridMap[148][159] = 1;
+_envmodle_info.ObstacleGridMap[149][159] = 1;
+_envmodle_info.ObstacleGridMap[148][160] = 1;
+_envmodle_info.ObstacleGridMap[149][160] = 1;
+_envmodle_info.ObstacleGridMap[149][161] = 1;
+_envmodle_info.ObstacleGridMap[150][161] = 1;
+_envmodle_info.ObstacleGridMap[149][162] = 1;
+_envmodle_info.ObstacleGridMap[150][162] = 1;
+_envmodle_info.ObstacleGridMap[149][163] = 1;
+_envmodle_info.ObstacleGridMap[150][163] = 1;
+_envmodle_info.ObstacleGridMap[149][164] = 1;
+_envmodle_info.ObstacleGridMap[150][164] = 1;
+_envmodle_info.ObstacleGridMap[150][165] = 1;
+_envmodle_info.ObstacleGridMap[150][166] = 1;
+_envmodle_info.ObstacleGridMap[150][159] = 1;
+_envmodle_info.ObstacleGridMap[150][160] = 1;
+_envmodle_info.ObstacleGridMap[147][168] = 1;
+_envmodle_info.ObstacleGridMap[148][168] = 1;
+_envmodle_info.ObstacleGridMap[147][169] = 1;
+_envmodle_info.ObstacleGridMap[148][169] = 1;
+_envmodle_info.ObstacleGridMap[147][170] = 1;
+_envmodle_info.ObstacleGridMap[148][170] = 1;
+_envmodle_info.ObstacleGridMap[147][171] = 1;
+_envmodle_info.ObstacleGridMap[148][171] = 1;
+_envmodle_info.ObstacleGridMap[148][171] = 1;
+_envmodle_info.ObstacleGridMap[149][171] = 1;
+_envmodle_info.ObstacleGridMap[148][172] = 1;
+_envmodle_info.ObstacleGridMap[149][172] = 1;
+_envmodle_info.ObstacleGridMap[149][173] = 1;
+_envmodle_info.ObstacleGridMap[150][173] = 1;
+_envmodle_info.ObstacleGridMap[149][167] = 1;
+_envmodle_info.ObstacleGridMap[150][167] = 1;
+_envmodle_info.ObstacleGridMap[149][168] = 1;
+_envmodle_info.ObstacleGridMap[150][168] = 1;
+_envmodle_info.ObstacleGridMap[149][169] = 1;
+_envmodle_info.ObstacleGridMap[150][169] = 1;
+_envmodle_info.ObstacleGridMap[149][170] = 1;
+_envmodle_info.ObstacleGridMap[150][170] = 1;
+_envmodle_info.ObstacleGridMap[150][171] = 1;
+_envmodle_info.ObstacleGridMap[150][172] = 1;
+_envmodle_info.ObstacleGridMap[150][166] = 1;
+_envmodle_info.ObstacleGridMap[150][167] = 1;
 
 
 
@@ -416,10 +390,61 @@ void get_Dt_RECORD_HdmapFrontPLane(Dt_RECORD_HdmapFrontPLane &_globePLane)
     //     _globePLane.PlanSeg[idx_seg].Lane[0].LaneNode[idx_node].hdmap_y = idx_seg *5 + idx_node;
     // }
 
-    _globePLane.plan_seg_count=3;
+    _globePLane.plan_seg_count= 1;
     _globePLane.PlanSeg[0].Lane[0].lane_width = 3.6;
-    _globePLane.PlanSeg[1].Lane[0].lane_width = 0;
-    _globePLane.PlanSeg[2].Lane[0].lane_width = 5.6;
+    // _globePLane.PlanSeg[1].Lane[0].lane_width = 0;
+    // _globePLane.PlanSeg[2].Lane[0].lane_width = 5.6; 
+
+
+// TEST 2021-01-23  to simulate Dealwith hdmap
+_globePLane.PlanSeg[0].lane_count=1;
+_globePLane.PlanSeg[0].Lane[0].node_count=22;
+
+_globePLane.PlanSeg[0].Lane[0].LaneNode[0].hdmap_x =  83.5691;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[1].hdmap_x = 84.6033;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[2].hdmap_x = 85.6543;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[3].hdmap_x = 86.7181;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[4].hdmap_x = 87.7908;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[5].hdmap_x = 88.8687;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[6].hdmap_x = 89.9478;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[7].hdmap_x = 91.0244;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[8].hdmap_x = 92.0944;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[9].hdmap_x = 93.154;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[10].hdmap_x = 94.1995;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[11].hdmap_x = 95.2268;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[12].hdmap_x = 96.2323;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[13].hdmap_x = 97.2118;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[14].hdmap_x = 98.1617;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[15].hdmap_x = 99.0781;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[16].hdmap_x = 99.957;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[17].hdmap_x = 100.7947;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[18].hdmap_x = 101.5872;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[19].hdmap_x = 102.5669;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[20].hdmap_x = 103.4503;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[21].hdmap_x = 104.2283;
+
+_globePLane.PlanSeg[0].Lane[0].LaneNode[0].hdmap_y=	102.7173;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[1].hdmap_y=	101.0485;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[2].hdmap_y=	99.3525;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[3].hdmap_y=	97.6356;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[4].hdmap_y=	95.904;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[5].hdmap_y=	94.1641;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[6].hdmap_y=	92.4219;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[7].hdmap_y=	90.6839;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[8].hdmap_y=	88.9561;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[9].hdmap_y=	87.245;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[10].hdmap_y=	85.5566;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[11].hdmap_y=	83.8974;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[12].hdmap_y=	82.2734;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[13].hdmap_y=	80.6911;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[14].hdmap_y=	79.1565;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[15].hdmap_y=	77.676;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[16].hdmap_y=	76.2558;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[17].hdmap_y=	74.9021;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[18].hdmap_y=	73.6213;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[19].hdmap_y=	72.0375;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[20].hdmap_y=	70.6091;
+_globePLane.PlanSeg[0].Lane[0].LaneNode[21].hdmap_y=	69.3509;
 
 }
 
@@ -679,8 +704,8 @@ void read_from_proto_file(DecisionToPC &rev_DecisionToPC_data, const std::string
 
 void read_from_simulate_data(hdMapTrajectory &Trajectory, DecisionToPC &rev_DecisionToPC_data){
     laneInfo globalpath;
-    get_globalpath(globalpath);
-    get_hdMapTrajectory(Trajectory, globalpath);
+    // get_globalpath(globalpath);
+    // get_hdMapTrajectory(Trajectory, globalpath);
     get_Dt_RECORD_EnvModelInfos(rev_DecisionToPC_data.my_envModelInfo);
     get_Dt_RECORD_HdmapFrontPLane(rev_DecisionToPC_data.my_hdmapFrontPLaneInfo);
     get_Dt_RECORD_LocalizationInfo(rev_DecisionToPC_data.my_localizationInfo);
@@ -735,36 +760,34 @@ int main(int argc, const char** argv) {
 
 
     
-    char buffer[sizeof(rev_DecisionToPC_data)];
-    //创建套接字
-    int sock = socket(AF_INET, SOCK_STREAM, 0); //向服务器（特定的IP和端口）发起请求
-    struct sockaddr_in serv_addr;
-    memset(&serv_addr, 0, sizeof(serv_addr)); //每个字节都用0填充
-    serv_addr.sin_family = AF_INET; //使用IPv4地址
-    serv_addr.sin_addr.s_addr = inet_addr("192.168.43.32"); //具体的IP地址
-    serv_addr.sin_port = htons(8000); //端口
-
-
-
     #ifdef  SOCKETON
-    TCPClient sclient_zu5;
+    TCPClient sclient_zu5; // socket with  Vehicle
+    
+    #else
+        // Socket with Simulation
+        char buffer[sizeof(rev_DecisionToPC_data)];
+        //创建套接字
+        int sock = socket(AF_INET, SOCK_STREAM, 0); //向服务器（特定的IP和端口）发起请求
+        struct sockaddr_in serv_addr;
+        memset(&serv_addr, 0, sizeof(serv_addr)); //每个字节都用0填充
+        serv_addr.sin_family = AF_INET; //使用IPv4地址
+        serv_addr.sin_addr.s_addr = inet_addr("192.168.43.32"); //具体的IP地址
+        serv_addr.sin_port = htons(8000); //端口
+        connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr));//读取服务器传回的数据
     #endif
 
     // alogorithm data
     decision decision_obj;  
     StaticDecision static_decision_obj; 
+    fusion_decision fusion_decision_obj;
     decision_info decisionToPlan;
-    // decisionToPlan.decision_command = LEFTAVOIDACE; // temp 
+
     // init socket and mode
     string MODE;
     if(argc==1) 
     {
         MODE = "pure";
         std::cout << "Mode: pure, just display without log" << std::endl;
-
-
-      
-        connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr));//读取服务器传回的数据
     }
     else  
     {
@@ -789,6 +812,81 @@ int main(int argc, const char** argv) {
     uint32 frame_index =0; //logfile frame index
     socket_all::LogFile logfile; //logfile obj
        
+
+    // val to be updated real-time
+    PlotItems plot_items;
+    
+    /* window position  Vehicle Coordinate Window*/
+    plt::subplot2grid(2,3,0,0,2,1);
+    plt::xlim(-10,10);
+    plt::ylim(-10,40);
+
+    // lanes
+    plt::Plot plotObj_ref_line("lane_safe_left",  "y--");
+    plt::Plot plotObj_safe_line_left(" lane_safe_left",  "y--");
+    plt::Plot plotObj_safe_line_right("lane_safe_right",  "y--");
+    plt::Plot plotObj_mid_lane_left_0(" lane_mid_left_0",  "r");
+    plt::Plot plotObj_mid_lane_left_1(" lane_mid_left_1",  "r");
+    plt::Plot plotObj_mid_lane_left_2(" lane_mid_left_2",  "r");
+    plt::Plot plotObj_mid_lane_right_0(" lane_mid_right_0",  "r");
+    plt::Plot plotObj_mid_lane_right_1(" lane_mid_right_1",  "r");
+    plt::Plot plotObj_mid_lane_right_2(" lane_mid_right_2",  "r");
+
+    // obstalce list point 
+    plt::Plot plotObj_objList_point_all("objList_point_all",  "y.");//k.
+    plt::Plot plotObj_objList_point_cipv_left("objList_point_cipv_left",  "r<");
+    plt::Plot plotObj_objList_point_cipv_mid("ojList_point_cipv_mid",  "r^");
+    plt::Plot plotObj_objList_point_cipv_right("ojList_point_cipv_right",  "r>");
+
+    //grid
+    plt::Plot plotObj_grid_static("grid_static",  "k.");
+    plt::Plot plotObj_grid_dynamic("grid_dynamic",  "c.");
+
+    //ego position
+    plt::Plot plotObj_ego_position("ego_position",  "b+");
+    
+
+    /* window Posiotion Map Coordinate Window*/
+    plt::subplot2grid(2,3,0,1,1,1);
+    plt::xlim(-200,200);
+    plt::ylim(-200,200);
+
+    // refline in mapcoordi
+    plt::Plot plotObj_refpath_mapCoordi_seg0("refpath_mapCoordi_seg0",  "y.");
+    plt::Plot plotObj_refpath_mapCoordi_seg1("refpath_mapCoordi_seg1",  "y.");
+    plt::Plot plotObj_refpath_mapCoordi_seg2("refpath_mapCoordi_seg2",  "y.");
+
+     plt::Plot plotObj_refpath_local_mapCoordi("refpath_mapCoordi_local",  "b.");
+
+
+    // ego_posiotion in mapcoordi
+    plt::Plot plotObj_ego_posiotion_mapCoordi("ego_posiotion_mapCoordi",  "r+");
+
+
+
+    /* window Posiotion global Map Window */
+    plt::subplot2grid(2,3,1,1,1,1);
+    plt::xlim(-200,200);
+    plt::ylim(-200,200);
+
+    // ego_posiotion in global map
+    plt::Plot plotObj_ego_posiotion_globalmap("ego_posiotion_globalmap",  "ro");
+
+    // start point in global map
+    plt::Plot plotObj_start_point_globalmap("start_point_globalmap",  "rx");
+
+    // end point in global map
+    plt::Plot plotObj_end_point_globalmap("end_point_globalmap",  "rx");
+
+
+    /* window Posiotion infos Window */
+    plt::subplot2grid(2,3,0,2,2,1);
+    plt::xlim(0,20);
+    plt::ylim(0,20); 
+
+
+
+
     // CYCLE STRUCT
     while(true)
     {
@@ -807,31 +905,29 @@ int main(int argc, const char** argv) {
             }
             // read from socket
             #ifdef  SOCKETON
-            receive_zu5Andparse_socket(rev_DecisionToPC_data, sclient_zu5);
-            #endif
-
-            int readLen=0;
-            int readSize = read(sock, buffer, sizeof(buffer)-1);
-            int sumLen=0;
-            memcpy(&sumLen,buffer,4);
-            printf("sumLen = %d\n",sumLen);
-            if(sumLen>0)
-            {
-                int len=0;
-                while(readLen<sumLen)
+                receive_zu5Andparse_socket(rev_DecisionToPC_data, sclient_zu5);
+            #else
+                int readLen=0;
+                int readSize = read(sock, buffer, sizeof(buffer)-1);
+                int sumLen=0;
+                memcpy(&sumLen,buffer,4);
+                printf("sumLen = %d\n",sumLen);
+                if(sumLen>0)
                 {
-                    int curLen=0;
-                    curLen=read(sock, buffer+len, sizeof(buffer)-1);
-                    readLen+=curLen;
-                    len=readLen;
-                    printf("readLen = %d\n",readLen);
+                    int len=0;
+                    while(readLen<sumLen)
+                    {
+                        int curLen=0;
+                        curLen=read(sock, buffer+len, sizeof(buffer)-1);
+                        readLen+=curLen;
+                        len=readLen;
+                        printf("readLen = %d\n",readLen);
+                    }
+
                 }
-
-            }
-
-             printf("Message form server: %s,readSize=%d \n", buffer,readSize);
-             memcpy(&rev_DecisionToPC_data, buffer, sizeof(DecisionToPC));
-            //  printf("LocalizationResult.x: %f \n", rev_DecisionToPC_data.my_localizationInfo.LocalizationResult.x);//关闭套接字
+                printf("Message form server: %s,readSize=%d \n", buffer,readSize);
+                memcpy(&rev_DecisionToPC_data, buffer, sizeof(DecisionToPC));
+            #endif
 
             if(MODE =="log") // Log Proto 
             {
@@ -884,30 +980,86 @@ int main(int argc, const char** argv) {
         std::cout << "current frame idx:" << frame_index <<std::endl;
 
 
+
         /*   ALGORITHMs  */
 		decision_obj.DealWithHdmap(&globePLanehdmapInfos, localInfos.LocalizationResult.x, localInfos.LocalizationResult.y, localInfos.yaw, &globePLane, &localPLanne, &Trajectory);
-        decision_obj.ObjDetect(1, &Trajectory, &globePLanehdmapInfos, &globePLane, &localPLanne, &localInfos, &envModelInfo, ego_config, &decisionToPlan,&selectObj);
+        decision_obj.ObjDetect(1, &Trajectory, &globePLanehdmapInfos, &globePLane, &localPLanne, &localInfos, &envModelInfo, ego_config, &decisionToPlan, &selectObj);
         // convet_trajectory(Trajectory, trajectoryPointsInfo);
-
+        // decision_obj.convert_flat_to_vehicle(&localInfos,globePLane);
         gridmap_coll_obj coll_obj;
         static_decision_obj.RouteObjDectbyGrid(localInfos.yaw, 1, &Trajectory, &globePLanehdmapInfos, &envModelInfo, &coll_obj, &globePLane, &localPLanne, &decisionToPlan);
+        fusion_decision_obj.objSelectFusion(coll_obj.obj_mid_flag,      coll_obj.s_m, &selectObj.frontMid,     "laneMid     "); //midlane mid
+        fusion_decision_obj.objSelectFusion(coll_obj.obj_midLeft_flag,  coll_obj.s_m, &selectObj.frontMidLeft, "laneMidLeft "); //midlane midleft
+        fusion_decision_obj.objSelectFusion(coll_obj.obj_midRight_flag, coll_obj.s_m, &selectObj.frontMidRight,"laneMidRight"); //midlane mid
+        fusion_decision_obj.objSelectFusion(coll_obj.obj_lef_flag,      coll_obj.s_l, &selectObj.frontLeft,    "laneLeft    "); //midlane Left
+        fusion_decision_obj.objSelectFusion(coll_obj.obj_rig_flag,      coll_obj.s_r, &selectObj.frontRight,   "laneRight   "); //midlane Right
 
 
+
+
+       
         /*   DISPALY    */
-        plot(Trajectory, globePLane, globePLanehdmapInfos, globePLane, localInfos, envModelInfo,vehicleInfo, selectObj);
+        // TO plot each Wind as one fun
+
         
+        plot(rev_DecisionToPC_data, Trajectory, selectObj, plot_items);
+
+        // update lines
+        plotObj_safe_line_left.update(plot_items.safeline[0].x, plot_items.safeline[0].y);
+        plotObj_safe_line_right.update(plot_items.safeline[1].x, plot_items.safeline[1].y);
+        plotObj_mid_lane_left_0.update(plot_items.lane_midL[0].x, plot_items.lane_midL[0].y);
+        plotObj_mid_lane_left_1.update(plot_items.lane_midL[1].x, plot_items.lane_midL[1].y);
+        plotObj_mid_lane_left_2.update(plot_items.lane_midL[2].x, plot_items.lane_midL[2].y);
+        plotObj_mid_lane_right_0.update(plot_items.lane_midR[0].x, plot_items.lane_midR[0].y);
+        plotObj_mid_lane_right_1.update(plot_items.lane_midR[1].x, plot_items.lane_midR[1].y);
+        plotObj_mid_lane_right_2.update(plot_items.lane_midR[2].x, plot_items.lane_midR[2].y);
+
+        // update obstalce list
+        plotObj_objList_point_all.update(plot_items.center_obstacle.x, plot_items.center_obstacle.y);
+        plotObj_objList_point_cipv_left.update(plot_items.cipv[0].x, plot_items.cipv[0].y);
+        plotObj_objList_point_cipv_mid.update(plot_items.cipv[1].x, plot_items.cipv[1].y);
+        plotObj_objList_point_cipv_right.update(plot_items.cipv[2].x, plot_items.cipv[2].y);
+
+        
+        // update grid
+        plotObj_grid_static.update(plot_items.grid[0].x, plot_items.grid[0].y);
+        plotObj_grid_dynamic.update(plot_items.grid[1].x, plot_items.grid[1].y);
+
+        // update ego position
+        plotObj_ego_position.update(plot_items.ego_position.x, plot_items.ego_position.y);
+       
+
+        // update refpath_mapCoordi
+        plotObj_refpath_mapCoordi_seg0.update(plot_items.refline_mapCoor[0].x, plot_items.refline_mapCoor[0].y);
+        plotObj_refpath_mapCoordi_seg1.update(plot_items.refline_mapCoor[1].x, plot_items.refline_mapCoor[1].y);
+        plotObj_refpath_mapCoordi_seg2.update(plot_items.refline_mapCoor[2].x, plot_items.refline_mapCoor[2].y);
+        plotObj_refpath_local_mapCoordi.update(plot_items.refline_local_mapCoor.x, plot_items.refline_local_mapCoor.y);
+
+        // update ego_posiotion_mapCoordi
+        plotObj_ego_posiotion_mapCoordi.update(plot_items.ego_position_mapCoor.x, plot_items.ego_position_mapCoor.y);
+
+        
+        plotObj_ego_posiotion_globalmap.update(plot_items.ego_position_globalmap.x, plot_items.ego_position_globalmap.y);
+        plotObj_start_point_globalmap.update(plot_items.start_point_globalmap.x, plot_items.start_point_globalmap.y);
+        plotObj_end_point_globalmap.update(plot_items.end_point_globalmap.x, plot_items.end_point_globalmap.y);
+
 
         /* OTHER ITEMS */
         signal(SIGINT, sigint_handler);
         frame_index++;
         g_t_e = clock();
-        std::cout << "----> PER frame time cost: " << (double)(g_t_e -g_t_s)/CLOCKS_PER_SEC << "s"<< std::endl;;
+        std::cout << "----> frame: " << frame_index <<"  time cost:  " << (double)(g_t_e -g_t_s)/CLOCKS_PER_SEC << "s"<< std::endl;;
         if(app_shutdown ==true)
         {
-            close(sock); 
+            #ifndef SOCKETON
+                close(sock); 
+            #endif // !SOC
+            
             return 0;
         }
     }
-    close(sock); 
+    #ifndef SOCKETON
+        close(sock); 
+    #endif // !SOC
     return 0;
 }

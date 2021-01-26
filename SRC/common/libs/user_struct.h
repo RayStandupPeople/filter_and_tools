@@ -1,6 +1,41 @@
 #pragma once
-#include<iostream>
+#include <iostream>
+#include <vector>
 #include "Rte_Type.h"
+
+class PlotPairXY{
+public:
+	std::vector<double> x;
+	std::vector<double> y;
+};
+
+class PlotItems{
+public:
+	// vehi coordinate
+	PlotPairXY ego_position;
+	PlotPairXY refline;
+	PlotPairXY safeline[2];
+	PlotPairXY box_obstacle_corner[4];
+	PlotPairXY center_obstacle;
+	PlotPairXY grid[2]; // 0-> static  1->dynaminc
+	PlotPairXY lane_midL[3]; //segment 0->2
+	PlotPairXY lane_midR[3];
+	PlotPairXY cipv[3]; // 0 left 1 mid 2 right  
+
+	// Map coordinate
+	PlotPairXY refline_mapCoor[3]; // segment 0->2 
+	PlotPairXY refline_local_mapCoor; // segment 
+	PlotPairXY ego_position_mapCoor; 
+
+	// global map
+	PlotPairXY ego_position_globalmap;
+	PlotPairXY start_point_globalmap;
+	PlotPairXY end_point_globalmap;
+
+};
+
+
+
 typedef struct Obj_sel
 {
 	uint32 id;

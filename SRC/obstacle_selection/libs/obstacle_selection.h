@@ -26,7 +26,7 @@ public:
         const std::vector<double> &maps_y);
 
     void get_refpath(const int &onpath, hdMapTrajectory *Trajectory, laneInfo *refpath, Dt_RECORD_LocalizationInfo *localizationInfo, decision_info *decisionInfo);
-    void convert_flat_to_vehicle(Dt_RECORD_LocalizationInfo *loc_info, laneInfo *refpath);
+    void convert_flat_to_vehicle(Dt_RECORD_LocalizationInfo *loc_info,const Dt_RECORD_HdmapFrontPLane &_globePLane);
 
     void ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_HdmapInfo *hdmapInfos,\
         Dt_RECORD_HdmapFrontPLane *globePLane, Dt_RECORD_HdmapLocalLane *localPLanne, \

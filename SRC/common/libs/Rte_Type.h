@@ -4,7 +4,7 @@
 #include "Platform_Types.h"
 
 
-static char Rte_type_version[] = "v2.0.0";
+static char Rte_type_version[] = "v2.8.0";
 typedef struct _Dt_RECORD_MvParkingPoint
 {
     float64 x;
@@ -12,11 +12,6 @@ typedef struct _Dt_RECORD_MvParkingPoint
 } Dt_RECORD_MvParkingPoint;
 
 typedef uint8 Dt_ARRAY_262144_szSegData[262144];
-
-typedef struct _Dt_RECORD_ParkId
-{
-    uint32 parking_id;
-} Dt_RECORD_ParkId;
 
 typedef struct _Dt_RECORD_MvImuInfo
 {
@@ -29,6 +24,8 @@ typedef struct _Dt_RECORD_MvImuInfo
     float64 AccZ;
     float32 Temperature;
 } Dt_RECORD_MvImuInfo;
+
+typedef uint8 Dt_ARRAY_230400_szImageData[230400];
 
 typedef struct _Dt_RECORD_HppTrajectoryPoint
 {
@@ -55,7 +52,7 @@ typedef struct _Dt_RECORD_LaneLines
     float64 lane_line_lineC3;
 } Dt_RECORD_LaneLines;
 
-typedef uint8 Dt_ARRAY_230400_szImageData[230400];
+typedef uint8 Dt_ARRAY_200_GridInfoX[200];
 
 typedef struct _Dt_RECORD_FrontRadarInfos
 {
@@ -75,8 +72,8 @@ typedef struct _Dt_RECORD_SurVehicleInfos
 
 typedef struct _Dt_RECORD_ObjPoint
 {
-    float32 x;
-    float32 y;
+    float64 x;
+    float64 y;
     float32 z;
 } Dt_RECORD_ObjPoint;
 
@@ -118,62 +115,19 @@ typedef struct _Dt_RECORD_RlRrCmrrFreespace
     uint8 CMRR_RL_FreespaceSectorKineSt;
 } Dt_RECORD_RlRrCmrrFreespace;
 
-typedef uint8 Dt_ARRAY_200_GridInfoX[200];
-
 typedef struct _Dt_RECORD_HdmapInfo
 {
     boolean planpath;
     float64 origin_x;
     float64 origin_y;
-    float64 origin_z;
+    float32 origin_z;
     float32 origin_yaw;
     float32 goal_x;
     float32 goal_y;
     float32 goal_z;
     float32 goal_yaw;
+    uint8 goalLaneID;
 } Dt_RECORD_HdmapInfo;
-
-typedef struct _Dt_RECORD_Crosswalk
-{
-    uint32 ID;
-    float32 distance;
-} Dt_RECORD_Crosswalk;
-
-typedef Dt_RECORD_Crosswalk Dt_ARRAY_10_Crosswalk[10];
-
-typedef struct _Dt_RECORD_GlobalPathStatus
-{
-    uint8 globalpath_status;
-    uint8 planing_failed_times;
-} Dt_RECORD_GlobalPathStatus;
-
-typedef struct _Dt_RECORD_LaneNode
-{
-    float32 hdmap_x;
-    float32 hdmap_y;
-    float32 hdmap_z;
-    float32 heading;
-    float32 curvature;
-    float32 slopev;
-} Dt_RECORD_LaneNode;
-
-typedef Dt_RECORD_MvParkingPoint Dt_ARRAY_4_MvParkingPoint[4];
-
-typedef struct _Dt_RECORD_UsscParkingLeft
-{
-    uint8 USSC_Slotpropety_L;
-    uint8 USSC_SlotConfidence_L;
-    uint8 USSC_SlotConfidence_Flag_L;
-    boolean USSC_SlotupdateOcd_L;
-    sint16 USSC_SlotpiontAPosX_L;
-    sint16 USSC_SlotpiontAPosY_L;
-    sint16 USSC_SlotpiontBPosX_L;
-    sint16 USSC_SlotpiontBPosY_L;
-    sint16 USSC_SlotpiontCPosX_L;
-    sint16 USSC_SlotpiontCPosY_L;
-    sint16 USSC_SlotpiontDPosX_L;
-    sint16 USSC_SlotpiontDPosY_L;
-} Dt_RECORD_UsscParkingLeft;
 
 typedef struct _Dt_RECORD_MpcObstacles
 {
@@ -196,12 +150,42 @@ typedef struct _Dt_RECORD_MpcObstacles
     float32 MPC_OBJ_Ax_relative;
     uint8 MPC_OBJ_Location;
     uint8 MPC_OBJ_state;
-    uint32 MPC_Obj_ProbOfExist;
+    float32 MPC_Obj_ProbOfExist;
     uint8 MPC_obstacle_state;
     uint8 MPC_obstacle_lane_no;
 } Dt_RECORD_MpcObstacles;
 
+typedef struct _Dt_RECORD_AvpParkCMD
+{
+    uint8 TBOX_AVPSanMod;
+    uint32 TBOX_AVPTarPrkID;
+    uint8 TBOX_AVPTarZoneID;
+} Dt_RECORD_AvpParkCMD;
+
+typedef struct _Dt_RECORD_GlobalPathStatus
+{
+    uint8 globalpath_status;
+    uint8 planing_failed_times;
+} Dt_RECORD_GlobalPathStatus;
+
+typedef struct _Dt_RECORD_boundary
+{
+    uint32 boundaryID;
+    uint8 boundary_type;
+    uint8 boundary_color;
+} Dt_RECORD_boundary;
+
 typedef Dt_RECORD_LaneLines Dt_ARRAY_4_LaneLines[4];
+
+typedef Dt_RECORD_MvParkingPoint Dt_ARRAY_4_MvParkingPoint[4];
+
+typedef Dt_RECORD_boundary Dt_ARRAY_5_boundary[5];
+
+typedef struct _Dt_RECORD_Crosswalk
+{
+    uint32 ID;
+    float32 distance;
+} Dt_RECORD_Crosswalk;
 
 typedef Dt_RECORD_ObjPoint Dt_ARRAY_50_ObjPoint[50];
 
@@ -239,6 +223,23 @@ typedef struct _Dt_RECORD_TrajectoryPoints
     uint32 road_no;
 } Dt_RECORD_TrajectoryPoints;
 
+typedef struct _Dt_RECORD_UsscParkingLeft
+{
+    uint8 USSC_Slotpropety_L;
+    uint8 USSC_SlotConfidence_L;
+    uint8 USSC_SlotConfidence_Flag_L;
+    boolean USSC_SlotupdateOcd_L;
+    sint16 USSC_SlotpiontAPosX_L;
+    sint16 USSC_SlotpiontAPosY_L;
+    sint16 USSC_SlotpiontBPosX_L;
+    sint16 USSC_SlotpiontBPosY_L;
+    sint16 USSC_SlotpiontCPosX_L;
+    sint16 USSC_SlotpiontCPosY_L;
+    sint16 USSC_SlotpiontDPosX_L;
+    sint16 USSC_SlotpiontDPosY_L;
+    uint8 USSC_PrkgSlotSta_L;
+} Dt_RECORD_UsscParkingLeft;
+
 typedef struct _Dt_RECORD_ParkingFusionStatus
 {
     boolean parking_fusion_status;
@@ -251,6 +252,11 @@ typedef struct _Dt_RECORD_ParkingPoint
 } Dt_RECORD_ParkingPoint;
 
 typedef Dt_RECORD_FlFrCmrrFreespace Dt_ARRAY_72_FlFrCmrrFreespace[72];
+
+typedef struct _Dt_RECORD_ParkId
+{
+    uint32 parking_id;
+} Dt_RECORD_ParkId;
 
 typedef Dt_RECORD_RlRrCmrrFreespace Dt_ARRAY_72_RlRrCmrrFreespace[72];
 
@@ -402,12 +408,23 @@ typedef struct _Dt_RECORD_AvpCMD
     uint8 TBOX_AVPModKey;
 } Dt_RECORD_AvpCMD;
 
-typedef struct _Dt_RECORD_AvpParkCMD
+typedef struct _Dt_RECORD_AVPLocalization
 {
-    uint8 TBOX_AVPSanMod;
-    uint32 TBOX_AVPTarPrkID;
-    uint8 TBOX_AVPTarZoneID;
-} Dt_RECORD_AvpParkCMD;
+    float32 AVP_locationInfo_X0;
+    float32 AVP_locationInfo_Y0;
+} Dt_RECORD_AVPLocalization;
+
+typedef Dt_RECORD_Crosswalk Dt_ARRAY_10_Crosswalk[10];
+
+typedef struct _Dt_RECORD_LaneNode
+{
+    float64 hdmap_x;
+    float64 hdmap_y;
+    float32 hdmap_z;
+    float32 heading;
+    float32 curvature;
+    float32 slopev;
+} Dt_RECORD_LaneNode;
 
 typedef Dt_RECORD_LaneNode Dt_ARRAY_100_LaneNode[100];
 
@@ -421,11 +438,12 @@ typedef struct _Dt_RECORD_MarkArrow
 
 typedef struct _Dt_RECORD_LaneHeading
 {
-    float32 heading;
-    float32 start_x;
-    float32 start_y;
-    float32 start_z;
+    float32 origin_yaw;
     float32 road_width;
+    float32 heading;
+    float64 start_x;
+    float64 start_y;
+    float32 start_z;
 } Dt_RECORD_LaneHeading;
 
 typedef struct _Dt_RECORD_Obstacles
@@ -541,6 +559,11 @@ typedef struct _Dt_RECORD_GestureInfo
     float64 yaw;
     float64 pitch;
     float64 roll;
+    float64 yawrate;
+    float64 a_lon;
+    float64 a_lat;
+    float64 v_lat;
+    float64 v_lon;
 } Dt_RECORD_GestureInfo;
 
 typedef Dt_RECORD_MarkArrow Dt_ARRAY_10_MarkArrow[10];
@@ -587,13 +610,17 @@ typedef struct _Dt_RECORD_HdMapLane
     uint8 arrow_num;
     uint8 crosswalk_num;
     uint8 HGNode_num;
+    uint8 lboundary_num;
+    uint8 rboundary_num;
+    Dt_ARRAY_5_boundary lboundary;
+    Dt_ARRAY_5_boundary rboundary;
+    float32 hgnode_distance;
+    uint32 hgnodeID;
+    Dt_ARRAY_10_Crosswalk Crosswalk;
+    Dt_ARRAY_10_MarkArrow Arrow;
     Dt_ARRAY_10_PoiObstacle POI;
     Dt_ARRAY_10_PoiObstacle Obstacle;
     Dt_ARRAY_10_MarkArrow Mark;
-    Dt_ARRAY_10_MarkArrow Arrow;
-    Dt_ARRAY_10_Crosswalk Crosswalk;
-    uint32 hgnodeID;
-    float32 hgnode_distance;
 } Dt_RECORD_HdMapLane;
 
 typedef Dt_RECORD_HdmapObj Dt_ARRAY_100_HdmapObj[100];
@@ -601,10 +628,9 @@ typedef Dt_RECORD_HdmapObj Dt_ARRAY_100_HdmapObj[100];
 typedef struct _Dt_RECORD_MapInfo
 {
     uint64 time_stamp;
-    float32 lon_x;
-    float32 lat_y;
-    float32 ele_z;
-    float32 hdmap_yaw;
+    float64 lon_x;
+    float64 lat_y;
+    float32 origin_yaw;
     boolean hdmap_output_flag1;
     boolean hdmap_output_flag2;
     uint8 feature_num;
@@ -657,20 +683,21 @@ typedef struct _Dt_RECORD_Lanes
     float64 right_lane_distance;
 } Dt_RECORD_Lanes;
 
-typedef struct _Dt_RECORD_VslamInput
+typedef struct _Dt_RECORD_MvUSSObstacleInfo
 {
-    uint64 time_stamp;
-    boolean hdmap_localtion_flag1;
-    boolean hdmap_localtion_flag2;
-    float64 search_radius1;
-    float64 search_radius2;
-    float64 lon;
-    float64 lat;
-    float32 vehicle_x;
-    float32 vehicle_y;
-    float32 vehicle_z;
-    float64 vehicle_yaw;
-} Dt_RECORD_VslamInput;
+    uint16 USSC_ObjDst_RLC;
+    uint16 USSC_ObjDst_RLM;
+    uint16 USSC_ObjDst_RRC;
+    uint16 USSC_ObjDst_RLS;
+    uint16 USSC_ObjDst_RRS;
+    uint16 USSC_ObjDst_RRM;
+    uint16 USSC_ObjDst_FLS;
+    uint16 USSC_ObjDst_FRS;
+    uint16 USSC_ObjDst_FLC;
+    uint16 USSC_ObjDst_FLM;
+    uint16 USSC_ObjDst_FRC;
+    uint16 USSC_ObjDst_FRM;
+} Dt_RECORD_MvUSSObstacleInfo;
 
 typedef struct _Dt_RECORD_MvMapTrafficInfo
 {
@@ -692,13 +719,20 @@ typedef struct _Dt_RECORD_LocalizationResult
     float32 qw;
 } Dt_RECORD_LocalizationResult;
 
-typedef struct _Dt_RECORD_SteerInfo
+typedef struct _Dt_RECORD_VslamInput
 {
-    uint64 EPS_0x1C2_time_stamp;
-    float32 EPS_SteerWhlAgSig;
-    uint64 PDCU_0x214_time_stamp;
-    uint8 PDCU_GearSig;
-} Dt_RECORD_SteerInfo;
+    uint64 time_stamp;
+    boolean hdmap_localtion_flag1;
+    boolean hdmap_localtion_flag2;
+    float64 search_radius1;
+    float64 search_radius2;
+    float64 lon;
+    float64 lat;
+    float64 vehicle_x;
+    float64 vehicle_y;
+    float32 vehicle_z;
+    float32 vehicle_yaw;
+} Dt_RECORD_VslamInput;
 
 typedef struct _Dt_RECORD_LocationStatus
 {
@@ -713,13 +747,13 @@ typedef struct _Dt_RECORD_HdmapFrontPLane
     Dt_ARRAY_15_PlanSeg PlanSeg;
 } Dt_RECORD_HdmapFrontPLane;
 
-typedef Dt_RECORD_MpcObstacles Dt_ARRAY_32_MpcObstacles[32];
+typedef Dt_RECORD_MpcObstacles Dt_ARRAY_40_MpcObstacles[40];
 
 typedef struct _Dt_RECORD_MpcInfos
 {
     uint8 MPC_obstacle_num;
     uint32 Array_Length_Dummy_0;
-    Dt_ARRAY_32_MpcObstacles MpcObstacles;
+    Dt_ARRAY_40_MpcObstacles MpcObstacles;
 } Dt_RECORD_MpcInfos;
 
 typedef struct _Dt_RECORD_MvParkingSpace
@@ -740,6 +774,8 @@ typedef struct _Dt_RECORD_MvGpsInfo
     uint64 EHU_0x525_time_stamp;
     float64 EHU_GPSLati;
     float64 EHU_GPSLongi;
+    sint32 TBOX_PosngSysLati;
+    sint32 TBOX_PosngSysLongi;
 } Dt_RECORD_MvGpsInfo;
 
 typedef Dt_RECORD_MvMapTrafficInfo Dt_ARRAY_24_MvMapTrafficInfo[24];
@@ -791,6 +827,21 @@ typedef struct _Dt_RECORD_TrafficMarkings
     float64 pos_x;
 } Dt_RECORD_TrafficMarkings;
 
+typedef struct _Dt_RECORD_SteerInfo
+{
+    uint64 EPS_0x1C2_time_stamp;
+    float32 EPS_SteerWhlAgSig;
+    uint64 PDCU_0x214_time_stamp;
+    uint8 PDCU_GearSig;
+} Dt_RECORD_SteerInfo;
+
+typedef struct _Dt_RECORD_EnvModelObstaclesInfos
+{
+    uint32 obstacle_num;
+    uint32 Array_Length_Dummy_0;
+    Dt_ARRAY_64_Obstacles Obstacles;
+} Dt_RECORD_EnvModelObstaclesInfos;
+
 typedef struct _Dt_RECORD_SLAMLocalizationInfo
 {
     uint64 time_stamp;
@@ -800,53 +851,31 @@ typedef struct _Dt_RECORD_SLAMLocalizationInfo
     float64 roll;
 } Dt_RECORD_SLAMLocalizationInfo;
 
-typedef struct _Dt_RECORD_EnvModelObstaclesInfos
-{
-    uint32 obstacle_num;
-    uint32 Array_Length_Dummy_0;
-    Dt_ARRAY_64_Obstacles Obstacles;
-} Dt_RECORD_EnvModelObstaclesInfos;
-
-typedef struct _Dt_RECORD_RtkInfo
-{
-    float64 Acc_X;
-    float64 Acc_Y;
-    float64 Gyro_Z;
-    float64 INS_Pitch;
-    float64 INS_Roll;
-    float64 INS_Heading;
-    float64 INS_LocatHeight;
-    uint64 INS_LatitudeLongitude_time_stamp;
-    float64 INS_Latitude;
-    float64 INS_Longitude;
-    float64 INS_NorthSpd;
-    float64 INS_EastSpd;
-} Dt_RECORD_RtkInfo;
-
 typedef struct _Dt_RECORD_ParkInfo
 {
     uint32 parkID;
     uint8 park_type;
-    float32 park_x1;
-    float32 park_y1;
-    float32 park_x2;
-    float32 park_y2;
-    float32 park_x3;
-    float32 park_y3;
-    float32 park_x4;
-    float32 park_y4;
-    float32 park_x5;
-    float32 park_y5;
+    float64 park_x1;
+    float64 park_y1;
+    float64 park_x2;
+    float64 park_y2;
+    float64 park_x3;
+    float64 park_y3;
+    float64 park_x4;
+    float64 park_y4;
+    float64 park_x5;
+    float64 park_y5;
     float32 park_radius;
 } Dt_RECORD_ParkInfo;
 
-typedef Dt_RECORD_ParkInfo Dt_ARRAY_24_ParkInfo[24];
+typedef Dt_RECORD_ParkInfo Dt_ARRAY_72_ParkInfo[72];
 
 typedef struct _Dt_RECORD_ParkInfos
 {
     uint64 time_stamp;
+    float32 origin_yaw;
     uint8 park_num;
-    Dt_ARRAY_24_ParkInfo ParkInfo;
+    Dt_ARRAY_72_ParkInfo ParkInfo;
 } Dt_RECORD_ParkInfos;
 
 typedef Dt_RECORD_ParkingPoint Dt_ARRAY_64_ParkingPoint[64];
@@ -995,6 +1024,27 @@ typedef struct _Dt_RECORD_RadarObstacleInfo
     Dt_ARRAY_20_RlRrCmrrObject RlRrCmrrObject;
 } Dt_RECORD_RadarObstacleInfo;
 
+typedef struct _Dt_RECORD_RtkInfo
+{
+    float64 Acc_X;
+    float64 Acc_Y;
+    float64 Gyro_Z;
+    float64 INS_Pitch;
+    float64 INS_Roll;
+    float64 INS_Heading;
+    float64 INS_LocatHeight;
+    uint64 INS_LatitudeLongitude_time_stamp;
+    float64 INS_Latitude;
+    float64 INS_Longitude;
+    float64 INS_NorthSpd;
+    float64 INS_EastSpd;
+    uint64 GPS_LatitudeLongitude_time_stamp;
+    float64 GPS_Latitude;
+    float64 GPS_Longitude;
+    uint64 GPS_HeightAndWeek_time_stamp;
+    float64 GPS_LocatHeight;
+} Dt_RECORD_RtkInfo;
+
 typedef Dt_RECORD_SurViewParkingSpace Dt_ARRAY_16_SurViewParkingSpace[16];
 
 typedef struct _Dt_RECORD_CameraParkInfos
@@ -1091,7 +1141,7 @@ typedef struct _Dt_RECORD_TrajectoryPointsInfos
     uint32 direction;
 } Dt_RECORD_TrajectoryPointsInfos;
 
-typedef Dt_RECORD_UsscParkingLeft Dt_ARRAY_3_UsscParkingLeft[3];
+typedef Dt_RECORD_UsscParkingLeft Dt_ARRAY_6_UsscParkingLeft[6];
 
 typedef struct _Dt_RECORD_UsscParkingRight
 {
@@ -1107,20 +1157,49 @@ typedef struct _Dt_RECORD_UsscParkingRight
     sint16 USSC_SlotpiontCPosY_R;
     sint16 USSC_SlotpiontDPosX_R;
     sint16 USSC_SlotpiontDPosY_R;
+    uint8 USSC_PrkgSlotSta_R;
 } Dt_RECORD_UsscParkingRight;
 
-typedef Dt_RECORD_UsscParkingRight Dt_ARRAY_3_UsscParkingRight[3];
+typedef Dt_RECORD_UsscParkingRight Dt_ARRAY_6_UsscParkingRight[6];
 
 typedef struct _Dt_RECORD_UltrasonicParkInfos
 {
-    uint16 USSC_GPSTimeStamp;
+    float32 APA_PrkgSlot_TimeStamp;
+    boolean APA_PrkgSlot_TimeStampSts;
+    uint8 USSC_slot_num;
     uint32 Array_Length_Dummy_0;
-    Dt_ARRAY_3_UsscParkingLeft UsscParkingLeft;
+    Dt_ARRAY_6_UsscParkingLeft UsscParkingLeft;
     uint32 Array_Length_Dummy_1;
-    Dt_ARRAY_3_UsscParkingRight UlsscParkingRight;
+    Dt_ARRAY_6_UsscParkingRight UlsscParkingRight;
 } Dt_RECORD_UltrasonicParkInfos;
 
-
+typedef struct _Dt_RECORD_USSCTimeStamp
+{
+    float32 USSC_FLC_TimeStamp;
+    float32 USSC_FLM_TimeStamp;
+    float32 USSC_FLS_TimeStamp;
+    float32 USSC_FRC_TimeStamp;
+    float32 USSC_FRM_TimeStamp;
+    float32 USSC_FRS_TimeStamp;
+    float32 USSC_RLC_TimeStamp;
+    float32 USSC_RLM_TimeStamp;
+    float32 USSC_RLS_TimeStamp;
+    float32 USSC_RRC_TimeStamp;
+    float32 USSC_RRM_TimeStamp;
+    float32 USSC_RRS_TimeStamp;
+    boolean USSC_FLC_TimeStampSts;
+    boolean USSC_FLM_TimeStampSts;
+    boolean USSC_FLS_TimeStampSts;
+    boolean USSC_FRC_TimeStampSts;
+    boolean USSC_FRM_TimeStampSts;
+    boolean USSC_FRS_TimeStampSts;
+    boolean USSC_RLC_TimeStampSts;
+    boolean USSC_RLM_TimeStampSts;
+    boolean USSC_RLS_TimeStampSts;
+    boolean USSC_RRC_TimeStampSts;
+    boolean USSC_RRM_TimeStampSts;
+    boolean USSC_RRS_TimeStampSts;
+} Dt_RECORD_USSCTimeStamp;
 
 typedef struct _Dt_RECORD_VehicleInfo
 {
@@ -1152,24 +1231,6 @@ typedef struct _Dt_RECORD_LocalizationInfo
     float64 v_lat;
     float64 v_lon;
 } Dt_RECORD_LocalizationInfo;
-
-typedef struct _Dt_RECORD_MvUSSObstacleInfo
-{
-    uint32 nFrameIndex;
-    uint64 time_stamp;
-    uint8 USSC_ObjDst_RLC;
-    uint8 USSC_ObjDst_RLM;
-    uint8 USSC_ObjDst_RRC;
-    uint8 USSC_ObjDst_RLS;
-    uint8 USSC_ObjDst_RRS;
-    uint8 USSC_ObjDst_RRM;
-    uint8 USSC_ObjDst_FLS;
-    uint8 USSC_ObjDst_FRS;
-    uint8 USSC_ObjDst_FLC;
-    uint8 USSC_ObjDst_FLM;
-    uint8 USSC_ObjDst_FRC;
-    uint8 USSC_ObjDst_FRM;
-} Dt_RECORD_MvUSSObstacleInfo;
 
 
 

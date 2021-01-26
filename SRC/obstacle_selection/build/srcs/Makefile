@@ -125,6 +125,33 @@ obstacle_sel_lib/fast:
 	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build && $(MAKE) -f srcs/CMakeFiles/obstacle_sel_lib.dir/build.make srcs/CMakeFiles/obstacle_sel_lib.dir/build
 .PHONY : obstacle_sel_lib/fast
 
+objSelectFusion.o: objSelectFusion.cc.o
+
+.PHONY : objSelectFusion.o
+
+# target to build an object file
+objSelectFusion.cc.o:
+	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build && $(MAKE) -f srcs/CMakeFiles/obstacle_sel_lib.dir/build.make srcs/CMakeFiles/obstacle_sel_lib.dir/objSelectFusion.cc.o
+.PHONY : objSelectFusion.cc.o
+
+objSelectFusion.i: objSelectFusion.cc.i
+
+.PHONY : objSelectFusion.i
+
+# target to preprocess a source file
+objSelectFusion.cc.i:
+	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build && $(MAKE) -f srcs/CMakeFiles/obstacle_sel_lib.dir/build.make srcs/CMakeFiles/obstacle_sel_lib.dir/objSelectFusion.cc.i
+.PHONY : objSelectFusion.cc.i
+
+objSelectFusion.s: objSelectFusion.cc.s
+
+.PHONY : objSelectFusion.s
+
+# target to generate assembly for a file
+objSelectFusion.cc.s:
+	cd /home/ze/Documents/LogAnalysis_Algos/SRC/obstacle_selection/build && $(MAKE) -f srcs/CMakeFiles/obstacle_sel_lib.dir/build.make srcs/CMakeFiles/obstacle_sel_lib.dir/objSelectFusion.cc.s
+.PHONY : objSelectFusion.cc.s
+
 obstacle_selection.o: obstacle_selection.cc.o
 
 .PHONY : obstacle_selection.o
@@ -188,6 +215,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... obstacle_sel_lib"
+	@echo "... objSelectFusion.o"
+	@echo "... objSelectFusion.i"
+	@echo "... objSelectFusion.s"
 	@echo "... obstacle_selection.o"
 	@echo "... obstacle_selection.i"
 	@echo "... obstacle_selection.s"

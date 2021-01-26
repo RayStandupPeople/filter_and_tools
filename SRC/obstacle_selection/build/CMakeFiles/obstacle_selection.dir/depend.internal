@@ -56,6 +56,7 @@ CMakeFiles/obstacle_selection.dir/test_selection.cc.o
  ../../common/libs/Rte_Type.h
  ../../common/libs/decision_struct.h
  ../../common/libs/user_struct.h
+ ../../obstacle_selection/libs/objSelectFusion.h
  ../../obstacle_selection/libs/obstacle_selection.h
  ../../obstacle_selection/libs/static_objSel.h
  /home/ze/Documents/LogAnalysis_Algos/SRC/common/libs/Platform_Types.h
