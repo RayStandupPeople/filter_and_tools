@@ -1,0 +1,3 @@
+# Hashes of file build rules.
+ff4730bb665d6964c3d3125a5cff34fa socket_all.pb.cc
+81a6d27df226ea7ab696d2cc8a9a347c types.pb.cc

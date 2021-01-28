@@ -11,8 +11,8 @@ void plot_gridmap(const Dt_RECORD_EnvModelInfos &envModelInfo, PlotItems &plot_i
      std::vector<double> grid_y_dynamic;
      std::vector<double> grid_x_static;
      std::vector<double> grid_y_static;
-     for(uint32 x=0; x<400; x+=3) //grid scatter n times
-     for(uint32 y=0; y<200; y+=3)  // left and right each display 5m
+     for(uint32 x=0; x<400; x+=2) //grid scatter n times
+     for(uint32 y=0; y<200; y+=2)  // left and right each display 5m
      {
          if(envModelInfo.ObstacleGridMap[x][y] == 1)
          {
@@ -41,23 +41,30 @@ void plot_gridmap(const Dt_RECORD_EnvModelInfos &envModelInfo, PlotItems &plot_i
 }
 
 
-void plot_lane(const hdMapTrajectory &TrajectoryPoints, const Dt_RECORD_HdmapFrontPLane &HdmapFrontPLane, PlotItems &plot_items)
+void plot_lane(const hdMapTrajectory &TrajectoryPoints, const DecisionToPC &rev_DecisionToPC_data, PlotItems &plot_items)
 {
 
     std::vector<std::vector<double>> lane_left_x(TrajectoryPoints.pathLane[0].segNum); 
     std::vector<std::vector<double>> lane_left_y(TrajectoryPoints.pathLane[0].segNum); 
     std::vector<std::vector<double>> lane_right_x(TrajectoryPoints.pathLane[0].segNum); 
     std::vector<std::vector<double>> lane_right_y(TrajectoryPoints.pathLane[0].segNum); 
+    std::vector<std::vector<double>> lane_lleft_x(TrajectoryPoints.pathLane[0].segNum); 
+    std::vector<std::vector<double>> lane_lleft_y(TrajectoryPoints.pathLane[0].segNum); 
+    std::vector<std::vector<double>> lane_rright_x(TrajectoryPoints.pathLane[0].segNum); 
+    std::vector<std::vector<double>> lane_rright_y(TrajectoryPoints.pathLane[0].segNum); 
     std::vector<std::vector<double>> lane_safe_x(2);
     std::vector<std::vector<double>> lane_safe_y(2); 
     VehicleSize vehicle_size;
+    Dt_RECORD_HdmapFrontPLane HdmapFrontPLane = rev_DecisionToPC_data.my_hdmapFrontPLaneInfo;
+    Dt_RECORD_HdmapLocalLane  hdmapLocalLaneInfo = rev_DecisionToPC_data.my_hdmapLocalLaneInfo; 
+    Dt_RECORD_HdmapInfo my_hdmapInfo = rev_DecisionToPC_data.my_hdmapInfo;
     double safe_lane_width = vehicle_size.width + 0.2;
 
     for(uint32 seg=0; seg < TrajectoryPoints.pathLane[0].segNum; ++seg)
     {
         double lanewidth_ = HdmapFrontPLane.PlanSeg[seg].Lane[0].lane_width;
         // DEBUG("lane width: %f \r\n",lanewidth_);
-        for(uint32 node=0; node <TrajectoryPoints.pathLane[0].hdmapPathInfo[seg].laneInfos[0].nodeNum;node+=10) // scatter 10 times
+        for(uint32 node=0; node <TrajectoryPoints.pathLane[0].hdmapPathInfo[seg].laneInfos[0].nodeNum;node+=3) // scatter 3 times
         {
             double x_= TrajectoryPoints.pathLane[0].hdmapPathInfo[seg].laneInfos[0].laneNodeInfos[node].x;
             double y_= TrajectoryPoints.pathLane[0].hdmapPathInfo[seg].laneInfos[0].laneNodeInfos[node].y;
@@ -65,15 +72,69 @@ void plot_lane(const hdMapTrajectory &TrajectoryPoints, const Dt_RECORD_HdmapFro
             
             // std::cout << x_ <<" " << x_ + -lanewidth_/2 * std::cos(h_/180 *M_PI) << " " <<lanewidth_/2 * std::cos(h_/180 *M_PI) << std::endl;
             // std::cout << y_ <<" " << (y_ - -lanewidth_/2 * std::sin(h_/180 *M_PI)) * -1 << " " <<lanewidth_/2 * std::cos(h_/180 *M_PI) <<" " << h_<< std::endl;
+            int lane_num;
+            if(my_hdmapInfo.planpath)
+                lane_num = TrajectoryPoints.pathLane[0].hdmapPathInfo[seg].laneNum;
+            else
+                lane_num = TrajectoryPoints.localPath[0].hdmapPathInfo[seg].laneNum;
+            switch(lane_num)
+            {
+                case 0: //crossing
+                    lane_safe_x[0].push_back((y_ - -safe_lane_width/2 * std::cos(h_/180 *M_PI)) * -1);
+                    lane_safe_y[0].push_back(x_ + -safe_lane_width/2 * std::sin(h_/180 *M_PI));
+                    lane_safe_x[1].push_back((y_ - safe_lane_width/2 * std::cos(h_/180 *M_PI)) * -1);
+                    lane_safe_y[1].push_back(x_ + safe_lane_width/2 * std::sin(h_/180 *M_PI));
+                    break;
+                case 1: //only ego lane
+                    lane_left_x[seg].push_back((y_ - -lanewidth_/2 * std::cos(h_/180 *M_PI)) * -1); 
+                    lane_left_y[seg].push_back((x_ + -lanewidth_/2 * std::sin(h_/180 *M_PI))); 
+                    lane_right_x[seg].push_back((y_ - lanewidth_/2 * std::cos(h_/180 *M_PI)) * -1); 
+                    lane_right_y[seg].push_back((x_ + lanewidth_/2 * std::sin(h_/180 *M_PI)));   
+                    lane_safe_x[0].push_back((y_ - -safe_lane_width/2 * std::cos(h_/180 *M_PI)) * -1);
+                    lane_safe_y[0].push_back(x_ + -safe_lane_width/2 * std::sin(h_/180 *M_PI));
+                    lane_safe_x[1].push_back((y_ - safe_lane_width/2 * std::cos(h_/180 *M_PI)) * -1);
+                    lane_safe_y[1].push_back(x_ + safe_lane_width/2 * std::sin(h_/180 *M_PI));
+                    break;
+                case 2: //ego and left lane
+                    lane_lleft_x[seg].push_back((y_ - lanewidth_/2*3 * std::cos(h_/180 *M_PI)) * -1); 
+                    lane_lleft_y[seg].push_back((x_ + lanewidth_/2*3 * std::sin(h_/180 *M_PI))); 
+                    lane_left_x[seg].push_back((y_ - -lanewidth_/2 * std::cos(h_/180 *M_PI)) * -1); 
+                    lane_left_y[seg].push_back((x_ + -lanewidth_/2 * std::sin(h_/180 *M_PI))); 
+                    lane_right_x[seg].push_back((y_ - lanewidth_/2 * std::cos(h_/180 *M_PI)) * -1); 
+                    lane_right_y[seg].push_back((x_ + lanewidth_/2 * std::sin(h_/180 *M_PI)));   
+                    lane_safe_x[0].push_back((y_ - -safe_lane_width/2 * std::cos(h_/180 *M_PI)) * -1);
+                    lane_safe_y[0].push_back(x_ + -safe_lane_width/2 * std::sin(h_/180 *M_PI));
+                    lane_safe_x[1].push_back((y_ - safe_lane_width/2 * std::cos(h_/180 *M_PI)) * -1);
+                    lane_safe_y[1].push_back(x_ + safe_lane_width/2 * std::sin(h_/180 *M_PI));
+                    break;
+                case 3: //ego and right lane
+                    lane_rright_x[seg].push_back((y_ - -lanewidth_/2*3 * std::cos(h_/180 *M_PI)) * -1); 
+                    lane_rright_y[seg].push_back((x_ + -lanewidth_/2*3 * std::sin(h_/180 *M_PI)));   
+                    lane_left_x[seg].push_back((y_ - -lanewidth_/2 * std::cos(h_/180 *M_PI)) * -1); 
+                    lane_left_y[seg].push_back((x_ + -lanewidth_/2 * std::sin(h_/180 *M_PI))); 
+                    lane_right_x[seg].push_back((y_ - lanewidth_/2 * std::cos(h_/180 *M_PI)) * -1); 
+                    lane_right_y[seg].push_back((x_ + lanewidth_/2 * std::sin(h_/180 *M_PI)));   
+                    lane_safe_x[0].push_back((y_ - -safe_lane_width/2 * std::cos(h_/180 *M_PI)) * -1);
+                    lane_safe_y[0].push_back(x_ + -safe_lane_width/2 * std::sin(h_/180 *M_PI));
+                    lane_safe_x[1].push_back((y_ - safe_lane_width/2 * std::cos(h_/180 *M_PI)) * -1);
+                    lane_safe_y[1].push_back(x_ + safe_lane_width/2 * std::sin(h_/180 *M_PI));
+                    break;
+                case 4: // both lane and ego
+                    lane_lleft_x[seg].push_back((y_ - lanewidth_/2*3 * std::cos(h_/180 *M_PI)) * -1); 
+                    lane_lleft_y[seg].push_back((x_ + lanewidth_/2*3 * std::sin(h_/180 *M_PI))); 
+                    lane_rright_x[seg].push_back((y_ - -lanewidth_/2*3 * std::cos(h_/180 *M_PI)) * -1); 
+                    lane_rright_y[seg].push_back((x_ + -lanewidth_/2*3 * std::sin(h_/180 *M_PI)));   
+                    lane_left_x[seg].push_back((y_ - -lanewidth_/2 * std::cos(h_/180 *M_PI)) * -1); 
+                    lane_left_y[seg].push_back((x_ + -lanewidth_/2 * std::sin(h_/180 *M_PI))); 
+                    lane_right_x[seg].push_back((y_ - lanewidth_/2 * std::cos(h_/180 *M_PI)) * -1); 
+                    lane_right_y[seg].push_back((x_ + lanewidth_/2 * std::sin(h_/180 *M_PI)));   
+                    lane_safe_x[0].push_back((y_ - -safe_lane_width/2 * std::cos(h_/180 *M_PI)) * -1);
+                    lane_safe_y[0].push_back(x_ + -safe_lane_width/2 * std::sin(h_/180 *M_PI));
+                    lane_safe_x[1].push_back((y_ - safe_lane_width/2 * std::cos(h_/180 *M_PI)) * -1);
+                    lane_safe_y[1].push_back(x_ + safe_lane_width/2 * std::sin(h_/180 *M_PI));
+                    break;
+            }
 
-            lane_left_x[seg].push_back((y_ - -lanewidth_/2 * std::cos(h_/180 *M_PI)) * -1); 
-            lane_left_y[seg].push_back((x_ + -lanewidth_/2 * std::sin(h_/180 *M_PI))); 
-            lane_right_x[seg].push_back((y_ - lanewidth_/2 * std::cos(h_/180 *M_PI)) * -1); 
-            lane_right_y[seg].push_back((x_ + lanewidth_/2 * std::sin(h_/180 *M_PI)));   
-            lane_safe_x[0].push_back((y_ - -safe_lane_width/2 * std::cos(h_/180 *M_PI)) * -1);
-            lane_safe_y[0].push_back(x_ + -safe_lane_width/2 * std::sin(h_/180 *M_PI));
-            lane_safe_x[1].push_back((y_ - safe_lane_width/2 * std::cos(h_/180 *M_PI)) * -1);
-            lane_safe_y[1].push_back(x_ + safe_lane_width/2 * std::sin(h_/180 *M_PI));
         }
     }
 
@@ -85,12 +146,24 @@ void plot_lane(const hdMapTrajectory &TrajectoryPoints, const Dt_RECORD_HdmapFro
         plot_items.lane_midL[seg].y.assign(lane_left_y[seg].begin(), lane_left_y[seg].end());
         plot_items.lane_midR[seg].x.assign(lane_right_x[seg].begin(),lane_right_x[seg].end());
         plot_items.lane_midR[seg].y.assign(lane_right_y[seg].begin(),lane_right_y[seg].end());
+
+         // plot SideLane
+        plot_items.lane_left[seg].x.assign(lane_lleft_x[seg].begin(), lane_lleft_x[seg].end());
+        plot_items.lane_left[seg].y.assign(lane_lleft_y[seg].begin(), lane_lleft_y[seg].end());
+        plot_items.lane_right[seg].x.assign(lane_rright_x[seg].begin(),lane_rright_x[seg].end());
+        plot_items.lane_right[seg].y.assign(lane_rright_y[seg].begin(),lane_rright_y[seg].end());
+
     }
     // plot safeline
     plot_items.safeline[0].x.assign(lane_safe_x[0].begin(),lane_safe_x[0].end());
     plot_items.safeline[0].y.assign(lane_safe_y[0].begin(),lane_safe_y[0].end());
     plot_items.safeline[1].x.assign(lane_safe_x[1].begin(),lane_safe_x[1].end());
     plot_items.safeline[1].y.assign(lane_safe_y[1].begin(),lane_safe_y[1].end());
+    // std::cout << " x y :" <<std::endl;
+    // for(auto i=0; i<plot_items.safeline[0].x.size();++i)
+    // {
+    //     std::cout << plot_items.safeline[0].x[i] << " " << plot_items.safeline[0].y[i] <<std::endl;
+    // }
 
 
 }
@@ -170,10 +243,11 @@ void plot_box(std::vector<double> cent_x, std::vector<double> cent_y, std::vecto
 }
 
 
-void plot_vehicleCoordi_wind(const hdMapTrajectory &hdMapTrajectory, const Dt_RECORD_HdmapFrontPLane &HdmapFrontPLane, \
-    const Dt_RECORD_EnvModelInfos &envModelInfo, const objSecList &selectObj, PlotItems &plot_items){
+void plot_vehicleCoordi_wind(const hdMapTrajectory &hdMapTrajectory,const DecisionToPC &rev_DecisionToPC_data, const objSecList &selectObj, PlotItems &plot_items){
     
-    
+    std::vector<double> local_x; //ego car position with heading
+    std::vector<double> local_y;
+
     std::vector<double> ref_path_x;
     std::vector<double> ref_path_y;
     std::vector<double> ref_path_h;
@@ -198,6 +272,8 @@ void plot_vehicleCoordi_wind(const hdMapTrajectory &hdMapTrajectory, const Dt_RE
     std::vector<double> obj_list_heading;
     std::vector<int> obj_list_type;
     
+    Dt_RECORD_EnvModelInfos envModelInfo = rev_DecisionToPC_data.my_envModelInfo;
+    Dt_RECORD_HdmapInfo hdmapInfo = rev_DecisionToPC_data.my_hdmapInfo;
     // refpath
     for(unsigned int seg_idx=0; seg_idx< hdMapTrajectory.pathLane[0].segNum; seg_idx++)
     for(unsigned int node_idx=0; node_idx< hdMapTrajectory.pathLane[0].hdmapPathInfo[seg_idx].laneInfos[0].nodeNum; node_idx+=10)
@@ -284,9 +360,20 @@ void plot_vehicleCoordi_wind(const hdMapTrajectory &hdMapTrajectory, const Dt_RE
     plot_items.cipv[2].x.assign(dis_cipv_right_x.begin(), dis_cipv_right_x.end());
     plot_items.cipv[2].y.assign(dis_cipv_right_y.begin(), dis_cipv_right_y.end());
 
-    // plot cipvRight  // red >
-    plot_items.ego_position.x = std::vector<double>{0};
-    plot_items.ego_position.y = std::vector<double>{0};
+    local_x.push_back(0);
+    local_y.push_back(0);
+    double head_err;
+    if(hdmapInfo.planpath)
+        head_err = hdMapTrajectory.pathLane[0].hdmapPathInfo[0].laneInfos[0].laneNodeInfos[0].heading - rev_DecisionToPC_data.my_localizationInfo.yaw;
+    else
+        head_err = hdMapTrajectory.localPath[0].hdmapPathInfo[0].laneInfos[0].laneNodeInfos[0].heading -rev_DecisionToPC_data.my_localizationInfo.yaw; 
+    double head_x = 2 * cos(head_err/180.0 * M_PI);
+    double head_y = 2 * sin(head_err/180.0 * M_PI);
+    local_x.push_back(head_x);
+    local_y.push_back(head_y);
+
+    plot_items.ego_position.x.assign(local_x.begin(),local_x.end());
+    plot_items.ego_position.y.assign(local_y.begin(),local_y.end()); 
 
 
     
@@ -297,7 +384,7 @@ void plot_vehicleCoordi_wind(const hdMapTrajectory &hdMapTrajectory, const Dt_RE
     // plt::plot(dis_cipv_2_x, dis_cipv_2_y,"ro");
 
 
-    plot_lane(hdMapTrajectory, HdmapFrontPLane, plot_items);
+    plot_lane(hdMapTrajectory, rev_DecisionToPC_data, plot_items);
     // plot_box(std::vector<double>{0},std::vector<double>{0},std::vector<double>{0}, std::vector<int>{1},ObsType::Ego_Vehicle, plot_items);
 
     // plot_box(obj_list_cent_x,obj_list_cent_y,obj_list_heading, obj_list_type, ObsType::NotImpor_Obs);
@@ -327,17 +414,28 @@ void plot_mapCoordi_wind(const DecisionToPC &rev_DecisionToPC_data, PlotItems  &
     Dt_RECORD_HdmapFrontPLane globePLane= rev_DecisionToPC_data.my_hdmapFrontPLaneInfo;
 	Dt_RECORD_HdmapLocalLane my_hdmapLocalLaneInfo  = rev_DecisionToPC_data.my_hdmapLocalLaneInfo;
 
-    std::vector<std::vector<double>> path_seg_X(3);
-    std::vector<std::vector<double>> path_seg_Y(3);
-    std::vector<std::vector<double>> path_seg_H(3);
+    static std::vector<std::vector<double>> path_seg_X(3);
+    static std::vector<std::vector<double>> path_seg_Y(3);
+    static std::vector<std::vector<double>> path_seg_H(3);
     std::vector<double> path_loc_seg_X;
     std::vector<double> path_loc_seg_Y;
     std::vector<double> path_loc_seg_H;
     std::vector<double>loc_X;
     std::vector<double>loc_Y;
+    double loc_x =rev_DecisionToPC_data.my_localizationInfo.LocalizationResult.x;
+    double loc_y =rev_DecisionToPC_data.my_localizationInfo.LocalizationResult.y;
+    double cur_range = 20; 
+    // std::cout <<"std::abs(loc_x - cur_range)" << std::abs(loc_x - cur_range) << " "<<std::abs(loc_y - cur_range) <<std::endl;
+    // if(std::abs(loc_x - cur_range)< cur_range/5 || std::abs(loc_y - cur_range)< cur_range/5 || std::abs(loc_x - cur_range) > cur_range || std::abs(loc_y - cur_range)> cur_range) 
+    // {
+    //     plt::subplot2grid(2,3,0,1,1,1);
+    //     plt::xlim(loc_x- cur_range, loc_x + cur_range);
+    //     plt::ylim(loc_y- cur_range, loc_y + cur_range);
+    // }
 
     loc_X.push_back(localInfos.LocalizationResult.x);
     loc_Y.push_back(localInfos.LocalizationResult.y);
+    // std::cout <<"rev_DecisionToPC_data.my_hdmapInfo.planpath:" <<(double)rev_DecisionToPC_data.my_hdmapInfo.planpath <<std::endl;
     if(rev_DecisionToPC_data.my_hdmapInfo.planpath) //on path
     {
         for(unsigned int lane_seg_idx=0; lane_seg_idx < globePLane.plan_seg_count; ++lane_seg_idx)
@@ -345,11 +443,11 @@ void plot_mapCoordi_wind(const DecisionToPC &rev_DecisionToPC_data, PlotItems  &
             std::vector<double> _x;
             std::vector<double> _y;
             std::vector<double> _heading;
-            for(unsigned int node_idx=0; node_idx<globePLane.PlanSeg[lane_seg_idx].Lane[0].node_count; node_idx+=5) // scatter 5 times
+            for(unsigned int node_idx=0; node_idx<globePLane.PlanSeg[lane_seg_idx].Lane[0].node_count; node_idx+=2) // scatter 2 times
             {
             
-                _x.push_back(globePLane.PlanSeg[lane_seg_idx].Lane[0].LaneNode[node_idx].hdmap_y * -1);
-                _y.push_back(globePLane.PlanSeg[lane_seg_idx].Lane[0].LaneNode[node_idx].hdmap_x);
+                _x.push_back(globePLane.PlanSeg[lane_seg_idx].Lane[0].LaneNode[node_idx].hdmap_x);
+                _y.push_back(globePLane.PlanSeg[lane_seg_idx].Lane[0].LaneNode[node_idx].hdmap_y);
                 _heading.push_back(globePLane.PlanSeg[lane_seg_idx].Lane[0].LaneNode[node_idx].heading);
             }
             path_seg_X[lane_seg_idx] = _x;
@@ -357,15 +455,15 @@ void plot_mapCoordi_wind(const DecisionToPC &rev_DecisionToPC_data, PlotItems  &
             path_seg_H[lane_seg_idx] = _heading;
         }
     }
-    else
+    else // not on path
     {
         std::vector<double> _x;
         std::vector<double> _y;
         std::vector<double> _heading;
-        for(unsigned int node_idx = 0; node_idx< my_hdmapLocalLaneInfo.LocalLane[0].node_count; node_idx++)
+        for(unsigned int node_idx = 0; node_idx< my_hdmapLocalLaneInfo.LocalLane[0].node_count; node_idx+=2)
         {
-            _x.push_back(my_hdmapLocalLaneInfo.LocalLane[0].LaneNode[node_idx].hdmap_y  * -1);
-            _y.push_back(my_hdmapLocalLaneInfo.LocalLane[0].LaneNode[node_idx].hdmap_x );
+            _x.push_back(my_hdmapLocalLaneInfo.LocalLane[0].LaneNode[node_idx].hdmap_x);
+            _y.push_back(my_hdmapLocalLaneInfo.LocalLane[0].LaneNode[node_idx].hdmap_y);
             _heading.push_back(my_hdmapLocalLaneInfo.LocalLane[0].LaneNode[node_idx].heading );
         }
         path_loc_seg_X = _x;
@@ -383,13 +481,10 @@ void plot_mapCoordi_wind(const DecisionToPC &rev_DecisionToPC_data, PlotItems  &
     plot_items.refline_mapCoor[2].x.assign(path_seg_X[2].begin(),path_seg_X[2].end());
     plot_items.refline_mapCoor[2].y.assign(path_seg_Y[2].begin(),path_seg_Y[2].end());
 
-     // plot localpath  (segment 0->2)in map coordiante 
-    plot_items.refline_mapCoor[0].x.assign(path_seg_X[0].begin(),path_seg_X[0].end());
-    plot_items.refline_mapCoor[0].y.assign(path_seg_Y[0].begin(),path_seg_Y[0].end());
-    plot_items.refline_mapCoor[1].x.assign(path_seg_X[1].begin(),path_seg_X[1].end());
-    plot_items.refline_mapCoor[1].y.assign(path_seg_Y[1].begin(),path_seg_Y[1].end());
-    plot_items.refline_mapCoor[2].x.assign(path_seg_X[2].begin(),path_seg_X[2].end());
-    plot_items.refline_mapCoor[2].y.assign(path_seg_Y[2].begin(),path_seg_Y[2].end());
+     // plot localpath in map coordiante 
+    plot_items.refline_local_mapCoor.x.assign(path_loc_seg_X.begin(), path_loc_seg_X.end());
+    plot_items.refline_local_mapCoor.y.assign(path_loc_seg_Y.begin(), path_loc_seg_Y.end());
+
 
     // plot refpath (segment 0->2)in map coordiante 
     plot_items.ego_position_mapCoor.x.assign(loc_X.begin(), loc_X.end());
@@ -455,15 +550,15 @@ void plot_globalCoordi_wind(const Dt_RECORD_LocalizationInfo &localInfos, const 
     // plt::plot(loc_X, loc_Y,"ro");
     // plt::plot(start_X, start_Y,"or");
     // plt::plot(end_X, end_Y,"or");
-    plt::text(start_X[0]+1,start_Y[0]+1,"Start");
-    plt::text(end_X[0]+1,end_Y[0]+1,"End");
+    // plt::text(start_X[0]+1,start_Y[0]+1,"Start");
+    // plt::text(end_X[0]+1,end_Y[0]+1,"End");
 
 }
 
 int plot(const DecisionToPC &rev_DecisionToPC_data, const hdMapTrajectory &hdMapTrajectory, const objSecList &selectObj, PlotItems  &plot_items) {
     // plt::ion();
     
-    plot_vehicleCoordi_wind(hdMapTrajectory, rev_DecisionToPC_data.my_hdmapFrontPLaneInfo, rev_DecisionToPC_data.my_envModelInfo, selectObj, plot_items);
+    plot_vehicleCoordi_wind(hdMapTrajectory, rev_DecisionToPC_data, selectObj, plot_items);
     plot_globalCoordi_wind(rev_DecisionToPC_data.my_localizationInfo, rev_DecisionToPC_data.my_hdmapInfo, plot_items);
     plot_mapCoordi_wind(rev_DecisionToPC_data,  plot_items);
     // plot_infoList_wind(rev_DecisionToPC_data);

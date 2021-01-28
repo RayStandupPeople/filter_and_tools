@@ -949,7 +949,9 @@ int StaticDecision::collisionCheckInGridMap(const double ego_x, const double ego
 	double temp_x4 = veh_rear_axel_to_head + collision_dist;
 	double temp_y4 = -veh_width / 2 - collision_dist;
 
-	int LOC_OCCUPIED_GRIDS_THRESHOLD = 30;//栅格碰撞检测阈值
+	int LOC_OCCUPIED_GRIDS_THRESHOLD_STATIC  = 30;//栅格碰撞检测阈值
+	int LOC_OCCUPIED_GRIDS_THRESHOLD_DYNAMIC = 20;//栅格碰撞检测阈值
+
 
 	//DEBUG("ego_x: %f, ego_y: %f, ego_yaw: %f\n", ego_x, ego_y, ego_yaw);
 
@@ -998,13 +1000,13 @@ int StaticDecision::collisionCheckInGridMap(const double ego_x, const double ego
 				#endif
 				}
 
-				if (occupied_grid_num_static > LOC_OCCUPIED_GRIDS_THRESHOLD)
+				if (occupied_grid_num_static > LOC_OCCUPIED_GRIDS_THRESHOLD_STATIC)
 				{
 					DEBUG("collisionCheckInGridMap: occupied_grid_num_static = %d\r\n", occupied_grid_num_static);
 					return 1;
 				}
 			#if 1
-				if(occupied_grid_num_dynamic > LOC_OCCUPIED_GRIDS_THRESHOLD)
+				if(occupied_grid_num_dynamic > LOC_OCCUPIED_GRIDS_THRESHOLD_DYNAMIC)
 				{
 					DEBUG("collisionCheckInGridMap: occupied_grid_num_dynamic = %d\r\n", occupied_grid_num_dynamic);
 					return 2;
@@ -1069,9 +1071,9 @@ std::vector<int> StaticDecision::collisionCheckInGridMapWithDetail(const double 
 
 	//  check boundary param of Left Part
 	temp_x1[0] = veh_rear_axel_to_head + collision_dist;
-	temp_y1[0] = lane_width/2;
+	temp_y1[0] = lane_width/2 - collision_dist;
 	temp_x2[0] = -veh_rear_axel_to_tail - collision_dist;
-	temp_y2[0] = lane_width/2;
+	temp_y2[0] = lane_width/2 - collision_dist;
 	temp_x3[0] = -veh_rear_axel_to_tail - collision_dist;
 	temp_y3[0] = veh_width / 2 + collision_dist;
 	temp_x4[0] = veh_rear_axel_to_head + collision_dist;
@@ -1093,9 +1095,9 @@ std::vector<int> StaticDecision::collisionCheckInGridMapWithDetail(const double 
 	temp_x2[2] = -veh_rear_axel_to_tail - collision_dist;
 	temp_y2[2] = -veh_width / 2 - collision_dist;
 	temp_x3[2] = -veh_rear_axel_to_tail - collision_dist;
-	temp_y3[2] = -lane_width/2;
+	temp_y3[2] = -lane_width /2+ collision_dist;
 	temp_x4[2] = veh_rear_axel_to_head + collision_dist;
-	temp_y4[2] = -lane_width/2;
+	temp_y4[2] = -lane_width /2+ collision_dist;
 	
 
 	//DEBUG("ego_x: %f, ego_y: %f, ego_yaw: %f\n", ego_x, ego_y, ego_yaw);

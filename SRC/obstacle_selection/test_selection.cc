@@ -206,10 +206,10 @@ void get_hdMapTrajectory(hdMapTrajectory &_trajectory, const laneInfo &globalpat
 void get_Dt_RECORD_LocalizationInfo( Dt_RECORD_LocalizationInfo &location)
 {
   
-    location.LocalizationResult.x = 85.1;
-    location.LocalizationResult.y = 106.2;
+    location.LocalizationResult.x = 79.6;
+    location.LocalizationResult.y = 111.2;
     // location.yaw = 95.29;
-    location.yaw = 216.2;
+    location.yaw = 228.2;
 
     
 }
@@ -240,7 +240,7 @@ void get_Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos &_envmodle_info)
 
     // }
 
-      _envmodle_info.obstacle_num =5;
+      _envmodle_info.obstacle_num =0;
         Dt_RECORD_Obstacles _obstacle;
 
         memset(&_obstacle, 0, sizeof(Dt_RECORD_Obstacles));
@@ -317,60 +317,24 @@ void get_Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos &_envmodle_info)
 
 
 
-        // for(uint32 x=390-1; x<400; ++x)// front 10 ~ 20 meter
-        // for(uint32 y=122-1;  y<136; ++y) // vehicle_mid = 100 
+        // for(uint32 x=360; x<400; ++x)// front 10 ~ 20 meter
+        // for(uint32 y=113;  y<127; ++y) // vehicle_mid = 100 
         // {
         //      _envmodle_info.ObstacleGridMap[x][y]=1;
         // }
 
 
-_envmodle_info.ObstacleGridMap[149][167] = 1;
-_envmodle_info.ObstacleGridMap[149][167] = 1;
-_envmodle_info.ObstacleGridMap[150][167] = 1;
-_envmodle_info.ObstacleGridMap[149][168] = 1;
-_envmodle_info.ObstacleGridMap[150][168] = 1;
-_envmodle_info.ObstacleGridMap[148][159] = 1;
-_envmodle_info.ObstacleGridMap[149][159] = 1;
-_envmodle_info.ObstacleGridMap[148][160] = 1;
-_envmodle_info.ObstacleGridMap[149][160] = 1;
-_envmodle_info.ObstacleGridMap[149][161] = 1;
-_envmodle_info.ObstacleGridMap[150][161] = 1;
-_envmodle_info.ObstacleGridMap[149][162] = 1;
-_envmodle_info.ObstacleGridMap[150][162] = 1;
-_envmodle_info.ObstacleGridMap[149][163] = 1;
-_envmodle_info.ObstacleGridMap[150][163] = 1;
-_envmodle_info.ObstacleGridMap[149][164] = 1;
-_envmodle_info.ObstacleGridMap[150][164] = 1;
-_envmodle_info.ObstacleGridMap[150][165] = 1;
-_envmodle_info.ObstacleGridMap[150][166] = 1;
-_envmodle_info.ObstacleGridMap[150][159] = 1;
-_envmodle_info.ObstacleGridMap[150][160] = 1;
-_envmodle_info.ObstacleGridMap[147][168] = 1;
-_envmodle_info.ObstacleGridMap[148][168] = 1;
-_envmodle_info.ObstacleGridMap[147][169] = 1;
-_envmodle_info.ObstacleGridMap[148][169] = 1;
-_envmodle_info.ObstacleGridMap[147][170] = 1;
-_envmodle_info.ObstacleGridMap[148][170] = 1;
-_envmodle_info.ObstacleGridMap[147][171] = 1;
-_envmodle_info.ObstacleGridMap[148][171] = 1;
-_envmodle_info.ObstacleGridMap[148][171] = 1;
-_envmodle_info.ObstacleGridMap[149][171] = 1;
-_envmodle_info.ObstacleGridMap[148][172] = 1;
-_envmodle_info.ObstacleGridMap[149][172] = 1;
-_envmodle_info.ObstacleGridMap[149][173] = 1;
-_envmodle_info.ObstacleGridMap[150][173] = 1;
-_envmodle_info.ObstacleGridMap[149][167] = 1;
-_envmodle_info.ObstacleGridMap[150][167] = 1;
-_envmodle_info.ObstacleGridMap[149][168] = 1;
-_envmodle_info.ObstacleGridMap[150][168] = 1;
-_envmodle_info.ObstacleGridMap[149][169] = 1;
-_envmodle_info.ObstacleGridMap[150][169] = 1;
-_envmodle_info.ObstacleGridMap[149][170] = 1;
-_envmodle_info.ObstacleGridMap[150][170] = 1;
-_envmodle_info.ObstacleGridMap[150][171] = 1;
-_envmodle_info.ObstacleGridMap[150][172] = 1;
-_envmodle_info.ObstacleGridMap[150][166] = 1;
-_envmodle_info.ObstacleGridMap[150][167] = 1;
+        for(uint32 x=388; x<400; ++x)// front 10 ~ 20 meter
+        for(uint32 y=137;  y<147; ++y) // vehicle_mid = 100 
+        {
+             _envmodle_info.ObstacleGridMap[x][y]=1;
+        }
+
+        // for(uint32 x=362; x<374; ++x)// front 10 ~ 20 meter
+        // for(uint32 y=90;  y<93; ++y) // vehicle_mid = 100 
+        // {
+        //      _envmodle_info.ObstacleGridMap[x][y]=1;
+        // }
 
 
 
@@ -390,8 +354,8 @@ void get_Dt_RECORD_HdmapFrontPLane(Dt_RECORD_HdmapFrontPLane &_globePLane)
     //     _globePLane.PlanSeg[idx_seg].Lane[0].LaneNode[idx_node].hdmap_y = idx_seg *5 + idx_node;
     // }
 
-    _globePLane.plan_seg_count= 1;
-    _globePLane.PlanSeg[0].Lane[0].lane_width = 3.6;
+    _globePLane.plan_seg_count= 2;
+    _globePLane.PlanSeg[0].Lane[0].lane_width = 5.6;
     // _globePLane.PlanSeg[1].Lane[0].lane_width = 0;
     // _globePLane.PlanSeg[2].Lane[0].lane_width = 5.6; 
 
@@ -399,6 +363,8 @@ void get_Dt_RECORD_HdmapFrontPLane(Dt_RECORD_HdmapFrontPLane &_globePLane)
 // TEST 2021-01-23  to simulate Dealwith hdmap
 _globePLane.PlanSeg[0].lane_count=1;
 _globePLane.PlanSeg[0].Lane[0].node_count=22;
+_globePLane.PlanSeg[1].lane_count=1;
+_globePLane.PlanSeg[1].Lane[0].node_count=22;
 
 _globePLane.PlanSeg[0].Lane[0].LaneNode[0].hdmap_x =  83.5691;
 _globePLane.PlanSeg[0].Lane[0].LaneNode[1].hdmap_x = 84.6033;
@@ -423,28 +389,28 @@ _globePLane.PlanSeg[0].Lane[0].LaneNode[19].hdmap_x = 102.5669;
 _globePLane.PlanSeg[0].Lane[0].LaneNode[20].hdmap_x = 103.4503;
 _globePLane.PlanSeg[0].Lane[0].LaneNode[21].hdmap_x = 104.2283;
 
-_globePLane.PlanSeg[0].Lane[0].LaneNode[0].hdmap_y=	102.7173;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[1].hdmap_y=	101.0485;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[2].hdmap_y=	99.3525;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[3].hdmap_y=	97.6356;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[4].hdmap_y=	95.904;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[5].hdmap_y=	94.1641;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[6].hdmap_y=	92.4219;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[7].hdmap_y=	90.6839;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[8].hdmap_y=	88.9561;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[9].hdmap_y=	87.245;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[10].hdmap_y=	85.5566;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[11].hdmap_y=	83.8974;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[12].hdmap_y=	82.2734;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[13].hdmap_y=	80.6911;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[14].hdmap_y=	79.1565;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[15].hdmap_y=	77.676;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[16].hdmap_y=	76.2558;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[17].hdmap_y=	74.9021;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[18].hdmap_y=	73.6213;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[19].hdmap_y=	72.0375;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[20].hdmap_y=	70.6091;
-_globePLane.PlanSeg[0].Lane[0].LaneNode[21].hdmap_y=	69.3509;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[0].hdmap_y=	102.7173;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[1].hdmap_y=	101.0485;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[2].hdmap_y=	99.3525;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[3].hdmap_y=	97.6356;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[4].hdmap_y=	95.904;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[5].hdmap_y=	94.1641;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[6].hdmap_y=	92.4219;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[7].hdmap_y=	90.6839;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[8].hdmap_y=	88.9561;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[9].hdmap_y=	87.245;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[10].hdmap_y=	85.5566;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[11].hdmap_y=	83.8974;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[12].hdmap_y=	82.2734;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[13].hdmap_y=	80.6911;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[14].hdmap_y=	79.1565;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[15].hdmap_y=	77.676;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[16].hdmap_y=	76.2558;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[17].hdmap_y=	74.9021;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[18].hdmap_y=	73.6213;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[19].hdmap_y=	72.0375;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[20].hdmap_y=	70.6091;
+_globePLane.PlanSeg[1].Lane[0].LaneNode[21].hdmap_y=	69.3509;
 
 }
 
@@ -701,15 +667,19 @@ void read_from_proto_file(DecisionToPC &rev_DecisionToPC_data, const std::string
     // std::cout << _obstacle_list_vec[1000].size() << std::endl;
     
 }
+void get_Dt_RECORD_HdmapInfo(Dt_RECORD_HdmapInfo &hdmapinfo)
+{
+    hdmapinfo.planpath = 1;    
 
+}
 void read_from_simulate_data(hdMapTrajectory &Trajectory, DecisionToPC &rev_DecisionToPC_data){
     laneInfo globalpath;
-    // get_globalpath(globalpath);
-    // get_hdMapTrajectory(Trajectory, globalpath);
+    get_globalpath(globalpath);
+    get_hdMapTrajectory(Trajectory, globalpath);
     get_Dt_RECORD_EnvModelInfos(rev_DecisionToPC_data.my_envModelInfo);
     get_Dt_RECORD_HdmapFrontPLane(rev_DecisionToPC_data.my_hdmapFrontPLaneInfo);
     get_Dt_RECORD_LocalizationInfo(rev_DecisionToPC_data.my_localizationInfo);
-    
+    get_Dt_RECORD_HdmapInfo(rev_DecisionToPC_data.my_hdmapInfo);
 
 }
 
@@ -830,6 +800,12 @@ int main(int argc, const char** argv) {
     plt::Plot plotObj_mid_lane_right_0(" lane_mid_right_0",  "r");
     plt::Plot plotObj_mid_lane_right_1(" lane_mid_right_1",  "r");
     plt::Plot plotObj_mid_lane_right_2(" lane_mid_right_2",  "r");
+    plt::Plot plotObj_left_lane_0(" lane_left_0",  "r");
+    plt::Plot plotObj_left_lane_1(" lane_left_1",  "r");
+    plt::Plot plotObj_left_lane_2(" lane_left_2",  "r");
+    plt::Plot plotObj_right_lane_0(" lane_right_0",  "r");
+    plt::Plot plotObj_right_lane_1(" lane_right_1",  "r");
+    plt::Plot plotObj_right_lane_2(" lane_right_2",  "r");
 
     // obstalce list point 
     plt::Plot plotObj_objList_point_all("objList_point_all",  "y.");//k.
@@ -842,24 +818,26 @@ int main(int argc, const char** argv) {
     plt::Plot plotObj_grid_dynamic("grid_dynamic",  "c.");
 
     //ego position
-    plt::Plot plotObj_ego_position("ego_position",  "b+");
+    plt::Plot plotObj_ego_position("ego_position",  "b+-");
     
 
     /* window Posiotion Map Coordinate Window*/
+    double start_hdmap_x =rev_DecisionToPC_data.my_hdmapFrontPLaneInfo.PlanSeg[0].Lane[0].LaneNode[0].hdmap_x;
+    double start_hdmap_y =rev_DecisionToPC_data.my_hdmapFrontPLaneInfo.PlanSeg[0].Lane[0].LaneNode[0].hdmap_y;
     plt::subplot2grid(2,3,0,1,1,1);
-    plt::xlim(-200,200);
-    plt::ylim(-200,200);
+    plt::xlim(50,150);
+    plt::ylim(50,150);
 
     // refline in mapcoordi
-    plt::Plot plotObj_refpath_mapCoordi_seg0("refpath_mapCoordi_seg0",  "y.");
-    plt::Plot plotObj_refpath_mapCoordi_seg1("refpath_mapCoordi_seg1",  "y.");
-    plt::Plot plotObj_refpath_mapCoordi_seg2("refpath_mapCoordi_seg2",  "y.");
+    plt::Plot plotObj_refpath_mapCoordi_seg0("refpath_mapCoordi_seg0",  "y");
+    plt::Plot plotObj_refpath_mapCoordi_seg1("refpath_mapCoordi_seg1",  "y");
+    plt::Plot plotObj_refpath_mapCoordi_seg2("refpath_mapCoordi_seg2",  "y");
 
-     plt::Plot plotObj_refpath_local_mapCoordi("refpath_mapCoordi_local",  "b.");
+     plt::Plot plotObj_refpath_local_mapCoordi("refpath_mapCoordi_local",  "b");
 
 
     // ego_posiotion in mapcoordi
-    plt::Plot plotObj_ego_posiotion_mapCoordi("ego_posiotion_mapCoordi",  "r+");
+    plt::Plot plotObj_ego_posiotion_mapCoordi("ego_posiotion_mapCoordi",  "ro");
 
 
 
@@ -878,10 +856,10 @@ int main(int argc, const char** argv) {
     plt::Plot plotObj_end_point_globalmap("end_point_globalmap",  "rx");
 
 
-    /* window Posiotion infos Window */
-    plt::subplot2grid(2,3,0,2,2,1);
-    plt::xlim(0,20);
-    plt::ylim(0,20); 
+    // /* window Posiotion infos Window */
+    // plt::subplot2grid(2,3,0,2,2,1);
+    // plt::xlim(0,20);
+    // plt::ylim(0,20); 
 
 
 
@@ -906,12 +884,32 @@ int main(int argc, const char** argv) {
             #ifdef  SOCKETON
                 receive_zu5Andparse_socket(rev_DecisionToPC_data, sclient_zu5);
             #else
+                // int readLen=0;
+                // int readSize = read(sock, buffer, sizeof(buffer)-1);
+                // int sumLen=0;
+                // memcpy(&sumLen,buffer,4);
+                // printf("sumLen = %d\n",sumLen);
+                // if(sumLen>0)
+                // {
+                //     int len=0;
+                //     while(readLen<sumLen)
+                //     {
+                //         int curLen=0;
+                //         curLen=read(sock, buffer+len, sizeof(buffer)-1);
+                //         readLen+=curLen;
+                //         len=readLen;
+                //         printf("readLen = %d\n",readLen);
+                //     }
+
+                // }
+                // printf("Message form server: %s,readSize=%d \n", buffer,readSize);
+                // memcpy(&rev_DecisionToPC_data, buffer, sizeof(DecisionToPC));
+
                 int readLen=0;
-                int readSize = read(sock, buffer, sizeof(buffer)-1);
-                int sumLen=0;
-                memcpy(&sumLen,buffer,4);
+              
+                int sumLen = sizeof(DecisionToPC);
                 printf("sumLen = %d\n",sumLen);
-                if(sumLen>0)
+                if(readLen < sumLen)
                 {
                     int len=0;
                     while(readLen<sumLen)
@@ -924,8 +922,9 @@ int main(int argc, const char** argv) {
                     }
 
                 }
-                printf("Message form server: %s,readSize=%d \n", buffer,readSize);
+                printf("readLen: %d, sumLen: %d \n", readLen, sumLen);
                 memcpy(&rev_DecisionToPC_data, buffer, sizeof(DecisionToPC));
+
             #endif
 
             if(MODE =="log") // Log Proto 
@@ -1012,6 +1011,14 @@ int main(int argc, const char** argv) {
         plotObj_mid_lane_right_0.update(plot_items.lane_midR[0].x, plot_items.lane_midR[0].y);
         plotObj_mid_lane_right_1.update(plot_items.lane_midR[1].x, plot_items.lane_midR[1].y);
         plotObj_mid_lane_right_2.update(plot_items.lane_midR[2].x, plot_items.lane_midR[2].y);
+        plotObj_left_lane_0.update(plot_items.lane_left[0].x, plot_items.lane_left[0].y);
+        plotObj_left_lane_1.update(plot_items.lane_left[1].x, plot_items.lane_left[1].y);
+        plotObj_left_lane_2.update(plot_items.lane_left[2].x, plot_items.lane_left[2].y);
+        plotObj_right_lane_0.update(plot_items.lane_right[0].x, plot_items.lane_right[0].y);
+        plotObj_right_lane_1.update(plot_items.lane_right[1].x, plot_items.lane_right[1].y);
+        plotObj_right_lane_2.update(plot_items.lane_right[2].x, plot_items.lane_right[2].y);
+
+
 
         // update obstalce list
         plotObj_objList_point_all.update(plot_items.center_obstacle.x, plot_items.center_obstacle.y);
@@ -1026,16 +1033,22 @@ int main(int argc, const char** argv) {
 
         // update ego position
         plotObj_ego_position.update(plot_items.ego_position.x, plot_items.ego_position.y);
+
+
        
 
         // update refpath_mapCoordi
         plotObj_refpath_mapCoordi_seg0.update(plot_items.refline_mapCoor[0].x, plot_items.refline_mapCoor[0].y);
         plotObj_refpath_mapCoordi_seg1.update(plot_items.refline_mapCoor[1].x, plot_items.refline_mapCoor[1].y);
         plotObj_refpath_mapCoordi_seg2.update(plot_items.refline_mapCoor[2].x, plot_items.refline_mapCoor[2].y);
+        // std::cout << " plotObj_refpath_mapCoordi_seg0 : "<< plot_items.refline_mapCoor[0].x[0] <<  plot_items.refline_mapCoor[0].y[0]<<std::endl;
+        // std::cout << " plotObj_refpath_mapCoordi_seg1 : "<< plot_items.refline_mapCoor[1].x[0] <<  plot_items.refline_mapCoor[1].y[0] <<std::endl;
+        // std::cout << " plotObj_refpath_mapCoordi_seg2 : "<< plot_items.refline_mapCoor[0].x[0] <<  plot_items.refline_mapCoor[0].y[0] <<std::endl;
         plotObj_refpath_local_mapCoordi.update(plot_items.refline_local_mapCoor.x, plot_items.refline_local_mapCoor.y);
 
         // update ego_posiotion_mapCoordi
         plotObj_ego_posiotion_mapCoordi.update(plot_items.ego_position_mapCoor.x, plot_items.ego_position_mapCoor.y);
+        // std::cout << " plotObj_ego_posiotion_mapCoordi : "<<plot_items.ego_position_mapCoor.x[0] <<" " << plot_items.ego_position_mapCoor.y[0] <<std::endl;
 
         
         plotObj_ego_posiotion_globalmap.update(plot_items.ego_position_globalmap.x, plot_items.ego_position_globalmap.y);

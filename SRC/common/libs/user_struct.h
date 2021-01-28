@@ -20,6 +20,9 @@ public:
 	PlotPairXY grid[2]; // 0-> static  1->dynaminc
 	PlotPairXY lane_midL[3]; //segment 0->2
 	PlotPairXY lane_midR[3];
+	PlotPairXY lane_left[3]; //segment 0->2
+	PlotPairXY lane_right[3]; //segment 0->2
+
 	PlotPairXY cipv[3]; // 0 left 1 mid 2 right  
 
 	// Map coordinate
