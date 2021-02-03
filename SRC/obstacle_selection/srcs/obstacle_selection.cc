@@ -261,7 +261,7 @@ void decision::DealWithNode(double dis, Dt_RECORD_HdMapLane *frontLane, laneInfo
 		{
 			if (localLaneNodes.x > 0)
 			{
-				sengmentDis = decision::distance(0, 0, localLaneNodes.x, localLaneNodes.y);
+				sengmentDis = decision::Distance(0, 0, localLaneNodes.x, localLaneNodes.y);
 				localLaneNodes.s = dis + sengmentDis;
 			}
 			else
@@ -274,7 +274,7 @@ void decision::DealWithNode(double dis, Dt_RECORD_HdMapLane *frontLane, laneInfo
 		{
 			double last_gx = outglobalTraj.laneNodeInfos[m - 1].x;
 			double last_gy = outglobalTraj.laneNodeInfos[m - 1].y;
-			sengmentDis = decision::distance(last_gx, last_gy, gx, gy);
+			sengmentDis = decision::Distance(last_gx, last_gy, gx, gy);
 			//localLaneNodes.s = outglobalTraj.laneNodeInfos[m - 1].s + sengmentDis;
 		}
 		localLaneNodes.s = outglobalTraj.laneNodeInfos[m].s + dis;
@@ -364,7 +364,7 @@ int decision::generateTrajWithLineCurvature(double distance, double xs, double y
 			if (j >= 1)
 			{
 				double step_distance2 = 0.0;
-				step_distance2 = decision::distance(frontTraj->laneNodeInfos[frontTraj->nodeNum - 1].x,frontTraj->laneNodeInfos[frontTraj->nodeNum - 1].y,frontTraj->laneNodeInfos[frontTraj->nodeNum].x,frontTraj->laneNodeInfos[frontTraj->nodeNum].y);
+				step_distance2 = decision::Distance(frontTraj->laneNodeInfos[frontTraj->nodeNum - 1].x,frontTraj->laneNodeInfos[frontTraj->nodeNum - 1].y,frontTraj->laneNodeInfos[frontTraj->nodeNum].x,frontTraj->laneNodeInfos[frontTraj->nodeNum].y);
 				*sengmentDis += step_distance2;
 				//ROS_INFO("step_distance2 is %.8f, *sengmentDis is %.8f", step_distance2, *sengmentDis);
 			}
@@ -435,7 +435,7 @@ int decision::getGridCoordiFromParkXY(const double veh_heading, const double par
 }
 
 
-double decision::distance(double x1, double y1, double x2, double y2)
+double decision::Distance(double x1, double y1, double x2, double y2)
 {
 	return sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
 }
@@ -450,7 +450,7 @@ int decision::ClosestWaypoint(double x, double y, const std::vector<double> &map
 	{
 		double map_x = maps_x[i];
 		double map_y = maps_y[i];
-		double dist = decision::distance(x,y,map_x,map_y);
+		double dist = decision::Distance(x,y,map_x,map_y);
 		if(dist < closestLen)
 		{
 			closestLen = dist;
@@ -483,7 +483,7 @@ int decision::NextWaypoint(double x, double y, double theta, const std::vector<d
 }
 
 // Transform from Cartesian x,y coordinates to Frenet s,d coordinates
-std::vector<double> decision::getFrenet(double x, double y, double theta, const std::vector<double> &maps_x, \
+std::vector<double> decision::GetFrenet(double x, double y, double theta, const std::vector<double> &maps_x, \
     const std::vector<double> &maps_y)
 {
 	std::vector<double> res_;
@@ -507,14 +507,14 @@ std::vector<double> decision::getFrenet(double x, double y, double theta, const 
 	double proj_x = proj_norm*n_x;
 	double proj_y = proj_norm*n_y;
 
-	double frenet_d = decision::distance(x_x,x_y,proj_x,proj_y);
+	double frenet_d = decision::Distance(x_x,x_y,proj_x,proj_y);
 
 	//see if d value is positive or negative by comparing it to a center point
 
 	double center_x = 1000-maps_x[prev_wp];
 	double center_y = 2000-maps_y[prev_wp];
-	double centerToPos = decision::distance(center_x,center_y,x_x,x_y);
-	double centerToRef = decision::distance(center_x,center_y,proj_x,proj_y);
+	double centerToPos = decision::Distance(center_x,center_y,x_x,x_y);
+	double centerToRef = decision::Distance(center_x,center_y,proj_x,proj_y);
 
 	if(centerToPos <= centerToRef)
 	{
@@ -524,66 +524,25 @@ std::vector<double> decision::getFrenet(double x, double y, double theta, const 
 	double frenet_s = 0;
 	for(int i = 0; i < prev_wp; i++)
 	{
-		frenet_s += decision::distance(maps_x[i],maps_y[i],maps_x[i+1],maps_y[i+1]);
+		frenet_s += decision::Distance(maps_x[i],maps_y[i],maps_x[i+1],maps_y[i+1]);
 	}
 
-	frenet_s += decision::distance(0,0,proj_x,proj_y);
+	frenet_s += decision::Distance(0,0,proj_x,proj_y);
 	res_.push_back(frenet_s);
 	res_.push_back(frenet_d);
 	// std::cout << "frenet_s: " << frenet_s << "  frenet_d: " <<frenet_d <<std::endl;
 	return res_;
 
 }
-
-///***************************************************************************************************
-//* 功  能:  坐标系转换: 地图坐标系 -> 车体坐标系
-//* 处  理： 车辆当前位置作为原点, 将地图坐标系的点进行x,y的距离偏移,同时完成角度变换;
-//* 输  入:       车辆定位信息(地图坐标系)
-//				  参考路径信息(地图坐标系)
-//*	
-//		
-//* 输  出: 参考路径信息(车体坐标系)
-
-//***************************************************************************************************/
-void decision::convert_flat_to_vehicle(Dt_RECORD_LocalizationInfo *loc_info, const Dt_RECORD_HdmapFrontPLane &_globePLane){
-    double a = loc_info->LocalizationResult.x;
-    double b = loc_info->LocalizationResult.y;
-    double t = loc_info->yaw * M_PI/180; // base direction not sure
-	// std::cout <<"zlm::convert_flat_to_vehicle: node_idx as follow /" << std::endl;
-	// std::cout <<"zlm::convert_flat_to_vehicle: loc_info->LocalizationResult.x : " << a << std::endl;
-	// std::cout <<"zlm::convert_flat_to_vehicle: loc_info->LocalizationResult.y: " << b << std::endl;
-	// std::cout <<"zlm::convert_flat_to_vehicle: -loc_info->yaw * M_PI/180 : " << t << std::endl;
-	laneInfo vehipath;
-	vehipath.nodeNum =_globePLane.PlanSeg[0].Lane[0].node_count;
-	vehipath.laneNodeInfos.resize(vehipath.nodeNum);
-
-    for(uint32 i=0;i<_globePLane.PlanSeg[0].Lane[0].node_count;++i)
-    {
-        double x_ = ( _globePLane.PlanSeg[0].Lane[0].LaneNode[i].hdmap_x - a)*cos(t)  + (_globePLane.PlanSeg[0].Lane[0].LaneNode[i].hdmap_y - b)*sin(t);
-        double y_ = ( _globePLane.PlanSeg[0].Lane[0].LaneNode[i].hdmap_x - a)*-sin(t) + (_globePLane.PlanSeg[0].Lane[0].LaneNode[i].hdmap_y - b)*cos(t);
-		vehipath.laneNodeInfos[i].x = y_;
-		vehipath.laneNodeInfos[i].y = x_;
-    }
-
-	DEBUG("zlm::convert_flat_to_vehicle: vehipath->nodeNum  = %d \r\n",vehipath.nodeNum);
-	for(uint32 node_idx =0; node_idx < vehipath.nodeNum;++node_idx)
-	{
-		DEBUG("zlm::convert_flat_to_vehicle: node_idx as follow \r\n/");
-		DEBUG("zlm::convert_flat_to_vehicle: node_idx_x %f: \r\n",vehipath.laneNodeInfos[node_idx].x );
-		DEBUG("zlm::convert_flat_to_vehicle: node_idx_y : %f\r\n", vehipath.laneNodeInfos[node_idx].y );
-		DEBUG("zlm::convert_flat_to_vehicle: node_idx_heading %f: \r\n", vehipath.laneNodeInfos[node_idx].heading);
-	}
-}
-
-///***************************************************************************************************
-//* 功  能:  V2.1 add logic: using pathLane as refline during Decision Command LEFTAVOID RIGHT AVOID 
-//*			V2.0 生成参考路径refpath
-//* 处  理： 根据onpath条件,输出参考路径refpath. 修复heading的角度为自车坐标系
-//* 输  入:   onpath  自车是否在路径上
-//           hdMapTrajectory Trajectory 前方路径	
-//* 输  出:   laneInfo refpath 前方路径信息
-//***************************************************************************************************/
-void decision::get_refpath(const int &onpath, hdMapTrajectory *Trajectory, laneInfo *refpath, Dt_RECORD_LocalizationInfo *localizationInfo, decision_info *decisionInfo)
+/**
+ * @brief generate a refpath which help to make a further procession in frenet coordinate
+ * update:
+ * 		V2.1 add logic: using pathLane as refline during Decision Command LEFTAVOID RIGHT AVOID 
+ * @param onpath   in current time, if ADC in ego lane
+ * @param ..
+ * @return refpath, 
+*/
+void decision::GetRefpath(const int &onpath, hdMapTrajectory *Trajectory, laneInfo *refpath, Dt_RECORD_LocalizationInfo *localizationInfo, decision_info *decisionInfo)
 {
 	hdmapPathInfos path_;
 	// when vehicle onpath, or duiring LEFT AVOID Fun, set global path as refpath. else set local path
@@ -623,15 +582,14 @@ void decision::get_refpath(const int &onpath, hdMapTrajectory *Trajectory, laneI
 	
 }
 
-
-
-/*  @breaf get the segments' boundary of ego lane.
+/**
+ *  @brief get the segments' boundary of ego lane.
 		  this fun try to solve each sgement's nearest distance and farest distance and it's lane width;
     @param ..
-	@param segs_boundary, the boundary of each segment, include remote distance and near distance and lanewidth.
+	@param   segs_boundary, the boundary of each segment, include remote distance and near distance and lanewidth.
 	@update: V2.0 fix bug , which there is zero node in some segment make errors
 */
-void decision::getSegsBoundary(int onpath, hdMapTrajectory* Trajectory, Dt_RECORD_HdmapFrontPLane* globePLane, \
+void decision::GetSegsBoundary(int onpath, hdMapTrajectory* Trajectory, Dt_RECORD_HdmapFrontPLane* globePLane, \
 	Dt_RECORD_HdmapLocalLane* localPLanne, Dt_RECORD_LocalizationInfo *localizationInfo, const std::vector<double> &refpath_x, const std::vector<double> &refpath_y, \
 	std::vector<std::vector<double>> &segs_boundary)
 {
@@ -660,8 +618,8 @@ void decision::getSegsBoundary(int onpath, hdMapTrajectory* Trajectory, Dt_RECOR
 		double h_e = path_.hdmapPathInfo[seg_idx].laneInfos[0].laneNodeInfos[node_num - 1].heading - localizationInfo->yaw;
 
 		// get each sgement nearest distance Seg_S_s / farest disatance Seg_S_e and lane width
-		double seg_S_s = decision::getFrenet(x_s, y_s, h_s, refpath_x, refpath_y)[0];
-		double seg_S_e = decision::getFrenet(x_e, y_e, h_e, refpath_x, refpath_y)[0];
+		double seg_S_s = decision::GetFrenet(x_s, y_s, h_s, refpath_x, refpath_y)[0];
+		double seg_S_e = decision::GetFrenet(x_e, y_e, h_e, refpath_x, refpath_y)[0];
 		if (onpath)
 			seg_lane_width = globePLane->PlanSeg[seg_idx].Lane[0].lane_width;
 		else // not on path
@@ -691,25 +649,18 @@ void decision::getSegsBoundary(int onpath, hdMapTrajectory* Trajectory, Dt_RECOR
 			segs_boundary[seg_idx][0], segs_boundary[seg_idx][1], segs_boundary[seg_idx][2]);
 	}
 }
-
-///***************************************************************************************************
-//* 功  能: 障碍物筛选
-//* 版  本: V4.2 2020-01-22 close side detect; comment format longtitude frenet s with ego vehl;
-//		   V4.1 2020-01-18 add Left and Right Side detect logic
-//*        V4.0 2020-01-07 
-//* 处  理：1.获取目标所在车道宽度  
-//*        2. frenet障碍物投影  
-//*        3.根据障碍物边界(无姿态)筛选 Mid, Midleft,Midright
-//* 输  入: onpath             是否在全局路径上
-//*		   hdMapTrajectory    来自地图的轨迹点坐标
-//		   hdmapInfos         来自地图的目标点及地图坐标系信息
-//		   globePLane         来自地图的全局规划车道信息
-//		   localPLanne        不在全局轨迹上时，来自地图的当前所在车道及下一段车道信息
-//         envModelInfo       来自融合模块的信息
-//		   ego_config         配置信息
-//* 输  出: selectObj          筛选后的障碍物列表
-
-//***************************************************************************************************/
+/**
+ * @brief ObjDectect fun, help to select interested objs in diff lane with " Obj List"
+ * updae: V4.3 2020-02-01 update Midside sel range 
+ *		  V4.2 2020-01-22 close side detect; comment format longtitude frenet s with ego vehl;
+ *		  V4.1 2020-01-18 add Left and Right Side detect logic
+ *        V4.0 2020-01-07 
+ * @param onpath 
+ * @param Trajectory
+ * @param ...
+ * @return selectObj, selected objs 
+ * 
+ * */
 void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_HdmapInfo *hdmapInfos,\
      Dt_RECORD_HdmapFrontPLane *globePLane, Dt_RECORD_HdmapLocalLane *localPLanne,  \
      Dt_RECORD_LocalizationInfo *localInfos, Dt_RECORD_EnvModelInfos *envModelInfo, EgoConfigPara ego_config, decision_info *decisionInfo, objSecList *selectObj)
@@ -753,7 +704,7 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 
 	laneInfo refpath; //define refpath
 	memset(&refpath, 0, sizeof(laneInfo));
-	decision::get_refpath(onpath, Trajectory, &refpath, localInfos, decisionInfo);
+	decision::GetRefpath(onpath, Trajectory, &refpath, localInfos, decisionInfo);
 	// decision::convert_flat_to_vehicle(localInfos, &refpath);  // get refpath in vehicle coordinate
 	if(refpath.nodeNum ==0) 
 	{
@@ -786,7 +737,7 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 	double segs_max_width = laneWidth;
 
 	// calculate max lanewidth to process pre-select, and get each segment's boundary
-	getSegsBoundary(onpath, Trajectory, globePLane, localPLanne, localInfos, refpath_x, refpath_y, segs_boundary);
+	GetSegsBoundary(onpath, Trajectory, globePLane, localPLanne, localInfos, refpath_x, refpath_y, segs_boundary);
 	for (uint32 seg_idx = 0; seg_idx < segs_boundary.size(); ++seg_idx)
 	{
 		if (segs_boundary[seg_idx].back() > segs_max_width)
@@ -803,7 +754,7 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 	DEBUG("OBJ SELECTION----> segs_max_width = %2f\r\n", segs_max_width);
 
 	// calculate ego vehicle pos's s and d
-	std::vector<double> loc_sd = decision::getFrenet(0,0,0, refpath_x, refpath_y);
+	std::vector<double> loc_sd = decision::GetFrenet(0,0,0, refpath_x, refpath_y);
 			
 	std::cout << "OBJ SELECTION----> localization_sd :" << loc_sd[0] <<" " << loc_sd[1] <<std::endl;
 	
@@ -816,7 +767,7 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		if(envModelInfo->Obstacles[obj_idx].pos_x <0) // skip backward obj select
 			continue;
 
-		std::vector<double> obj_sd = decision::getFrenet(envModelInfo->Obstacles[obj_idx].pos_x, envModelInfo->Obstacles[obj_idx].pos_y, \
+		std::vector<double> obj_sd = decision::GetFrenet(envModelInfo->Obstacles[obj_idx].pos_x, envModelInfo->Obstacles[obj_idx].pos_y, \
 			0, refpath_x, refpath_y); // not consider obs'heading
 		
 		// obj_sd[0] = obj_sd[0] - loc_sd[0]; // zlm 2021-122 commnent, not uncomment until solve back sel. update obstacle property s
@@ -849,6 +800,7 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		if(decisionInfo->decision_command == LEFTAVOID || decisionInfo->decision_command == RIGHTAVOID)
 			min_dis =0.1;
 
+		// Mid Lane(mid)
 		// (safeWidth + obstacle_width)/2  = |2.1| or |1.6|
 		if(obj_d > -(safeWidth/2 + obstacle_width/2) && obj_d < (safeWidth/2 + obstacle_width/2) &&  obj_s > min_dis &&  obj_s < obstalce_cipv_s[0])
 		{
@@ -869,15 +821,38 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		//     |    .| |.    |
 		
 		
-		// Mid Lane  (midLeft && midRight)
+		// Mid Lane(midLeft && midRight)
 		if (obj_d > -(segs_max_width/2 + obstacle_width/2) && obj_d < (segs_max_width/2 + obstacle_width/2) && obj_s > min_dis &&  obj_s < max_valid_s)
 		{
 			// select obstacle by itearte each segment boundary && Min distance S
 			// segs_boundary, [0]->min_s  [1]->max_x [2]->width  of each segment
 			for (uint32 seg_idx = 0; seg_idx < segs_boundary.size(); ++seg_idx)
 			{
+				// if (obj_s > segs_boundary[seg_idx][0] && obj_s < segs_boundary[seg_idx][1] && \
+				// 	obj_d > -(segs_boundary[seg_idx][2]/2 + obstacle_width/2) && obj_d < -(safeWidth/2 + obstacle_width/2) &&\
+				// 	obj_s < obstalce_cipv_s[1])
+				// {
+				// 	obstalce_cipv_flag[1] =1; //  (second cipv) valid flag 
+				// 	obstalce_cipv_s[1] = obj_s; // update min s
+				// 	obstalce_cipv_d[1] = obj_d; // update d
+				// 	obstalce_cipv_idx[1] = obj_idx;
+				// }
+
+				// if (obj_s > segs_boundary[seg_idx][0] && obj_s < segs_boundary[seg_idx][1] && \
+				// 	obj_d < (segs_boundary[seg_idx][2]/2 + obstacle_width/2) && obj_d > (safeWidth/2 + obstacle_width/2) && \
+				// 	obj_s < obstalce_cipv_s[2])
+				// {
+				// 	obstalce_cipv_flag[2] =1; // (second cipv) valid flag 
+				// 	obstalce_cipv_s[2] = obj_s; // update min s
+				// 	obstalce_cipv_d[2] = obj_d; // update d
+				// 	obstalce_cipv_idx[2] = obj_idx;
+				// }
+
+
+				//2021-0201 Update: As the basic point of objList’ ele will move  near ego car when it locate in side, so cancel obj expend logic will be more efficient
+				// MidLeft
 				if (obj_s > segs_boundary[seg_idx][0] && obj_s < segs_boundary[seg_idx][1] && \
-					obj_d > -(segs_boundary[seg_idx][2]/2 + obstacle_width/2) && obj_d < -(safeWidth/2 + obstacle_width/2) &&\
+					obj_d > -(segs_boundary[seg_idx][2]/2 ) && obj_d < -(safeWidth/2 + obstacle_width/2) &&\
 					obj_s < obstalce_cipv_s[1])
 				{
 					obstalce_cipv_flag[1] =1; //  (second cipv) valid flag 
@@ -885,9 +860,9 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 					obstalce_cipv_d[1] = obj_d; // update d
 					obstalce_cipv_idx[1] = obj_idx;
 				}
-
+				// MidRight
 				if (obj_s > segs_boundary[seg_idx][0] && obj_s < segs_boundary[seg_idx][1] && \
-					obj_d < (segs_boundary[seg_idx][2]/2 + obstacle_width/2) && obj_d > (safeWidth/2 + obstacle_width/2) && \
+					obj_d < (segs_boundary[seg_idx][2]/2 ) && obj_d > (safeWidth/2 + obstacle_width/2 ) && \
 					obj_s < obstalce_cipv_s[2])
 				{
 					obstalce_cipv_flag[2] =1; // (second cipv) valid flag 
@@ -961,7 +936,7 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		selectObj->frontMid.obj.s = obstalce_cipv_s[0];
 		selectObj->frontMid.obj.d = obstalce_cipv_d[0];
 		// obstalce_cipv_idx = obstalce_cipv_idx[0];
-		assign_obstacle_property(selectObj->frontMid.obj, envModelInfo->Obstacles[obstalce_cipv_idx[0]]); // assign other property 
+		AssignObstacleProperty(selectObj->frontMid.obj, envModelInfo->Obstacles[obstalce_cipv_idx[0]]); // assign other property 
 	}
 
 	if( obstalce_cipv_flag[1] ==1) // CIPV_Midleft
@@ -970,7 +945,7 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		selectObj->frontMidLeft.obj.s = obstalce_cipv_s[1];
 		selectObj->frontMidLeft.obj.d = obstalce_cipv_d[1];
 		// obstalce_cipv_idx = obstalce_cipv_V2_idx;	
-		assign_obstacle_property(selectObj->frontMidLeft.obj, envModelInfo->Obstacles[obstalce_cipv_idx[1]]);
+		AssignObstacleProperty(selectObj->frontMidLeft.obj, envModelInfo->Obstacles[obstalce_cipv_idx[1]]);
 	}
 
 	if(obstalce_cipv_flag[2] ==1) // CIPV_MidRight
@@ -979,7 +954,7 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		selectObj->frontMidRight.obj.s = obstalce_cipv_s[2];
 		selectObj->frontMidRight.obj.d = obstalce_cipv_d[2];
 		// obstalce_cipv_idx = obstalce_cipv_V3_idx;	
-		assign_obstacle_property(selectObj->frontMidRight.obj, envModelInfo->Obstacles[obstalce_cipv_idx[2]]);
+		AssignObstacleProperty(selectObj->frontMidRight.obj, envModelInfo->Obstacles[obstalce_cipv_idx[2]]);
 	}
 	
 	if(obstalce_cipv_flag[3] ==1) // CIPV_Left
@@ -988,7 +963,7 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		selectObj->frontLeft.obj.s = obstalce_cipv_s[3];
 		selectObj->frontLeft.obj.d = obstalce_cipv_d[3];
 		// obstalce_cipv_idx = obstalce_cipv_V3_idx;	
-		assign_obstacle_property(selectObj->frontLeft.obj, envModelInfo->Obstacles[obstalce_cipv_idx[3]]);
+		AssignObstacleProperty(selectObj->frontLeft.obj, envModelInfo->Obstacles[obstalce_cipv_idx[3]]);
 	}
 
 	if(obstalce_cipv_flag[4] ==1) // CIPV_Right
@@ -997,22 +972,24 @@ void decision::ObjDetect(int onpath, hdMapTrajectory *Trajectory, Dt_RECORD_Hdma
 		selectObj->frontRight.obj.s = obstalce_cipv_s[4];
 		selectObj->frontRight.obj.d = obstalce_cipv_d[4];
 		// obstalce_cipv_idx = obstalce_cipv_V3_idx;	
-		assign_obstacle_property(selectObj->frontRight.obj, envModelInfo->Obstacles[obstalce_cipv_idx[4]]);
+		AssignObstacleProperty(selectObj->frontRight.obj, envModelInfo->Obstacles[obstalce_cipv_idx[4]]);
 	}
 	// Print property
 
 	// //if(selectObj->frontMid.postion == 1) // ONLY print with success selection 
-	debug_obstacle_property("frontMid",       selectObj->frontMid);
-	debug_obstacle_property("frontMidLeft",   selectObj->frontMidLeft);
-	debug_obstacle_property("frontMidRight",  selectObj->frontMidRight);
-	debug_obstacle_property("frontLeft",      selectObj->frontLeft);
-	debug_obstacle_property("frontRight",     selectObj->frontRight);
+	DebugObstacleProperty("frontMid",       selectObj->frontMid);
+	DebugObstacleProperty("frontMidLeft",   selectObj->frontMidLeft);
+	DebugObstacleProperty("frontMidRight",  selectObj->frontMidRight);
+	DebugObstacleProperty("frontLeft",      selectObj->frontLeft);
+	DebugObstacleProperty("frontRight",     selectObj->frontRight);
 }
 
-//@breaf help to assign env obstacle to selected obstacle property(assign right to left)
-//@param left, object of selected obstalce
-//@param right,  object of to be assigned
-void decision::assign_obstacle_property(Obj_sel &left, const Dt_RECORD_Obstacles &right)
+/**
+* @brief help to assign env obstacle to selected obstacle property(assign right to left)
+* @param left, object of selected obstalce
+* @param right,  object of to be assigned
+*/
+void decision::AssignObstacleProperty(Obj_sel &left, const Dt_RECORD_Obstacles &right)
 {
 	left.id          = right.id;
 	left.type        = right.type;
@@ -1025,20 +1002,22 @@ void decision::assign_obstacle_property(Obj_sel &left, const Dt_RECORD_Obstacles
 	left.abs_speed_y = right.abs_speed_y;
 }
 
-//@breaf help to assign env obstacle to selected obstacle property(assign right to left)
-//@param str, to distinguish diff lane of part within one lane 
-//@param obstacle, obstacle's property
-void decision::debug_obstacle_property(const string &str, const objSec &obstacle)
+/**
+* @brief help to assign env obstacle to selected obstacle property(assign right to left)
+* @param str, to distinguish diff lane of part within one lane 
+* @param obstacle, obstacle's property
+*/
+void decision::DebugObstacleProperty(const string &str, const objSec &obstacle)
 {
-	DEBUG("OBJ SELECTION----> selectObj->%s.postion=           %d \r\n", str.c_str(), obstacle.postion);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.id =           %d \r\n", str.c_str(), obstacle.obj.id);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.s =            %f \r\n", str.c_str(), obstacle.obj.s);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.d =            %f \r\n", str.c_str(), obstacle.obj.d);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.pos_x =        %f \r\n", str.c_str(), obstacle.obj.pos_x);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.pos_y =        %f \r\n", str.c_str(), obstacle.obj.pos_y);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.heading =      %f \r\n", str.c_str(), obstacle.obj.heading);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.rel_speed_x =  %f \r\n", str.c_str(), obstacle.obj.rel_speed_x);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.rel_speed_y =  %f \r\n", str.c_str(), obstacle.obj.rel_speed_y);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.abs_speed_x  = %f \r\n", str.c_str(), obstacle.obj.abs_speed_x);
-	DEBUG("OBJ SELECTION----> selectObj->%s.obj.type  =        %d \r\n", str.c_str(), obstacle.obj.type);
+	DEBUG("OBJ SELECTION----> selectObj->%s.postion          =  %d \r\n", str.c_str(), obstacle.postion);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.id           =  %d \r\n", str.c_str(), obstacle.obj.id);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.s            =  %f \r\n", str.c_str(), obstacle.obj.s);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.d            =  %f \r\n", str.c_str(), obstacle.obj.d);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.pos_x        =  %f \r\n", str.c_str(), obstacle.obj.pos_x);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.pos_y        =  %f \r\n", str.c_str(), obstacle.obj.pos_y);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.heading      =  %f \r\n", str.c_str(), obstacle.obj.heading);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.rel_speed_x  =  %f \r\n", str.c_str(), obstacle.obj.rel_speed_x);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.rel_speed_y  =  %f \r\n", str.c_str(), obstacle.obj.rel_speed_y);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.abs_speed_x  =  %f \r\n", str.c_str(), obstacle.obj.abs_speed_x);
+	DEBUG("OBJ SELECTION----> selectObj->%s.obj.type         =  %d \r\n", str.c_str(), obstacle.obj.type);
 }

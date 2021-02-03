@@ -3,7 +3,7 @@
 
 #include <fstream>
 #include <sstream>
-
+#include <thread>
 #include "../libs/display.h"
 namespace plt = matplotlibcpp;
 void plot_gridmap(const Dt_RECORD_EnvModelInfos &envModelInfo, PlotItems &plot_items){
@@ -276,7 +276,7 @@ void plot_vehicleCoordi_wind(const hdMapTrajectory &hdMapTrajectory,const Decisi
     Dt_RECORD_HdmapInfo hdmapInfo = rev_DecisionToPC_data.my_hdmapInfo;
     // refpath
     for(unsigned int seg_idx=0; seg_idx< hdMapTrajectory.pathLane[0].segNum; seg_idx++)
-    for(unsigned int node_idx=0; node_idx< hdMapTrajectory.pathLane[0].hdmapPathInfo[seg_idx].laneInfos[0].nodeNum; node_idx+=10)
+    for(unsigned int node_idx=0; node_idx< hdMapTrajectory.pathLane[0].hdmapPathInfo[seg_idx].laneInfos[0].nodeNum; node_idx+=5)
     {
          ref_path_x.push_back(hdMapTrajectory.pathLane[0].hdmapPathInfo[seg_idx].laneInfos[0].laneNodeInfos[node_idx].y  * -1);
          ref_path_y.push_back(hdMapTrajectory.pathLane[0].hdmapPathInfo[seg_idx].laneInfos[0].laneNodeInfos[node_idx].x);
@@ -557,8 +557,14 @@ void plot_globalCoordi_wind(const Dt_RECORD_LocalizationInfo &localInfos, const 
 
 int plot(const DecisionToPC &rev_DecisionToPC_data, const hdMapTrajectory &hdMapTrajectory, const objSecList &selectObj, PlotItems  &plot_items) {
     // plt::ion();
-    
-    plot_vehicleCoordi_wind(hdMapTrajectory, rev_DecisionToPC_data, selectObj, plot_items);
+    // std::cout<<"data size: " <<rev_DecisionToPC_data.my_envModelInfo.frame_index <<std::endl;
+    thread t1(plot_vehicleCoordi_wind, hdMapTrajectory, rev_DecisionToPC_data, selectObj, ref(plot_items));
+    // thread t2(plot_globalCoordi_wind, rev_DecisionToPC_data.my_localizationInfo, rev_DecisionToPC_data.my_hdmapInfo, ref(plot_items) );
+    // thread t3(plot_mapCoordi_wind, rev_DecisionToPC_data, ref(plot_items) );
+    t1.join();
+    // t2.join();
+    // t3.join();
+    // plot_vehicleCoordi_wind(hdMapTrajectory, rev_DecisionToPC_data, selectObj, plot_items);
     plot_globalCoordi_wind(rev_DecisionToPC_data.my_localizationInfo, rev_DecisionToPC_data.my_hdmapInfo, plot_items);
     plot_mapCoordi_wind(rev_DecisionToPC_data,  plot_items);
     // plot_infoList_wind(rev_DecisionToPC_data);

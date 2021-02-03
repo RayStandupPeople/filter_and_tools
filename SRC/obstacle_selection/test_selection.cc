@@ -209,7 +209,7 @@ void get_Dt_RECORD_LocalizationInfo( Dt_RECORD_LocalizationInfo &location)
     location.LocalizationResult.x = 79.6;
     location.LocalizationResult.y = 111.2;
     // location.yaw = 95.29;
-    location.yaw = 228.2;
+    location.yaw = 0.2;
 
     
 }
@@ -240,7 +240,7 @@ void get_Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos &_envmodle_info)
 
     // }
 
-      _envmodle_info.obstacle_num =0;
+      _envmodle_info.obstacle_num =5;
         Dt_RECORD_Obstacles _obstacle;
 
         memset(&_obstacle, 0, sizeof(Dt_RECORD_Obstacles));
@@ -285,9 +285,9 @@ void get_Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos &_envmodle_info)
 
         memset(&_obstacle, 0, sizeof(Dt_RECORD_Obstacles));
         _obstacle.id          = 19;
-        _obstacle.type        = 0;
-        _obstacle.pos_x       = 3.6;
-        _obstacle.pos_y       = -3.6;
+        _obstacle.type        = 1;
+        _obstacle.pos_x       = 5.6;
+        _obstacle.pos_y       = -0.3;
         _obstacle.heading     = 0;
         _obstacle.rel_speed_x = 0;
         _obstacle.rel_speed_y = 0;
@@ -324,17 +324,17 @@ void get_Dt_RECORD_EnvModelInfos(Dt_RECORD_EnvModelInfos &_envmodle_info)
         // }
 
 
-        for(uint32 x=388; x<400; ++x)// front 10 ~ 20 meter
-        for(uint32 y=137;  y<147; ++y) // vehicle_mid = 100 
-        {
-             _envmodle_info.ObstacleGridMap[x][y]=1;
-        }
-
-        // for(uint32 x=362; x<374; ++x)// front 10 ~ 20 meter
-        // for(uint32 y=90;  y<93; ++y) // vehicle_mid = 100 
+        // for(uint32 x=388; x<400; ++x)// front 10 ~ 20 meter
+        // for(uint32 y=137;  y<147; ++y) // vehicle_mid = 100 
         // {
         //      _envmodle_info.ObstacleGridMap[x][y]=1;
         // }
+
+        for(uint32 x=332; x<354; ++x)// front 10 ~ 20 meter
+        for(uint32 y=100; y<106; ++y) // vehicle_mid = 100 
+        {
+             _envmodle_info.ObstacleGridMap[x][y]=1;
+        }
 
 
 
@@ -791,7 +791,7 @@ int main(int argc, const char** argv) {
     plt::ylim(-10,40);
 
     // lanes
-    plt::Plot plotObj_ref_line("lane_safe_left",  "y--");
+    plt::Plot plotObj_ref_line("lane_safe_left",  "y--");;
     plt::Plot plotObj_safe_line_left(" lane_safe_left",  "y--");
     plt::Plot plotObj_safe_line_right("lane_safe_right",  "y--");
     plt::Plot plotObj_mid_lane_left_0(" lane_mid_left_0",  "r");
@@ -980,10 +980,9 @@ int main(int argc, const char** argv) {
 
 
         /*   ALGORITHMs  */
-		decision_obj.DealWithHdmap(&globePLanehdmapInfos, localInfos.LocalizationResult.x, localInfos.LocalizationResult.y, localInfos.yaw, &globePLane, &localPLanne, &Trajectory);
+		// decision_obj.DealWithHdmap(&globePLanehdmapInfos, localInfos.LocalizationResult.x, localInfos.LocalizationResult.y, localInfos.yaw, &globePLane, &localPLanne, &Trajectory);
         decision_obj.ObjDetect(1, &Trajectory, &globePLanehdmapInfos, &globePLane, &localPLanne, &localInfos, &envModelInfo, ego_config, &decisionToPlan, &selectObj);
-        // convet_trajectory(Trajectory, trajectoryPointsInfo);
-        // decision_obj.convert_flat_to_vehicle(&localInfos,globePLane);
+       
         gridmap_coll_obj coll_obj;
         static_decision_obj.RouteObjDectbyGrid(localInfos.yaw, 1, &Trajectory, &globePLanehdmapInfos, &envModelInfo, &coll_obj, &globePLane, &localPLanne, &decisionToPlan);
         fusion_decision_obj.objSelectFusion(coll_obj.obj_mid_flag,      coll_obj.s_m, &selectObj.frontMid,     "laneMid     "); //midlane mid
@@ -999,8 +998,17 @@ int main(int argc, const char** argv) {
         /*   DISPALY    */
         // TO plot each Wind as one fun
 
-        
-        plot(rev_DecisionToPC_data, Trajectory, selectObj, plot_items);
+        // std::cout << "data:" << (double)rev_DecisionToPC_data.my_localizationInfo.LocalizationResult.x << std::endl;
+        // if(rev_DecisionToPC_data.my_localizationInfo.LocalizationResult.x !=0)
+        // {
+        //     std::cout << "data:" << (double)rev_DecisionToPC_data.my_localizationInfo.LocalizationResult.x << std::endl;
+        //     thread t_plot(plot, rev_DecisionToPC_data, Trajectory, selectObj, ref(plot_items));
+        //     t_plot.join();
+        // }
+        if(rev_DecisionToPC_data.my_localizationInfo.LocalizationResult.x !=0)
+        {
+         plot(rev_DecisionToPC_data, Trajectory, selectObj, plot_items);
+        }
 
         // update lines
         plotObj_safe_line_left.update(plot_items.safeline[0].x, plot_items.safeline[0].y);
